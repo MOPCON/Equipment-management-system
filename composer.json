@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "acacha/admin-lte-template-laravel": "4.*",
+        "creativeorange/gravatar": "~1.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
     },

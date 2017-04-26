@@ -11,4 +11,17 @@ class Group extends Model
     protected $fillable = [
         'name', 'manager', 'deputy_manager',
     ];
+
+    /**
+     * 取得群組ID陣列
+     * @return array
+     */
+    public static function getGroupIdArray()
+    {
+        $array = [];
+        for ($i = 0; $i < Group::count(); $i++) {
+            $array[] = $i;
+        }
+        return $array;
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Staff;
+use App\Services\ApiService;
 
 class AppServiceProvider extends ServiceProvider
 {

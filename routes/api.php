@@ -25,5 +25,9 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
 });
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::resource('user', 'UserController');
     Route::resource('staff', 'StaffController');
+    Route::resource('group', 'GroupController');
+    Route::get('group/assign/manager/{group}/{staff_id}', 'GroupController@assignManager');
+    Route::get('group/assign/deputymanager/{group}/{staff_id}', 'GroupController@assignDeputyManager');
 });

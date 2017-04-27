@@ -22,6 +22,7 @@ class Group extends Model
         for ($i = 0; $i < Group::count(); $i++) {
             $array[] = $i;
         }
+
         return $array;
     }
 }

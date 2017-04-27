@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Staff;
-use App\Services\ApiService;
+use App\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +24,13 @@ class AppServiceProvider extends ServiceProvider
          */
         Staff::creating(function($staff) {
             $staff->barcode = 'ST'. str_pad((Staff::count() + 1), 5, '0', STR_PAD_LEFT);
+        });
+
+        /**
+         * 密碼加密
+         */
+        User::creating(function($user) {
+            $user->password = bcrypt($user->password);
         });
     }
 

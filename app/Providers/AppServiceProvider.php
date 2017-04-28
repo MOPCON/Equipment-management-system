@@ -7,6 +7,7 @@ use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Staff;
 use App\User;
+use Hash;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,7 +31,9 @@ class AppServiceProvider extends ServiceProvider
          * 密碼加密
          */
         User::creating(function($user) {
-            $user->password = bcrypt($user->password);
+            if (Hash::needsRehash($user->password)) {
+                $user->password = bcrypt($user->password);
+            }
         });
     }
 

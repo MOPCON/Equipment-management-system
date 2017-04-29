@@ -25,9 +25,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
        'public/css/toastr.css'
    ], 'public/css/all.css')
    .combine([
-       'public/css/bootstrap.css',
        'resources/assets/css/main.css'
-   ], 'public/css/all-landing.css')
+   ], 'public/css/main.css')
    //APP RESOURCES
    .copy('resources/assets/img/*.*','public/img')
    //VENDOR RESOURCES

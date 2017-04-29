@@ -25236,47 +25236,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             list: [],
             col: [],
-            page_info: []
+            page_info: [],
+            group: [],
+            group_id: 0
         };
+    },
+    computed: {
+        getPageArray: function getPageArray() {
+            var self = this;
+            var bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+            var top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+            var array = [];
+            for (var i = bottom; i <= top; i++) {
+                array.push(i);
+            }
+            return array;
+        }
     },
     methods: {
         initCol: function initCol() {
             var self = this;
             self.col = [{
                 name: 'id',
-                show_dsc: '1'
+                key: 'id'
             }, {
                 name: 'Name',
-                show_dsc: '1'
+                key: 'name'
             }, {
                 name: 'Group',
-                show_dsc: '1'
+                key: 'group_id'
             }, {
                 name: 'Email',
-                show_dsc: '1'
+                key: 'email'
             }, {
                 name: 'Phone',
-                show_dsc: '1'
+                key: 'phone'
             }, {
                 name: 'Barcode',
-                show_dsc: '1'
+                key: 'barcode'
             }, {
                 name: '',
-                show_dsc: '0'
+                key: ''
             }];
         },
-        getAllStaff: function getAllStaff() {
+        initStaff: function initStaff() {
+            var self = this;
+            self.add_staff = {
+                id: '',
+                name: '',
+                group: '',
+                email: '',
+                phone: '',
+                barcode: ''
+            };
+        },
+        getGroup: function getGroup() {
             var _this = this;
 
             var self = this;
-            axios.get('/api/staff?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit).then(function (response) {
+            axios.get('/api/group').then(function (response) {
                 var self = _this;
+                var res = response.data.data;
+                self.group = res.data;
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        getAllStaff: function getAllStaff() {
+            var _this2 = this;
+
+            var self = this;
+            axios.get('/api/staff?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page + (self.group_id == 0 ? '' : '&group_id[0]=' + self.group_id)).then(function (response) {
+                var self = _this2;
                 var res = response.data.data;
                 self.list = res.data;
                 self.page_info.current_page = res.current_page;
@@ -25290,8 +25329,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         setPageLimit: function setPageLimit() {
+            this.getAllStaff();
+        },
+        setGroup: function setGroup() {
+            this.getAllStaff();
+        },
+        searchKeyword: function searchKeyword(event) {
+            if (event.which === 13) {
+                console.log(this.page_info.search);
+                this.getAllStaff();
+            }
+        },
+        openAddStaff: function openAddStaff() {
+            this.form.action = 'new';
+            this.form.submitted = false;
+            this.initStaff();
+            $('#addStaff').modal('show');
+        },
+        changePage: function changePage(page) {
             var self = this;
-            self.getAllStaff();
+            if (page > 0 && page <= self.page_info.last_page) {
+                self.page_info.current_page = page;
+                this.getAllStaff();
+            }
+        },
+        changeSort: function changeSort(field) {
+            var self = this;
+            if (field != '') {
+                self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC';
+                self.page_info.sort_key = field;
+                this.getAllStaff();
+            }
         }
     },
     created: function created() {
@@ -25307,8 +25375,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             list_from: 1,
             list_to: 15
         };
+        self.form = {
+            action: '',
+            submitted: false
+        };
         self.initCol();
         self.getAllStaff();
+        self.getGroup();
     },
     watch: {}
 });
@@ -44021,25 +44094,74 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "staff_wrapper"
     }
   }, [_c('div', {
-    staticClass: "row"
+    staticClass: "row",
+    staticStyle: {}
   }, [_c('div', {
-    staticClass: "col-sm-6"
-  }, [_c('div', {
-    staticClass: "dataTables_length",
+    staticClass: "col-lg-1"
+  }, [_c('button', {
+    staticClass: "btn btn-sm btn-primary",
     attrs: {
-      "id": "staff_length"
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.openAddStaff()
+      }
     }
-  }, [_c('label', [_vm._v("Show\n                        "), _c('select', {
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-plus"
+  }), _vm._v(" Add\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-1"
+  }, [_c('div', {
+    staticClass: "input-group input-group-sm"
+  }, [_vm._m(0), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.group_id),
+      expression: "group_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "table_status"
+    },
+    on: {
+      "change": [function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.group_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }, function($event) {
+        _vm.setGroup()
+      }]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("全部")]), _vm._v(" "), _vm._l((_vm.group), function(item) {
+    return _c('option', {
+      domProps: {
+        "value": item.id
+      }
+    }, [_vm._v(_vm._s(item.name))])
+  })], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-1"
+  }, [_c('div', {
+    staticClass: "input-group input-group-sm"
+  }, [_vm._m(1), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.page_info.limit),
       expression: "page_info.limit"
     }],
-    staticClass: "form-control input-sm",
+    staticClass: "form-control",
     attrs: {
-      "name": "staff_length",
-      "aria-controls": "staff"
+      "name": "staff_length"
     },
     on: {
       "change": [function($event) {
@@ -44056,9 +44178,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('option', {
     attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
       "value": "15"
     }
   }, [_vm._v("15")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "20"
+    }
+  }, [_vm._v("20")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "25"
     }
@@ -44070,36 +44200,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "100"
     }
-  }, [_vm._v("100")])]), _vm._v(" entries\n                    ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-6"
+  }, [_vm._v("100")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-lg-2"
   }, [_c('div', {
-    staticClass: "dataTables_filter",
-    attrs: {
-      "id": "staff_filter"
-    }
-  }, [_c('label', [_vm._v("Search:\n                        "), _c('input', {
+    staticClass: "input-group input-group-sm"
+  }, [_vm._m(2), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.page_info.search),
       expression: "page_info.search"
     }],
-    staticClass: "form-control input-sm",
+    staticClass: "form-control pull-right",
     attrs: {
       "type": "search",
-      "placeholder": "",
+      "placeholder": "Search",
       "aria-controls": "staff"
     },
     domProps: {
       "value": (_vm.page_info.search)
     },
     on: {
+      "keyup": function($event) {
+        _vm.searchKeyword($event)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.page_info.search = $event.target.value
       }
     }
-  })])])])]), _vm._v(" "), _c('div', {
+  })])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-12"
@@ -44116,17 +44246,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, _vm._l((_vm.col), function(row) {
     return _c('th', {
-      staticClass: "sorting",
+      staticClass: "sortfield",
       attrs: {
-        "tabindex": "0",
-        "rowspan": "1",
-        "colspan": "1"
+        "tabindex": "0"
+      },
+      on: {
+        "click": function($event) {
+          _vm.changeSort(row.key)
+        }
       }
     }, [_vm._v("\n                                " + _vm._s(row.name) + "\n                            ")])
   }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(item) {
     return _c('tr', {
       staticClass: "odd"
-    }, [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.group_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.phone))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.barcode))]), _vm._v(" "), _vm._m(0, true)])
+    }, [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.group_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.phone))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.barcode))]), _vm._v(" "), _vm._m(3, true)])
   }))])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -44138,27 +44271,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "status",
       "aria-live": "polite"
     }
-  }, [_vm._v("\n                    Showing " + _vm._s(_vm.page_info.list_from) + " to " + _vm._s(_vm.page_info.list_to) + " of " + _vm._s(_vm.page_info.total) + " entries\n                ")])]), _vm._v(" "), _vm._m(1)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('div', {
-    staticClass: "btn-group"
-  }, [_c('button', {
-    staticClass: "btn btn-primary",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-edit"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-trash-o"
-  })])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  }, [_vm._v("\n                    Showing " + _vm._s(_vm.page_info.list_from) + " to " + _vm._s(_vm.page_info.list_to) + " of " + _vm._s(_vm.page_info.total) + " entries\n                ")])]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-7"
   }, [_c('div', {
     staticClass: "dataTables_paginate paging_simple_numbers",
@@ -44168,7 +44281,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('ul', {
     staticClass: "pagination"
   }, [_c('li', {
-    staticClass: "paginate_button previous disabled",
+    staticClass: "paginate_button previous",
+    class: [_vm.page_info.current_page - 1 == 0 ? 'disabled' : ''],
     attrs: {
       "id": "staff_previous"
     }
@@ -44178,63 +44292,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-controls": "staff",
       "data-dt-idx": "0",
       "tabindex": "0"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changePage(_vm.page_info.current_page - 1)
+      }
     }
-  }, [_vm._v("Previous")])]), _vm._v(" "), _c('li', {
-    staticClass: "paginate_button active"
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "aria-controls": "staff",
-      "data-dt-idx": "1",
-      "tabindex": "0"
-    }
-  }, [_vm._v("1")])]), _vm._v(" "), _c('li', {
-    staticClass: "paginate_button "
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "aria-controls": "staff",
-      "data-dt-idx": "2",
-      "tabindex": "0"
-    }
-  }, [_vm._v("2")])]), _vm._v(" "), _c('li', {
-    staticClass: "paginate_button "
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "aria-controls": "staff",
-      "data-dt-idx": "3",
-      "tabindex": "0"
-    }
-  }, [_vm._v("3")])]), _vm._v(" "), _c('li', {
-    staticClass: "paginate_button "
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "aria-controls": "staff",
-      "data-dt-idx": "4",
-      "tabindex": "0"
-    }
-  }, [_vm._v("4")])]), _vm._v(" "), _c('li', {
-    staticClass: "paginate_button "
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "aria-controls": "staff",
-      "data-dt-idx": "5",
-      "tabindex": "0"
-    }
-  }, [_vm._v("5")])]), _vm._v(" "), _c('li', {
-    staticClass: "paginate_button "
-  }, [_c('a', {
-    attrs: {
-      "href": "#",
-      "aria-controls": "staff",
-      "data-dt-idx": "6",
-      "tabindex": "0"
-    }
-  }, [_vm._v("6")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l((_vm.getPageArray), function(i) {
+    return _c('li', {
+      staticClass: "paginate_button",
+      class: [_vm.page_info.current_page == i ? 'active' : '']
+    }, [_c('a', {
+      attrs: {
+        "href": "#",
+        "aria-controls": "staff",
+        "data-dt-idx": "1",
+        "tabindex": "0"
+      },
+      on: {
+        "click": function($event) {
+          _vm.changePage(i)
+        }
+      }
+    }, [_vm._v(_vm._s(i))])])
+  }), _vm._v(" "), _c('li', {
     staticClass: "paginate_button next",
+    class: [_vm.page_info.current_page + 1 > _vm.page_info.last_page ? 'disabled' : ''],
     attrs: {
       "id": "staff_next"
     }
@@ -44244,8 +44327,58 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-controls": "staff",
       "data-dt-idx": "7",
       "tabindex": "0"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changePage(_vm.page_info.current_page + 1)
+      }
     }
-  }, [_vm._v("Next")])])])])])
+  }, [_vm._v("Next")])])], 2)])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon",
+    staticStyle: {
+      "background-color": "#eee"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-bookmark"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon",
+    staticStyle: {
+      "background-color": "#eee"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-thumb-tack"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon",
+    staticStyle: {
+      "background-color": "#eee"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-search"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', [_c('div', {
+    staticClass: "btn-group"
+  }, [_c('button', {
+    staticClass: "btn btn-sm btn-primary",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-edit"
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-sm btn-danger",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-trash-o"
+  })])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

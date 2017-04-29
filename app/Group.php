@@ -19,7 +19,7 @@ class Group extends Model
     public static function getGroupIdArray()
     {
         $array = [];
-        for ($i = 0; $i < Group::count(); $i++) {
+        for ($i = 1; $i <= Group::count(); $i++) {
             $array[] = $i;
         }
 

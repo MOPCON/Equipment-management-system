@@ -73,6 +73,7 @@ class StaffController extends Controller
     {
         $staff->update($request->all());
 
+        Group::clearManagerUser($staff->id);
         switch ((string) $request->input('role')) {
             case '1':
                 $staff->group->deputy_manager = $staff->id;

@@ -30,4 +30,18 @@ class Group extends Model
     {
         return $this->hasMany('App\Staff');
     }
+
+    public static function clearManagerUser($staff_id)
+    {
+        $group = Group::where('manager', $staff_id)->first();
+        if ($group) {
+            $group->manager = 0;
+            $group->save();
+        }
+        $group = Group::where('deputy_manager', $staff_id)->first();
+        if ($group) {
+            $group->deputy_manager = 0;
+            $group->save();
+        }
+    }
 }

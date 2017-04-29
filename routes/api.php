@@ -27,5 +27,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('user', 'UserController');
     Route::resource('staff', 'StaffController');
+    Route::resource('equipment/barcode', 'EquipmentBarcodeController');
+    Route::resource('equipment', 'EquipmentController');
     Route::resource('group', 'GroupController');
 });

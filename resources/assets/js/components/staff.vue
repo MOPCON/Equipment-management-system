@@ -6,8 +6,8 @@
                     <div class="dataTables_length" id="staff_length">
                         <label>Show
                             <select name="staff_length" aria-controls="staff"
-                                    class="form-control input-sm">
-                                <option value="10">10</option>
+                                    class="form-control input-sm" v-model="page_info.limit" @change="setPageLimit()">
+                                <option value="15">15</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
@@ -19,7 +19,7 @@
                     <div id="staff_filter" class="dataTables_filter">
                         <label>Search:
                             <input type="search" class="form-control input-sm" placeholder=""
-                                   aria-controls="staff">
+                                   aria-controls="staff" v-model="page_info.search">
                         </label>
                     </div>
                 </div>
@@ -30,20 +30,29 @@
                            aria-describedby="staff_info">
                         <thead>
                             <tr role="row">
-                                <th v-for="item in column" class="sorting" tabindex="0" rowspan="1"
-                                    colspan="1" style="width: 295px;">
-                                    {{ item.name }}
+                                <th v-for="row in col" class="sorting" tabindex="0" rowspan="1" colspan="1">
+                                    {{ row.name }}
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in data" class="odd">
-                                <td class="sorting_1">{{ item.id }}</td>
+                            <tr v-for="item in list" class="odd">
+                                <td>{{ item.id }}</td>
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.group_name }}</td>
                                 <td>{{ item.email }}</td>
                                 <td>{{ item.phone }}</td>
                                 <td>{{ item.barcode }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,8 +60,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-5">
-                    <div class="dataTables_info" id="staff_info" role="status" aria-live="polite">Showing 1
-                        to 10 of 57 entries
+                    <div class="dataTables_info" id="staff_info" role="status" aria-live="polite">
+                        Showing {{ page_info.list_from }} to {{ page_info.list_to }} of {{ page_info.total }} entries
                     </div>
                 </div>
                 <div class="col-sm-7">
@@ -92,17 +101,19 @@
 
 <script>
     export default {
-        data: function () {
+        data: function ()
+        {
             return {
-                data: [],
-                column: [],
+                list: [],
+                col: [],
+                page_info: [],
             }
         },
         methods:
         {
             initCol: function() {
                 var self = this;
-                self.column = [{
+                self.col = [{
                     name: 'id',
                     show_dsc: '1'
                 }, {
@@ -120,26 +131,54 @@
                 }, {
                     name: 'Barcode',
                     show_dsc: '1'
+                }, {
+                    name: '',
+                    show_dsc: '0'
                 }];
             },
             getAllStaff: function() {
                 var self = this;
-                axios.get('/api/staff')
-                  .then(response => {
+                axios.get(
+                    '/api/staff?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit
+                ).then(response => {
                       var self = this;
-                      self.data = response.data.data.data;
+                      var res = response.data.data;
+                      self.list = res.data;
+                      self.page_info.current_page = res.current_page;
+                      self.page_info.last_page = res.last_page;
+                      self.page_info.total = res.total;
+                      self.page_info.list_from = res.from;
+                      self.page_info.list_to = res.to;
                       console.log(response);
-                  })
-                  .catch(error => {
+                }).catch(error => {
                       console.log(error);
-                  });
+                });
+            },
+            setPageLimit: function() {
+                var self = this;
+                self.getAllStaff();
             }
         },
         created: function()
         {
             var self = this;
+            self.page_info = {
+                current_page: 1,
+                limit: '15',
+                last_page: 1,
+                total: 1,
+                sort_key: 'id',
+                sort_dir: 'DESC',
+                search: '',
+                list_from: 1,
+                list_to: 15
+            }
             self.initCol();
             self.getAllStaff();
+        },
+        watch:
+        {
+
         }
     }
 </script>

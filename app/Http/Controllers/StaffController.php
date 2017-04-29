@@ -19,7 +19,7 @@ class StaffController extends Controller
         $group_id = $request->input('group_id', Group::getGroupIdArray());
         $search = $request->input('search', '');
         $order_field = $request->input('orderby_field', 'id');
-        $order_method = $request->input('order_method', 'desc');
+        $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 15);
         $staff = Staff::whereIn('group_id', $group_id)
             ->orWhere(function($query) use ($search) {

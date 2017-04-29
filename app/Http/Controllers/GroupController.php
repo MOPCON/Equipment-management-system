@@ -33,7 +33,7 @@ class GroupController extends Controller
      */
     public function store(GroupRequest $request)
     {
-        $group = Group::created($request->all());
+        $group = Group::create($request->all());
 
         return ApiService::returnApiResponse('Store Success.', $group);
     }

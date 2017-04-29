@@ -23,11 +23,22 @@ class StaffRequest extends FormRequest
      */
     public function rules()
     {
+        if ($this->getMethod() == 'POST') {
+            return [
+                'name'     => 'required|string',
+                'email'    => 'required|email',
+                'phone'    => 'required|string',
+                'group_id' => 'required',
+                'role'     => 'required',
+            ];
+        }
         return [
             'name'     => 'required|string',
             'email'    => 'required|email',
             'phone'    => 'required|string',
             'group_id' => 'required',
+            'barcode'  => 'required|string',
+            'role'     => 'required',
         ];
     }
 }

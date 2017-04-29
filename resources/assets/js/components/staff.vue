@@ -7,7 +7,7 @@
                         <span class="glyphicon glyphicon-plus"></span>&nbsp;Add
                     </button>
                 </div>
-                <div class="col-lg-1">
+                <div class="col-lg-2">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon" style="background-color: #eee">
                             <i class="glyphicon glyphicon-bookmark"></i>
@@ -18,7 +18,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-1">
+                <div class="col-lg-2">
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon" style="background-color: #eee">
                             <i class="fa fa-thumb-tack"></i>
@@ -62,7 +62,7 @@
                                 <td>{{ item.barcode }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-primary">
+                                        <button type="button" class="btn btn-sm btn-primary" v-on:click="openEditStaff(item.id, 'edit')">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button type="button" class="btn btn-sm btn-danger">
@@ -98,6 +98,64 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addStaff" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h4 v-if="action == 'new'" class="modal-title" id="myModalLabel">Add Staff</h4>
+                        <h4 v-if="action == 'edit'" class="modal-title" id="myModalLabel">Edit Staff</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form name="addStaff">
+                            <div v-if="action == 'edit'" class="form-group">
+                                <strong>ID: </strong>
+                                {{ add_staff.id }}
+                            </div>
+                            <div class="form-group">
+                                <strong>名稱</strong>
+                                <input type="text" v-model="add_staff.name" name="name" class="form-control" placeholder="Name" required>
+                            </div>
+                            <div class="form-group">
+                                <strong>Email</strong>
+                                <input type="text" v-model="add_staff.email" name="email" class="form-control" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <strong>電話</strong>
+                                <input type="text" v-model="add_staff.phone" name="phone" class="form-control" placeholder="Phone" required>
+                            </div>
+                            <div class="form-group">
+                                <strong>組別</strong>
+                                <select class="form-control" v-model="add_staff.group">
+                                    <option v-for="item in group" v-bind:value="item.id">{{ item.name }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <strong>角色</strong>
+                                <select class="form-control" v-model="add_staff.role">
+                                    <option value="0">組員</option>
+                                    <option value="1">副組長</option>
+                                    <option value="2">組長</option>
+                                </select>
+                            </div>
+                            <div v-if="action == 'edit'" class="form-group">
+                                <strong>Barcode</strong>
+                                <input type="text" v-model="add_staff.barcode" name="phone" class="form-control" placeholder="Phone" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button v-if="action == 'new'" type="button" class="btn btn-primary" v-on:click="createNewStaff()">Create</button>
+                        <button v-if="action == 'edit'" type="button" class="btn btn-primary" v-on:click="saveStaff(add_staff.id)">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -110,6 +168,8 @@
                 page_info: [],
                 group: [],
                 group_id: 0,
+                add_staff: [],
+                action: 'new',
             }
         },
         computed: {
@@ -156,7 +216,8 @@
                 self.add_staff = {
                     id: '',
                     name: '',
-                    group: '',
+                    group: '1',
+                    role: '0',
                     email: '',
                     phone: '',
                     barcode: ''
@@ -165,7 +226,7 @@
             getGroup: function() {
                 var self = this;
                 axios.get(
-                    '/api/group'
+                    '/api/group?orderby_method=asc'
                 ).then(response => {
                       var self = this;
                       var res = response.data.data;
@@ -206,12 +267,6 @@
                     this.getAllStaff();
                 }
             },
-            openAddStaff: function() {
-                this.form.action = 'new';
-                this.form.submitted = false;
-                this.initStaff();
-                $('#addStaff').modal('show');
-            },
             changePage: function(page) {
                 var self = this;
                 if (page > 0 && page <= self.page_info.last_page) {
@@ -226,6 +281,74 @@
                     self.page_info.sort_key = field;
                     this.getAllStaff();
                 }
+            },
+            openAddStaff: function() {
+                this.action = 'new';
+                this.initStaff();
+                $('#addStaff').modal('show');
+            },
+            createNewStaff: function() {
+                var self = this;
+                var data = {
+                    name: self.add_staff.name,
+                    email: self.add_staff.email,
+                    phone: self.add_staff.phone,
+                    group_id: self.add_staff.group,
+                    role: self.add_staff.role
+                };
+                axios.post(
+                    '/api/staff', data
+                ).then(response => {
+                    $('#addStaff').modal('hide');
+                    self.getAllStaff();
+                    console.log(response);
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            saveStaff: function(id) {
+                var self = this;
+                var data = {
+                    name: self.add_staff.name,
+                    email: self.add_staff.email,
+                    phone: self.add_staff.phone,
+                    group_id: self.add_staff.group,
+                    role: self.add_staff.role,
+                    barcode: self.add_staff.barcode,
+                    _method: 'PUT'
+                };
+                axios.post(
+                    '/api/staff/' + id, data
+                ).then(response => {
+                    $('#addStaff').modal('hide');
+                    self.getAllStaff();
+                    console.log(response);
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            openEditStaff: function(id) {
+                var self = this;
+                self.action = 'edit';
+                axios.get(
+                    '/api/staff/' + id
+                ).then(response => {
+                      var res = response.data.data;
+                      console.log(response);
+                      self.form.action = 'edit'
+                      self.add_staff = {
+                          id: res.id,
+                          name: res.name,
+                          email: res.email,
+                          phone: res.phone,
+                          barcode: res.barcode,
+                          group: res.group_id,
+                          role: res.role
+                      }
+                      $('#addStaff').modal('show');
+                }).catch(error => {
+                      console.log(error);
+                });
             }
         },
         created: function()
@@ -247,6 +370,7 @@
                 submitted: false
             };
             self.initCol();
+            self.initStaff();
             self.getAllStaff();
             self.getGroup();
         },

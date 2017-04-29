@@ -17,7 +17,7 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $order_field = $request->input('orderby_field', 'id');
-        $order_method = $request->input('$order_method', 'desc');
+        $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 15);
         $group = Group::orderBy($order_field, $order_method)
             ->paginate($limit);
@@ -74,21 +74,5 @@ class GroupController extends Controller
         $group->delete();
 
         return ApiService::returnApiResponse('Destroy Success.');
-    }
-
-    public function assignManager(Group $group, $staff_id)
-    {
-        $group->manager = $staff_id;
-        $group->save();
-
-        return ApiService::returnApiResponse('Assign manager Success.', $group);
-    }
-
-    public function assignDeputyManager(Group $group, $staff_id)
-    {
-        $group->deputy_manager = $staff_id;
-        $group->save();
-
-        return ApiService::returnApiResponse('Assign deputy manager Success.', $group);
     }
 }

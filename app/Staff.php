@@ -12,7 +12,7 @@ class Staff extends Model
     protected $fillable = [
         'name', 'email', 'phone', 'group_id', 'barcode',
     ];
-    protected $appends = ['gravatar', 'group_name'];
+    protected $appends = ['gravatar', 'group_name', 'role'];
 
     public function getGravatarAttribute()
     {
@@ -22,6 +22,18 @@ class Staff extends Model
     public function getGroupNameAttribute()
     {
         return $this->group->name;
+    }
+
+    public function getRoleAttribute()
+    {
+        if ($this->group->manager == $this->id) {
+            return 2;
+        }
+
+        if ($this->group->deputy_manager == $this->id) {
+            return 1;
+        }
+        return 0;
     }
 
     public function group()

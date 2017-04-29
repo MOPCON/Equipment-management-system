@@ -25237,6 +25237,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -25245,7 +25303,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             col: [],
             page_info: [],
             group: [],
-            group_id: 0
+            group_id: 0,
+            add_staff: [],
+            action: 'new'
         };
     },
     computed: {
@@ -25291,7 +25351,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             self.add_staff = {
                 id: '',
                 name: '',
-                group: '',
+                group: '1',
+                role: '0',
                 email: '',
                 phone: '',
                 barcode: ''
@@ -25301,7 +25362,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var self = this;
-            axios.get('/api/group').then(function (response) {
+            axios.get('/api/group?orderby_method=asc').then(function (response) {
                 var self = _this;
                 var res = response.data.data;
                 self.group = res.data;
@@ -25340,12 +25401,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.getAllStaff();
             }
         },
-        openAddStaff: function openAddStaff() {
-            this.form.action = 'new';
-            this.form.submitted = false;
-            this.initStaff();
-            $('#addStaff').modal('show');
-        },
         changePage: function changePage(page) {
             var self = this;
             if (page > 0 && page <= self.page_info.last_page) {
@@ -25360,6 +25415,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.page_info.sort_key = field;
                 this.getAllStaff();
             }
+        },
+        openAddStaff: function openAddStaff() {
+            this.action = 'new';
+            this.initStaff();
+            $('#addStaff').modal('show');
+        },
+        createNewStaff: function createNewStaff() {
+            var self = this;
+            var data = {
+                name: self.add_staff.name,
+                email: self.add_staff.email,
+                phone: self.add_staff.phone,
+                group_id: self.add_staff.group,
+                role: self.add_staff.role
+            };
+            axios.post('/api/staff', data).then(function (response) {
+                $('#addStaff').modal('hide');
+                self.getAllStaff();
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        saveStaff: function saveStaff(id) {
+            var self = this;
+            var data = {
+                name: self.add_staff.name,
+                email: self.add_staff.email,
+                phone: self.add_staff.phone,
+                group_id: self.add_staff.group,
+                role: self.add_staff.role,
+                barcode: self.add_staff.barcode,
+                _method: 'PUT'
+            };
+            axios.post('/api/staff/' + id, data).then(function (response) {
+                $('#addStaff').modal('hide');
+                self.getAllStaff();
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        openEditStaff: function openEditStaff(id) {
+            var self = this;
+            self.action = 'edit';
+            axios.get('/api/staff/' + id).then(function (response) {
+                var res = response.data.data;
+                console.log(response);
+                self.form.action = 'edit';
+                self.add_staff = {
+                    id: res.id,
+                    name: res.name,
+                    email: res.email,
+                    phone: res.phone,
+                    barcode: res.barcode,
+                    group: res.group_id,
+                    role: res.role
+                };
+                $('#addStaff').modal('show');
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     },
     created: function created() {
@@ -25380,6 +25497,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             submitted: false
         };
         self.initCol();
+        self.initStaff();
         self.getAllStaff();
         self.getGroup();
     },
@@ -44111,7 +44229,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-plus"
   }), _vm._v(" Add\n                ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-1"
+    staticClass: "col-lg-2"
   }, [_c('div', {
     staticClass: "input-group input-group-sm"
   }, [_vm._m(0), _vm._v(" "), _c('select', {
@@ -44149,7 +44267,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(item.name))])
   })], 2)])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-1"
+    staticClass: "col-lg-2"
   }, [_c('div', {
     staticClass: "input-group input-group-sm"
   }, [_vm._m(1), _vm._v(" "), _c('select', {
@@ -44259,7 +44377,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(item) {
     return _c('tr', {
       staticClass: "odd"
-    }, [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.group_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.phone))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.barcode))]), _vm._v(" "), _vm._m(3, true)])
+    }, [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.group_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.email))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.phone))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.barcode))]), _vm._v(" "), _c('td', [_c('div', {
+      staticClass: "btn-group"
+    }, [_c('button', {
+      staticClass: "btn btn-sm btn-primary",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function($event) {
+          _vm.openEditStaff(item.id, 'edit')
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-edit"
+    })]), _vm._v(" "), _vm._m(3, true)])])])
   }))])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -44333,7 +44465,228 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changePage(_vm.page_info.current_page + 1)
       }
     }
-  }, [_vm._v("Next")])])], 2)])])])])])
+  }, [_vm._v("Next")])])], 2)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "addStaff",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_vm._m(4), _vm._v(" "), (_vm.action == 'new') ? _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Add Staff")]) : _vm._e(), _vm._v(" "), (_vm.action == 'edit') ? _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Edit Staff")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('form', {
+    attrs: {
+      "name": "addStaff"
+    }
+  }, [(_vm.action == 'edit') ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("ID: ")]), _vm._v("\n                            " + _vm._s(_vm.add_staff.id) + "\n                        ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("名稱")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_staff.name),
+      expression: "add_staff.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "name",
+      "placeholder": "Name",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.add_staff.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_staff.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("Email")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_staff.email),
+      expression: "add_staff.email"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "email",
+      "placeholder": "Email",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.add_staff.email)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_staff.email = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("電話")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_staff.phone),
+      expression: "add_staff.phone"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "phone",
+      "placeholder": "Phone",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.add_staff.phone)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_staff.phone = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("組別")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_staff.group),
+      expression: "add_staff.group"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.add_staff.group = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.group), function(item) {
+    return _c('option', {
+      domProps: {
+        "value": item.id
+      }
+    }, [_vm._v(_vm._s(item.name))])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("角色")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_staff.role),
+      expression: "add_staff.role"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.add_staff.role = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("組員")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("副組長")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("組長")])])]), _vm._v(" "), (_vm.action == 'edit') ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("Barcode")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_staff.barcode),
+      expression: "add_staff.barcode"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "phone",
+      "placeholder": "Phone",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.add_staff.barcode)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_staff.barcode = $event.target.value
+      }
+    }
+  })]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), (_vm.action == 'new') ? _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.createNewStaff()
+      }
+    }
+  }, [_vm._v("Create")]) : _vm._e(), _vm._v(" "), (_vm.action == 'edit') ? _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.saveStaff(_vm.add_staff.id)
+      }
+    }
+  }, [_vm._v("Save")]) : _vm._e()])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-addon",
@@ -44362,23 +44715,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "glyphicon glyphicon-search"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', [_c('div', {
-    staticClass: "btn-group"
-  }, [_c('button', {
-    staticClass: "btn btn-sm btn-primary",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-edit"
-  })]), _vm._v(" "), _c('button', {
+  return _c('button', {
     staticClass: "btn btn-sm btn-danger",
     attrs: {
       "type": "button"
     }
   }, [_c('i', {
     staticClass: "fa fa-trash-o"
-  })])])])
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('span', {
+    staticClass: "sr-only"
+  }, [_vm._v("Close")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -40,6 +40,18 @@ class StaffController extends Controller
     public function store(StaffRequest $request)
     {
         $staff = Staff::create($request->all());
+
+        switch ((string) $request->input('role')) {
+            case '1':
+                $staff->group->deputy_manager = $staff->id;
+                $staff->group->save();
+                break;
+            case '2':
+                $staff->group->manager = $staff->id;
+                $staff->group->save();
+                break;
+        }
+
         return ApiService::returnApiResponse('Store success.', $staff);
     }
 
@@ -60,6 +72,18 @@ class StaffController extends Controller
     public function update(StaffRequest $request, Staff $staff)
     {
         $staff->update($request->all());
+
+        switch ((string) $request->input('role')) {
+            case '1':
+                $staff->group->deputy_manager = $staff->id;
+                $staff->group->save();
+                break;
+            case '2':
+                $staff->group->manager = $staff->id;
+                $staff->group->save();
+                break;
+        }
+
         return ApiService::returnApiResponse('Update success.', $staff);
     }
 

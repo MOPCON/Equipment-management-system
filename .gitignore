@@ -1,6 +1,12 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css/skins/node_modules
+/public/fonts/node_modules
+/public/fonts/vendor
+/public/images
+/public/img/credit
+/public/img/resources
 /storage/*.key
 /vendor
 /.idea

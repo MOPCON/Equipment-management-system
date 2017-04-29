@@ -28,7 +28,7 @@ class StaffTableSeeder extends Seeder
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'phone' => $faker->e164PhoneNumber,
-                'group_id' => rand(0, 2),
+                'group_id' => rand(1, 3),
             ]);
         }
     }

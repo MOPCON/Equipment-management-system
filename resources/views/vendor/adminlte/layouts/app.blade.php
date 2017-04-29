@@ -56,6 +56,7 @@ desired effect
 </div><!-- ./wrapper -->
 </div>
 @section('scripts')
+    <script src="{{ asset('/services/helper.js') }}" charset="utf-8"></script>
     @include('adminlte::layouts.partials.scripts')
     <!-- Page Script Here -->
     @yield('main-script')

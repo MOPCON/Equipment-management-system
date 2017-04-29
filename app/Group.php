@@ -25,4 +25,9 @@ class Group extends Model
 
         return $array;
     }
+
+    public function users()
+    {
+        return $this->hasMany('App\Staff');
+    }
 }

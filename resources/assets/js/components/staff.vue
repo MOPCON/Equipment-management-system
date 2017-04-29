@@ -2,27 +2,27 @@
     <div class="box-body">
         <div id="staff_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
             <div class="row" style="display:">
-                <div class="col-lg-1">
+                <div class="col-xs-10 col-sm-1 col-md-1 col-lg-1">
                     <button type="button" class="btn btn-sm btn-primary" v-on:click="openAddStaff()">
                         <span class="glyphicon glyphicon-plus"></span>&nbsp;Add
                     </button>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-xs-10 col-sm-3 col-md-2 col-lg-1">
                     <div class="input-group input-group-sm">
-                        <span class="input-group-addon" style="background-color: #eee">
+                        <div class="input-group-addon" style="background-color: #eee">
                             <i class="glyphicon glyphicon-bookmark"></i>
-                        </span>
+                        </div>
                         <select class="form-control" name="table_status"  v-model="group_id" @change="setGroup()">
                             <option value="0">全部</option>
                             <option v-for="item in group" v-bind:value="item.id">{{ item.name }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-xs-10 col-sm-2 col-md-2 col-lg-1">
                     <div class="input-group input-group-sm">
-                        <span class="input-group-addon" style="background-color: #eee">
-                            <i class="fa fa-thumb-tack"></i>
-                        </span>
+                        <div class="input-group-addon" style="background-color: #eee">
+                            <i class="glyphicon glyphicon-list"></i>
+                        </div>
                         <select class="form-control" name="staff_length" v-model="page_info.limit" @change="setPageLimit()">
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -33,16 +33,16 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3">
                     <div class="input-group input-group-sm">
                          <span class="input-group-addon" style="background-color: #eee"><i class="glyphicon glyphicon-search"></i></span>
-                         <input type="search" class="form-control pull-right" placeholder="Search" aria-controls="staff" v-model="page_info.search" v-on:keyup="searchKeyword($event)">
+                         <input type="search" class="form-control" placeholder="Search" aria-controls="staff" v-model="page_info.search" v-on:keyup="searchKeyword($event)">
                     </div>
                 </div>
             </div>
             <br>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-xs-10 col-sm-12 col-md-12 col-lg-12 table-responsive">
                     <table id="staff" class="table table-bordered table-striped dataTable" role="grid"
                            aria-describedby="staff_info">
                         <thead>
@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in list" class="odd">
+                            <tr v-for="item in list">
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.group_name }}</td>
@@ -61,14 +61,12 @@
                                 <td>{{ item.phone }}</td>
                                 <td>{{ item.barcode }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-primary" v-on:click="openEditStaff(item.id, 'edit')">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-danger">
-                                            <i class="fa fa-trash-o"></i>
-                                        </button>
-                                    </div>
+                                    <button type="button" class="btn btn-sm btn-primary" v-on:click="openEditStaff(item.id, 'edit')">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger" v-on:click="deleteStaff(item.id)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -302,8 +300,10 @@
                     $('#addStaff').modal('hide');
                     self.getAllStaff();
                     console.log(response);
+                     helper.alert(response.data.message);
                 }).catch(error => {
-                    console.log(error);
+                    console.log(error.response);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             saveStaff: function(id) {
@@ -323,8 +323,10 @@
                     $('#addStaff').modal('hide');
                     self.getAllStaff();
                     console.log(response);
+                    helper.alert(response.data.message);
                 }).catch(error => {
                     console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             openEditStaff: function(id) {
@@ -348,6 +350,21 @@
                       $('#addStaff').modal('show');
                 }).catch(error => {
                       console.log(error);
+                });
+            },
+            deleteStaff: function(id) {
+                var _self = this;
+                helper.deleteConfirm(function () {
+                    axios.delete(
+                        '/api/staff/' + id
+                    ).then(response => {
+                          console.log(response);
+                          helper.alert(response.data.message);
+                          _self.getAllStaff();
+                    }).catch(error => {
+                          console.log(error);
+                          helper.alert('發生錯誤!', 'danger');
+                    });
                 });
             }
         },

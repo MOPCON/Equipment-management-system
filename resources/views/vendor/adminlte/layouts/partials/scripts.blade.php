@@ -14,3 +14,7 @@
         'csrfToken' => csrf_token(),
     ]) !!};
 </script>
+
+<script src="{{ asset('/js/sweetalert2.min.js') }}" charset="utf-8"></script>
+<script src="{{ asset('/js/bootstrap-notify.min.js')}}" charset="utf-8"></script>
+<script src="{{ asset('/js/helper.js') }}" charset="utf-8"></script>

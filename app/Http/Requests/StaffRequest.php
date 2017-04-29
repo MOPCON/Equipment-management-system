@@ -41,4 +41,17 @@ class StaffRequest extends FormRequest
             'role'     => 'required',
         ];
     }
+
+    /**
+     * Use json output error message.
+     */
+    public function response(array $errors)
+    {
+        return \App\Services\ApiService::returnApiResponse(
+            $errors[array_keys($errors)[0]][0],
+            [],
+            false,
+            400
+        );
+    }
 }

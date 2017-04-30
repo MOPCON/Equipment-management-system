@@ -25401,7 +25401,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     id: res.id,
                     name: res.name,
                     manager: res.manager,
-                    deputy_manager: res.deputy_manager
+                    deputy_manager: res.deputy_manager,
+                    manager_name: res.manager_name,
+                    deputy_manager_name: res.deputy_manager_name
                 };
                 $('#addgroup').modal('show');
             }).catch(function (error) {
@@ -45959,22 +45961,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.add_group.manager),
-      expression: "add_group.manager"
+      value: (_vm.add_group.manager_name),
+      expression: "add_group.manager_name"
     }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "Email",
-      "required": ""
+      "disabled": ""
     },
     domProps: {
-      "value": (_vm.add_group.manager)
+      "value": (_vm.add_group.manager_name)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.add_group.manager = $event.target.value
+        _vm.add_group.manager_name = $event.target.value
       }
     }
   })]), _vm._v(" "), _c('div', {
@@ -45983,22 +45984,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.add_group.deputy_manager),
-      expression: "add_group.deputy_manager"
+      value: (_vm.add_group.deputy_manager_name),
+      expression: "add_group.deputy_manager_name"
     }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
-      "placeholder": "Phone",
-      "required": ""
+      "disabled": ""
     },
     domProps: {
-      "value": (_vm.add_group.deputy_manager)
+      "value": (_vm.add_group.deputy_manager_name)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.add_group.deputy_manager = $event.target.value
+        _vm.add_group.deputy_manager_name = $event.target.value
       }
     }
   })])])]), _vm._v(" "), _c('div', {

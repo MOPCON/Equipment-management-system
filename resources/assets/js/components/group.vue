@@ -102,11 +102,11 @@
                             </div>
                             <div class="form-group">
                                 <strong>組長</strong>
-                                <input type="text" v-model="add_group.manager" class="form-control" placeholder="Email" required>
+                                <input type="text" v-model="add_group.manager_name" class="form-control" disabled>
                             </div>
                             <div class="form-group">
                                 <strong>副組長</strong>
-                                <input type="text" v-model="add_group.deputy_manager" class="form-control" placeholder="Phone" required>
+                                <input type="text" v-model="add_group.deputy_manager_name" class="form-control" disabled>
                             </div>
                         </form>
                     </div>
@@ -272,6 +272,8 @@
                           name: res.name,
                           manager: res.manager,
                           deputy_manager: res.deputy_manager,
+                          manager_name: res.manager_name,
+                          deputy_manager_name: res.deputy_manager_name,
                       }
                       $('#addgroup').modal('show');
                 }).catch(error => {

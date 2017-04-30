@@ -23691,6 +23691,7 @@ window.Vue = __webpack_require__(6);
 
 Vue.component('staff', __webpack_require__(64));
 Vue.component('group', __webpack_require__(63));
+Vue.component('equipment', __webpack_require__(246));
 
 var app = new Vue({
   el: '#app'
@@ -46247,6 +46248,1086 @@ __webpack_require__(23);
 __webpack_require__(20);
 module.exports = __webpack_require__(21);
 
+
+/***/ }),
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            list: [],
+            col: [],
+            page_info: [],
+            group: [],
+            group_id: 0,
+            add_equipment: [],
+            action: 'new'
+        };
+    },
+    computed: {
+        getPageArray: function getPageArray() {
+            var self = this;
+            var bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+            var top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+            var array = [];
+            for (var i = bottom; i <= top; i++) {
+                array.push(i);
+            }
+            return array;
+        }
+    },
+    methods: {
+        initCol: function initCol() {
+            var self = this;
+            self.col = [{
+                name: 'id',
+                key: 'id'
+            }, {
+                name: 'Name',
+                key: 'name'
+            }, {
+                name: 'Source',
+                key: 'source'
+            }, {
+                name: 'Memo',
+                key: 'memo'
+            }, {
+                name: 'Amount',
+                key: 'amount'
+            }, {
+                name: 'Has_Barcode',
+                key: 'hasBarcode'
+            }, {
+                name: 'Prefix',
+                key: 'prefix'
+            }, {
+                name: '',
+                key: ''
+            }];
+        },
+        initEquipment: function initEquipment() {
+            var self = this;
+            self.add_equipment = {
+                id: '',
+                name: '',
+                source: '',
+                memo: '',
+                amount: '0',
+                hasBarcode: '',
+                prefix: ''
+            };
+        },
+        getAllEquipment: function getAllEquipment() {
+            var _this = this;
+
+            var self = this;
+            axios.get('/api/equipment?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page).then(function (response) {
+                var self = _this;
+                var res = response.data.data;
+                self.list = res.data;
+                self.page_info.current_page = res.current_page;
+                self.page_info.last_page = res.last_page;
+                self.page_info.total = res.total;
+                self.page_info.list_from = res.from;
+                self.page_info.list_to = res.to;
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        setPageLimit: function setPageLimit() {
+            this.getAllEquipment();
+        },
+        searchKeyword: function searchKeyword(event) {
+            if (event.which === 13) {
+                console.log(this.page_info.search);
+                this.getAllEquipment();
+            }
+        },
+        changePage: function changePage(page) {
+            var self = this;
+            if (page > 0 && page <= self.page_info.last_page) {
+                self.page_info.current_page = page;
+                this.getAllEquipment();
+            }
+        },
+        changeSort: function changeSort(field) {
+            var self = this;
+            if (field != '') {
+                self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC';
+                self.page_info.sort_key = field;
+                this.getAllEquipment();
+            }
+        },
+        openAddEquipment: function openAddEquipment() {
+            this.action = 'new';
+            this.initEquipment();
+            $('#addEquipment').modal('show');
+        },
+        createNewEquipment: function createNewEquipment() {
+            var self = this;
+            var data = {
+                name: self.add_equipment.name,
+                source: self.add_equipment.source,
+                memo: self.add_equipment.memo,
+                amount: self.add_equipment.amount,
+                hasBarcode: self.add_equipment.hasBarcode,
+                prefix: self.add_equipment.prefix
+            };
+            axios.post('/api/equipment', data).then(function (response) {
+                $('#addEquipment').modal('hide');
+                self.getAllEquipment();
+                console.log(response);
+                helper.alert(response.data.message);
+            }).catch(function (error) {
+                console.log(error.response);
+                helper.alert(error.response.data.message, 'danger');
+            });
+        },
+        saveEquipment: function saveEquipment(id) {
+            var self = this;
+            var data = {
+                name: self.add_equipment.name,
+                source: self.add_equipment.source,
+                memo: self.add_equipment.memo,
+                amount: self.add_equipment.amount,
+                hasBarcode: self.add_equipment.hasBarcode,
+                prefix: self.add_equipment.prefix,
+                _method: 'PUT'
+            };
+            axios.post('/api/equipment/' + id, data).then(function (response) {
+                $('#addEquipment').modal('hide');
+                self.getAllEquipment();
+                console.log(response);
+                helper.alert(response.data.message);
+            }).catch(function (error) {
+                console.log(error.response);
+                helper.alert(error.response.data.message, 'danger');
+            });
+        },
+        openEditEquipment: function openEditEquipment(id) {
+            var self = this;
+            self.action = 'edit';
+            axios.get('/api/equipment/' + id).then(function (response) {
+                var res = response.data.data;
+                console.log(response);
+                self.form.action = 'edit';
+                self.add_equipment = {
+                    id: res.id,
+                    name: res.name,
+                    source: res.source,
+                    memo: res.memo,
+                    amount: res.amount,
+                    hasBarcode: res.hasBarcode,
+                    prefix: res.prefix
+                };
+                $('#addEquipment').modal('show');
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        deleteEquipment: function deleteEquipment(id) {
+            var _self = this;
+            helper.deleteConfirm(function () {
+                axios.delete('/api/equipment/' + id).then(function (response) {
+                    console.log(response);
+                    helper.alert(response.data.message);
+                    _self.getAllEquipment();
+                }).catch(function (error) {
+                    console.log(error);
+                    helper.alert('發生錯誤!', 'danger');
+                });
+            });
+        }
+    },
+    created: function created() {
+        var self = this;
+        self.page_info = {
+            current_page: 1,
+            limit: '15',
+            last_page: 1,
+            total: 1,
+            sort_key: 'id',
+            sort_dir: 'DESC',
+            search: '',
+            list_from: 1,
+            list_to: 15
+        };
+        self.form = {
+            action: '',
+            submitted: false
+        };
+        self.initCol();
+        self.initEquipment();
+        self.getAllEquipment();
+    },
+    watch: {}
+});
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(245),
+  /* template */
+  __webpack_require__(247),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "G:\\git\\Equipment-management-system\\resources\\assets\\js\\components\\equipment.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] equipment.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-336f2dc8", Component.options)
+  } else {
+    hotAPI.reload("data-v-336f2dc8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
+    staticClass: "dataTables_wrapper form-inline dt-bootstrap",
+    attrs: {
+      "id": "equipment_wrapper"
+    }
+  }, [_c('div', {
+    staticClass: "row",
+    staticStyle: {}
+  }, [_c('div', {
+    staticClass: "col-xs-10 col-sm-1 col-md-1 col-lg-1"
+  }, [_c('button', {
+    staticClass: "btn btn-sm btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.openAddEquipment()
+      }
+    }
+  }, [_c('span', {
+    staticClass: "glyphicon glyphicon-plus"
+  }), _vm._v(" Add\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-10 col-sm-2 col-md-2 col-lg-1"
+  }, [_c('div', {
+    staticClass: "input-group input-group-sm"
+  }, [_vm._m(0), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.page_info.limit),
+      expression: "page_info.limit"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "equipment_length"
+    },
+    on: {
+      "change": [function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.page_info.limit = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }, function($event) {
+        _vm.setPageLimit()
+      }]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "15"
+    }
+  }, [_vm._v("15")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "20"
+    }
+  }, [_vm._v("20")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-10 col-sm-3 col-md-3 col-lg-3"
+  }, [_c('div', {
+    staticClass: "input-group input-group-sm"
+  }, [_vm._m(1), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.page_info.search),
+      expression: "page_info.search"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "search",
+      "placeholder": "Search",
+      "aria-controls": "equipment"
+    },
+    domProps: {
+      "value": (_vm.page_info.search)
+    },
+    on: {
+      "keyup": function($event) {
+        _vm.searchKeyword($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.page_info.search = $event.target.value
+      }
+    }
+  })])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xs-10 col-sm-12 col-md-12 col-lg-12 table-responsive"
+  }, [_c('table', {
+    staticClass: "table table-bordered table-striped dataTable",
+    attrs: {
+      "id": "equipment",
+      "role": "grid",
+      "aria-describedby": "equipment_info"
+    }
+  }, [_c('thead', [_c('tr', {
+    attrs: {
+      "role": "row"
+    }
+  }, _vm._l((_vm.col), function(row) {
+    return _c('th', {
+      staticClass: "sortfield",
+      attrs: {
+        "tabindex": "0"
+      },
+      on: {
+        "click": function($event) {
+          _vm.changeSort(row.key)
+        }
+      }
+    }, [_vm._v("\n                                " + _vm._s(row.name) + "\n                            ")])
+  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(item) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.source))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.memo))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.amount))]), _vm._v(" "), (item.hasBarcode == '0') ? _c('td', [_vm._v("無")]) : _vm._e(), _vm._v(" "), (item.hasBarcode == '1') ? _c('td', [_vm._v("有")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.prefix))]), _vm._v(" "), _c('td', [_c('button', {
+      staticClass: "btn btn-sm btn-primary",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function($event) {
+          _vm.openEditEquipment(item.id, 'edit')
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-edit"
+    })]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-sm btn-danger",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function($event) {
+          _vm.deleteEquipment(item.id)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-trash-o"
+    })])])])
+  }))])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-5"
+  }, [_c('div', {
+    staticClass: "dataTables_info",
+    attrs: {
+      "id": "equipment_info",
+      "role": "status",
+      "aria-live": "polite"
+    }
+  }, [_vm._v("\n                    Showing " + _vm._s(_vm.page_info.list_from) + " to " + _vm._s(_vm.page_info.list_to) + " of " + _vm._s(_vm.page_info.total) + " entries\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-7"
+  }, [_c('div', {
+    staticClass: "dataTables_paginate paging_simple_numbers",
+    attrs: {
+      "id": "equipment_paginate"
+    }
+  }, [_c('ul', {
+    staticClass: "pagination"
+  }, [_c('li', {
+    staticClass: "paginate_button previous",
+    class: [_vm.page_info.current_page - 1 == 0 ? 'disabled' : ''],
+    attrs: {
+      "id": "equipment_previous"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-controls": "equipment",
+      "data-dt-idx": "0",
+      "tabindex": "0"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changePage(_vm.page_info.current_page - 1)
+      }
+    }
+  }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l((_vm.getPageArray), function(i) {
+    return _c('li', {
+      staticClass: "paginate_button",
+      class: [_vm.page_info.current_page == i ? 'active' : '']
+    }, [_c('a', {
+      attrs: {
+        "href": "#",
+        "aria-controls": "equipment",
+        "data-dt-idx": "1",
+        "tabindex": "0"
+      },
+      on: {
+        "click": function($event) {
+          _vm.changePage(i)
+        }
+      }
+    }, [_vm._v(_vm._s(i))])])
+  }), _vm._v(" "), _c('li', {
+    staticClass: "paginate_button next",
+    class: [_vm.page_info.current_page + 1 > _vm.page_info.last_page ? 'disabled' : ''],
+    attrs: {
+      "id": "equipment_next"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-controls": "equipment",
+      "data-dt-idx": "7",
+      "tabindex": "0"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changePage(_vm.page_info.current_page + 1)
+      }
+    }
+  }, [_vm._v("Next")])])], 2)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "addEquipment",
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-labelledby": "myModalLabel",
+      "aria-hidden": "true"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header"
+  }, [_vm._m(2), _vm._v(" "), (_vm.action == 'new') ? _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Add Equipment")]) : _vm._e(), _vm._v(" "), (_vm.action == 'edit') ? _c('h4', {
+    staticClass: "modal-title",
+    attrs: {
+      "id": "myModalLabel"
+    }
+  }, [_vm._v("Edit Equipment")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [_c('form', {
+    attrs: {
+      "name": "addEquipment"
+    }
+  }, [(_vm.action == 'edit') ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("ID: ")]), _vm._v("\n                            " + _vm._s(_vm.add_equipment.id) + "\n                        ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("名稱")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_equipment.name),
+      expression: "add_equipment.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "name",
+      "placeholder": "Name",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.add_equipment.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_equipment.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("來源")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_equipment.source),
+      expression: "add_equipment.source"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "source",
+      "placeholder": "Source"
+    },
+    domProps: {
+      "value": (_vm.add_equipment.source)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_equipment.source = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("Memo")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_equipment.memo),
+      expression: "add_equipment.memo"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "memo",
+      "placeholder": "Memo"
+    },
+    domProps: {
+      "value": (_vm.add_equipment.memo)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_equipment.memo = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("數量")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_equipment.amount),
+      expression: "add_equipment.amount"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "name": "amount",
+      "placeholder": "Amount",
+      "min": "0",
+      "max": "10000",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.add_equipment.amount)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_equipment.amount = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("Barcode")]), _vm._v(" "), _c('div', {
+    staticClass: "radio"
+  }, [_c('label', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_equipment.hasBarcode),
+      expression: "add_equipment.hasBarcode"
+    }],
+    attrs: {
+      "name": "hasBarcode",
+      "type": "radio",
+      "value": "0"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.add_equipment.hasBarcode, "0")
+    },
+    on: {
+      "__c": function($event) {
+        _vm.add_equipment.hasBarcode = "0"
+      }
+    }
+  }), _vm._v("無\n                                ")]), _vm._v("\n                                    \n                                "), _c('label', [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_equipment.hasBarcode),
+      expression: "add_equipment.hasBarcode"
+    }],
+    attrs: {
+      "name": "hasBarcode",
+      "type": "radio",
+      "value": "1"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.add_equipment.hasBarcode, "1")
+    },
+    on: {
+      "__c": function($event) {
+        _vm.add_equipment.hasBarcode = "1"
+      }
+    }
+  }), _vm._v("有\n                                ")])])]), _vm._v(" "), (_vm.add_equipment.hasBarcode == '1') ? _c('div', {
+    staticClass: "form-group"
+  }, [_c('strong', [_vm._v("Prefix")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.add_equipment.prefix),
+      expression: "add_equipment.prefix"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "prefix",
+      "placeholder": "Prefix",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.add_equipment.prefix)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.add_equipment.prefix = $event.target.value
+      }
+    }
+  })]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")]), _vm._v(" "), (_vm.action == 'new') ? _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.createNewEquipment()
+      }
+    }
+  }, [_vm._v("Create")]) : _vm._e(), _vm._v(" "), (_vm.action == 'edit') ? _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.saveEquipment(_vm.add_equipment.id)
+      }
+    }
+  }, [_vm._v("Save")]) : _vm._e()])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "input-group-addon",
+    staticStyle: {
+      "background-color": "#eee"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-list"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon",
+    staticStyle: {
+      "background-color": "#eee"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-search"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('span', {
+    staticClass: "sr-only"
+  }, [_vm._v("Close")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-336f2dc8", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

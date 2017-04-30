@@ -12,8 +12,9 @@ class EquipmentTableSeeder extends Seeder
             'name'       => 'machine',
             'source'     => '',
             'memo'       => '',
-            'amount'     => rand(1, 10),
+            'amount'     => 20,
             'hasBarcode' => '1',
+            'prefix'     => 'EQ',
         ]);
         for ($i = 0; $i < 20; $i++) {
             $faker = Faker\Factory::create();
@@ -26,9 +27,8 @@ class EquipmentTableSeeder extends Seeder
             ]);
         }
         for ($i = 0; $i < 20; $i++) {
-            $faker = Faker\Factory::create();
             EquipmentBarcode::create([
-                'barcode'      => $faker->ean13,
+                'barcode'      => 'EQ' . str_pad(($i), 5, '0', STR_PAD_LEFT),
                 'equipment_id' => '1',
             ]);
         }

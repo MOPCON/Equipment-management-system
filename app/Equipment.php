@@ -16,4 +16,14 @@ class Equipment extends Model
     {
         return $this->hasMany('App\EquipmentBarcode');
     }
+
+    public function loans()
+    {
+        return $this->hasMany('App\Loan');
+    }
+
+    public function last()
+    {
+        return $this->amount - $this->loan;
+    }
 }

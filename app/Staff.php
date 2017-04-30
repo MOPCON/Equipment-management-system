@@ -41,4 +41,9 @@ class Staff extends Model
     {
         return $this->belongsTo('App\Group');
     }
+
+    public function loans()
+    {
+        return $this->hasMany('App\Loan');
+    }
 }

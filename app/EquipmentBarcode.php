@@ -16,4 +16,9 @@ class EquipmentBarcode extends Model
     {
         return $this->belongsTo('App\Equipment');
     }
+
+    public function loan()
+    {
+        return $this->hasOne('App\Loan');
+    }
 }

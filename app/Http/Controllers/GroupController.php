@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Staff;
 use Illuminate\Http\Request;
 use App\Http\Requests\GroupRequest;
 use App\Services\ApiService;
@@ -22,6 +23,10 @@ class GroupController extends Controller
         $group = Group::orderBy($order_field, $order_method)
             ->paginate($limit);
 
+        foreach ($group as $value) {
+            $value->number = Staff::where('group_id', $value->id)->count();
+        }
+
         return ApiService::returnApiResponse('Success.', $group);
     }
 
@@ -34,7 +39,7 @@ class GroupController extends Controller
     public function store(GroupRequest $request)
     {
         $group = Group::create($request->all());
-
+        
         return ApiService::returnApiResponse('Store Success.', $group);
     }
 
@@ -71,6 +76,9 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
+        if (count($group->users) > 0) {
+            return ApiService::returnApiResponse('該組還有組員，不能刪除。', [], false, 400);
+        }
         $group->delete();
 
         return ApiService::returnApiResponse('Destroy Success.');

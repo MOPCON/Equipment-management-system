@@ -21,6 +21,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/staffs', function () {
         return view('adminlte::staffs.index');
     });
+
+    Route::get('/groups', function () {
+        return view('adminlte::groups.index');
+    });
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware
 //    });

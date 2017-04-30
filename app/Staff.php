@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Gravatar;
+use App\Group;
 
 class Staff extends Model
 {

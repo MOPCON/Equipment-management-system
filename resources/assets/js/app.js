@@ -16,6 +16,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('staff', require('./components/staff.vue'));
+Vue.component('group', require('./components/group.vue'));
 
 const app = new Vue({
     el: '#app'

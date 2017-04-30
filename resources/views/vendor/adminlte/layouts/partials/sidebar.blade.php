@@ -33,8 +33,8 @@
         <ul class="sidebar-menu">
             <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="/staffs"><i class='fa fa-address-card-o'></i> <span>Staffs</span></a></li>
-            <li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>
+            <li><a href="/staffs"><i class='fa fa-address-card-o'></i> <span>Staffs</span></a></li>
+            <li><a href="/groups"><i class='fa fa-group'></i> <span>Groups</span></a></li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.multilevel') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">

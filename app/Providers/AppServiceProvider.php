@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
          * 自動產生barcode
          */
         Staff::creating(function($staff) {
-            $staff->barcode = 'ST'. str_pad((Staff::count() + 1), 5, '0', STR_PAD_LEFT);
+            $staff->barcode = 'ST'. str_pad((((int) str_replace("ST", "",Staff::pluck('barcode')->last()) )+1), 5, '0', STR_PAD_LEFT);
         });
 
         /**

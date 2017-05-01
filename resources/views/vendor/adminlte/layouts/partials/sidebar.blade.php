@@ -18,26 +18,15 @@
             </div>
         @endif
 
-        <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="{{ trans('adminlte_lang::message.search') }}..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-        </form>
-        <!-- /.search form -->
-
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="/staffs"><i class='fa fa-address-card-o'></i> <span>Staffs</span></a></li>
+            <li><a href="/staffs"><i class='glyphicon glyphicon-user'></i> <span>Staffs</span></a></li>
             <li><a href="/groups"><i class='fa fa-group'></i> <span>Groups</span></a></li>
-            <li><a href="/equipments"><i class='fa fa-group'></i> <span>Equipments</span></a></li>
+            <li><a href="/equipments"><i class='glyphicon glyphicon-hdd'></i> <span>Equipments</span></a></li>
             <li class="treeview">
-                <a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.multilevel') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='glyphicon glyphicon-cog'></i> <span>Setting</span></a>
                 <ul class="treeview-menu">
                     <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
                     <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>

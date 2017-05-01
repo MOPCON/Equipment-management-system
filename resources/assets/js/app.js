@@ -19,6 +19,7 @@ Vue.component('staff', require('./components/staff.vue'));
 Vue.component('group', require('./components/group.vue'));
 Vue.component('equipment', require('./components/equipment.vue'));
 Vue.component('equbarcode', require('./components/equbarcode.vue'));
+Vue.component('loan', require('./components/loan.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -37,6 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/equipments/barcode', function () {
         return view('adminlte::equipment.barcode');
     });
+
+    Route::get('/loan', function () {
+        return view('adminlte::loan.index');
+    });
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware
 //    });

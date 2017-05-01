@@ -20,6 +20,7 @@ class LoanController extends Controller
      */
     public function index(Request $request)
     {
+
         $status = $request->input('status', [0, 1]);
         $barcode = $request->input('barcode', '');
         $order_field = $request->input('orderby_field', 'id');
@@ -129,7 +130,7 @@ class LoanController extends Controller
         $loan->return += $request->input('amount');
         $loan->equipment->loan -= $request->input('amount');
         $loan->equipment->save();
-        
+
         if ($loan->last() == 0) {
             $loan->status = 1;
             $loan->return_at = date('Y-m-d H:i:s');

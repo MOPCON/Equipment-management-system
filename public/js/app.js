@@ -23693,6 +23693,7 @@ Vue.component('staff', __webpack_require__(66));
 Vue.component('group', __webpack_require__(65));
 Vue.component('equipment', __webpack_require__(64));
 Vue.component('equbarcode', __webpack_require__(255));
+Vue.component('loan', __webpack_require__(258));
 
 var app = new Vue({
   el: '#app'
@@ -47796,6 +47797,472 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-9b6dde0e", module.exports)
+  }
+}
+
+/***/ }),
+/* 257 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            list: [],
+            col: [],
+            page_info: []
+        };
+    },
+    computed: {
+        getPageArray: function getPageArray() {
+            var self = this;
+            var bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+            var top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+            var array = [];
+            for (var i = bottom; i <= top; i++) {
+                array.push(i);
+            }
+            return array;
+        }
+    },
+    methods: {
+        initCol: function initCol() {
+            var self = this;
+            self.col = [{
+                name: 'id',
+                key: 'id'
+            }, {
+                name: 'Staff',
+                key: 'staff'
+            }, {
+                name: 'Equipment',
+                key: 'equipment'
+            }, {
+                name: 'Amount',
+                key: 'amount'
+            }, {
+                name: 'Return',
+                key: 'return'
+            }, {
+                name: 'Barcode',
+                key: 'barcode'
+            }, {
+                name: 'Status',
+                key: 'status'
+            }, {
+                name: 'Return_At',
+                key: 'return_at'
+            }, {
+                name: 'Created_At',
+                key: 'created_at'
+            }, {
+                name: 'Updated_At',
+                key: 'updated_at'
+            }];
+        },
+        getAllLoan: function getAllLoan() {
+            var _this = this;
+
+            var self = this;
+            axios.get('/api/loan?barcode=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + (self.page_info.current_page + self.page_info.status ? self.page_info.status : '')).then(function (response) {
+                var self = _this;
+                var res = response.data.data;
+                self.list = res.data;
+                self.page_info.current_page = res.current_page;
+                self.page_info.last_page = res.last_page;
+                self.page_info.total = res.total;
+                self.page_info.list_from = res.from;
+                self.page_info.list_to = res.to;
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        setPageLimit: function setPageLimit() {
+            this.getAllLoan();
+        },
+        searchKeyword: function searchKeyword(event) {
+            if (event.which === 13) {
+                console.log(this.page_info.search);
+                this.getAllLoan();
+            }
+        },
+        changePage: function changePage(page) {
+            var self = this;
+            if (page > 0 && page <= self.page_info.last_page) {
+                self.page_info.current_page = page;
+                this.getAllLoan();
+            }
+        },
+        changeSort: function changeSort(field) {
+            var self = this;
+            if (field != '') {
+                self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC';
+                self.page_info.sort_key = field;
+                this.getAllLoan();
+            }
+        }
+    },
+    created: function created() {
+        var self = this;
+        self.page_info = {
+            current_page: 1,
+            limit: '15',
+            last_page: 1,
+            total: 1,
+            sort_key: 'id',
+            sort_dir: 'DESC',
+            search: '',
+            list_from: 1,
+            list_to: 15,
+            status: ''
+        };
+        self.initCol();
+        self.getAllLoan();
+    },
+    watch: {}
+});
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(257),
+  /* template */
+  __webpack_require__(259),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "G:\\git\\Equipment-management-system\\resources\\assets\\js\\components\\loan.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] loan.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-634e95d2", Component.options)
+  } else {
+    hotAPI.reload("data-v-634e95d2", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
+    staticClass: "dataTables_wrapper form-inline dt-bootstrap",
+    attrs: {
+      "id": "loan_wrapper"
+    }
+  }, [_c('div', {
+    staticClass: "row",
+    staticStyle: {}
+  }, [_c('div', {
+    staticClass: "col-xs-10 col-sm-2 col-md-2 col-lg-1"
+  }, [_c('div', {
+    staticClass: "input-group input-group-sm"
+  }, [_vm._m(0), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.page_info.limit),
+      expression: "page_info.limit"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "loan_length"
+    },
+    on: {
+      "change": [function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.page_info.limit = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }, function($event) {
+        _vm.setPageLimit()
+      }]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "10"
+    }
+  }, [_vm._v("10")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "15"
+    }
+  }, [_vm._v("15")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "20"
+    }
+  }, [_vm._v("20")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "25"
+    }
+  }, [_vm._v("25")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "50"
+    }
+  }, [_vm._v("50")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "100"
+    }
+  }, [_vm._v("100")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-10 col-sm-3 col-md-3 col-lg-3"
+  }, [_c('div', {
+    staticClass: "input-group input-group-sm"
+  }, [_vm._m(1), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.page_info.search),
+      expression: "page_info.search"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "search",
+      "placeholder": "Barcode",
+      "aria-controls": "loan"
+    },
+    domProps: {
+      "value": (_vm.page_info.search)
+    },
+    on: {
+      "keyup": function($event) {
+        _vm.searchKeyword($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.page_info.search = $event.target.value
+      }
+    }
+  })])])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xs-10 col-sm-12 col-md-12 col-lg-12 table-responsive"
+  }, [_c('table', {
+    staticClass: "table table-bordered table-striped dataTable",
+    attrs: {
+      "id": "loan",
+      "role": "grid",
+      "aria-describedby": "loan_info"
+    }
+  }, [_c('thead', [_c('tr', {
+    attrs: {
+      "role": "row"
+    }
+  }, _vm._l((_vm.col), function(row) {
+    return _c('th', {
+      staticClass: "sortfield",
+      attrs: {
+        "tabindex": "0"
+      },
+      on: {
+        "click": function($event) {
+          _vm.changeSort(row.key)
+        }
+      }
+    }, [_vm._v("\n                                " + _vm._s(row.name) + "\n                            ")])
+  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.list), function(item) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.staff_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.equipment_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.amount))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.return))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.barcode))]), _vm._v(" "), (item.status == '0') ? _c('td', [_vm._v("出借中")]) : _vm._e(), _vm._v(" "), (item.status == '1') ? _c('td', [_vm._v("已歸還")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.return_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.created_at))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.updated_at))])])
+  }))])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-5"
+  }, [_c('div', {
+    staticClass: "dataTables_info",
+    attrs: {
+      "id": "loan_info",
+      "role": "status",
+      "aria-live": "polite"
+    }
+  }, [_vm._v("\n                    Showing " + _vm._s(_vm.page_info.list_from) + " to " + _vm._s(_vm.page_info.list_to) + " of " + _vm._s(_vm.page_info.total) + " entries\n                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-7"
+  }, [_c('div', {
+    staticClass: "dataTables_paginate paging_simple_numbers",
+    attrs: {
+      "id": "loan_paginate"
+    }
+  }, [_c('ul', {
+    staticClass: "pagination"
+  }, [_c('li', {
+    staticClass: "paginate_button previous",
+    class: [_vm.page_info.current_page - 1 == 0 ? 'disabled' : ''],
+    attrs: {
+      "id": "loan_previous"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-controls": "loan",
+      "data-dt-idx": "0",
+      "tabindex": "0"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changePage(_vm.page_info.current_page - 1)
+      }
+    }
+  }, [_vm._v("Previous")])]), _vm._v(" "), _vm._l((_vm.getPageArray), function(i) {
+    return _c('li', {
+      staticClass: "paginate_button",
+      class: [_vm.page_info.current_page == i ? 'active' : '']
+    }, [_c('a', {
+      attrs: {
+        "href": "#",
+        "aria-controls": "loan",
+        "data-dt-idx": "1",
+        "tabindex": "0"
+      },
+      on: {
+        "click": function($event) {
+          _vm.changePage(i)
+        }
+      }
+    }, [_vm._v(_vm._s(i))])])
+  }), _vm._v(" "), _c('li', {
+    staticClass: "paginate_button next",
+    class: [_vm.page_info.current_page + 1 > _vm.page_info.last_page ? 'disabled' : ''],
+    attrs: {
+      "id": "loan_next"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#",
+      "aria-controls": "loan",
+      "data-dt-idx": "7",
+      "tabindex": "0"
+    },
+    on: {
+      "click": function($event) {
+        _vm.changePage(_vm.page_info.current_page + 1)
+      }
+    }
+  }, [_vm._v("Next")])])], 2)])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "input-group-addon",
+    staticStyle: {
+      "background-color": "#eee"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-list"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-addon",
+    staticStyle: {
+      "background-color": "#eee"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-search"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-634e95d2", module.exports)
   }
 }
 

@@ -11,6 +11,12 @@ class EquipmentBarcode extends Model
     protected $fillable = [
         'barcode', 'equipment_id',
     ];
+    protected $appends = ['equipment_name'];
+
+    public function getEquipmentNameAttribute()
+    {
+        return $this->equipment->name;
+    }
 
     public function equipment()
     {

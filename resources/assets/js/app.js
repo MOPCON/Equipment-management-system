@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -18,6 +17,8 @@ window.Vue = require('vue');
 Vue.component('staff', require('./components/staff.vue'));
 Vue.component('group', require('./components/group.vue'));
 Vue.component('equipment', require('./components/equipment.vue'));
+Vue.component('equbarcode', require('./components/equbarcode.vue'));
+Vue.component('loan', require('./components/loan.vue'));
 Vue.component('lend', require('./components/loan.lend.vue'));
 
 const app = new Vue({

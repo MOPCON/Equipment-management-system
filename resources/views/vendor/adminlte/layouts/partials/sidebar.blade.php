@@ -39,8 +39,7 @@
                 <a href="#"><i class='glyphicon glyphicon-transfer'></i> <span>Loan Manager</span></a>
                 <ul class="treeview-menu">
                     <li><a href="/loan">Loan log</a></li>
-                    <li><a href="/loan/lend">Lend</a></li>
-                    <li><a href="/loan/return">Return</a></li>
+                    <li><a href="/loan/action">Lend & Return System</a></li>
                 </ul>
             </li>
             <li class="treeview">

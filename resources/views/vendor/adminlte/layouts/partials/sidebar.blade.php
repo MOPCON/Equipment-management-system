@@ -22,14 +22,32 @@
         <ul class="sidebar-menu">
             <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="/staffs"><i class='glyphicon glyphicon-user'></i> <span>Staffs</span></a></li>
-            <li><a href="/groups"><i class='fa fa-group'></i> <span>Groups</span></a></li>
-            <li><a href="/equipments"><i class='glyphicon glyphicon-hdd'></i> <span>Equipments</span></a></li>
+            <li><a href="/staffs"><i class='glyphicon glyphicon-user'></i> <span>Staffs Manager</span></a>
+                <ul class="treeview-menu">
+                    <li><a href="/staffs">Staff</a></li>
+                    <li><a href="/group">Group</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class='glyphicon glyphicon-hdd'></i> <span>Equipments Manager</span></a>
+                <ul class="treeview-menu">
+                    <li><a href="/equipments">Equipments</a></li>
+                    <li><a href="/equipments/barcode">Barcode</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class='glyphicon glyphicon-transfer'></i> <span>Loan Manager</span></a>
+                <ul class="treeview-menu">
+                    <li><a href="/loan">Loan log</a></li>
+                    <li><a href="/loan/lend">Lend</a></li>
+                    <li><a href="/loan/return">Return</a></li>
+                </ul>
+            </li>
             <li class="treeview">
                 <a href="#"><i class='glyphicon glyphicon-cog'></i> <span>Setting</span></a>
                 <ul class="treeview-menu">
-                    <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
-                    <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
+                    <li><a href="/user">User Manager</a></li>
+                    <li><a href="/print">Barcode Print</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

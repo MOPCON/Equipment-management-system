@@ -26256,6 +26256,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 };
                 self.log.push(tmp_log);
                 self.initEquipment();
+                if (self.add_loan.equipment_type == '0') {
+                    $("#equibar").focus();
+                }
+                self.initLoan();
             }).catch(function (error) {
                 console.log(error.response);
                 helper.alert(error.response.data.message, 'danger');
@@ -47189,6 +47193,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control input-lg",
     attrs: {
+      "id": "equibar",
       "type": "text",
       "placeholder": "Equipment Barcode",
       "tabindex": "1"
@@ -47364,7 +47369,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(item.name))])
   })], 2)]) : _vm._e()])]), _vm._v(" "), (_vm.big_info.had == '1') ? _c('div', {
-    staticClass: "col-lg-6"
+    staticClass: "col-lg-4"
   }, [_c('div', {
     staticClass: "small-box bg-maroon"
   }, [_vm._m(2), _vm._v(" "), _c('div', {

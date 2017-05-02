@@ -11,7 +11,7 @@
                             <label for="equbar" class="control-label"><i class="glyphicon glyphicon-hdd"></i> <strong>Equipment &nbsp&nbsp</strong></label>&nbsp&nbsp
                             <label><input type="radio" name="EquipmentType" value="0" v-model="add_loan.equipment_type" checked>Barcode</label>
                             <label><input type="radio" name="EquipmentType" value="1" v-model="add_loan.equipment_type">Select</label>
-                            <input v-if="add_loan.equipment_type == '0'" type="text" class="form-control input-lg" v-model="add_loan.equipment_barcode" placeholder="Equipment Barcode">
+                            <input v-if="add_loan.equipment_type == '0'" type="text" class="form-control input-lg" v-model="add_loan.equipment_barcode" placeholder="Equipment Barcode" tabindex="1" v-on:keyup="equi_bar($event)">
                             <div v-if="add_loan.equipment_type == '1'">
                                 <div class="row">
                                     <div class="col-lg-8">
@@ -30,7 +30,7 @@
                             <label for="staffbar" class="control-label"><i class="glyphicon glyphicon-user"></i> <strong>Staff Barcode &nbsp&nbsp</strong></label>
                             <label><input type="radio" name="StaffType" value="0" v-model="add_loan.staff_type" checked>Barcode</label>
                             <label><input type="radio" name="StaffType" value="1" v-model="add_loan.staff_type">Select</label>
-                            <input v-if="add_loan.staff_type == '0'" type="text" class="form-control input-lg" v-model="add_loan.staff_barcode" placeholder="Staff Barcode">
+                            <input id="staffbar" v-if="add_loan.staff_type == '0'" type="text" class="form-control input-lg" v-model="add_loan.staff_barcode" placeholder="Staff Barcode" tabindex="2" v-on:keyup="staff_bar($event)">
                             <div v-if="add_loan.staff_type == '1'">
                                 <select class="form-control" v-model="add_loan.staff_id">
                                     <option value="0"> --- Select Staff --- </option>
@@ -235,6 +235,18 @@
                     console.log(error.response);
                     helper.alert(error.response.data.message, 'danger');
                 });
+            },
+            equi_bar: function (event) {
+                var self = this;
+                if (event.which === 13 && self.add_loan.staff_type == '0') {
+                    $("#staffbar").focus();
+                }
+            },
+            staff_bar: function (event) {
+                var self = this;
+                if (event.which === 13) {
+                    self.loanEquipment();
+                }
             }
         }, created: function () {
             var self = this;

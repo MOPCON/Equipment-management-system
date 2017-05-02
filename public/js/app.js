@@ -26260,6 +26260,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error.response);
                 helper.alert(error.response.data.message, 'danger');
             });
+        },
+        equi_bar: function equi_bar(event) {
+            var self = this;
+            if (event.which === 13 && self.add_loan.staff_type == '0') {
+                $("#staffbar").focus();
+            }
+        },
+        staff_bar: function staff_bar(event) {
+            var self = this;
+            if (event.which === 13) {
+                self.loanEquipment();
+            }
         }
     }, created: function created() {
         var self = this;
@@ -47178,12 +47190,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control input-lg",
     attrs: {
       "type": "text",
-      "placeholder": "Equipment Barcode"
+      "placeholder": "Equipment Barcode",
+      "tabindex": "1"
     },
     domProps: {
       "value": (_vm.add_loan.equipment_barcode)
     },
     on: {
+      "keyup": function($event) {
+        _vm.equi_bar($event)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.add_loan.equipment_barcode = $event.target.value
@@ -47301,13 +47317,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control input-lg",
     attrs: {
+      "id": "staffbar",
       "type": "text",
-      "placeholder": "Staff Barcode"
+      "placeholder": "Staff Barcode",
+      "tabindex": "2"
     },
     domProps: {
       "value": (_vm.add_loan.staff_barcode)
     },
     on: {
+      "keyup": function($event) {
+        _vm.staff_bar($event)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.add_loan.staff_barcode = $event.target.value

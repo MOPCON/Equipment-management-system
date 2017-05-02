@@ -19,14 +19,19 @@ class EquipmentController extends Controller
         $search = $request->input('search', '');
         $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('orderby_method', 'desc');
-        $limit = $request->input('limit', 15);
-        $equipment = Equipment::Where(function($query) use ($search) {
-            $query->orWhere('name', 'LIKE', '%' . $search . '%')
-                ->orWhere('memo', 'LIKE', '%' . $search . '%')
-                ->orWhere('source', 'LIKE', '%' . $search . '%');
-        })
-            ->orderBy($order_field, $order_method)
-            ->paginate($limit);
+        if ($request->input('all', false)) {
+            $equipment = Equipment::orderBy($order_field, $order_method)->get();
+        } else {
+            $limit = $request->input('limit', 15);
+            $equipment = Equipment::Where(function($query) use ($search) {
+                $query->orWhere('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('memo', 'LIKE', '%' . $search . '%')
+                    ->orWhere('source', 'LIKE', '%' . $search . '%');
+            })
+                ->orderBy($order_field, $order_method)
+                ->paginate($limit);
+        }
+
 
         return ApiService::returnApiResponse('Success.', $equipment);
     }

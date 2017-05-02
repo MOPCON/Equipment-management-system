@@ -1,9 +1,11 @@
 body {
-    font-family:PMingLiU;
+    font-family: PMingLiU;
 }
+
 .sortfield {
     cursor: pointer;
 }
+
 .width100 {
     width: 100%;
 }
@@ -13,7 +15,7 @@ body {
     margin-bottom: 20px !important;
     border: 1px solid transparent !important;
     z-index: 99999 !important;
-    opacity:0.95 !important;
+    opacity: 0.95 !important;
 }
 
 .alert-info {
@@ -37,4 +39,12 @@ body {
     background-color: #f2dede !important;
     border-color: #ebccd1 !important;
     color: #a94442 !important;
+}
+
+.print-style {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
 }

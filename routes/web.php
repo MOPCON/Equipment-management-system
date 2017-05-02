@@ -40,4 +40,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/loan/action', function() {
         return view('adminlte::loan.action');
     });
+
+    Route::get('/tool/print', function() {
+        return view('adminlte::tool.print');
+    });
 });

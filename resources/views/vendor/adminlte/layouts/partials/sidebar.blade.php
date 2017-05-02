@@ -46,7 +46,7 @@
                 <a href="#"><i class='glyphicon glyphicon-cog'></i> <span>Setting</span></a>
                 <ul class="treeview-menu">
                     <li><a href="/user">User Manager</a></li>
-                    <li><a href="/print">Barcode Print</a></li>
+                    <li><a href="/tool/print">Barcode Print</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

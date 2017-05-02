@@ -63,11 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 84);
-=======
-/******/ 	return __webpack_require__(__webpack_require__.s = 81);
->>>>>>> 3df3ca232750b9f21230b619170cc7f1278a6817
+/******/ 	return __webpack_require__(__webpack_require__.s = 93);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2411,11 +2407,7 @@ if (typeof jQuery === 'undefined') {
 
 window.$ = window.jQuery = __webpack_require__(4);
 
-<<<<<<< HEAD
-__webpack_require__(52);
-=======
-__webpack_require__(51);
->>>>>>> 3df3ca232750b9f21230b619170cc7f1278a6817
+__webpack_require__(55);
 
 __webpack_require__(10);
 
@@ -12695,11 +12687,7 @@ return jQuery;
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 52:
-=======
-/***/ 51:
->>>>>>> 3df3ca232750b9f21230b619170cc7f1278a6817
+/***/ 55:
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -22478,11 +22466,7 @@ module.exports = g;
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 84:
-=======
-/***/ 81:
->>>>>>> 3df3ca232750b9f21230b619170cc7f1278a6817
+/***/ 93:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(18);

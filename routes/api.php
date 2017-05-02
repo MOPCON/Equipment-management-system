@@ -32,4 +32,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('group', 'GroupController');
     Route::resource('loan', 'LoanController');
     Route::post('loan/return', 'LoanController@returnLoan');
+    Route::get('barcode', 'BarcodeController@getBarcode');
 });

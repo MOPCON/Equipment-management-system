@@ -20,16 +20,19 @@ class StaffController extends Controller
         $search = $request->input('search', '');
         $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('orderby_method', 'desc');
-        $limit = $request->input('limit', 15);
-        $staff = Staff::whereIn('group_id', $group_id)
-            ->Where(function($query) use ($search) {
-                $query->orWhere('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('email', 'LIKE', '%' . $search . '%')
-                    ->orWhere('phone', 'LIKE', '%' . $search . '%');
-            })
-            ->orderBy($order_field, $order_method)
-            ->paginate($limit);
-
+        if ($request->input('all', false)) {
+            $staff = Staff::orderBy($order_field, $order_method)->get();
+        } else {
+            $limit = $request->input('limit', 15);
+            $staff = Staff::whereIn('group_id', $group_id)
+                ->Where(function($query) use ($search) {
+                    $query->orWhere('name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('email', 'LIKE', '%' . $search . '%')
+                        ->orWhere('phone', 'LIKE', '%' . $search . '%');
+                })
+                ->orderBy($order_field, $order_method)
+                ->paginate($limit);
+        }
         return ApiService::returnApiResponse('Success.', $staff);
     }
 

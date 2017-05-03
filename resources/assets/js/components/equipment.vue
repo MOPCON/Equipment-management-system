@@ -297,6 +297,7 @@
                     prefix:     self.add_equipment.prefix,
                     _method:    'PUT'
                 };
+                console.log(data);
                 axios.post(
                     '/api/equipment/' + id, data
                 ).then(response => {

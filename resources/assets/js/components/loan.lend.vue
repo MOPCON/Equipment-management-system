@@ -185,10 +185,10 @@
             initLoan: function () {
                 var self = this;
                 self.add_loan = {
-                    staff_type: '0',    // 0->barcode, 1->select
+                    staff_type: self.add_loan.staff_type ? self.add_loan.staff_type : '0',    // 0->barcode, 1->select
                     staff_id: '0',
                     staff_barcode: '',
-                    equipment_type: '0',    // 0->barcode, 1->select
+                    equipment_type: self.add_loan.equipment_type ? self.add_loan.equipment_type : '0',    // 0->barcode, 1->select
                     equipment_id: '0',
                     equipment_barcode: '',
                     amount: '1'
@@ -283,7 +283,9 @@
                         amount: res.amount,
                         lend_time: res.created_at
                     };
+                    self.log.reverse();
                     self.log.push(tmp_log);
+                    self.log.reverse();
                     self.initEquipment();
                     if (self.add_loan.equipment_type == '0') {
                         $("#equibar").focus();

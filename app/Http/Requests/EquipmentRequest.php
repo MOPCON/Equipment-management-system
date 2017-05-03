@@ -27,20 +27,20 @@ class EquipmentRequest extends FormRequest
             $id = explode("/", $this->path())[2];
             return [
                 'name'       => 'required|string',
-                'source'     => 'string',
-                'memo'       => 'string',
+                'source'     => 'nullable|string',
+                'memo'       => 'nullable|string',
                 'amount'     => 'required|integer',
                 'hasBarcode' => 'required',
-                'prefix'     => 'required_if:hasBarcode,1|string|unique:equipments,prefix,' . $id,
+                'prefix'     => 'required_if:hasBarcode,1|nullable|string|unique:equipments,prefix,' . $id,
             ];
         }
         return [
             'name'       => 'required|string',
-            'source'     => 'string',
-            'memo'       => 'string',
+            'source'     => 'nullable|string',
+            'memo'       => 'nullable|string',
             'amount'     => 'required|integer',
             'hasBarcode' => 'required',
-            'prefix'     => 'required_if:hasBarcode,1|string|unique:equipments,prefix',
+            'prefix'     => 'required_if:hasBarcode,1|nullable|string|unique:equipments,prefix',
         ];
     }
 

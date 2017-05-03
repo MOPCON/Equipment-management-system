@@ -25638,6 +25638,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 prefix: self.add_equipment.prefix,
                 _method: 'PUT'
             };
+            console.log(data);
             axios.post('/api/equipment/' + id, data).then(function (response) {
                 $('#addEquipment').modal('hide');
                 self.getAllEquipment();
@@ -26217,10 +26218,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initLoan: function initLoan() {
             var self = this;
             self.add_loan = {
-                staff_type: '0', // 0->barcode, 1->select
+                staff_type: self.add_loan.staff_type ? self.add_loan.staff_type : '0', // 0->barcode, 1->select
                 staff_id: '0',
                 staff_barcode: '',
-                equipment_type: '0', // 0->barcode, 1->select
+                equipment_type: self.add_loan.equipment_type ? self.add_loan.equipment_type : '0', // 0->barcode, 1->select
                 equipment_id: '0',
                 equipment_barcode: '',
                 amount: '1'
@@ -26309,7 +26310,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     amount: res.amount,
                     lend_time: res.created_at
                 };
+                self.log.reverse();
                 self.log.push(tmp_log);
+                self.log.reverse();
                 self.initEquipment();
                 if (self.add_loan.equipment_type == '0') {
                     $("#equibar").focus();
@@ -47648,7 +47651,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('i', {
       staticClass: "fa fa-trash-o"
     })])])])
-  }))])])]), _vm._v("21\n        "), _c('div', {
+  }))])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-5"

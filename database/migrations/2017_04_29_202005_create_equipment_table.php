@@ -16,12 +16,12 @@ class CreateEquipmentTable extends Migration
         Schema::create('equipments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('source')->default('');
-            $table->string('memo')->default('');
+            $table->string('source')->nullable()->default('');
+            $table->string('memo')->nullable()->default('');
             $table->unsignedInteger('amount');
             $table->unsignedInteger('loan')->default(0);
             $table->tinyInteger('hasBarcode');
-            $table->string('prefix')->default('');
+            $table->string('prefix')->nullable()->default('');
         });
 
         Schema::create('equipment_barcodes', function (Blueprint $table) {

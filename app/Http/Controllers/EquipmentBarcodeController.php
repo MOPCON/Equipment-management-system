@@ -29,4 +29,23 @@ class EquipmentBarcodeController extends Controller
 
         return ApiService::returnApiResponse('Success.', $barcode);
     }
+
+    /**
+     * @param Request $request
+     * @param         $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $equipmentBarcode = EquipmentBarcode::find($id);
+        if ($equipmentBarcode && $request->has('barcode')) {
+            $equipmentBarcode->barcode = $request->input('barcode');
+            $equipmentBarcode->save();
+
+            return ApiService::returnApiResponse('Success.', $equipmentBarcode);
+        }
+
+        return ApiService::returnApiResponse('Not found.', [], false, 404);
+
+    }
 }

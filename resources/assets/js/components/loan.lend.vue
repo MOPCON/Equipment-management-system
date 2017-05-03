@@ -6,31 +6,62 @@
             </h4>
             <div class="box-body">
                 <div class="row">
+                    <div class="col-lg-offset-2 col-lg-8">
+                        <div class="callout callout-danger" v-if="top_info.success == 2">
+                            <h4><i class="glyphicon glyphicon-remove"></i> {{ top_info.message }}</h4>
+                        </div>
+                        <div class="callout callout-success" v-if="top_info.success == 1">
+                            <h4><i class="glyphicon glyphicon-ok"></i> {{ top_info.message }}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-offset-2 col-lg-4">
                         <div class="form-group">
                             <label for="equbar" class="control-label"><i class="glyphicon glyphicon-hdd"></i> <strong>Equipment &nbsp&nbsp</strong></label>&nbsp&nbsp
-                            <label><input type="radio" name="EquipmentType" value="0" v-model="add_loan.equipment_type" checked>Barcode</label>
+                            <label><input type="radio" name="EquipmentType" value="0" v-model="add_loan.equipment_type"
+                                          checked>Barcode</label>
                             <label><input type="radio" name="EquipmentType" value="1" v-model="add_loan.equipment_type">Select</label>
-                            <input id="equibar" v-if="add_loan.equipment_type == '0'" type="text" class="form-control input-lg" v-model="add_loan.equipment_barcode" placeholder="Equipment Barcode" tabindex="1" v-on:keyup="equi_bar($event)">
+                            <div class="input-group" v-if="add_loan.equipment_type == '0'">
+                                <input id="equibar" type="text"
+                                       class="form-control input-lg" v-model="add_loan.equipment_barcode"
+                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup="equi_bar($event)">
+                                <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
+                                                                      v-on:click="equi_clear()"><i
+                                        class="glyphicon glyphicon-repeat"></i> </button></span>
+                            </div>
                             <div v-if="add_loan.equipment_type == '1'">
                                 <div class="row">
                                     <div class="col-lg-8">
                                         <select class="form-control" v-model="add_loan.equipment_id">
                                             <option value="0"> --- Select Equipment --- </option>
-                                            <option v-for="item in equipment_list" v-if="item.hasBarcode == '0'" v-bind:value="item.id">{{ item.name }}-({{ item.amount-item.loan }})</option>
+                                            <option v-for="item in equipment_list" v-if="item.hasBarcode == '0'"
+                                                    v-bind:value="item.id">
+                                                {{ item.name }}-({{ item.amount - item.loan }})
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-lg-3">
-                                        <input type="number" class="form-control" v-model="add_loan.amount" min="1" placeholder="Amount">
+                                        <input type="number" class="form-control" v-model="add_loan.amount" min="1"
+                                               placeholder="Amount">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="staffbar" class="control-label"><i class="glyphicon glyphicon-user"></i> <strong>Staff Barcode &nbsp&nbsp</strong></label>
+                            <label for="staffbar" class="control-label"><i class="glyphicon glyphicon-user"></i>
+                                <strong>Staff Barcode &nbsp&nbsp</strong></label>
                             <label><input type="radio" name="StaffType" value="0" v-model="add_loan.staff_type" checked>Barcode</label>
-                            <label><input type="radio" name="StaffType" value="1" v-model="add_loan.staff_type">Select</label>
-                            <input id="staffbar" v-if="add_loan.staff_type == '0'" type="text" class="form-control input-lg" v-model="add_loan.staff_barcode" placeholder="Staff Barcode" tabindex="2" v-on:keyup="staff_bar($event)">
+                            <label><input type="radio" name="StaffType" value="1"
+                                          v-model="add_loan.staff_type">Select</label>
+                            <div class="input-group" v-if="add_loan.staff_type == '0'">
+                                <input id="staffbar" type="text"
+                                       class="form-control input-lg" v-model="add_loan.staff_barcode"
+                                       placeholder="Staff Barcode" tabindex="2" v-on:keyup="staff_bar($event)">
+                                <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
+                                                                      v-on:click="staff_clear()"><i
+                                        class="glyphicon glyphicon-repeat"></i> </button></span>
+                            </div>
                             <div v-if="add_loan.staff_type == '1'">
                                 <select class="form-control" v-model="add_loan.staff_id">
                                     <option value="0"> --- Select Staff --- </option>
@@ -40,16 +71,16 @@
                         </div>
                     </div>
                     <div class="col-lg-4" v-if="big_info.had=='1'">
-                        <div class="small-box bg-maroon">
+                        <div class="small-box bg-aqua-gradient">
                             <div class="icon">
                                 <i class="glyphicon glyphicon-hdd"></i>
                             </div>
                             <div class="inner">
-                                <h3>{{ big_info.equipment_name }} X {{ big_info.amount }}</h3>
+                                <h3>{{ big_info.equipment_name }} * {{ big_info.amount }}</h3>
                                 <h4>{{ big_info.equipment_barcode }}&nbsp</h4>
                             </div>
                         </div>
-                        <div class="small-box bg-maroon">
+                        <div class="small-box bg-aqua-gradient">
                             <div class="icon">
                                 <i class="glyphicon glyphicon-user"></i>
                             </div>
@@ -62,9 +93,11 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-offset-4 col-lg-4">
-                        <button v-on:click="loanEquipment()" type="button" class="btn btn-block btn-success btn-lg">Submit</button>
-                    </div>
+                        <button v-on:click="loanEquipment()" type="button" class="btn btn-block btn-lg bg-purple">
+                            Submit
 
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -85,15 +118,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in log">
-                                <td>{{ item.id }}</td>
-                                <td>{{ item.staff_name }}</td>
-                                <td>{{ item.staff_barcode }}</td>
-                                <td>{{ item.equipment_name }}</td>
-                                <td>{{ item.equipment_barcode }}</td>
-                                <td>{{ item.amount }}</td>
-                                <td>{{ item.lend_time }}</td>
-                            </tr>
+                        <tr v-for="item in log">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.staff_name }}</td>
+                            <td>{{ item.staff_barcode }}</td>
+                            <td>{{ item.equipment_name }}</td>
+                            <td>{{ item.equipment_barcode }}</td>
+                            <td>{{ item.amount }}</td>
+                            <td>{{ item.lend_time }}</td>
+                        </tr>
                         </tbody>
                     </table>
 
@@ -113,6 +146,7 @@
                 staff_list: [],
                 equipment_list: [],
                 big_info: [],
+                top_info: [],
             }
         },
         methods: {
@@ -141,16 +175,23 @@
                     key: ''
                 }];
             },
+            intTopInfo: function () {
+                var self = this;
+                self.top_info = {
+                    success: 0, //0->none, 1->success, 2->error
+                    message: '',
+                }
+            },
             initLoan: function () {
                 var self = this;
                 self.add_loan = {
-                    staff_type:         '0',    // 0->barcode, 1->select
-                    staff_id:           '0',
-                    staff_barcode:      '',
-                    equipment_type:     '0',    // 0->barcode, 1->select
-                    equipment_id:       '0',
-                    equipment_barcode:  '',
-                    amount:             '1'
+                    staff_type: '0',    // 0->barcode, 1->select
+                    staff_id: '0',
+                    staff_barcode: '',
+                    equipment_type: '0',    // 0->barcode, 1->select
+                    equipment_id: '0',
+                    equipment_barcode: '',
+                    amount: '1'
                 }
             },
             initEquipment: function () {
@@ -158,33 +199,44 @@
                 axios.get(
                     '/api/equipment?all=true&orderby_field=name&orderby_method=asc'
                 ).then(response => {
-                      var res = response.data.data;
-                      self.equipment_list = res;
-                      console.log(self.equipment_list);
+                    var res = response.data.data;
+                    self.equipment_list = res;
+                    console.log(self.equipment_list);
                 }).catch(error => {
-                      console.log(error);
+                    console.log(error);
                 });
+            },
+            initBigInfo: function () {
+                var self = this;
+                self.big_info = {
+                    equipment_type: '0',    // 0->barcode, 1->name
+                    equipment_name: '',
+                    equipment_barcode: '',
+                    staff_name: '',
+                    staff_barcode: '',
+                    amount: '1',
+                };
             },
             initList: function () {
                 var self = this;
                 axios.get(
                     '/api/staff?all=true&orderby_field=name&orderby_method=asc'
                 ).then(response => {
-                      var res = response.data.data;
-                      self.staff_list = res;
-                      console.log(self.staff_list);
+                    var res = response.data.data;
+                    self.staff_list = res;
+                    console.log(self.staff_list);
                 }).catch(error => {
-                      console.log(error);
+                    console.log(error);
                 });
                 self.big_info = {
-                    had:                '0',    // have
-                    number:             0,
-                    equipment_type:     '0',    // 0->barcode, 1->name
-                    equipment_name:     '',
-                    equipment_barcode:  '',
-                    staff_name:         '',
-                    staff_barcode:      '',
-                    amount:             '1'
+                    had: '0',    // have
+                    number: 0,
+                    equipment_type: '0',    // 0->barcode, 1->name
+                    equipment_name: '',
+                    equipment_barcode: '',
+                    staff_name: '',
+                    staff_barcode: '',
+                    amount: '1',
                 };
             },
             loanEquipment: function () {
@@ -211,7 +263,9 @@
                 ).then(response => {
                     var res = response.data.data;
                     console.log(response);
-                    helper.alert(response.data.message);
+                    self.top_info.message = response.data.message;
+                    self.top_info.success = 1;
+//                    helper.alert(response.data.message);
                     self.big_info.had = '1';
                     self.big_info.number++;
                     self.big_info.equipment_type = self.add_loan.equipment_type;
@@ -237,7 +291,9 @@
                     self.initLoan();
                 }).catch(error => {
                     console.log(error.response);
-                    helper.alert(error.response.data.message, 'danger');
+                    self.top_info.message = error.response.data.message;
+                    self.top_info.success = 2;
+//                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             equi_bar: function (event) {
@@ -245,12 +301,26 @@
                 if (event.which === 13 && self.add_loan.staff_type == '0') {
                     $("#staffbar").focus();
                 }
+                if (event.which === 13) {
+                    self.intTopInfo();
+                    self.initBigInfo();
+                }
             },
             staff_bar: function (event) {
                 var self = this;
                 if (event.which === 13) {
                     self.loanEquipment();
                 }
+            },
+            equi_clear: function () {
+                var self = this;
+                self.add_loan.equipment_barcode = '';
+                $("#equibar").focus();
+            },
+            staff_clear: function () {
+                var self = this;
+                self.add_loan.staff_barcode = '';
+                $("#staffbar").focus();
             }
         }, created: function () {
             var self = this;
@@ -258,6 +328,7 @@
             self.initLoan();
             self.initEquipment();
             self.initList();
+            self.intTopInfo();
         }
     }
 </script>

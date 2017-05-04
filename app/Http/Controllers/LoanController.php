@@ -22,6 +22,7 @@ class LoanController extends Controller
     {
 
         $status = $request->input('status', [0, 1]);
+        // dd($status);
         $barcode = $request->input('barcode', '');
         $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('orderby_method', 'desc');

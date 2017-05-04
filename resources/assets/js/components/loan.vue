@@ -7,6 +7,18 @@
                         <div class="input-group-addon" style="background-color: #eee">
                             <i class="glyphicon glyphicon-list"></i>
                         </div>
+                        <select class="form-control" name="loan_length" v-model="page_info.status" @change="setPageStatus()">
+                            <option value="">全部</option>
+                            <option value="0">出借中</option>
+                            <option value="1">已歸還</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-10 col-sm-2 col-md-2 col-lg-1">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-addon" style="background-color: #eee">
+                            <i class="glyphicon glyphicon-list"></i>
+                        </div>
                         <select class="form-control" name="loan_length" v-model="page_info.limit" @change="setPageLimit()">
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -139,8 +151,9 @@
             },
             getAllLoan: function() {
                 var self = this;
+                console.log(self.page_info.status);
                 axios.get(
-                    '/api/loan?barcode=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' +  (self.page_info.current_page + self.page_info.status ? self.page_info.status : '')
+                    '/api/loan?barcode=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page + (self.page_info.status=='' ? '' : '&status[0]=' +self.page_info.status)
                 ).then(response => {
                       var self = this;
                       var res = response.data.data;
@@ -178,6 +191,9 @@
                     self.page_info.sort_key = field;
                     this.getAllLoan();
                 }
+            },
+            setPageStatus: function() {
+                this.getAllLoan();
             }
         },
         created: function()
@@ -193,7 +209,7 @@
                 search: '',
                 list_from: 1,
                 list_to: 15,
-                status: '',
+                status: ''
             }
             self.initCol();
             self.getAllLoan();

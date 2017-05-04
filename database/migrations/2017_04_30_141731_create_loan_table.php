@@ -18,7 +18,7 @@ class CreateLoanTable extends Migration
             $table->unsignedInteger('staff_id');
             $table->unsignedInteger('equipment_id');
             $table->unsignedInteger('amount');
-            $table->unsignedInteger('return')->default(0);
+            $table->unsignedInteger('return_back')->default(0);
             $table->string('barcode')->default('');
             $table->unsignedInteger('status')->default(0)->comment = "0:出借中, 1:已歸還";
             $table->timestamp('return_at')->nullable();

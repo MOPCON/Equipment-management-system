@@ -39,6 +39,6 @@ class Loan extends Model
 
     public function last()
     {
-        return $this->amount - $this->return;
+        return $this->amount - $this->return_back;
     }
 }

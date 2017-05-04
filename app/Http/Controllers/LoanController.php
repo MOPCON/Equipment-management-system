@@ -121,14 +121,14 @@ class LoanController extends Controller
         if ($request->input('loan_id') != 0) {
             $loan = Loan::find($request->input('loan_id'));
         } else {
-            $loan = Loan::where('barcode', $request->input('barcode'));
+            $loan = Loan::where('barcode', $request->input('barcode'))->first();
         }
 
         if (!$loan) {
             return ApiService::returnApiResponse('Loan not found.', [], false, 404);
         }
 
-        $loan->return += $request->input('amount');
+        $loan->return_back += $request->input('amount');
         $loan->equipment->loan -= $request->input('amount');
         $loan->equipment->save();
 

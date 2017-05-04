@@ -20,6 +20,7 @@ Vue.component('equipment', require('./components/equipment.vue'));
 Vue.component('equbarcode', require('./components/equbarcode.vue'));
 Vue.component('loan', require('./components/loan.vue'));
 Vue.component('lend', require('./components/loan.lend.vue'));
+Vue.component('returnbarcode', require('./components/loan.return.barcode.vue'));
 Vue.component('print', require('./components/tool.print.vue'));
 
 const app = new Vue({

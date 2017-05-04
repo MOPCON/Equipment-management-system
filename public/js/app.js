@@ -23694,6 +23694,7 @@ Vue.component('equipment', __webpack_require__(69));
 Vue.component('equbarcode', __webpack_require__(68));
 Vue.component('loan', __webpack_require__(72));
 Vue.component('lend', __webpack_require__(71));
+Vue.component('returnbarcode', __webpack_require__(261));
 Vue.component('print', __webpack_require__(74));
 
 var app = new Vue({
@@ -49164,6 +49165,597 @@ __webpack_require__(23);
 __webpack_require__(20);
 module.exports = __webpack_require__(21);
 
+
+/***/ }),
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            col: [],
+            log: [],
+            return_barcode: '',
+            big_info: [],
+            top_info: []
+        };
+    },
+    methods: {
+        initCol: function initCol() {
+            var self = this;
+            self.col = [{
+                name: 'id',
+                key: 'id'
+            }, {
+                name: 'Staff',
+                key: ''
+            }, {
+                name: 'Staff Barcode',
+                key: ''
+            }, {
+                name: 'Equipment',
+                key: ''
+            }, {
+                name: 'Equipment Barcode',
+                key: ''
+            }, {
+                name: 'Amount',
+                key: ''
+            }, {
+                name: 'Return Time',
+                key: ''
+            }];
+        },
+        intTopInfo: function intTopInfo() {
+            var self = this;
+            self.top_info = {
+                success: 0, //0->none, 1->success, 2->error
+                message: ''
+            };
+        },
+        initData: function initData() {
+            var self = this;
+            self.return_barcode = '';
+        },
+        initBigInfo: function initBigInfo() {
+            var self = this;
+            self.big_info = {
+                equipment_name: '',
+                equipment_barcode: '',
+                staff_name: '',
+                staff_barcode: '',
+                amount: '1'
+            };
+        },
+        initList: function initList() {
+            var self = this;
+            self.big_info = {
+                had: '0', // have
+                number: 0,
+                equipment_name: '',
+                equipment_barcode: '',
+                staff_name: '',
+                staff_barcode: '',
+                amount: '1'
+            };
+        },
+        retuenEquipment: function retuenEquipment() {
+            var self = this;
+            var data = {
+                loan_id: '0',
+                barcode: self.return_barcode,
+                amount: '1'
+            };
+            console.log(data);
+            axios.post('/api/loan/return', data).then(function (response) {
+                var res = response.data.data;
+                console.log(response);
+                self.top_info.message = response.data.message;
+                self.top_info.success = 1;
+                //                    helper.alert(response.data.message);
+                self.big_info.had = '1';
+                self.big_info.number++;
+                self.big_info.equipment_barcode = res.barcode;
+                self.big_info.equipment_name = res.equipment_name;
+                self.big_info.staff_name = res.staff_name;
+                self.big_info.staff_barcode = res.staff.barcode;
+                self.big_info.amount = res.amount;
+                var tmp_log = {
+                    id: self.big_info.number,
+                    staff_name: res.staff_name,
+                    staff_barcode: res.staff.barcode,
+                    equipment_name: res.equipment_name,
+                    equipment_barcode: res.barcode,
+                    amount: res.amount,
+                    return_time: res.return_at
+                };
+                self.log.reverse();
+                self.log.push(tmp_log);
+                self.log.reverse();
+                self.initData();
+                $("#equibar").focus();
+            }).catch(function (error) {
+                console.log(error.response);
+                self.top_info.message = error.response.data.message;
+                self.top_info.success = 2;
+                //                    helper.alert(error.response.data.message, 'danger');
+            });
+        },
+        equi_bar: function equi_bar(event) {
+            var self = this;
+            if (event.which === 13) {
+                self.retuenEquipment();
+                self.intTopInfo();
+                self.initBigInfo();
+            }
+        },
+        equi_clear: function equi_clear() {
+            var self = this;
+            self.return_barcode = '';
+            $("#equibar").focus();
+        }
+    }, created: function created() {
+        var self = this;
+        self.initCol();
+        self.initData();
+        self.initList();
+        self.intTopInfo();
+    }
+});
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(260),
+  /* template */
+  __webpack_require__(262),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "G:\\git\\Equipment-management-system\\resources\\assets\\js\\components\\loan.return.barcode.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] loan.return.barcode.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7098cce4", Component.options)
+  } else {
+    hotAPI.reload("data-v-7098cce4", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "box"
+  }, [_c('h4', {
+    staticClass: "box-title",
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("\n            Scanner Form\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-offset-2 col-lg-8"
+  }, [(_vm.top_info.success == 2) ? _c('div', {
+    staticClass: "callout callout-danger"
+  }, [_c('h4', [_c('i', {
+    staticClass: "glyphicon glyphicon-remove"
+  }), _vm._v(" " + _vm._s(_vm.top_info.message))])]) : _vm._e(), _vm._v(" "), (_vm.top_info.success == 1) ? _c('div', {
+    staticClass: "callout callout-success"
+  }, [_c('h4', [_c('i', {
+    staticClass: "glyphicon glyphicon-ok"
+  }), _vm._v(" " + _vm._s(_vm.top_info.message))])]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-offset-2 col-lg-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_vm._m(0), _vm._v("  \n                        "), _c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.return_barcode),
+      expression: "return_barcode"
+    }],
+    staticClass: "form-control input-lg",
+    attrs: {
+      "id": "equibar",
+      "type": "text",
+      "placeholder": "Equipment Barcode",
+      "tabindex": "1"
+    },
+    domProps: {
+      "value": (_vm.return_barcode)
+    },
+    on: {
+      "keyup": function($event) {
+        _vm.equi_bar($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.return_barcode = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-lg",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.equi_clear()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-repeat"
+  })])])])])]), _vm._v(" "), (_vm.big_info.had == '1') ? _c('div', {
+    staticClass: "col-lg-4"
+  }, [_c('div', {
+    staticClass: "small-box bg-aqua-gradient"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "inner"
+  }, [_c('h3', [_vm._v(_vm._s(_vm.big_info.equipment_name) + " * " + _vm._s(_vm.big_info.amount))]), _vm._v(" "), _c('h4', [_vm._v(_vm._s(_vm.big_info.equipment_barcode) + " ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "small-box bg-aqua-gradient"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "inner"
+  }, [_c('h3', [_vm._v(_vm._s(_vm.big_info.staff_name))]), _vm._v(" "), _c('h4', [_vm._v(_vm._s(_vm.big_info.staff_barcode))])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-lg-offset-4 col-lg-4"
+  }, [_c('button', {
+    staticClass: "btn btn-block btn-lg bg-purple",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.retuenEquipment()
+      }
+    }
+  }, [_vm._v("\n                        Submit\n\n                    ")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "box"
+  }, [_c('h4', {
+    staticClass: "box-title",
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("\n            Scanner log\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
+    staticClass: "table-responsive"
+  }, [_c('table', {
+    staticClass: "table table-bordered table-striped dataTable",
+    attrs: {
+      "id": "group",
+      "role": "grid",
+      "aria-describedby": "group_info"
+    }
+  }, [_c('thead', [_c('tr', {
+    attrs: {
+      "role": "row"
+    }
+  }, _vm._l((_vm.col), function(row) {
+    return _c('th', [_vm._v("\n                            " + _vm._s(row.name) + "\n                        ")])
+  }))]), _vm._v(" "), _c('tbody', _vm._l((_vm.log), function(item) {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(item.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.staff_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.staff_barcode))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.equipment_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.equipment_barcode))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.amount))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.return_time))])])
+  }))])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "equbar"
+    }
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-hdd"
+  }), _vm._v(" "), _c('strong', [_vm._v("Equipment   ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-hdd"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "glyphicon glyphicon-user"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7098cce4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

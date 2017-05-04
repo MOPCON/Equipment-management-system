@@ -25,9 +25,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
        'public/css/toastr.css'
    ], 'public/css/all.css')
    .combine([
-       'public/css/bootstrap.css',
        'resources/assets/css/main.css'
-   ], 'public/css/all-landing.css')
+   ], 'public/css/main.css')
    //APP RESOURCES
    .copy('resources/assets/img/*.*','public/img')
    //VENDOR RESOURCES
@@ -40,6 +39,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .copy('node_modules/icheck/skins/square/blue.png','public/css')
    .copy('node_modules/icheck/skins/square/blue@2x.png','public/css');
 
-if (mix.config.inProduction) {
-  mix.version();
-}
+// if (mix.config.inProduction) {
+//   mix.version();
+// }

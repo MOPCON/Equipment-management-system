@@ -1,4 +1,5 @@
 <!-- REQUIRED JS SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.3/vue.js"></script>
 
 <!-- JQuery and bootstrap are required by Laravel 5.3 in resources/assets/js/bootstrap.js-->
 <!-- Laravel App -->
@@ -13,3 +14,8 @@
         'csrfToken' => csrf_token(),
     ]) !!};
 </script>
+
+<script src="{{ asset('/js/sweetalert2.min.js') }}" charset="utf-8"></script>
+<script src="{{ asset('/js/bootstrap-notify.min.js')}}" charset="utf-8"></script>
+<script src="{{ asset('/js/helper.js') }}" charset="utf-8"></script>
+<script src="{{ asset('/js/JsBarcode.all.min.js') }}" charset="utf-8"></script>

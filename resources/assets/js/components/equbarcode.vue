@@ -43,7 +43,11 @@
                                 <td>{{ item.barcode }}</td>
                                 <td v-if="item.status == '0'">未出借</td>
                                 <td v-if="item.status == '1'">出借中</td>
-                                <td></td>
+                                <td>
+                                    <button v-if="item.status == '0'" type="button" class="btn btn-sm btn-primary" v-on:click="openEditEqubarcode(item.id, item.barcode)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -117,18 +121,13 @@
                     key: ''
                 }];
             },
-            // initEquipment: function() {
-            //     var self = this;
-            //     self.add_equipment = {
-            //         id: '',
-            //         name: '',
-            //         source: '',
-            //         memo: '',
-            //         amount: '0',
-            //         hasBarcode: '',
-            //         prefix: ''
-            //     }
-            // },
+            initEqubarcode: function() {
+                var self = this;
+                self.add_equbarcode = {
+                    id: '',
+                    barcode: ''
+                }
+            },
             getAllEquBarcode: function() {
                 var self = this;
                 axios.get(
@@ -170,6 +169,43 @@
                     self.page_info.sort_key = field;
                     this.getAllEquBarcode();
                 }
+            },
+            openEditEqubarcode: function(id, barcode) {
+                var self = this;
+                swal({
+                    title: 'Update Barcode',
+                    input: 'text',
+                    inputValue: barcode,
+                    showCancelButton: true,
+                    inputValidator: function (value) {
+                        return new Promise(function (resolve, reject) {
+                            if (value) {
+                                resolve();
+                                var data = {
+                                    barcode: value,
+                                    _method: 'PUT'
+                                };
+                                axios.post(
+                                    '/api/equipment/barcode/' + id, data
+                                ).then(response => {
+                                    self.getAllEquBarcode();
+                                    console.log(response);
+                                    helper.alert(response.data.message);
+                                }).catch(error => {
+                                    console.log(error.response);
+                                    helper.alert(error.response.data.message, 'danger');
+                                });
+                            } else {
+                                reject('You need to write something!')
+                            }
+                        })
+                    }
+                }).then(function (result) {
+                    swal({
+                        type: 'success',
+                        html: 'You entered: ' + result
+                    })
+                })
             }
         },
         created: function()
@@ -187,12 +223,7 @@
                 list_to: 15,
                 status: '-1'
             }
-            // self.form = {
-            //     action: '',
-            //     submitted: false
-            // };
             self.initCol();
-            // self.initEquipment();
             self.getAllEquBarcode();
         },
         watch:

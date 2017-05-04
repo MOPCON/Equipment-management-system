@@ -12,15 +12,36 @@
 */
 
 
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/', function() {
         return view('adminlte::home');
     });
-    //    Route::get('/link1', function ()    {
-//        // Uses Auth Middleware
-//    });
 
-    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
-    #adminlte_routes
+    Route::get('/staffs', function() {
+        return view('adminlte::staffs.index');
+    });
+
+    Route::get('/groups', function() {
+        return view('adminlte::groups.index');
+    });
+
+    Route::get('/equipments', function() {
+        return view('adminlte::equipment.index');
+    });
+
+    Route::get('/equipments/barcode', function() {
+        return view('adminlte::equipment.barcode');
+    });
+
+    Route::get('/loan', function() {
+        return view('adminlte::loan.index');
+    });
+
+    Route::get('/loan/action', function() {
+        return view('adminlte::loan.action');
+    });
+
+    Route::get('/tool/print', function() {
+        return view('adminlte::tool.print');
+    });
 });

@@ -5,41 +5,32 @@
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-        @if (! Auth::guest())
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="{{ Gravatar::get(Auth::user()->email) }}" class="img-circle" alt="User Image" />
-                </div>
-                <div class="pull-left info">
-                    <p class="text-capitalize">{{ Auth::user()->name }}</p>
-                    <!-- Status -->
-                    <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('adminlte_lang::message.online') }}</a>
-                </div>
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="{{ Gravatar::get(Auth::user()->email) }}" class="img-circle" alt="User Image"/>
             </div>
-        @endif
-
-        <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="{{ trans('adminlte_lang::message.search') }}..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
+            <div class="pull-left info">
+                <p class="text-capitalize">{{ Auth::user()->name }}</p>
+                <!-- Status -->
+                <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('adminlte_lang::message.online') }}</a>
             </div>
-        </form>
-        <!-- /.search form -->
+        </div>
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
-            <li><a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>
+            <li><a href="/staffs"><i class='glyphicon glyphicon-user'></i> <span>Staffs Manager</span></a></li>
+            <li><a href="/groups"><i class='fa fa-group'></i> <span>Groups Manager</span></a></li>
+            <li><a href="/equipments"><i class='glyphicon glyphicon-hdd'></i> <span>Equipments Manager</span></a></li>
+            <li><a href="/equipments/barcode"><i class='fa fa-barcode'></i> <span>Equipment Barcode Manager</span></a></li>
+            <li><a href="/loan"><i class='fa fa-clock-o'></i> <span>Loan log</span></a></li>
+            <li><a href="/loan/action"><i class='glyphicon glyphicon-transfer'></i> <span>Lend & Return System</span></a></li>
             <li class="treeview">
-                <a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.multilevel') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='glyphicon glyphicon-cog'></i> <span>Setting</span></a>
                 <ul class="treeview-menu">
-                    <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
-                    <li><a href="#">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>
+                    <li><a href="/user">User Manager</a></li>
+                    <li><a href="/tool/print">Barcode Print</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

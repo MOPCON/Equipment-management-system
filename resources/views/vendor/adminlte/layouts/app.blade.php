@@ -29,7 +29,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="skin-blue sidebar-mini">
+<body class="skin-purple-light sidebar-mini sidebar-collapse">
 <div id="app" v-cloak>
     <div class="wrapper">
 
@@ -44,7 +44,7 @@ desired effect
 
         <!-- Main content -->
         <section class="content">
-            <!-- Your Page Content Here -->
+            <!-- Page Content Here -->
             @yield('main-content')
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
@@ -57,6 +57,8 @@ desired effect
 </div>
 @section('scripts')
     @include('adminlte::layouts.partials.scripts')
+    <!-- Page Script Here -->
+    @yield('main-script')
 @show
 
 </body>

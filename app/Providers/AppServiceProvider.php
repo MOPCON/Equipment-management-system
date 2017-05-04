@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Staff;
+use App\User;
+use Hash;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +19,22 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        /**
+         * 自動產生barcode
+         */
+        Staff::creating(function($staff) {
+            $staff->barcode = 'ST'. str_pad((((int) str_replace("ST", "",Staff::pluck('barcode')->last()) )+1), 5, '0', STR_PAD_LEFT);
+        });
+
+        /**
+         * 密碼加密
+         */
+        User::creating(function($user) {
+            if (Hash::needsRehash($user->password)) {
+                $user->password = bcrypt($user->password);
+            }
+        });
     }
 
     /**

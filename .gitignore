@@ -1,6 +1,17 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css/skins/node_modules
+/public/fonts/node_modules
+/public/fonts/vendor
+/public/images
+/public/img/credit
+/public/img/resources
+/public/css/all.css
+/public/css/app.css
+/public/css/main.css
+/public/js/app-landing.js
+/public/js/app.js
 /storage/*.key
 /vendor
 /.idea

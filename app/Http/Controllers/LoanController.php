@@ -121,7 +121,7 @@ class LoanController extends Controller
         if ($request->input('loan_id') != 0) {
             $loan = Loan::find($request->input('loan_id'));
         } else {
-            $loan = Loan::where('barcode', $request->input('barcode'))->first();
+            $loan = Loan::where('barcode', $request->input('barcode'))->where('status', 0)->first();
         }
 
         if (!$loan) {

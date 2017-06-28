@@ -145,13 +145,11 @@
             },
             initBigInfo: function () {
                 var self = this;
-                self.big_info = {
-                    equipment_name: '',
-                    equipment_barcode: '',
-                    staff_name: '',
-                    staff_barcode: '',
-                    amount: '1',
-                };
+                self.big_info.equipment_name = '';
+                self.big_info.equipment_barcode = '';
+                self.big_info.staff_name = '';
+                self.big_info.staff_barcode = '';
+                self.big_info.amount = '1';
             },
             initList: function () {
                 var self = this;
@@ -197,6 +195,7 @@
                         amount: res.amount,
                         return_time: res.return_at
                     };
+                    console.log(self.big_info.number);
                     self.log.reverse();
                     self.log.push(tmp_log);
                     self.log.reverse();

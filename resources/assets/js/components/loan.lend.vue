@@ -38,6 +38,7 @@
                                             <option v-for="item in equipment_list" v-if="item.hasBarcode == '0'"
                                                     v-bind:value="item.id">
                                                 {{ item.name }}-({{ item.amount - item.loan }})
+
                                             </option>
                                         </select>
                                     </div>
@@ -96,6 +97,7 @@
                         <button v-on:click="loanEquipment()" type="button" class="btn btn-block btn-lg bg-purple">
                             Submit
 
+
                         </button>
                     </div>
                 </div>
@@ -114,6 +116,7 @@
                         <tr role="row">
                             <th v-for="row in col">
                                 {{ row.name }}
+
                             </th>
                         </tr>
                         </thead>
@@ -208,14 +211,12 @@
             },
             initBigInfo: function () {
                 var self = this;
-                self.big_info = {
-                    equipment_type: '0',    // 0->barcode, 1->name
-                    equipment_name: '',
-                    equipment_barcode: '',
-                    staff_name: '',
-                    staff_barcode: '',
-                    amount: '1',
-                };
+                self.big_info.equipment_type = '0';
+                self.big_info.equipment_name = '';
+                self.big_info.equipment_barcode = '';
+                self.big_info.staff_name = '';
+                self.big_info.staff_barcode = '';
+                self.big_info.amount = '1';
             },
             initList: function () {
                 var self = this;

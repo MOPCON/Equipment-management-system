@@ -31,13 +31,13 @@ class UserRequest extends FormRequest
         if ($this->getMethod() == 'POST') {
             return [
                 'name'     => 'required|string',
-                'email'    => 'required|unique:users,email',
+                'email'    => 'required|email|unique:users,email',
                 'password' => 'required|string|min:8',
             ];
         } else {
             return [
                 'name'  => 'required|string',
-                'email' => 'required|unique:users,email',
+                'email' => 'required|email|unique:users,email',
             ];
         }
 

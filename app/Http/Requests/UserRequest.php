@@ -2,10 +2,15 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Controllers\ApiTrait;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserRequest extends FormRequest
 {
+    use ApiTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,8 +36,8 @@ class UserRequest extends FormRequest
             ];
         } else {
             return [
-                'name'     => 'required|string',
-                'email'    => 'required|email|unique:users,email',
+                'name'  => 'required|string',
+                'email' => 'required|email|unique:users,email',
             ];
         }
 
@@ -40,14 +45,24 @@ class UserRequest extends FormRequest
 
     /**
      * Use json output error message.
+     * @param Validator $validator
      */
-    public function response(array $errors)
+    protected function failedValidation(Validator $validator)
     {
-        return \App\Services\ApiService::returnApiResponse(
-            $errors[array_keys($errors)[0]][0],
-            [],
-            false,
-            400
-        );
+        throw new HttpResponseException($this->return400Response((string) $validator->messages()->first()));
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name'     => '名稱',
+            'email'    => '電子郵件地址',
+            'password' => '密碼',
+        ];
     }
 }

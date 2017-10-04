@@ -1,5 +1,5 @@
 /node_modules
-/public/plugins/*
+/public/plugins/
 /public/hot
 /public/storage
 /public/css/skins/node_modules
@@ -11,6 +11,7 @@
 /public/css/all.css
 /public/css/app.css
 /public/css/main.css
+/public/css/adminlte-app.css
 /public/js/app-landing.js
 /public/js/app.js
 /storage/*.key

@@ -12,12 +12,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name'     => 'admin',
-            'email'    => 'admin@local.host',
-            'password' => 'admin',
-        ]);
-
         for ($i=0; $i<20; $i++) {
             $faker = Faker\Factory::create();
             User::create([

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
 
 class UserController extends Controller
 {
+
+    use ApiTrait;
+
     /**
      * @param Request $request
      * @return mixed
@@ -21,7 +24,7 @@ class UserController extends Controller
         $user = User::orderBy($order_field, $order_method)
             ->paginate($limit);
 
-        return ApiService::returnApiResponse('Success.', $user);
+        return $this->returnSuccess('Success.', $user);
     }
 
     /**
@@ -32,7 +35,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
 
-        return ApiService::returnApiResponse('Store Success.', $user);
+        return $this->returnSuccess('Store Success.', $user);
     }
 
     /**
@@ -41,7 +44,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return ApiService::returnApiResponse('Show Success.', $user);
+        return $this->returnSuccess('Show Success.', $user);
     }
 
     /**
@@ -56,7 +59,7 @@ class UserController extends Controller
             'email' => $request->email,
         ]);
 
-        return ApiService::returnApiResponse('Show Success.', $user);
+        return $this->returnSuccess('Show Success.', $user);
     }
 
     /**
@@ -66,15 +69,20 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return ApiService::returnApiResponse('Destroy Success.', $user);
+        return $this->returnSuccess('Destroy Success.', $user);
     }
 
+    /**
+     * @param Request $request
+     * @param User    $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changePassword(Request $request, User $user)
     {
         if (!$request->has('password')) {
-            return ApiService::returnApiResponse('Missing password.', [], false, 400);
+            return $this->return400Response('Missing password.');
         }
         $user->password = bcrypt($request->password);
-        return ApiService::returnApiResponse('Change password Success.');
+        return $this->returnSuccess('Change password Success.');
     }
 }

@@ -13,12 +13,7 @@ class Staff extends Model
     protected $fillable = [
         'name', 'email', 'phone', 'group_id', 'barcode',
     ];
-    protected $appends = ['gravatar', 'group_name', 'role'];
-
-    public function getGravatarAttribute()
-    {
-        return Gravatar::get($this->email);
-    }
+    protected $appends = ['group_name', 'role'];
 
     public function getGroupNameAttribute()
     {

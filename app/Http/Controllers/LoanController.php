@@ -10,10 +10,13 @@ use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoanRequest;
 use App\Http\Requests\LoanReturnRequest;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
 
 class LoanController extends Controller
 {
+
+    use ApiTrait;
+
     /**
      * @param Request $request
      * @return \App\Services\ApiService
@@ -34,12 +37,12 @@ class LoanController extends Controller
             ->orderBy($order_field, $order_method)
             ->paginate($limit);
 
-        return ApiService::returnApiResponse('Success.', $loan);
+        return $this->returnSuccess('Success.', $loan);
     }
 
     /**
      * @param LoanRequest $request
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(LoanRequest $request)
     {
@@ -50,22 +53,22 @@ class LoanController extends Controller
         }
 
         if (!$staff) {
-            return ApiService::returnApiResponse('Staff not found.', [], false, 404);
+            return $this->return404Response('Staff not found.');
         }
 
         if ($request->input('equipment_id') != 0) {
             $equipment = Equipment::find($request->input('equipment_id'));
 
             if (!$equipment) {
-                return ApiService::returnApiResponse('Equipment not found.', [], false, 404);
+                return $this->return404Response('Equipment not found.');
             }
 
             if ($equipment->last() < $request->input('amount')) {
-                return ApiService::returnApiResponse('There is not enough equipment.', [], false, 400);
+                return $this->return400Response('There is not enough equipment.');
             }
 
             if ($equipment->hasBarcode) {
-                return ApiService::returnApiResponse('Equipment has barcode.', [], false, 400);
+                return $this->return400Response('Equipment has barcode.');
             }
 
             $equipment->loan += $request->input('amount');
@@ -80,15 +83,15 @@ class LoanController extends Controller
             $equipmentBarcode = EquipmentBarcode::where('barcode', $request->input('equipment_barcode'))->first();
 
             if (!$equipmentBarcode) {
-                return ApiService::returnApiResponse('Equipment barcode not found.', [], false, 404);
+                return $this->return404Response('Equipment barcode not found.');
             }
 
             if ($equipmentBarcode->status == 1) {
-                return ApiService::returnApiResponse('The equipment has been lent.', [], false, 400);
+                return $this->return400Response('The equipment has been lent.');
             }
 
             if ($equipmentBarcode->equipment->last() == 0) {
-                return ApiService::returnApiResponse('There is not enough equipment.', [], false, 400);
+                return $this->return400Response('There is not enough equipment.');
             }
 
             $equipmentBarcode->equipment->loan++;
@@ -104,18 +107,22 @@ class LoanController extends Controller
             ]);
         }
 
-        return ApiService::returnApiResponse('Loan success.', $loan);
+        return $this->returnSuccess('Loan success.', $loan);
     }
 
     /**
      * @param Loan $loan
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Loan $loan)
     {
-        return ApiService::returnApiResponse('Show success.', $loan);
+        return $this->returnSuccess('Show success.', $loan);
     }
 
+    /**
+     * @param LoanReturnRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function returnLoan(LoanReturnRequest $request)
     {
         if ($request->input('loan_id') != 0) {
@@ -125,7 +132,7 @@ class LoanController extends Controller
         }
 
         if (!$loan) {
-            return ApiService::returnApiResponse('Loan not found.', [], false, 404);
+            return $this->return404Response('Loan not found.');
         }
 
         $loan->return_back += $request->input('amount');
@@ -144,7 +151,7 @@ class LoanController extends Controller
             $loan->equipmentBarcode->save();
         }
 
-        return ApiService::returnApiResponse('Return success.', $loan);
+        return $this->returnSuccess('Return success.', $loan);
     }
 
 }

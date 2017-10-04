@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Staff;
 use App\EquipmentBarcode;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
 
 class BarcodeController extends Controller
 {
+
+    use ApiTrait;
+
     public function getBarcode(Request $request)
     {
         $staff = Staff::pluck('barcode')->toArray();
@@ -29,6 +32,6 @@ class BarcodeController extends Controller
             'barcode' => $barcode,
         ];
 
-        return ApiService::returnApiResponse('Success.', $data);
+        return $this->returnSuccess('Success.', $data);
     }
 }

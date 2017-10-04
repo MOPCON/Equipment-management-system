@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\EquipmentBarcode;
 use Illuminate\Http\Request;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
 
 class EquipmentBarcodeController extends Controller
 {
+
+    use ApiTrait;
+
     /**
      * @param Request $request
      * @return App\Services\ApiService
@@ -27,7 +30,7 @@ class EquipmentBarcodeController extends Controller
         })->orderBy($order_field, $order_method)
             ->paginate($limit);
 
-        return ApiService::returnApiResponse('Success.', $barcode);
+        return $this->returnSuccess('Success.', $barcode);
     }
 
     /**
@@ -42,10 +45,9 @@ class EquipmentBarcodeController extends Controller
             $equipmentBarcode->barcode = $request->input('barcode');
             $equipmentBarcode->save();
 
-            return ApiService::returnApiResponse('Success.', $equipmentBarcode);
+            return $this->returnSuccess('Success.', $equipmentBarcode);
         }
 
-        return ApiService::returnApiResponse('Not found.', [], false, 404);
-
+        return $this->return404Response();
     }
 }

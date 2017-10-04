@@ -294,6 +294,7 @@
                     group_id: self.add_staff.group,
                     role: self.add_staff.role
                 };
+                console.log(data);
                 axios.post(
                     '/api/staff', data
                 ).then(response => {

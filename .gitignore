@@ -1,5 +1,5 @@
 /node_modules
-/public/plugins/*
+/public/plugins/
 /public/hot
 /public/storage
 /public/css/skins/node_modules

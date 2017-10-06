@@ -11,12 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if (env('APP_ENV') == "prod") {
-            $this->call(InitTableSeeder::class);
-        } else {
-            $this->call(EquipmentTableSeeder::class);
-            $this->call(UsersTableSeeder::class);
-            $this->call(StaffTableSeeder::class);
-        }
+        $this->call(EquipmentTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(StaffTableSeeder::class);
     }
 }

@@ -21,9 +21,6 @@ composer install
 npm install
 php artisan key:generate
 php artisan migrate --seed
-cd node_modules/admin-lte/
-bower install
-cd ../..
 ```
 
 ### Build
@@ -43,9 +40,6 @@ composer install
 npm install
 php artisan key:generate
 php artisan migrate
-cd node_modules/admin-lte/
-bower install
-cd ../..
 npm run prod 
 ```
 

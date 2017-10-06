@@ -19,6 +19,9 @@
             padding: 15px;
             margin: 0 auto;
         }
+        .form-signin-heading {
+            text-align: center;
+        }
         .form-signin .form-signin-heading,
         .form-signin .checkbox {
             margin-bottom: 10px;
@@ -47,6 +50,9 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+        .main-footer {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -60,19 +66,30 @@
     @endif
     <form class="form-signin" method="post" action="/login">
         {{ csrf_field() }}
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h1 class="form-signin-heading"><i class="fa fa-database fa-2x"></i></h1>
+        <h2 class="form-signin-heading">E M S
+            <br><small><strong>E</strong>quipment <strong>M</strong>anagement <strong>S</strong>ystem</small></h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" value="{{ old('email') }}" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="true" name="remember"> Remember me
+                <input type="checkbox" value="true" name="remember">記住
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
     </form>
-
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <a href="https://github.com/s9801077/Equipment-management-system"><i class="fa fa-github" aria-hidden="true"></i>
+                    Equipment Management System</a><br>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2016-{{ date("Y") }} <a href="https://github.com/s9801077">PuckWang</a> & <a href="https://github.com/k9532121">ChienYun</a>.</strong> All rights reserved.
+            <a href="https://github.com/s9801077/Equipment-management-system/blob/master/LICENSE">LICENSE</a>
+        </footer>
 </div> <!-- /container -->
+
 </body>
 </html>

@@ -1,18 +1,7 @@
 /node_modules
-/public/plugins/
 /public/hot
 /public/storage
-/public/css/skins/node_modules
-/public/fonts/node_modules
-/public/fonts/vendor
-/public/images
-/public/img/credit
-/public/img/resources
-/public/css/all.css
 /public/css/app.css
-/public/css/main.css
-/public/css/adminlte-app.css
-/public/js/app-landing.js
 /public/js/app.js
 /storage/*.key
 /vendor
@@ -21,4 +10,5 @@
 Homestead.json
 Homestead.yaml
 npm-debug.log
+yarn-error.log
 .env

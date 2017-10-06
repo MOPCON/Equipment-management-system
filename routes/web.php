@@ -11,37 +11,25 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
-        return view('adminlte::home');
+        return view('main', ['user' => Auth::user()]);
     });
+});
 
-    Route::get('/staffs', function () {
-        return view('adminlte::staffs.index');
-    });
+Route::get('/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
+Route::post('/login', 'AuthController@postLogin');
+Route::get('/logout', 'AuthController@logout');
 
-    Route::get('/groups', function () {
-        return view('adminlte::groups.index');
-    });
-
-    Route::get('/equipments', function () {
-        return view('adminlte::equipment.index');
-    });
-
-    Route::get('/equipments/barcode', function () {
-        return view('adminlte::equipment.barcode');
-    });
-
-    Route::get('/loan', function () {
-        return view('adminlte::loan.index');
-    });
-
-    Route::get('/loan/action', function () {
-        return view('adminlte::loan.action');
-    });
-
-    Route::get('/tool/print', function () {
-        return view('adminlte::tool.print');
-    });
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+    Route::resource('user', 'UserController');
+    Route::resource('staff', 'StaffController');
+    Route::resource('equipment/barcode', 'EquipmentBarcodeController');
+    Route::resource('equipment', 'EquipmentController');
+    Route::resource('group', 'GroupController');
+    Route::resource('loan', 'LoanController');
+    Route::post('loan/return', 'LoanController@returnLoan');
+    Route::get('barcode', 'BarcodeController@getBarcode');
 });

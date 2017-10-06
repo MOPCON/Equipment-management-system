@@ -19,13 +19,12 @@ class LoanController extends Controller
 
     /**
      * @param Request $request
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
 
         $status = $request->input('status', [0, 1]);
-        // dd($status);
         $barcode = $request->input('barcode', '');
         $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('orderby_method', 'desc');

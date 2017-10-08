@@ -17,15 +17,22 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-offset-2 col-lg-4">
+                        <form class="form-inline">
+                            <label class="control-label"><i class="glyphicon glyphicon-hdd"></i> <strong>Equipment &nbsp&nbsp</strong></label>
+                            <div class="radio">
+                                <label><input type="radio" name="EquipmentType" value="0" v-model="add_loan.equipment_type"
+                                              checked> Barcode</label>
+                            </div>
+                            &nbsp
+                            <div class="radio">
+                                <label><input type="radio" name="EquipmentType" value="1" v-model="add_loan.equipment_type"> Select</label>
+                            </div>
+                        </form>
                         <div class="form-group">
-                            <label for="equbar" class="control-label"><i class="glyphicon glyphicon-hdd"></i> <strong>Equipment &nbsp&nbsp</strong></label>&nbsp&nbsp
-                            <label><input type="radio" name="EquipmentType" value="0" v-model="add_loan.equipment_type"
-                                          checked>Barcode</label>
-                            <label><input type="radio" name="EquipmentType" value="1" v-model="add_loan.equipment_type">Select</label>
                             <div class="input-group" v-if="add_loan.equipment_type == '0'">
                                 <input id="equibar" type="text"
                                        class="form-control input-lg" v-model="add_loan.equipment_barcode"
-                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup="equi_bar($event)">
+                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup="equi_bar(event)">
                                 <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
                                                                       v-on:click="equi_clear()"><i
                                         class="glyphicon glyphicon-repeat"></i> </button></span>
@@ -47,16 +54,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <form class="form-inline">
                             <label for="staffbar" class="control-label"><i class="glyphicon glyphicon-user"></i>
                                 <strong>Staff Barcode &nbsp&nbsp</strong></label>
-                            <label><input type="radio" name="StaffType" value="0" v-model="add_loan.staff_type" checked>Barcode</label>
-                            <label><input type="radio" name="StaffType" value="1"
-                                          v-model="add_loan.staff_type">Select</label>
+                            <div class="form-group">
+                                <div class="radio"><label><input type="radio" value="0" v-model="add_loan.staff_type" checked> Barcode</label></div>
+                            </div>&nbsp
+                            <div class="form-group">
+                                <div class="radio"><label><input type="radio" value="1" v-model="add_loan.staff_type"> Select</label></div>
+                            </div>&nbsp
+                            <div class="form-group">
+                                <div class="checkbox"><label><input type="checkbox" value="1" v-model="staff_continue"> Continue</label></div>
+                            </div>
+                        </form>
+                        <div class="form-group">
                             <div class="input-group" v-if="add_loan.staff_type == '0'">
                                 <input id="staffbar" type="text"
                                        class="form-control input-lg" v-model="add_loan.staff_barcode"
-                                       placeholder="Staff Barcode" tabindex="2" v-on:keyup="staff_bar($event)">
+                                       placeholder="Staff Barcode" tabindex="2" v-on:keyup="staff_bar(event)">
                                 <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
                                                                       v-on:click="staff_clear()"><i
                                         class="glyphicon glyphicon-repeat"></i> </button></span>
@@ -94,8 +109,6 @@
                     <div class="col-lg-offset-4 col-lg-4">
                         <button v-on:click="loanEquipment()" type="button" class="btn btn-block btn-lg bg-purple">
                             Submit
-
-
                         </button>
                     </div>
                 </div>
@@ -114,7 +127,6 @@
                         <tr role="row">
                             <th v-for="row in col">
                                 {{ row.name }}
-
                             </th>
                         </tr>
                         </thead>
@@ -143,11 +155,20 @@
             return {
                 col: [],
                 log: [],
-                add_loan: [],
+                add_loan: {
+                    staff_type: '0',    // 0->barcode, 1->select
+                    staff_id: '0',
+                    staff_barcode: '',
+                    equipment_type: '0',    // 0->barcode, 1->select
+                    equipment_id: '0',
+                    equipment_barcode: '',
+                    amount: '1'
+                },
                 staff_list: [],
                 equipment_list: [],
                 big_info: [],
                 top_info: [],
+                staff_continue: false,
             }
         },
         methods: {
@@ -187,8 +208,8 @@
                 var self = this;
                 self.add_loan = {
                     staff_type: self.add_loan.staff_type ? self.add_loan.staff_type : '0',    // 0->barcode, 1->select
-                    staff_id: '0',
-                    staff_barcode: '',
+                    staff_id: self.staff_continue ? self.add_loan.staff_id: '0',
+                    staff_barcode: self.staff_continue ? self.add_loan.staff_barcode : '',
                     equipment_type: self.add_loan.equipment_type ? self.add_loan.equipment_type : '0',    // 0->barcode, 1->select
                     equipment_id: '0',
                     equipment_barcode: '',
@@ -264,7 +285,6 @@
                     console.log(response);
                     self.top_info.message = response.data.message;
                     self.top_info.success = 1;
-//                    helper.alert(response.data.message);
                     self.big_info.had = '1';
                     self.big_info.number++;
                     self.big_info.equipment_type = self.add_loan.equipment_type;
@@ -294,7 +314,6 @@
                     console.log(error.response);
                     self.top_info.message = error.response.data.message;
                     self.top_info.success = 2;
-//                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             equi_bar: function (event) {
@@ -321,6 +340,7 @@
             staff_clear: function () {
                 var self = this;
                 self.add_loan.staff_barcode = '';
+                self.staff_continue = false;
                 $("#staffbar").focus();
             }
         }, created: function () {

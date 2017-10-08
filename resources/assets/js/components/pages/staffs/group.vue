@@ -11,14 +11,14 @@
                 <div class="box">
                     <div class="box-body">
                         <div id="group_wrapper"
-                             class="dataTables_wrapper  dt-bootstrap col-xs-offset-0 col-xs-10 col-sm-offset-0 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                            <div class="row form-inline" style="display:">
-                                <div class="col-xs-10 col-sm-2 col-md-2 col-lg-2">
-                                    <button type="button" class="btn btn-sm btn-primary" v-on:click="openAddgroup()">
-                                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Add
+                             class="dataTables_wrapper dt-bootstrap col-xs-offset-0 col-xs-12 col-sm-offset-0 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                                    <button type="button" class="btn btn-sm btn-primary btn-block" v-on:click="openAddgroup()">
+                                        <span class="glyphicon glyphicon-plus"></span>&nbsp;新增
                                     </button>
                                 </div>
-                                <div class="col-xs-10 col-sm-4 col-md-3 col-lg-2">
+                                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-addon" style="background-color: #eee">
                                             <i class="glyphicon glyphicon-list"></i>

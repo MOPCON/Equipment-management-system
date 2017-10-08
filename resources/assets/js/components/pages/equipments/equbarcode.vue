@@ -10,9 +10,9 @@
             <div class="container-fluid">
                 <div class="box">
                     <div class="box-body">
-                        <div id="equ_barcode_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                            <div class="row" style="display:">
-                                <div class="col-xs-10 col-sm-2 col-md-2 col-lg-1">
+                        <div id="equ_barcode_wrapper" class="dataTables_wrapper dt-bootstrap">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-addon" style="background-color: #eee">
                                             <i class="glyphicon glyphicon-list"></i>
@@ -28,7 +28,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-xs-10 col-sm-3 col-md-3 col-lg-3">
+                                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                                     <div class="input-group input-group-sm">
                                         <span class="input-group-addon" style="background-color: #eee"><i
                                                 class="glyphicon glyphicon-search"></i></span>

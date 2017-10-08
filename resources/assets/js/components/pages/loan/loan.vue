@@ -2,7 +2,7 @@
     <div>
         <section class="content-header">
             <h1>
-                借還紀錄
+                批量管理
                 <small>Log</small>
             </h1>
         </section>
@@ -77,6 +77,7 @@
                                             <td>{{ item.return_at }}</td>
                                             <td>{{ item.created_at }}</td>
                                             <td>{{ item.updated_at }}</td>
+                                            <td><bottun v-if="item.status == '0'" class="btn btn-success btn-sm">歸還</bottun></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -173,6 +174,9 @@
                     }, {
                         name: 'Updated_At',
                         key: 'updated_at'
+                    }, {
+                        name: 'Action',
+                        key: ''
                     }]
                 },
                 getAllLoan: function () {

@@ -110,8 +110,8 @@ desired effect
                 <li>
                     <a><i class="fa fa-exchange" aria-hidden="true"></i><span>借還系統</span></a>
                     <ul class="treeview-menu">
-                        <li><a href="/#/loan/action"><i class="fa fa-exchange" aria-hidden="true"></i><span>借還管理</span></a></li>
-                        <li><a href="/#/loan"><i class="fa fa-clock-o" aria-hidden="true"></i><span>借還紀錄</span></a></li>
+                        <li><a href="/#/loan/action"><i class="fa fa-exchange" aria-hidden="true"></i><span>物品借還</span></a></li>
+                        <li><a href="/#/loan"><i class="fa fa-clock-o" aria-hidden="true"></i><span>批量管理</span></a></li>
                     </ul>
                 </li>
                 <li>

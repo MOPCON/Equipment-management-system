@@ -16,8 +16,8 @@ class CreateStaffsTable extends Migration
         Schema::create('staffs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->default('');
-            $table->string('phone')->default('');
+            $table->string('email')->nullable()->default('');
+            $table->string('phone')->nullable()->default('');
             $table->unsignedInteger('group_id');
             $table->string('barcode');
         });

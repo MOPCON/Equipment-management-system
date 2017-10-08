@@ -45,7 +45,7 @@ class StaffController extends Controller
      */
     public function store(StaffRequest $request)
     {
-        $staff = Staff::create(array_filter($request->only(['name', 'email', 'phone', 'group_id', 'barcode'])));
+        $staff = Staff::create($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
 
         switch ((string) $request->input('role')) {
             case '1':
@@ -77,7 +77,7 @@ class StaffController extends Controller
      */
     public function update(StaffRequest $request, Staff $staff)
     {
-        $staff->update(array_filter($request->only(['name', 'email', 'phone', 'group_id', 'barcode'])));
+        $staff->update($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
 
         Group::clearManagerUser($staff->id);
         switch ((string) $request->input('role')) {

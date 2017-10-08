@@ -17,9 +17,9 @@ class EquipmentTableSeeder extends Seeder
             'prefix'     => 'EQ',
         ]);
         for ($i = 0; $i < 20; $i++) {
-            $faker = Faker\Factory::create();
+            $faker = Faker\Factory::create('zh_TW');
             Equipment::create([
-                'name'       => $faker->name,
+                'name'       => $faker->company,
                 'source'     => '',
                 'memo'       => '',
                 'amount'     => rand(1, 10),

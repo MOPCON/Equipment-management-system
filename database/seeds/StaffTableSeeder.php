@@ -23,11 +23,11 @@ class StaffTableSeeder extends Seeder
             'name' => '議程組'
         ]);
         for ($i = 0; $i < 40; $i++) {
-            $faker = Faker\Factory::create();
+            $faker = Faker\Factory::create('zh_TW');
             Staff::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'phone' => $faker->e164PhoneNumber,
+                'phone' => $faker->phoneNumber,
                 'group_id' => rand(1, 3),
             ]);
         }

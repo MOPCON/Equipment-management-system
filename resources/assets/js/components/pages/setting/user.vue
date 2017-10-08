@@ -10,7 +10,7 @@
                 <div class="box">
                     <div class="box-body">
                         <div id="user_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                            <div class="row" style="display:">
+                            <div class="row">
                                 <div class="col-xs-10 col-sm-1 col-md-1 col-lg-1">
                                     <button type="button" class="btn btn-sm btn-primary" v-on:click="openAddUser()">
                                         <span class="glyphicon glyphicon-plus"></span>&nbsp;Add
@@ -61,6 +61,9 @@
                                                 <button type="button" class="btn btn-sm btn-primary" v-on:click="openEditUser(item.id, 'edit')">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
+                                                <button type="button" class="btn btn-sm btn-warning" v-on:click="openEditPassword(item.id)">
+                                                    <i class="fa fa-key"></i>
+                                                </button>
                                                 <button type="button" class="btn btn-sm btn-danger" v-on:click="deleteUser(item.id)">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
@@ -93,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal -->
+                        <!-- 新增/修改 Modal -->
                         <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -121,7 +124,11 @@
                                             </div>
                                             <div v-if="action == 'new'" class="form-group">
                                                 <strong>密碼</strong>
-                                                <input type="text" v-model="add_user.password" name="password" class="form-control" placeholder="Password" required>
+                                                <input type="password" v-model="add_user.password" name="password" class="form-control" placeholder="Password" required>
+                                            </div>
+                                            <div v-if="action == 'new'" class="form-group">
+                                                <strong>確認密碼</strong>
+                                                <input type="password" v-model="add_user.password_confirmation" name="password confirmation" class="form-control" placeholder="Password Confirmation" required>
                                             </div>
                                         </form>
                                     </div>
@@ -129,6 +136,41 @@
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         <button v-if="action == 'new'" type="button" class="btn btn-primary" v-on:click="createNewUser()">Create</button>
                                         <button v-if="action == 'edit'" type="button" class="btn btn-primary" v-on:click="saveUser(add_user.id)">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 變更密碼 Modal -->
+                        <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                        <h4 vclass="modal-title" id="myModalLabel">Change Password</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="changePassword">
+                                            <div class="form-group">
+                                                <strong>ID: </strong>
+                                                {{ change_password.id }}
+                                            </div>
+                                            <div v-if="action == 'new'" class="form-group">
+                                                <strong>密碼</strong>
+                                                <input type="password" v-model="change_password.password" name="password" class="form-control" placeholder="Password" required>
+                                            </div>
+                                            <div v-if="action == 'new'" class="form-group">
+                                                <strong>確認密碼</strong>
+                                                <input type="password" v-model="change_password.password_confirmation" name="password confirmation" class="form-control" placeholder="Password Confirmation" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" v-on:click="changePassword()">Change</button>
+
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +189,7 @@
                 col: [],
                 page_info: [],
                 add_user: [],
+                change_password: [],
                 action: 'new',
             }
         },
@@ -192,7 +235,16 @@
                     name: '',
                     email: '',
                     password: '',
-                }
+                    password_confirmation: ''
+                };
+            },
+            initPassword: function () {
+                var self = this;
+                self.change_password = {
+                    id: '',
+                    password: '',
+                    password_confirmation: ''
+                };
             },
             getAllUser: function() {
                 var self = this;
@@ -246,7 +298,8 @@
                 var data = {
                     name: self.add_user.name,
                     email: self.add_user.email,
-                    password: self.add_user.password
+                    password: self.add_user.password,
+                    password_confirmation: self.add_user.password_confirmation
                 };
                 console.log(data);
                 axios.post(
@@ -299,6 +352,30 @@
                     console.log(error);
                 });
             },
+            openEditPassword: function (id) {
+                var self = this;
+                self.initPassword();
+                self.change_password.id = id;
+                $('#changePassword').modal('show');
+            },
+            changePassword: function() {
+                var self = this;
+                var data = {
+                    password: self.change_password.password,
+                    password_confirmation: self.change_password.password_confirmation
+                };
+                axios.post(
+                    '/api/user/password/' + self.change_password.id, data
+                ).then(response => {
+                    $('#changePassword').modal('hide');
+                    self.getAllUser();
+                    console.log(response);
+                    helper.alert(response.data.message);
+                }).catch(error => {
+                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
+                });
+            },
             deleteUser: function(id) {
                 var _self = this;
                 helper.deleteConfirm(function () {
@@ -334,6 +411,7 @@
             };
             self.initCol();
             self.initUser();
+            self.initPassword();
             self.getAllUser();
         },
         watch: {}

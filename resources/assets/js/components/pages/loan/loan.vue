@@ -70,14 +70,16 @@
                                             <td>{{ item.staff_name }}</td>
                                             <td>{{ item.equipment_name }}</td>
                                             <td>{{ item.amount }}</td>
-                                            <td>{{ item.return }}</td>
+                                            <td>{{ item.return_back }}</td>
                                             <td>{{ item.barcode }}</td>
                                             <td v-if="item.status == '0'">出借中</td>
                                             <td v-if="item.status == '1'">已歸還</td>
                                             <td>{{ item.return_at }}</td>
                                             <td>{{ item.created_at }}</td>
                                             <td>{{ item.updated_at }}</td>
-                                            <td><bottun v-if="item.status == '0'" class="btn btn-success btn-sm">歸還</bottun></td>
+                                            <td><button v-if="item.status == '0'"
+                                                        class="btn btn-success btn-sm"
+                                                        v-on:click="returnLoan(item.id, item.barcode)">歸還</button></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -224,6 +226,33 @@
                 },
                 setPageStatus: function () {
                     this.getAllLoan()
+                },
+                returnLoan(id, barcode) {
+                    let self = this;
+                    swal({
+                        title: '請輸入數量',
+                        input: 'number',
+                        showCancelButton: true,
+                        confirmButtonText: 'Submit',
+                        showLoaderOnConfirm: true,
+                        allowOutsideClick: false
+                    }).then(function (amount) {
+                        let data = {
+                            loan_id: id,
+                            barcode: barcode,
+                            amount: amount
+                        };
+                        axios.post(
+                            '/api/loan/return', data
+                        ).then(response => {
+                            console.log(response.data);
+                            helper.alert(response.data.message, 'success');
+                            self.getAllLoan();
+                        }).catch(error => {
+                            console.log(error.response.data);
+                            helper.alert(error.response.data.message, 'danger');
+                        });
+                    })
                 }
             },
         created: function () {
@@ -240,8 +269,8 @@
                 list_to: 15,
                 status: ''
             }
-            self.initCol()
-            self.getAllLoan()
+            self.initCol();
+            self.getAllLoan();
         },
         watch:
             {}

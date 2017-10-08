@@ -30,7 +30,7 @@ class LoanReturnRequest extends FormRequest
     {
         return [
             'loan_id' => 'required|integer',
-            'barcode' => 'required_if:loan_id,0|string',
+            'barcode' => 'required_if:loan_id,0|nullable|string',
             'amount'  => 'required|integer',
         ];
     }

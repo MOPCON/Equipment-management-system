@@ -157,11 +157,11 @@
                                                 <strong>ID: </strong>
                                                 {{ change_password.id }}
                                             </div>
-                                            <div v-if="action == 'new'" class="form-group">
+                                            <div class="form-group">
                                                 <strong>密碼</strong>
                                                 <input type="password" v-model="change_password.password" name="password" class="form-control" placeholder="Password" required>
                                             </div>
-                                            <div v-if="action == 'new'" class="form-group">
+                                            <div class="form-group">
                                                 <strong>確認密碼</strong>
                                                 <input type="password" v-model="change_password.password_confirmation" name="password confirmation" class="form-control" placeholder="Password Confirmation" required>
                                             </div>

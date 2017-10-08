@@ -28,8 +28,9 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+        $path = explode("/", $this->path());
         if ($this->getMethod() == 'POST') {
-            $type = explode("/", $this->path())[2] ?? '';
+            $type = $path[2] ?? '';
             if ($type === "password") {
                 return [
                     'password_confirmation' => 'required',
@@ -44,12 +45,12 @@ class UserRequest extends FormRequest
                 'password'              => 'required|string|min:8|confirmed',
             ];
         } else {
+            $id = $path[2];
             return [
                 'name'  => 'required|string',
-                'email' => 'required|email|unique:users,email',
+                'email' => 'required|email|unique:users,email,' . $id,
             ];
         }
-
     }
 
     /**

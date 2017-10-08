@@ -34,7 +34,7 @@
                                                 class="glyphicon glyphicon-search"></i></span>
                                         <input type="search" class="form-control" placeholder="Search"
                                                aria-controls="equ_barcode" v-model="page_info.search"
-                                               v-on:keyup="searchKeyword($event)">
+                                               v-on:keyup="searchKeyword(event)">
                                     </div>
                                 </div>
                             </div>
@@ -57,8 +57,8 @@
                                             <td>{{ item.id }}</td>
                                             <td>{{ item.equipment_name }}</td>
                                             <td>{{ item.barcode }}</td>
-                                            <td v-if="item.status == '0'">未出借</td>
-                                            <td v-if="item.status == '1'">出借中</td>
+                                            <td v-if="item.status == '0'"><span class="label label-success">未出借</span></td>
+                                            <td v-if="item.status == '1'"><span class="label label-primary">出借中</span></td>
                                             <td>
                                                 <button v-if="item.status == '0'" type="button"
                                                         class="btn btn-sm btn-primary"

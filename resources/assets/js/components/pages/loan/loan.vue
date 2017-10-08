@@ -72,8 +72,8 @@
                                             <td>{{ item.amount }}</td>
                                             <td>{{ item.return_back }}</td>
                                             <td>{{ item.barcode }}</td>
-                                            <td v-if="item.status == '0'">出借中</td>
-                                            <td v-if="item.status == '1'">已歸還</td>
+                                            <td v-if="item.status == '0'"><span class="label label-primary">出借中</span></td>
+                                            <td v-if="item.status == '1'"><span class="label label-success">已歸還</span></td>
                                             <td>{{ item.return_at }}</td>
                                             <td>{{ item.created_at }}</td>
                                             <td>{{ item.updated_at }}</td>
@@ -201,6 +201,7 @@
                     })
                 },
                 setPageLimit: function () {
+                    this.page_info.current_page = 1;
                     this.getAllLoan()
                 },
                 searchKeyword: function (event) {
@@ -225,6 +226,7 @@
                     }
                 },
                 setPageStatus: function () {
+                    this.page_info.current_page = 1;
                     this.getAllLoan()
                 },
                 returnLoan(id, barcode) {

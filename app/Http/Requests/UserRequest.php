@@ -29,10 +29,19 @@ class UserRequest extends FormRequest
     public function rules()
     {
         if ($this->getMethod() == 'POST') {
+            $type = explode("/", $this->path())[2] ?? '';
+            if ($type === "password") {
+                return [
+                    'password_confirmation' => 'required',
+                    'password'              => 'required|string|min:8|confirmed',
+                ];
+            }
+
             return [
-                'name'     => 'required|string',
-                'email'    => 'required|email|unique:users,email',
-                'password' => 'required|string|min:8',
+                'name'                  => 'required|string',
+                'email'                 => 'required|email|unique:users,email',
+                'password_confirmation' => 'required',
+                'password'              => 'required|string|min:8|confirmed',
             ];
         } else {
             return [

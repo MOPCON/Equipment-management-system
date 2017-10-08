@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
 use App\Http\Controllers\ApiTrait;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -19,7 +20,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $order_field = $request->input('orderby_field', 'id');
-        $order_method = $request->input('$order_method', 'desc');
+        $order_method = $request->input('order_method', 'desc');
         $limit = $request->input('limit', 15);
         $user = User::orderBy($order_field, $order_method)
             ->paginate($limit);
@@ -55,7 +56,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update([
-            'name' => $request->name,
+            'name'  => $request->name,
             'email' => $request->email,
         ]);
 
@@ -69,20 +70,20 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return $this->returnSuccess('Destroy Success.', $user);
     }
 
     /**
-     * @param Request $request
-     * @param User    $user
+     * @param UserRequest $request
+     * @param User        $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function changePassword(Request $request, User $user)
+    public function changePassword(UserRequest $request, User $user)
     {
-        if (!$request->has('password')) {
-            return $this->return400Response('Missing password.');
-        }
         $user->password = bcrypt($request->password);
-        return $this->returnSuccess('Change password Success.');
+        $user->save();
+
+        return $this->returnSuccess('Change password Success.', $user);
     }
 }

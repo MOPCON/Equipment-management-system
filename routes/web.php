@@ -24,12 +24,13 @@ Route::post('/login', 'AuthController@postLogin');
 Route::get('/logout', 'AuthController@logout');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
-    Route::resource('user', 'UserController');
-    Route::resource('staff', 'StaffController');
-    Route::resource('equipment/barcode', 'EquipmentBarcodeController');
-    Route::resource('equipment', 'EquipmentController');
-    Route::resource('group', 'GroupController');
-    Route::resource('loan', 'LoanController');
+    Route::post('user/password/{user}', 'UserController@changePassword');
+    Route::apiResource('user', 'UserController');
+    Route::apiResource('staff', 'StaffController');
+    Route::apiResource('equipment/barcode', 'EquipmentBarcodeController');
+    Route::apiResource('equipment', 'EquipmentController');
+    Route::apiResource('group', 'GroupController');
+    Route::apiResource('loan', 'LoanController');
     Route::post('loan/return', 'LoanController@returnLoan');
     Route::get('barcode', 'BarcodeController@getBarcode');
 });

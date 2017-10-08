@@ -30,22 +30,20 @@
                                                                       v-on:click="equi_clear()"><i
                                         class="glyphicon glyphicon-repeat"></i> </button></span>
                             </div>
-                            <div v-if="add_loan.equipment_type == '1'">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <select class="form-control" v-model="add_loan.equipment_id">
-                                            <option value="0"> --- Select Equipment --- </option>
-                                            <option v-for="item in equipment_list" v-if="item.hasBarcode == '0'"
-                                                    v-bind:value="item.id">
-                                                {{ item.name }}-({{ item.amount - item.loan }})
+                            <div v-if="add_loan.equipment_type == '1'" class="row">
+                                <div class="col-xs-12 col-sm-8" style="margin-bottom: 5px">
+                                    <select class="form-control" v-model="add_loan.equipment_id">
+                                        <option value="0"> --- Select Equipment --- </option>
+                                        <option v-for="item in equipment_list" v-if="item.hasBarcode == '0'"
+                                                v-bind:value="item.id">
+                                            {{ item.name }}-({{ item.amount - item.loan }})
 
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="number" class="form-control" v-model="add_loan.amount" min="1"
-                                               placeholder="Amount">
-                                    </div>
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <input type="number" class="form-control" v-model="add_loan.amount" min="1"
+                                           placeholder="Amount">
                                 </div>
                             </div>
                         </div>

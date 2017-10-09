@@ -33,4 +33,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('loan', 'LoanController');
     Route::post('loan/return', 'LoanController@returnLoan');
     Route::get('barcode', 'BarcodeController@getBarcode');
+    Route::get('export/{model}/{type}', 'ImportExportController@export')
+        ->where(['model' => '[a-z]+', 'type' => '(csv|xls|xlsx)']);
+    Route::get('template/{model}/{type}', 'ImportExportController@exportTemplate')
+        ->where(['model' => '[a-z]+', 'type' => '(csv|xls|xlsx)']);
+    Route::post('import/{model}', 'ImportExportController@import')
+        ->where(['model' => '[a-z]+']);
 });

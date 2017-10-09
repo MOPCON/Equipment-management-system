@@ -28,7 +28,7 @@ class StaffController extends Controller
         } else {
             $limit = $request->input('limit', 15);
             $staff = Staff::whereIn('group_id', $group_id)
-                ->Where(function($query) use ($search) {
+                ->Where(function ($query) use ($search) {
                     $query->orWhere('name', 'LIKE', '%' . $search . '%')
                         ->orWhere('email', 'LIKE', '%' . $search . '%')
                         ->orWhere('phone', 'LIKE', '%' . $search . '%');
@@ -36,6 +36,7 @@ class StaffController extends Controller
                 ->orderBy($order_field, $order_method)
                 ->paginate($limit);
         }
+
         return $this->returnSuccess('Success.', $staff);
     }
 
@@ -46,17 +47,7 @@ class StaffController extends Controller
     public function store(StaffRequest $request)
     {
         $staff = Staff::create($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
-
-        switch ((string) $request->input('role')) {
-            case '1':
-                $staff->group->deputy_manager = $staff->id;
-                $staff->group->save();
-                break;
-            case '2':
-                $staff->group->manager = $staff->id;
-                $staff->group->save();
-                break;
-        }
+        $staff->setRole($request->input('role'));
 
         return $this->returnSuccess('Store success.', $staff);
     }
@@ -79,17 +70,7 @@ class StaffController extends Controller
     {
         $staff->update($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
 
-        Group::clearManagerUser($staff->id);
-        switch ((string) $request->input('role')) {
-            case '1':
-                $staff->group->deputy_manager = $staff->id;
-                $staff->group->save();
-                break;
-            case '2':
-                $staff->group->manager = $staff->id;
-                $staff->group->save();
-                break;
-        }
+        $staff->setRole($request->input('role'));
 
         return $this->returnSuccess('Update success.', $staff);
     }
@@ -101,6 +82,7 @@ class StaffController extends Controller
     public function destroy(Staff $staff)
     {
         $staff->delete();
+
         return $this->returnSuccess('destroy success.');
     }
 }

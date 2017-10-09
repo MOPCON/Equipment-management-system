@@ -32,6 +32,9 @@ export default new Router({
             path: '/tool/print',
             component: require('../components/pages/setting/tool.print.vue'),
         }, {
+            path: '/tool/imexport',
+            component: require('../components/pages/setting/import_export.vue'),
+        }, {
             path: '/*',
             redirect: '/'
         }

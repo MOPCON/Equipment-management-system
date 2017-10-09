@@ -72,14 +72,19 @@
                                             <td>{{ item.amount }}</td>
                                             <td>{{ item.return_back }}</td>
                                             <td>{{ item.barcode }}</td>
-                                            <td v-if="item.status == '0'"><span class="label label-primary">出借中</span></td>
-                                            <td v-if="item.status == '1'"><span class="label label-success">已歸還</span></td>
+                                            <td v-if="item.status == '0'"><span class="label label-primary">出借中</span>
+                                            </td>
+                                            <td v-if="item.status == '1'"><span class="label label-success">已歸還</span>
+                                            </td>
                                             <td>{{ item.return_at }}</td>
                                             <td>{{ item.created_at }}</td>
                                             <td>{{ item.updated_at }}</td>
-                                            <td><button v-if="item.status == '0'"
+                                            <td>
+                                                <button v-if="item.status == '0'"
                                                         class="btn btn-success btn-sm"
-                                                        v-on:click="returnLoan(item.id, item.barcode)">歸還</button></td>
+                                                        v-on:click="returnLoan(item.id, item.barcode)">歸還
+                                                </button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -201,7 +206,7 @@
                     })
                 },
                 setPageLimit: function () {
-                    this.page_info.current_page = 1;
+                    this.page_info.current_page = 1
                     this.getAllLoan()
                 },
                 searchKeyword: function (event) {
@@ -226,11 +231,11 @@
                     }
                 },
                 setPageStatus: function () {
-                    this.page_info.current_page = 1;
+                    this.page_info.current_page = 1
                     this.getAllLoan()
                 },
-                returnLoan(id, barcode) {
-                    let self = this;
+                returnLoan (id, barcode) {
+                    let self = this
                     swal({
                         title: '請輸入數量',
                         input: 'number',
@@ -243,17 +248,17 @@
                             loan_id: id,
                             barcode: barcode,
                             amount: amount
-                        };
+                        }
                         axios.post(
                             '/api/loan/return', data
                         ).then(response => {
-                            console.log(response.data);
-                            helper.alert(response.data.message, 'success');
-                            self.getAllLoan();
+                            console.log(response.data)
+                            helper.alert(response.data.message, 'success')
+                            self.getAllLoan()
                         }).catch(error => {
-                            console.log(error.response.data);
-                            helper.alert(error.response.data.message, 'danger');
-                        });
+                            console.log(error.response.data)
+                            helper.alert(error.response.data.message, 'danger')
+                        })
                     })
                 }
             },
@@ -271,8 +276,8 @@
                 list_to: 15,
                 status: ''
             }
-            self.initCol();
-            self.getAllLoan();
+            self.initCol()
+            self.getAllLoan()
         },
         watch:
             {}

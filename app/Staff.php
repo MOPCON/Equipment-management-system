@@ -13,7 +13,9 @@ class Staff extends Model
     protected $fillable = [
         'name', 'email', 'phone', 'group_id', 'barcode',
     ];
-    protected $appends = ['group_name', 'role'];
+    protected $appends = ['group_name', 'role', 'role_name'];
+
+    protected $roleName = ['組員', '副組長', '組長'];
 
     public function getGroupNameAttribute()
     {
@@ -32,6 +34,11 @@ class Staff extends Model
         return 0;
     }
 
+    public function getRoleNameAttribute()
+    {
+        return $this->roleName[$this->role];
+    }
+
     public function group()
     {
         return $this->belongsTo('App\Group');
@@ -40,5 +47,21 @@ class Staff extends Model
     public function loans()
     {
         return $this->hasMany('App\Loan');
+    }
+
+    public function setRole($role_id)
+    {
+        Group::clearManagerUser($this->id);
+
+        switch ((string) $role_id) { // 0->組員, 1->副組長, 2->組長
+            case '1':
+                $this->group->deputy_manager = $this->id;
+                $this->group->save();
+                break;
+            case '2':
+                $this->group->manager = $this->id;
+                $this->group->save();
+                break;
+        }
     }
 }

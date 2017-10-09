@@ -47,15 +47,7 @@ class EquipmentController extends Controller
     {
         $equipment = Equipment::create($request->all());
 
-        if ($equipment->hasBarcode) {
-            for ($i = 0; $i < $equipment->amount; $i++) {
-                EquipmentBarcode::create([
-                    'barcode'      => $equipment->prefix .
-                        str_pad(($i), 5, '0', STR_PAD_LEFT),
-                    'equipment_id' => $equipment->id,
-                ]);
-            }
-        }
+        $equipment->setBarcode();
 
         return $this->returnSuccess('Store success.', $equipment);
     }
@@ -81,17 +73,7 @@ class EquipmentController extends Controller
     {
         $equipment->update($request->all());
 
-        EquipmentBarcode::where('equipment_id', $equipment->id)->delete();
-
-        if ($equipment->hasBarcode) {
-            for ($i = 0; $i < $equipment->amount; $i++) {
-                EquipmentBarcode::create([
-                    'barcode'      => $equipment->prefix .
-                        str_pad(($i), 5, '0', STR_PAD_LEFT),
-                    'equipment_id' => $equipment->id,
-                ]);
-            }
-        }
+        $equipment->setBarcode();
 
         return $this->returnSuccess('Update success.', $equipment);
     }

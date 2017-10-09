@@ -117,8 +117,9 @@ desired effect
                 <li>
                     <a><i class='glyphicon glyphicon-cog'></i> <span>設定</span></a>
                     <ul class="treeview-menu">
-                        <li><a href="/#/user"><i class="fa fa-exchange" aria-hidden="true"></i><span>使用者管理</span></a></li>
-                        <li><a href="/#/tool/print"><i class="fa fa-exchange" aria-hidden="true"></i><span>條碼列印</span></a></li>
+                        <li><a href="/#/user"><i class="fa fa-user-secret" aria-hidden="true"></i><span>使用者管理</span></a></li>
+                        <li><a href="/#/tool/print"><i class="fa fa-barcode" aria-hidden="true"></i><span>條碼列印</span></a></li>
+                        <li><a href="/#/tool/imexport"><i class="fa fa-exchange fa-rotate-90" aria-hidden="true"></i><span>匯入匯出</span></a></li>
                     </ul>
                 </li>
             </ul>

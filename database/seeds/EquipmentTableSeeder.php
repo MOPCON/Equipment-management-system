@@ -8,7 +8,7 @@ class EquipmentTableSeeder extends Seeder
 {
     public function run()
     {
-        Equipment::create([
+        $equipment = Equipment::create([
             'name'       => 'machine',
             'source'     => '',
             'memo'       => '',
@@ -26,11 +26,6 @@ class EquipmentTableSeeder extends Seeder
                 'hasBarcode' => '0',
             ]);
         }
-        for ($i = 0; $i < 20; $i++) {
-            EquipmentBarcode::create([
-                'barcode'      => 'EQ' . str_pad(($i), 5, '0', STR_PAD_LEFT),
-                'equipment_id' => '1',
-            ]);
-        }
+        $equipment->setBarcode();
     }
 }

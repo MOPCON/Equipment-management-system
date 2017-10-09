@@ -12,7 +12,7 @@
                     <div class="box-body">
                         <div id="equipment_wrapper" class="dataTables_wrapper dt-bootstrap">
                             <div class="row">
-                                <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                                <div class="col-xs-12 col-sm-2 col-md-1 col-lg-1">
                                     <button type="button" class="btn btn-sm btn-primary btn-block"
                                             v-on:click="openAddEquipment()">
                                         <span class="glyphicon glyphicon-plus"></span>&nbsp;Add
@@ -317,7 +317,7 @@
                         memo: self.add_equipment.memo,
                         amount: self.add_equipment.amount,
                         hasBarcode: self.add_equipment.hasBarcode,
-                        prefix: self.add_equipment.prefix
+                        prefix: self.add_equipment.hasBarcode === '1' ? self.add_equipment.prefix : ''
                     }
                     axios.post(
                         '/api/equipment', data
@@ -339,7 +339,7 @@
                         memo: self.add_equipment.memo,
                         amount: self.add_equipment.amount,
                         hasBarcode: self.add_equipment.hasBarcode,
-                        prefix: self.add_equipment.prefix,
+                        prefix: self.add_equipment.hasBarcode === '1' ? self.add_equipment.prefix : '',
                         _method: 'PUT'
                     }
                     console.log(data)

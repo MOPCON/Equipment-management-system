@@ -36,7 +36,7 @@ class ImportExportController extends Controller
             return $this->return400Response("Unknown model name");
         }
 
-        $data = ucfirst("App\\" . $model)::get()->plucks($this->allowExportField[$model]);
+        $data = ("App\\" . ucfirst($model))::get()->plucks($this->allowExportField[$model]);
         Excel::create($model, function ($excel) use ($model, $data) {
             $excel->sheet($model, function ($sheet) use ($data) {
                 $sheet->fromArray($data);

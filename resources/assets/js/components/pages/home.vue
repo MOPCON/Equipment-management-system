@@ -1,21 +1,15 @@
 <template>
-    <div>
-        <section class="content-header">
-            <h1>
-                Home <small>home</small>
+    <div class="row">
+        <div class="col-md-offset-4 col-md-4 text-center" style="margin-top: 10vh">
+            <h1 class="text-light-blue">
+                <i class="fa fa-database fa-5x"></i>
             </h1>
-        </section>
-        <section class="content">
-            <div class="container-fluid">
-                <div class="box">
-                    <div class="box-body">
-                        <div class="dataTables_wrapper form-inline dt-bootstrap">
-                            XDD
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <h1 class="text-light-blue">E M S<br>
+                <small class="text-light-blue">
+                    <strong>E</strong>quipment <strong>M</strong>anagement <strong>S</strong>ystem
+                </small>
+            </h1>
+        </div>
     </div>
 </template>
 <script>

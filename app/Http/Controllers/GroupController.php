@@ -6,10 +6,13 @@ use App\Group;
 use App\Staff;
 use Illuminate\Http\Request;
 use App\Http\Requests\GroupRequest;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
 
 class GroupController extends Controller
 {
+
+    use ApiTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +30,7 @@ class GroupController extends Controller
             $value->number = Staff::where('group_id', $value->id)->count();
         }
 
-        return ApiService::returnApiResponse('Success.', $group);
+        return $this->returnSuccess('Success.', $group);
     }
 
     /**
@@ -40,7 +43,7 @@ class GroupController extends Controller
     {
         $group = Group::create($request->all());
         
-        return ApiService::returnApiResponse('Store Success.', $group);
+        return $this->returnSuccess('Store Success.', $group);
     }
 
     /**
@@ -51,7 +54,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        return ApiService::returnApiResponse('Show Success.', $group);
+        return $this->returnSuccess('Show Success.', $group);
     }
 
     /**
@@ -65,7 +68,7 @@ class GroupController extends Controller
     {
         $group->update($request->all());
 
-        return ApiService::returnApiResponse('Update Success.', $group);
+        return $this->returnSuccess('Update Success.', $group);
     }
 
     /**
@@ -77,10 +80,10 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         if (count($group->users) > 0) {
-            return ApiService::returnApiResponse('該組還有組員，不能刪除。', [], false, 400);
+            return $this->return404Response('該組還有組員，不能刪除。');
         }
         $group->delete();
 
-        return ApiService::returnApiResponse('Destroy Success.');
+        return $this->returnSuccess('Destroy Success.');
     }
 }

@@ -26,4 +26,17 @@ class Equipment extends Model
     {
         return $this->amount - $this->loan;
     }
+
+    public function setBarcode()
+    {
+        EquipmentBarcode::where('equipment_id', $this->id)->delete();
+        if ($this->hasBarcode) {
+            for ($i = 0; $i < $this->amount; $i++) {
+                EquipmentBarcode::create([
+                    'barcode'      => $this->prefix . str_pad(($i), 3, '0', STR_PAD_LEFT),
+                    'equipment_id' => $this->id,
+                ]);
+            }
+        }
+    }
 }

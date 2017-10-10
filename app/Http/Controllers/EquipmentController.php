@@ -6,13 +6,16 @@ use App\Equipment;
 use App\EquipmentBarcode;
 use Illuminate\Http\Request;
 use App\Http\Requests\EquipmentRequest;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
 
 class EquipmentController extends Controller
 {
+
+    use ApiTrait;
+
     /**
      * @param Request $request
-     * @return App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -33,40 +36,32 @@ class EquipmentController extends Controller
         }
 
 
-        return ApiService::returnApiResponse('Success.', $equipment);
+        return $this->returnSuccess('Success.', $equipment);
     }
 
     /**
      * @param EquipmentRequest $request
-     * @return App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(EquipmentRequest $request)
     {
         $equipment = Equipment::create($request->all());
 
-        if ($equipment->hasBarcode) {
-            for ($i = 0; $i < $equipment->amount; $i++) {
-                EquipmentBarcode::create([
-                    'barcode'      => $equipment->prefix .
-                        str_pad(($i), 5, '0', STR_PAD_LEFT),
-                    'equipment_id' => $equipment->id,
-                ]);
-            }
-        }
+        $equipment->setBarcode();
 
-        return ApiService::returnApiResponse('Store success.', $equipment);
+        return $this->returnSuccess('Store success.', $equipment);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Equipment $equipment
-     * @return App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Equipment $equipment)
     {
         $equipment->barcode;
-        return ApiService::returnApiResponse('Show success.', $equipment);
+        return $this->returnSuccess('Show success.', $equipment);
     }
 
     /**
@@ -78,19 +73,9 @@ class EquipmentController extends Controller
     {
         $equipment->update($request->all());
 
-        EquipmentBarcode::where('equipment_id', $equipment->id)->delete();
+        $equipment->setBarcode();
 
-        if ($equipment->hasBarcode) {
-            for ($i = 0; $i < $equipment->amount; $i++) {
-                EquipmentBarcode::create([
-                    'barcode'      => $equipment->prefix .
-                        str_pad(($i), 5, '0', STR_PAD_LEFT),
-                    'equipment_id' => $equipment->id,
-                ]);
-            }
-        }
-
-        return ApiService::returnApiResponse('Update success.', $equipment);
+        return $this->returnSuccess('Update success.', $equipment);
     }
 
     /**
@@ -103,6 +88,6 @@ class EquipmentController extends Controller
     {
         $equipment->delete();
 
-        return ApiService::returnApiResponse('Delete success.');
+        return $this->returnSuccess('Delete success.');
     }
 }

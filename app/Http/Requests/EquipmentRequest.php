@@ -2,10 +2,16 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Controllers\ApiTrait;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class EquipmentRequest extends FormRequest
 {
+
+    use ApiTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,6 +31,7 @@ class EquipmentRequest extends FormRequest
     {
         if ($this->getMethod() == 'PUT') {
             $id = explode("/", $this->path())[2];
+
             return [
                 'name'       => 'required|string',
                 'source'     => 'nullable|string',
@@ -34,6 +41,7 @@ class EquipmentRequest extends FormRequest
                 'prefix'     => 'required_if:hasBarcode,1|nullable|string|unique:equipments,prefix,' . $id,
             ];
         }
+
         return [
             'name'       => 'required|string',
             'source'     => 'nullable|string',
@@ -46,14 +54,27 @@ class EquipmentRequest extends FormRequest
 
     /**
      * Use json output error message.
+     * @param Validator $validator
      */
-    public function response(array $errors)
+    protected function failedValidation(Validator $validator)
     {
-        return \App\Services\ApiService::returnApiResponse(
-            $errors[array_keys($errors)[0]][0],
-            [],
-            false,
-            400
-        );
+        throw new HttpResponseException($this->return400Response((string) $validator->messages()->first()));
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name'       => '名稱',
+            'source'     => '來源',
+            'memo'       => '備註',
+            'amount'     => '數量',
+            'hasBarcode' => '是否需要條碼',
+            'prefix'     => '條碼前綴',
+        ];
     }
 }

@@ -1,2 +1,0 @@
-@extends('adminlte::layouts.landing')
-

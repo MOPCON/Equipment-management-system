@@ -4,9 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
-window.Vue = require('vue');
+window.Vue = require('vue')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -14,15 +14,12 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('staff', require('./components/staff.vue'));
-Vue.component('group', require('./components/group.vue'));
-Vue.component('equipment', require('./components/equipment.vue'));
-Vue.component('equbarcode', require('./components/equbarcode.vue'));
-Vue.component('loan', require('./components/loan.vue'));
-Vue.component('lend', require('./components/loan.lend.vue'));
-Vue.component('returnbarcode', require('./components/loan.return.barcode.vue'));
-Vue.component('print', require('./components/tool.print.vue'));
+import router from './router'
+import App from './components/App.vue';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: {App}
 });

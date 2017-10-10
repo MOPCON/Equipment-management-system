@@ -2,10 +2,15 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Controllers\ApiTrait;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StaffRequest extends FormRequest
 {
+    use ApiTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,16 +31,17 @@ class StaffRequest extends FormRequest
         if ($this->getMethod() == 'POST') {
             return [
                 'name'     => 'required|string',
-                'email'    => 'required|email',
-                'phone'    => 'required|string',
+                'email'    => 'nullable|email',
+                'phone'    => 'nullable|string',
                 'group_id' => 'required',
                 'role'     => 'required',
             ];
         }
+
         return [
             'name'     => 'required|string',
-            'email'    => 'required|email',
-            'phone'    => 'required|string',
+            'email'    => 'nullable|email',
+            'phone'    => 'nullable|string',
             'group_id' => 'required',
             'barcode'  => 'required|string',
             'role'     => 'required',
@@ -44,14 +50,27 @@ class StaffRequest extends FormRequest
 
     /**
      * Use json output error message.
+     * @param Validator $validator
      */
-    public function response(array $errors)
+    protected function failedValidation(Validator $validator)
     {
-        return \App\Services\ApiService::returnApiResponse(
-            $errors[array_keys($errors)[0]][0],
-            [],
-            false,
-            400
-        );
+        throw new HttpResponseException($this->return400Response((string) $validator->messages()->first()));
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name'     => '名稱',
+            'email'    => '電子郵件地址',
+            'phone'    => '電話',
+            'group_id' => '組別',
+            'barcode'  => '條碼',
+            'role'     => '職位',
+        ];
     }
 }

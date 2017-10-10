@@ -11,37 +11,32 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
 
-Route::group(['middleware' => 'auth'], function() {
-    Route::get('/', function() {
-        return view('adminlte::home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('main', ['user' => Auth::user()]);
     });
+});
 
-    Route::get('/staffs', function() {
-        return view('adminlte::staffs.index');
-    });
+Route::get('/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
+Route::post('/login', 'AuthController@postLogin');
+Route::get('/logout', 'AuthController@logout');
 
-    Route::get('/groups', function() {
-        return view('adminlte::groups.index');
-    });
-
-    Route::get('/equipments', function() {
-        return view('adminlte::equipment.index');
-    });
-
-    Route::get('/equipments/barcode', function() {
-        return view('adminlte::equipment.barcode');
-    });
-
-    Route::get('/loan', function() {
-        return view('adminlte::loan.index');
-    });
-
-    Route::get('/loan/action', function() {
-        return view('adminlte::loan.action');
-    });
-
-    Route::get('/tool/print', function() {
-        return view('adminlte::tool.print');
-    });
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
+    Route::post('user/password/{user}', 'UserController@changePassword');
+    Route::apiResource('user', 'UserController');
+    Route::apiResource('staff', 'StaffController');
+    Route::apiResource('equipment/barcode', 'EquipmentBarcodeController');
+    Route::apiResource('equipment', 'EquipmentController');
+    Route::apiResource('group', 'GroupController');
+    Route::apiResource('loan', 'LoanController');
+    Route::post('loan/return', 'LoanController@returnLoan');
+    Route::get('barcode', 'BarcodeController@getBarcode');
+    Route::get('export/{model}/{type}', 'ImportExportController@export')
+        ->where(['model' => '[a-z]+', 'type' => '(csv|xls|xlsx)']);
+    Route::get('template/{model}/{type}', 'ImportExportController@exportTemplate')
+        ->where(['model' => '[a-z]+', 'type' => '(csv|xls|xlsx)']);
+    Route::post('import/{model}', 'ImportExportController@import')
+        ->where(['model' => '[a-z]+']);
 });

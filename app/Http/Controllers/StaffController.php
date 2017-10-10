@@ -6,13 +6,16 @@ use App\Staff;
 use App\Group;
 use Illuminate\Http\Request;
 use App\Http\Requests\StaffRequest;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
 
 class StaffController extends Controller
 {
+
+    use ApiTrait;
+
     /**
      * @param $request
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -25,7 +28,7 @@ class StaffController extends Controller
         } else {
             $limit = $request->input('limit', 15);
             $staff = Staff::whereIn('group_id', $group_id)
-                ->Where(function($query) use ($search) {
+                ->Where(function ($query) use ($search) {
                     $query->orWhere('name', 'LIKE', '%' . $search . '%')
                         ->orWhere('email', 'LIKE', '%' . $search . '%')
                         ->orWhere('phone', 'LIKE', '%' . $search . '%');
@@ -33,71 +36,53 @@ class StaffController extends Controller
                 ->orderBy($order_field, $order_method)
                 ->paginate($limit);
         }
-        return ApiService::returnApiResponse('Success.', $staff);
+
+        return $this->returnSuccess('Success.', $staff);
     }
 
     /**
      * @param StaffRequest $request
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StaffRequest $request)
     {
-        $staff = Staff::create($request->all());
+        $staff = Staff::create($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
+        $staff->setRole($request->input('role'));
 
-        switch ((string) $request->input('role')) {
-            case '1':
-                $staff->group->deputy_manager = $staff->id;
-                $staff->group->save();
-                break;
-            case '2':
-                $staff->group->manager = $staff->id;
-                $staff->group->save();
-                break;
-        }
-
-        return ApiService::returnApiResponse('Store success.', $staff);
+        return $this->returnSuccess('Store success.', $staff);
     }
 
     /**
      * @param Staff $staff
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Staff $staff)
     {
-        return ApiService::returnApiResponse('Show success.', $staff);
+        return $this->returnSuccess('Show success.', $staff);
     }
 
     /**
      * @param StaffRequest $request
      * @param Staff        $staff
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(StaffRequest $request, Staff $staff)
     {
-        $staff->update($request->all());
+        $staff->update($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
 
-        Group::clearManagerUser($staff->id);
-        switch ((string) $request->input('role')) {
-            case '1':
-                $staff->group->deputy_manager = $staff->id;
-                $staff->group->save();
-                break;
-            case '2':
-                $staff->group->manager = $staff->id;
-                $staff->group->save();
-                break;
-        }
+        $staff->setRole($request->input('role'));
 
-        return ApiService::returnApiResponse('Update success.', $staff);
+        return $this->returnSuccess('Update success.', $staff);
     }
 
     /**
      * @param Staff $staff
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Staff $staff)
     {
         $staff->delete();
-        return ApiService::returnApiResponse('destroy success.', []);
+
+        return $this->returnSuccess('destroy success.');
     }
 }

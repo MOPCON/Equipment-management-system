@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
-use App\Services\ApiService;
+use App\Http\Controllers\ApiTrait;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    use ApiTrait;
+
     /**
      * @param Request $request
      * @return mixed
@@ -16,12 +20,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $order_field = $request->input('orderby_field', 'id');
-        $order_method = $request->input('$order_method', 'desc');
+        $order_method = $request->input('order_method', 'desc');
         $limit = $request->input('limit', 15);
         $user = User::orderBy($order_field, $order_method)
             ->paginate($limit);
 
-        return ApiService::returnApiResponse('Success.', $user);
+        return $this->returnSuccess('Success.', $user);
     }
 
     /**
@@ -32,7 +36,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
 
-        return ApiService::returnApiResponse('Store Success.', $user);
+        return $this->returnSuccess('Store Success.', $user);
     }
 
     /**
@@ -41,7 +45,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return ApiService::returnApiResponse('Show Success.', $user);
+        return $this->returnSuccess('Show Success.', $user);
     }
 
     /**
@@ -52,11 +56,11 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $user->update([
-            'name' => $request->name,
+            'name'  => $request->name,
             'email' => $request->email,
         ]);
 
-        return ApiService::returnApiResponse('Show Success.', $user);
+        return $this->returnSuccess('Show Success.', $user);
     }
 
     /**
@@ -66,15 +70,20 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return ApiService::returnApiResponse('Destroy Success.', $user);
+
+        return $this->returnSuccess('Destroy Success.', $user);
     }
 
-    public function changePassword(Request $request, User $user)
+    /**
+     * @param UserRequest $request
+     * @param User        $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changePassword(UserRequest $request, User $user)
     {
-        if (!$request->has('password')) {
-            return ApiService::returnApiResponse('Missing password.', [], false, 400);
-        }
         $user->password = bcrypt($request->password);
-        return ApiService::returnApiResponse('Change password Success.');
+        $user->save();
+
+        return $this->returnSuccess('Change password Success.', $user);
     }
 }

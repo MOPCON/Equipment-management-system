@@ -72,7 +72,7 @@
                                             <td>{{ item.amount }}</td>
                                             <td>{{ item.return_back }}</td>
                                             <td>{{ item.barcode }}</td>
-                                            <td v-if="item.status == '0'"><span class="label label-primary">出借中</span>
+                                            <td v-if="item.status == '0'"><span class="label label-danger">出借中</span>
                                             </td>
                                             <td v-if="item.status == '1'"><span class="label label-success">已歸還</span>
                                             </td>

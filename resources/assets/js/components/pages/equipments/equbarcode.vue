@@ -58,7 +58,7 @@
                                             <td>{{ item.equipment_name }}</td>
                                             <td>{{ item.barcode }}</td>
                                             <td v-if="item.status == '0'"><span class="label label-success">未出借</span></td>
-                                            <td v-if="item.status == '1'"><span class="label label-primary">出借中</span></td>
+                                            <td v-if="item.status == '1'"><span class="label label-danger">出借中</span></td>
                                             <td>
                                                 <button v-if="item.status == '0'" type="button"
                                                         class="btn btn-sm btn-primary"

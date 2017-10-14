@@ -76,6 +76,7 @@
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.group_name }}</td>
                                             <td>{{ item.role_name }}</td>
+                                            <td>{{ item.duties }}</td>
                                             <td>{{ item.email }}</td>
                                             <td>{{ item.phone }}</td>
                                             <td>{{ item.barcode }}</td>
@@ -173,6 +174,11 @@
                                                     <option v-for="item in roles" v-bind:value="item.id">{{ item.name }}</option>
                                                 </select>
                                             </div>
+                                            <div class="form-group">
+                                                <strong>職責</strong>
+                                                <input type="text" v-model="add_staff.duties" name="duties"
+                                                       class="form-control" placeholder="Duties" required/>
+                                            </div>
                                             <div v-if="action == 'edit'" class="form-group">
                                                 <strong>Barcode</strong>
                                                 <input type="text" v-model="add_staff.barcode" name="phone"
@@ -213,6 +219,7 @@
                     name: '',
                     group: '1',
                     role: '1',
+                    duties: '',
                     email: '',
                     phone: '',
                     barcode: ''
@@ -263,6 +270,9 @@
                         name: 'Role',
                         key: ''
                     }, {
+                        name: 'Duties',
+                        key: 'duties'
+                    }, {
                         name: 'Email',
                         key: 'email'
                     }, {
@@ -283,6 +293,7 @@
                         name: '',
                         group: '1',
                         role: 0,
+                        duties: '',
                         email: '',
                         phone: '',
                         barcode: ''
@@ -358,6 +369,7 @@
                         name: self.add_staff.name,
                         email: self.add_staff.email,
                         phone: self.add_staff.phone,
+                        duties: self.add_staff.duties,
                         group_id: self.add_staff.group,
                         role: self.add_staff.role
                     }
@@ -380,6 +392,7 @@
                         name: self.add_staff.name,
                         email: self.add_staff.email,
                         phone: self.add_staff.phone,
+                        duties: self.add_staff.duties,
                         group_id: self.add_staff.group,
                         role: self.add_staff.role,
                         barcode: self.add_staff.barcode,
@@ -411,6 +424,7 @@
                             name: res.name,
                             email: res.email,
                             phone: res.phone,
+                            duties: res.duties,
                             barcode: res.barcode,
                             group: res.group_id,
                             role: res.role

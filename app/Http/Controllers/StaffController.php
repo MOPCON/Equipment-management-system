@@ -46,7 +46,7 @@ class StaffController extends Controller
      */
     public function store(StaffRequest $request)
     {
-        $staff = Staff::create($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
+        $staff = Staff::create($request->only(['name', 'email', 'phone', 'group_id', 'duties', 'barcode']));
         $staff->setRole($request->input('role'));
 
         return $this->returnSuccess('Store success.', $staff);
@@ -68,7 +68,7 @@ class StaffController extends Controller
      */
     public function update(StaffRequest $request, Staff $staff)
     {
-        $staff->update($request->only(['name', 'email', 'phone', 'group_id', 'barcode']));
+        $staff->update($request->only(['name', 'email', 'phone', 'group_id', 'duties', 'barcode']));
 
         $staff->setRole($request->input('role'));
 

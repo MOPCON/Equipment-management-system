@@ -16,12 +16,12 @@ class ImportExportController extends Controller
     use ApiTrait;
 
     private $allowImportField = [
-        "staff"     => ["name", "email", "phone", "group_id"],
+        "staff"     => ["name", "email", "phone", "group_id", "duties", "role_name"],
         "equipment" => ["name", "source", "memo", "amount", "hasBarcode", "prefix"],
     ];
 
     private $allowExportField = [
-        "staff"     => ["name", "email", "phone", "group_name", "role_name", "barcode"],
+        "staff"     => ["name", "email", "phone", "group_name", "role_name", "duties", "barcode"],
         "equipment" => ["name", "source", "memo", "amount", "hasBarcode", "prefix"],
     ];
 
@@ -101,7 +101,16 @@ class ImportExportController extends Controller
         $allowImportField = $this->allowImportField['staff'];
         $data->each(function ($item, $key) use ($role, $allowImportField) {
             $item['role'] = $role[$item->role_name];
-            $item['group_id'] = Group::where('name', $item->group_name)->first()->id;
+
+            $group_id = Group::where('name', $item->group_name)->first();
+
+            // 無建立組別則建立新的
+            if (!$group_id) {
+                $group_id = Group::create([
+                    'name' => $item->group_name
+                ]);
+            }
+            $item['group_id'] = $group_id->id;
 
             $staff = Staff::create($item->only($allowImportField)->toArray());
             $staff->setRole($item->role);

@@ -19,6 +19,7 @@ class CreateStaffsTable extends Migration
             $table->string('email')->nullable()->default('');
             $table->string('phone')->nullable()->default('');
             $table->unsignedInteger('group_id');
+            $table->string('duties')->nullable()->default('組員');
             $table->string('barcode');
         });
 

@@ -107,7 +107,7 @@ class ImportExportController extends Controller
             // 無建立組別則建立新的
             if (!$group_id) {
                 $group_id = Group::create([
-                    'name' => $item->group_name
+                    'name' => $item->group_name,
                 ]);
             }
             $item['group_id'] = $group_id->id;

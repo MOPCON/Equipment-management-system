@@ -13,7 +13,7 @@ class EquipmentBarcodeController extends Controller
 
     /**
      * @param Request $request
-     * @return App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -22,7 +22,7 @@ class EquipmentBarcodeController extends Controller
         $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 15);
-        $barcode = EquipmentBarcode::Where(function($query) use ($search, $status) {
+        $barcode = EquipmentBarcode::Where(function ($query) use ($search, $status) {
             if ($status != '-1') {
                 $query->where('status', $status);
             }

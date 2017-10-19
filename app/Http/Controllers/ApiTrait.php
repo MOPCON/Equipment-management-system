@@ -14,9 +14,9 @@ trait ApiTrait
     public function returnApiResponse($message = '', $data = [], $success = true, $code = 200)
     {
         return response()->json([
-            'success'  => $success,
-            'message'  => $message,
-            'data'     => $data
+            'success' => $success,
+            'message' => $message,
+            'data'    => $data,
         ], $code);
     }
 

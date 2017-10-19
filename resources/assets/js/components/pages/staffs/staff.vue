@@ -171,7 +171,9 @@
                                             <div class="form-group">
                                                 <strong>角色</strong>
                                                 <select class="form-control" v-model="add_staff.role">
-                                                    <option v-for="item in roles" v-bind:value="item.id">{{ item.name }}</option>
+                                                    <option v-for="item in roles" v-bind:value="item.id">{{ item.name
+                                                        }}
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="form-group">

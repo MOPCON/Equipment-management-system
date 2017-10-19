@@ -11,7 +11,7 @@ class Staff extends Model
     public $timestamps = false;
     protected $table = 'staffs';
     protected $fillable = [
-        'name', 'email', 'phone', 'group_id', 'barcode', 'duties'
+        'name', 'email', 'phone', 'group_id', 'barcode', 'duties',
     ];
     protected $appends = ['group_name', 'role', 'role_name'];
 
@@ -31,6 +31,7 @@ class Staff extends Model
         if ($this->group->deputy_manager == $this->id) {
             return 1;
         }
+
         return 0;
     }
 

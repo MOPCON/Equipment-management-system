@@ -26,7 +26,7 @@ class EquipmentController extends Controller
             $equipment = Equipment::orderBy($order_field, $order_method)->get();
         } else {
             $limit = $request->input('limit', 15);
-            $equipment = Equipment::Where(function($query) use ($search) {
+            $equipment = Equipment::Where(function ($query) use ($search) {
                 $query->orWhere('name', 'LIKE', '%' . $search . '%')
                     ->orWhere('memo', 'LIKE', '%' . $search . '%')
                     ->orWhere('source', 'LIKE', '%' . $search . '%');
@@ -61,6 +61,7 @@ class EquipmentController extends Controller
     public function show(Equipment $equipment)
     {
         $equipment->barcode;
+
         return $this->returnSuccess('Show success.', $equipment);
     }
 

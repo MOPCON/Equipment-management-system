@@ -46,6 +46,7 @@ class UserRequest extends FormRequest
             ];
         } else {
             $id = $path[2];
+
             return [
                 'name'  => 'required|string',
                 'email' => 'required|email|unique:users,email,' . $id,

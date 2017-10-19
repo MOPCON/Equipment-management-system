@@ -16,7 +16,7 @@ class GroupController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
@@ -37,12 +37,12 @@ class GroupController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  GroupRequest $request
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(GroupRequest $request)
     {
         $group = Group::create($request->all());
-        
+
         return $this->returnSuccess('Store Success.', $group);
     }
 
@@ -50,7 +50,7 @@ class GroupController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Group $group
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Group $group)
     {
@@ -62,7 +62,7 @@ class GroupController extends Controller
      *
      * @param GroupRequest $request
      * @param Group        $group
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(GroupRequest $request, Group $group)
     {
@@ -75,7 +75,7 @@ class GroupController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Group $group
-     * @return \App\Services\ApiService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Group $group)
     {

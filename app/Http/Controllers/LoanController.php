@@ -30,7 +30,7 @@ class LoanController extends Controller
         $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 15);
         $loan = Loan::whereIn('status', $status)
-            ->Where(function($query) use ($barcode) {
+            ->Where(function ($query) use ($barcode) {
                 $query->orWhere('barcode', 'LIKE', '%' . $barcode . '%');
             })
             ->orderBy($order_field, $order_method)

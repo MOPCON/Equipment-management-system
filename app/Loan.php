@@ -8,7 +8,7 @@ class Loan extends Model
 {
     protected $table = 'loans';
     protected $fillable = [
-            'staff_id', 'equipment_id', 'amount', 'barcode',
+        'staff_id', 'equipment_id', 'amount', 'barcode',
     ];
     protected $appends = ['staff_name', 'equipment_name'];
 

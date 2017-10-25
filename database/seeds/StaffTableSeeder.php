@@ -27,6 +27,7 @@ class StaffTableSeeder extends Seeder
             Staff::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
+                'duties' => $faker->jobTitle,
                 'phone' => $faker->phoneNumber,
                 'group_id' => rand(1, 3),
             ]);

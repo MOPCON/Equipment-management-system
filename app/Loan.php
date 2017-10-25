@@ -8,7 +8,7 @@ class Loan extends Model
 {
     protected $table = 'loans';
     protected $fillable = [
-            'staff_id', 'equipment_id', 'amount', 'barcode',
+        'staff_id', 'equipment_id', 'amount', 'barcode', 'type'
     ];
     protected $appends = ['staff_name', 'equipment_name'];
 
@@ -29,7 +29,7 @@ class Loan extends Model
 
     public function equipment()
     {
-        return $this->belongsTo('App\Equipment');
+        return $this->type ? $this->belongsTo('App\RaiseEquipment') : $this->belongsTo('App\Equipment');
     }
 
     public function equipmentBarcode()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Loan;
+use App\RaiseEquipment;
 use App\Staff;
 use App\Equipment;
 use App\EquipmentBarcode;
@@ -30,7 +31,7 @@ class LoanController extends Controller
         $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 15);
         $loan = Loan::whereIn('status', $status)
-            ->Where(function($query) use ($barcode) {
+            ->Where(function ($query) use ($barcode) {
                 $query->orWhere('barcode', 'LIKE', '%' . $barcode . '%');
             })
             ->orderBy($order_field, $order_method)
@@ -56,6 +57,7 @@ class LoanController extends Controller
         }
 
         if ($request->input('equipment_id') != 0) {
+            // 使用設備 id
             $equipment = Equipment::find($request->input('equipment_id'));
 
             if (!$equipment) {
@@ -77,33 +79,62 @@ class LoanController extends Controller
                 'staff_id'     => $staff->id,
                 'equipment_id' => $equipment->id,
                 'amount'       => $request->input('amount'),
+                'type'         => '0',
             ]);
         } else {
-            $equipmentBarcode = EquipmentBarcode::where('barcode', $request->input('equipment_barcode'))->first();
+            //使用設備barcode
+            preg_match("/RE[0-9]{3}/", $request->input('equipment_barcode'), $output_array);
 
-            if (!$equipmentBarcode) {
-                return $this->return404Response('Equipment barcode not found.');
+            if ($output_array) {
+                // 屬於募集器材
+                $raiseEquipment = RaiseEquipment::where('barcode', $request->input('equipment_barcode'))->first();
+
+                if (!$raiseEquipment) {
+                    return $this->return404Response('Equipment barcode not found.');
+                }
+
+                if ($raiseEquipment->status != 1) {
+                    return $this->return400Response('The equipment status error');
+                }
+
+                $raiseEquipment->status = 2;
+                $raiseEquipment->save();
+                $loan = Loan::create([
+                    'staff_id'     => $staff->id,
+                    'equipment_id' => $raiseEquipment->id,
+                    'amount'       => '1',
+                    'barcode'      => $raiseEquipment->barcode,
+                    'type'         => '1',
+                ]);
+            } else {
+                // 屬於其他器材
+                $equipmentBarcode = EquipmentBarcode::where('barcode', $request->input('equipment_barcode'))->first();
+
+                if (!$equipmentBarcode) {
+                    return $this->return404Response('Equipment barcode not found.');
+                }
+
+                if ($equipmentBarcode->status == 1) {
+                    return $this->return400Response('The equipment has been lent.');
+                }
+
+                if ($equipmentBarcode->equipment->last() == 0) {
+                    return $this->return400Response('There is not enough equipment.');
+                }
+
+                $equipmentBarcode->equipment->loan++;
+                $equipmentBarcode->equipment->save();
+                $equipmentBarcode->status = 1;
+                $equipmentBarcode->save();
+
+                $loan = Loan::create([
+                    'staff_id'     => $staff->id,
+                    'equipment_id' => $equipmentBarcode->equipment->id,
+                    'amount'       => '1',
+                    'barcode'      => $equipmentBarcode->barcode,
+                    'type'         => '0',
+                ]);
             }
-
-            if ($equipmentBarcode->status == 1) {
-                return $this->return400Response('The equipment has been lent.');
-            }
-
-            if ($equipmentBarcode->equipment->last() == 0) {
-                return $this->return400Response('There is not enough equipment.');
-            }
-
-            $equipmentBarcode->equipment->loan++;
-            $equipmentBarcode->equipment->save();
-            $equipmentBarcode->status = 1;
-            $equipmentBarcode->save();
-
-            $loan = Loan::create([
-                'staff_id'     => $staff->id,
-                'equipment_id' => $equipmentBarcode->equipment->id,
-                'amount'       => '1',
-                'barcode'      => $equipmentBarcode->barcode,
-            ]);
         }
 
         return $this->returnSuccess('Loan success.', $loan);
@@ -135,19 +166,23 @@ class LoanController extends Controller
         }
 
         $loan->return_back += $request->input('amount');
-        $loan->equipment->loan -= $request->input('amount');
-        $loan->equipment->save();
-
         if ($loan->last() == 0) {
             $loan->status = 1;
             $loan->return_at = date('Y-m-d H:i:s');
         }
-
         $loan->save();
 
-        if ($loan->equipmentBarcode) {
-            $loan->equipmentBarcode->status = 0;
-            $loan->equipmentBarcode->save();
+        if ($loan->type == 0) {
+            $loan->equipment->loan -= $request->input('amount');
+            $loan->equipment->save();
+
+            if ($loan->equipmentBarcode) {
+                $loan->equipmentBarcode->status = 0;
+                $loan->equipmentBarcode->save();
+            }
+        } else {
+            $loan->equipment->status = 1;
+            $loan->equipment->save();
         }
 
         return $this->returnSuccess('Return success.', $loan);

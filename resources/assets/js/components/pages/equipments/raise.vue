@@ -2,41 +2,27 @@
     <div>
         <section class="content-header">
             <h1>
-                工人管理
-                <small>Staffs</small>
+                募集物資管理 <small>Raise Equipments</small>
             </h1>
         </section>
         <section class="content">
             <div class="container-fluid">
                 <div class="box">
                     <div class="box-body">
-                        <div id="staff_wrapper" class="dataTables_wrapper dt-bootstrap">
+                        <div id="equipment_wrapper" class="dataTables_wrapper dt-bootstrap">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-2 col-md-1 col-lg-1">
                                     <button type="button" class="btn btn-sm btn-primary btn-block"
-                                            v-on:click="openAddStaff()">
-                                        <span class="glyphicon glyphicon-plus"></span>&nbsp;新增
+                                            v-on:click="openAddEquipment()">
+                                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Add
                                     </button>
-                                </div>
-                                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-1">
-                                    <div class="input-group input-group-sm">
-                                        <div class="input-group-addon" style="background-color: #eee">
-                                            <i class="glyphicon glyphicon-bookmark"></i>
-                                        </div>
-                                        <select class="form-control" name="table_status" v-model="group_id"
-                                                @change="setGroup()">
-                                            <option value="0">全部</option>
-                                            <option v-for="item in group" v-bind:value="item.id">{{ item.name }}
-                                            </option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-addon" style="background-color: #eee">
                                             <i class="glyphicon glyphicon-list"></i>
                                         </div>
-                                        <select class="form-control" name="staff_length" v-model="page_info.limit"
+                                        <select class="form-control" name="equipment_length" v-model="page_info.limit"
                                                 @change="setPageLimit()">
                                             <option value="10">10</option>
                                             <option value="15">15</option>
@@ -52,7 +38,7 @@
                                         <span class="input-group-addon" style="background-color: #eee"><i
                                                 class="glyphicon glyphicon-search"></i></span>
                                         <input type="search" class="form-control" placeholder="Search"
-                                               aria-controls="staff" v-model="page_info.search"
+                                               aria-controls="equipment" v-model="page_info.search"
                                                v-on:keyup="searchKeyword($event)">
                                     </div>
                                 </div>
@@ -60,8 +46,9 @@
                             <br>
                             <div class="row">
                                 <div class="col-xs-10 col-sm-12 col-md-12 col-lg-12 table-responsive">
-                                    <table id="staff" class="table table-bordered table-striped dataTable" role="grid"
-                                           aria-describedby="staff_info">
+                                    <table id="equipment" class="table table-bordered table-striped dataTable"
+                                           role="grid"
+                                           aria-describedby="equipment_info">
                                         <thead>
                                         <tr role="row">
                                             <th v-for="row in col" class="sortfield" tabindex="0"
@@ -74,20 +61,30 @@
                                         <tr v-for="item in list">
                                             <td>{{ item.id }}</td>
                                             <td>{{ item.name }}</td>
-                                            <td>{{ item.group_name }}</td>
-                                            <td>{{ item.role_name }}</td>
-                                            <td>{{ item.duties }}</td>
-                                            <td>{{ item.email }}</td>
-                                            <td>{{ item.phone }}</td>
+                                            <td>{{ item.staff_name }}</td>
+                                            <td>
+                                                <span v-if="item.status === 0" class="label label-info">{{ item.status_name }}</span>
+                                                <span v-if="item.status === 1" class="label label-success">{{ item.status_name }}</span>
+                                                <span v-if="item.status === 2" class="label label-danger">{{ item.status_name }}</span>
+                                                <span v-if="item.status === 3" class="label label-info">{{ item.status_name }}</span>
+                                            </td>
                                             <td>{{ item.barcode }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-primary"
-                                                        v-on:click="openEditStaff(item.id, 'edit')">
+                                                        v-on:click="openEditEquipment(item.id, 'edit')">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-sm btn-danger"
-                                                        v-on:click="deleteStaff(item.id)">
+                                                        v-on:click="deleteEquipment(item.id)">
                                                     <i class="fa fa-trash-o"></i>
+                                                </button>
+                                                <button v-if="item.status === 0" type="button" class="btn btn-sm btn-success"
+                                                        v-on:click="changeStatus(item.id, 1)">
+                                                        已收到
+                                                </button>
+                                                <button v-if="item.status === 1" type="button" class="btn btn-sm btn-success"
+                                                        v-on:click="changeStatus(item.id, 3)">
+                                                        已歸還
                                                 </button>
                                             </td>
                                         </tr>
@@ -97,27 +94,27 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <div class="dataTables_info" id="staff_info" role="status" aria-live="polite">
+                                    <div class="dataTables_info" id="equipment_info" role="status" aria-live="polite">
                                         Showing {{ page_info.list_from }} to {{ page_info.list_to
                                         }} of {{ page_info.total }} entries
                                     </div>
                                 </div>
                                 <div class="col-sm-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="staff_paginate">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="equipment_paginate">
                                         <ul class="pagination">
-                                            <li class="paginate_button previous" id="staff_previous"
+                                            <li class="paginate_button previous" id="equipment_previous"
                                                 v-bind:class="[page_info.current_page-1 == 0 ? 'disabled' : '']">
-                                                <a aria-controls="staff" data-dt-idx="0" tabindex="0"
+                                                <a aria-controls="equipment" data-dt-idx="0" tabindex="0"
                                                    v-on:click="changePage(page_info.current_page-1)">Previous</a>
                                             </li>
                                             <li v-for="i in getPageArray" class="paginate_button"
                                                 v-bind:class="[page_info.current_page == i ? 'active' : '']">
-                                                <a aria-controls="staff" data-dt-idx="1" tabindex="0"
+                                                <a aria-controls="equipment" data-dt-idx="1" tabindex="0"
                                                    v-on:click="changePage(i)">{{ i }}</a>
                                             </li>
-                                            <li class="paginate_button next" id="staff_next"
+                                            <li class="paginate_button next" id="equipment_next"
                                                 v-bind:class="[page_info.current_page+1 > page_info.last_page ? 'disabled' : '']">
-                                                <a aria-controls="staff" data-dt-idx="7" tabindex="0"
+                                                <a aria-controls="equipment" data-dt-idx="7" tabindex="0"
                                                    v-on:click="changePage(page_info.current_page+1)">Next</a>
                                             </li>
                                         </ul>
@@ -126,8 +123,8 @@
                             </div>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="addStaff" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                             aria-hidden="true">
+                        <div class="modal fade" id="addEquipment" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -135,56 +132,42 @@
                                             <span aria-hidden="true">&times;</span>
                                             <span class="sr-only">Close</span>
                                         </button>
-                                        <h4 v-if="action == 'new'" class="modal-title" id="myModalLabel">Add Staff</h4>
+                                        <h4 v-if="action == 'new'" class="modal-title" id="myModalLabel">
+                                            Add Equipment</h4>
                                         <h4 v-if="action == 'edit'" class="modal-title" id="myModalLabel">
-                                            Edit Staff</h4>
+                                            Edit Equipment</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form name="addStaff">
+                                        <form name="addEquipment">
                                             <div v-if="action == 'edit'" class="form-group">
                                                 <strong>ID: </strong>
-                                                {{ add_staff.id }}
+                                                {{ add_equipment.id }}
                                             </div>
                                             <div class="form-group">
                                                 <strong>名稱</strong>
-                                                <input type="text" v-model="add_staff.name" name="name"
+                                                <input type="text" v-model="add_equipment.name" name="name"
                                                        class="form-control" placeholder="Name" required>
                                             </div>
                                             <div class="form-group">
-                                                <strong>Email</strong>
-                                                <input type="text" v-model="add_staff.email" name="email"
-                                                       class="form-control" placeholder="Email" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <strong>電話</strong>
-                                                <input type="text" v-model="add_staff.phone" name="phone"
-                                                       class="form-control" placeholder="Phone" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <strong>組別</strong>
-                                                <select class="form-control" v-model="add_staff.group">
-                                                    <option v-for="item in group" v-bind:value="item.id">{{ item.name
-                                                        }}
-                                                    </option>
+                                                <strong>出借者</strong>
+                                                <select name="staff_id" class="form-control" v-model="add_equipment.staff_id">
+                                                    <option value="0"> --- Select Staff --- </option>
+                                                    <option v-for="item in staff_list" v-bind:value="item.id">{{ item.name }}</option>
                                                 </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <strong>角色</strong>
-                                                <select class="form-control" v-model="add_staff.role">
-                                                    <option v-for="item in roles" v-bind:value="item.id">{{ item.name
-                                                        }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <strong>職責</strong>
-                                                <input type="text" v-model="add_staff.duties" name="duties"
-                                                       class="form-control" placeholder="Duties" required/>
                                             </div>
                                             <div v-if="action == 'edit'" class="form-group">
                                                 <strong>Barcode</strong>
-                                                <input type="text" v-model="add_staff.barcode" name="phone"
-                                                       class="form-control" placeholder="Phone" required>
+                                                <input type="text" v-model="add_equipment.barcode" name="barcode"
+                                                       class="form-control" placeholder="Memo">
+                                            </div>
+                                            <div v-if="action == 'edit'" class="form-group">
+                                                <strong>狀態</strong>
+                                                <select name="status" class="form-control" v-model="add_equipment.status">
+                                                    <option value="0">未收到</option>
+                                                    <option value="1">未出借</option>
+                                                    <option value="2">出借中</option>
+                                                    <option value="3">已歸還</option>
+                                                </select>
                                             </div>
                                         </form>
                                     </div>
@@ -192,10 +175,10 @@
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close
                                         </button>
                                         <button v-if="action == 'new'" type="button" class="btn btn-primary"
-                                                v-on:click="createNewStaff()">Create
+                                                v-on:click="createNewEquipment()">Create
                                         </button>
                                         <button v-if="action == 'edit'" type="button" class="btn btn-primary"
-                                                v-on:click="saveStaff(add_staff.id)">Save
+                                                v-on:click="saveEquipment(add_equipment.id)">Save
                                         </button>
                                     </div>
                                 </div>
@@ -214,32 +197,8 @@
                 list: [],
                 col: [],
                 page_info: [],
-                group: [],
-                group_id: 0,
-                add_staff: {
-                    id: '',
-                    name: '',
-                    group: '1',
-                    role: '1',
-                    duties: '',
-                    email: '',
-                    phone: '',
-                    barcode: ''
-                },
-                roles: [
-                    {
-                        id: 0,
-                        name: '組員',
-                    },
-                    {
-                        id: 1,
-                        name: '副組長',
-                    },
-                    {
-                        id: 2,
-                        name: '組長',
-                    }
-                ],
+                add_equipment: [],
+                staff_list: [],
                 action: 'new',
             }
         },
@@ -266,20 +225,11 @@
                         name: 'Name',
                         key: 'name'
                     }, {
-                        name: 'Group',
-                        key: 'group_id'
+                        name: 'Staff Name',
+                        key: 'staff_name'
                     }, {
-                        name: 'Role',
-                        key: ''
-                    }, {
-                        name: 'Duties',
-                        key: 'duties'
-                    }, {
-                        name: 'Email',
-                        key: 'email'
-                    }, {
-                        name: 'Phone',
-                        key: 'phone'
+                        name: 'Status',
+                        key: 'status_name'
                     }, {
                         name: 'Barcode',
                         key: 'barcode'
@@ -288,37 +238,32 @@
                         key: ''
                     }]
                 },
-                initStaff: function () {
+                initEquipment: function () {
                     var self = this
-                    self.add_staff = {
+                    self.add_equipment = {
                         id: '',
                         name: '',
-                        group: '1',
-                        role: 0,
-                        duties: '',
-                        email: '',
-                        phone: '',
-                        barcode: ''
+                        staff_id: 0,
+                        status: 0,
+                        barcode: '',
                     }
                 },
-                getGroup: function () {
-                    var self = this
+                getAllStaff() {
                     axios.get(
-                        '/api/group?orderby_method=asc'
+                        '/api/staff?all=true&orderby_field=name&orderby_method=asc'
                     ).then(response => {
                         var self = this
                         var res = response.data.data
-                        self.group = res.data
+                        self.staff_list = res
                         console.log(response)
                     }).catch(error => {
                         console.log(error)
                     })
                 },
-                getAllStaff: function () {
+                getAllEquipment: function () {
                     var self = this
                     axios.get(
-                        '/api/staff?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page +
-                        (self.group_id == 0 ? '' : '&group_id[0]=' + self.group_id)
+                        '/api/raise_equipment?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page
                     ).then(response => {
                         var self = this
                         var res = response.data.data
@@ -334,22 +279,19 @@
                     })
                 },
                 setPageLimit: function () {
-                    this.getAllStaff()
-                },
-                setGroup: function () {
-                    this.getAllStaff()
+                    this.getAllEquipment()
                 },
                 searchKeyword: function (event) {
                     if (event.which === 13) {
                         console.log(this.page_info.search)
-                        this.getAllStaff()
+                        this.getAllEquipment()
                     }
                 },
                 changePage: function (page) {
                     var self = this
                     if (page > 0 && page <= self.page_info.last_page) {
                         self.page_info.current_page = page
-                        this.getAllStaff()
+                        this.getAllEquipment()
                     }
                 },
                 changeSort: function (field) {
@@ -357,30 +299,26 @@
                     if (field != '') {
                         self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC'
                         self.page_info.sort_key = field
-                        this.getAllStaff()
+                        this.getAllEquipment()
                     }
                 },
-                openAddStaff: function () {
+                openAddEquipment: function () {
                     this.action = 'new'
-                    this.initStaff()
-                    $('#addStaff').modal('show')
+                    this.initEquipment()
+                    $('#addEquipment').modal('show')
                 },
-                createNewStaff: function () {
+                createNewEquipment: function () {
                     var self = this
                     var data = {
-                        name: self.add_staff.name,
-                        email: self.add_staff.email,
-                        phone: self.add_staff.phone,
-                        duties: self.add_staff.duties,
-                        group_id: self.add_staff.group,
-                        role: self.add_staff.role
+
+                        name: self.add_equipment.name,
+                        staff_id: self.add_equipment.staff_id,
                     }
-                    console.log(data)
                     axios.post(
-                        '/api/staff', data
+                        '/api/raise_equipment', data
                     ).then(response => {
-                        $('#addStaff').modal('hide')
-                        self.getAllStaff()
+                        $('#addEquipment').modal('hide')
+                        self.getAllEquipment()
                         console.log(response)
                         helper.alert(response.data.message)
                     }).catch(error => {
@@ -388,67 +326,75 @@
                         helper.alert(error.response.data.message, 'danger')
                     })
                 },
-                saveStaff: function (id) {
+                saveEquipment: function (id) {
                     var self = this
                     var data = {
-                        name: self.add_staff.name,
-                        email: self.add_staff.email,
-                        phone: self.add_staff.phone,
-                        duties: self.add_staff.duties,
-                        group_id: self.add_staff.group,
-                        role: self.add_staff.role,
-                        barcode: self.add_staff.barcode,
+                        name: self.add_equipment.name,
+                        staff_id: self.add_equipment.staff_id,
+                        status: self.add_equipment.status,
+                        barcode: self.add_equipment.barcode,
                         _method: 'PUT'
                     }
+                    console.log(data)
                     axios.post(
-                        '/api/staff/' + id, data
+                        '/api/raise_equipment/' + id, data
                     ).then(response => {
-                        $('#addStaff').modal('hide')
-                        self.getAllStaff()
+                        $('#addEquipment').modal('hide')
+                        self.getAllEquipment()
                         console.log(response)
                         helper.alert(response.data.message)
                     }).catch(error => {
-                        console.log(error)
+                        console.log(error.response)
                         helper.alert(error.response.data.message, 'danger')
                     })
                 },
-                openEditStaff: function (id) {
+                openEditEquipment: function (id) {
                     var self = this
                     self.action = 'edit'
                     axios.get(
-                        '/api/staff/' + id
+                        '/api/raise_equipment/' + id
                     ).then(response => {
                         var res = response.data.data
                         console.log(response)
                         self.form.action = 'edit'
-                        self.add_staff = {
+                        self.add_equipment = {
                             id: res.id,
                             name: res.name,
-                            email: res.email,
-                            phone: res.phone,
-                            duties: res.duties,
+                            staff_id: res.staff_id,
+                            status: res.status,
                             barcode: res.barcode,
-                            group: res.group_id,
-                            role: res.role
                         }
-                        $('#addStaff').modal('show')
+                        $('#addEquipment').modal('show')
                     }).catch(error => {
                         console.log(error)
                     })
                 },
-                deleteStaff: function (id) {
+                deleteEquipment: function (id) {
                     var _self = this
                     helper.deleteConfirm(function () {
                         axios.delete(
-                            '/api/staff/' + id
+                            '/api/raise_equipment/' + id
                         ).then(response => {
                             console.log(response)
                             helper.alert(response.data.message)
-                            _self.getAllStaff()
+                            _self.getAllEquipment()
                         }).catch(error => {
                             console.log(error)
                             helper.alert('發生錯誤!', 'danger')
                         })
+                    })
+                },
+                changeStatus(id, status) {
+                    var self = this
+                    axios.get(
+                        '/api/raise_equipment/change_status/' + id + '/' + status,
+                    ).then(response => {
+                        self.getAllEquipment()
+                        console.log(response)
+                        helper.alert(response.data.message)
+                    }).catch(error => {
+                        console.log(error.response)
+                        helper.alert(error.response.data.message, 'danger')
                     })
                 }
             },
@@ -470,9 +416,9 @@
                 submitted: false
             }
             self.initCol()
-            self.initStaff()
+            self.initEquipment()
+            self.getAllEquipment()
             self.getAllStaff()
-            self.getGroup()
         },
         watch:
             {}

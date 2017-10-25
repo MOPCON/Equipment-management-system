@@ -104,6 +104,7 @@ desired effect
                     <a><i class="fa fa-hdd-o" aria-hidden="true"></i><span>器材管理</span></a>
                     <ul class="treeview-menu">
                         <li><a href="/#/equipments"><i class="fa fa-hdd-o" aria-hidden="true"></i><span>器材管理</span></a></li>
+                        <li><a href="/#/equipments/raise"><i class="fa fa-suitcase" aria-hidden="true"></i><span>募集物資管理</span></a></li>
                         <li><a href="/#/equipments/barcode"><i class="fa fa-barcode" aria-hidden="true"></i><span>條碼管理</span></a></li>
                     </ul>
                 </li>

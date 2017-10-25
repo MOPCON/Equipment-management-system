@@ -21,12 +21,14 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
             return redirect("/");
         }
+
         return back()->withInput()->with('error', '帳號或密碼錯誤');
     }
 
     public function logout()
     {
         Auth::logout();
+
         return redirect("/login");
     }
 }

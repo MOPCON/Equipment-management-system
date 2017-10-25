@@ -14,13 +14,17 @@ class Group extends Model
     ];
     protected $appends = ['manager_name', 'deputy_manager_name'];
 
-    public function getManagerNameAttribute() {
+    public function getManagerNameAttribute()
+    {
         $staff = Staff::find($this->manager);
+
         return $staff ? $staff->name : '';
     }
 
-    public function getDeputyManagerNameAttribute() {
+    public function getDeputyManagerNameAttribute()
+    {
         $staff = Staff::find($this->deputy_manager);
+
         return $staff ? $staff->name : '';
     }
 

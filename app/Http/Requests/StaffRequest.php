@@ -33,6 +33,7 @@ class StaffRequest extends FormRequest
                 'name'     => 'required|string',
                 'email'    => 'nullable|email',
                 'phone'    => 'nullable|string',
+                'duties'   => 'nullable|string',
                 'group_id' => 'required',
                 'role'     => 'required',
             ];
@@ -42,6 +43,7 @@ class StaffRequest extends FormRequest
             'name'     => 'required|string',
             'email'    => 'nullable|email',
             'phone'    => 'nullable|string',
+            'duties'   => 'nullable|string',
             'group_id' => 'required',
             'barcode'  => 'required|string',
             'role'     => 'required',

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\ApiTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserRequest extends FormRequest
+class RaiseEquipmentRequest extends FormRequest
 {
     use ApiTrait;
 
@@ -28,30 +28,19 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $path = explode("/", $this->path());
-        if ($this->getMethod() == 'POST') {
-            $type = $path[2] ?? '';
-            if ($type === "password") {
-                return [
-                    'password_confirmation' => 'required',
-                    'password'              => 'required|string|min:8|confirmed',
-                ];
-            }
-
+        if ($this->getMethod() == 'PUT') {
             return [
-                'name'                  => 'required|string',
-                'email'                 => 'required|email|unique:users,email',
-                'password_confirmation' => 'required',
-                'password'              => 'required|string|min:8|confirmed',
-            ];
-        } else {
-            $id = $path[2];
-
-            return [
-                'name'  => 'required|string',
-                'email' => 'required|email|unique:users,email,' . $id,
+                'name'     => 'required|string',
+                'staff_id' => 'required|exists:staffs,id',
+                'barcode'  => 'required|string',
+                'status'   => 'required',
             ];
         }
+
+        return [
+            'name'     => 'required|string',
+            'staff_id' => 'required|exists:staffs,id',
+        ];
     }
 
     /**
@@ -72,8 +61,9 @@ class UserRequest extends FormRequest
     {
         return [
             'name'     => '名稱',
-            'email'    => '電子郵件地址',
-            'password' => '密碼',
+            'staff_id' => '出借者',
+            'barcode'  => '條碼',
+            'status'   => '狀態',
         ];
     }
 }

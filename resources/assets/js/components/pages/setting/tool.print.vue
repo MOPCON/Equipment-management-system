@@ -15,13 +15,13 @@
             <input type="button" v-on:click="genrateBarcode()" value="產生"/>
             <input type="button" v-on:click="getBarcode()" value="取得資料"/>
             Total: {{ count }} <br>
-            Backup: <input type="number" v-model="backup"/>
-
+            Backup: <input type="number" v-model="backup"/> <br>
+            Title: <input type="text" size="30" v-model="title">
         </div>
         <div id="print_parts" style="height: 29.5cm; width: 21cm; position: absolute;left: 0;top: 0;bottom: 0; padding-top: 5px;">
-            <div v-for="i in count"
-                 style="height: 2.48cm; width: 4.2cm; float: left; text-align: center;">
-                <img v-bind:id="'barcode'+i"/>
+            <div v-for="i in count" style="height: 2.48cm; width: 4.2cm; float: left; text-align: center;">
+                <div style="font-size: 8px; text-align:center; -webkit-transform : scale(0.7);">{{ title }}</div>
+                <img style="border: solid 1px #000;" v-bind:id="'barcode'+i"/>
             </div>
         </div>
 
@@ -39,6 +39,7 @@
                 barcode: [],
                 count: 0,
                 backup: 10,
+                title: 'MOPCON 場務組物流股'
             }
         },
         computed: {},
@@ -66,6 +67,7 @@
                     JsBarcode('#barcode' + i, self.barcode[i-1], {
                         width: 1,
                         height: 25,
+                        fontSize: 12
                     });
                 }
 

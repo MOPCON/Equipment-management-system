@@ -31,6 +31,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('equipment', 'EquipmentController');
     Route::apiResource('group', 'GroupController');
     Route::apiResource('loan', 'LoanController');
+    Route::apiResource('raise_equipment', 'RaiseEquipmentController');
+    Route::get('raise_equipment/change_status/{raiseEquipment}/{status}', 'RaiseEquipmentController@changeStatus');
     Route::post('loan/return', 'LoanController@returnLoan');
     Route::get('barcode', 'BarcodeController@getBarcode');
     Route::get('export/{model}/{type}', 'ImportExportController@export')

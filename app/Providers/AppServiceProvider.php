@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Equipment;
 use App\EquipmentBarcode;
+use App\RaiseEquipment;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
          */
         Staff::creating(function ($staff) {
             $staff->barcode = 'ST' . str_pad((((int) str_replace("ST", "", Staff::pluck('barcode')->last())) + 1), 3, '0', STR_PAD_LEFT);
+        });
+
+        RaiseEquipment::creating(function ($equipment) {
+            $equipment->barcode = 'RE' . str_pad((((int) str_replace("RE", "", RaiseEquipment::pluck('barcode')->last())) + 1), 3, '0', STR_PAD_LEFT);
         });
 
         /**

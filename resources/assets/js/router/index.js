@@ -20,6 +20,9 @@ export default new Router({
             path: '/equipments/barcode',
             component: require('../components/pages/equipments/equbarcode.vue'),
         }, {
+            path: '/equipments/raise',
+            component: require('../components/pages/equipments/raise.vue'),
+        }, {
             path: '/loan',
             component: require('../components/pages/loan/loan.vue'),
         }, {

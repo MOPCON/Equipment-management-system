@@ -18,10 +18,10 @@
             Backup: <input type="number" v-model="backup"/> <br>
             Title: <input type="text" size="30" v-model="title">
         </div>
-        <div id="print_parts" style="height: 29.5cm; width: 21cm; position: absolute;left: 0;top: 0;bottom: 0; padding-top: 5px;">
-            <div v-for="i in count" style="height: 2.48cm; width: 4.2cm; float: left; text-align: center;">
+        <div id="print_parts" style="height: 29.5cm; width: 21cm; position: absolute;left: 0;top: 0;bottom: 0;">
+            <div v-for="i in count" style="height: 2.31cm; width: 4.17cm; float: left; text-align: center; padding-top: 0.16cm">
                 <div style="font-size: 8px; text-align:center; -webkit-transform : scale(0.7);">{{ title }}</div>
-                <img style="border: solid 1px #000;" v-bind:id="'barcode'+i"/>
+                <img style="border: solid 0.03cm #000;" v-bind:id="'barcode'+i"/>
             </div>
         </div>
 

@@ -20,9 +20,9 @@
                         <div class="form-group">
                             <label for="equbar" class="control-label"><i class="glyphicon glyphicon-hdd"></i> <strong>Equipment &nbsp&nbsp</strong></label>&nbsp&nbsp
                             <div class="input-group">
-                                <input id="equibar" type="text"
+                                <input id="equrbar" type="text"
                                        class="form-control input-lg" v-model="return_barcode"
-                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup="equi_bar($event)">
+                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup.enter="equi_bar()" autofocus>
                                 <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
                                                                       v-on:click="equi_clear()"><i
                                         class="glyphicon glyphicon-repeat"></i> </button></span>
@@ -200,26 +200,24 @@
                     self.log.push(tmp_log);
                     self.log.reverse();
                     self.initData();
-                    $("#equibar").focus();
+                    $("#equrbar").focus();
                 }).catch(error => {
                     console.log(error.response);
                     self.top_info.message = error.response.data.message;
                     self.top_info.success = 2;
-//                    helper.alert(error.response.data.message, 'danger');
+                    $("#equrbar").select();
                 });
             },
-            equi_bar: function (event) {
+            equi_bar: function () {
                 var self = this;
-                if (event.which === 13) {
-                    self.retuenEquipment();
-                    self.intTopInfo();
-                    self.initBigInfo();
-                }
+                self.retuenEquipment();
+                self.intTopInfo();
+                self.initBigInfo();
             },
             equi_clear: function () {
                 var self = this;
                 self.return_barcode = '';
-                $("#equibar").focus();
+                $("#equrbar").focus();
             }
         }, created: function () {
             var self = this;

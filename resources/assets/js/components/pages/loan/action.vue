@@ -10,8 +10,8 @@
             <div class="container-fluid spark-screen">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#lend" data-toggle="tab" aria-expanded="true">出借</a></li>
-                        <li class=""><a href="#return" data-toggle="tab" aria-expanded="false">歸還 (Barcode)</a></li>
+                        <li class="active"><a href="#lend" data-toggle="tab" aria-expanded="true" v-on:click="autoFocus('equibar')">出借</a></li>
+                        <li class=""><a href="#return" data-toggle="tab" aria-expanded="false" v-on:click="autoFocus('equrbar')">歸還 (Barcode)</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="lend">
@@ -31,6 +31,13 @@
     import return_barcode from './loan.return.barcode.vue'
 
     export default {
-        components: {lend, return_barcode}
+        components: {lend, return_barcode},
+        methods: {
+            autoFocus(id) {
+                setTimeout(function () {
+                    $("#" + id).focus();
+                }, 100);
+            }
+        }
     }
 </script>

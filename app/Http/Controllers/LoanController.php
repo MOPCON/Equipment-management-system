@@ -82,10 +82,10 @@ class LoanController extends Controller
                 'type'         => '0',
             ]);
         } else {
-            //使用設備barcode
-            preg_match("/RE[0-9]{3}/", $request->input('equipment_barcode'), $output_array);
+            $raiseEquipment = RaiseEquipment::where('barcode', $request->input('equipment_barcode'))->first();
+            $equipmentBarcode = EquipmentBarcode::where('barcode', $request->input('equipment_barcode'))->first();
 
-            if ($output_array) {
+            if ($raiseEquipment) {
                 // 屬於募集器材
                 $raiseEquipment = RaiseEquipment::where('barcode', $request->input('equipment_barcode'))->first();
 
@@ -108,8 +108,6 @@ class LoanController extends Controller
                 ]);
             } else {
                 // 屬於其他器材
-                $equipmentBarcode = EquipmentBarcode::where('barcode', $request->input('equipment_barcode'))->first();
-
                 if (!$equipmentBarcode) {
                     return $this->return404Response('Equipment barcode not found.');
                 }

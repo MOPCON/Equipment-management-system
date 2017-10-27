@@ -32,7 +32,7 @@
                             <div class="input-group" v-if="add_loan.equipment_type == '0'">
                                 <input id="equibar" type="text"
                                        class="form-control input-lg" v-model="add_loan.equipment_barcode"
-                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup="equi_bar(event)">
+                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup.enter="equi_bar()">
                                 <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
                                                                       v-on:click="equi_clear()"><i
                                         class="glyphicon glyphicon-repeat"></i> </button></span>
@@ -71,7 +71,7 @@
                             <div class="input-group" v-if="add_loan.staff_type == '0'">
                                 <input id="staffbar" type="text"
                                        class="form-control input-lg" v-model="add_loan.staff_barcode"
-                                       placeholder="Staff Barcode" tabindex="2" v-on:keyup="staff_bar(event)">
+                                       placeholder="Staff Barcode" v-on:keyup.enter="staff_bar()">
                                 <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
                                                                       v-on:click="staff_clear()"><i
                                         class="glyphicon glyphicon-repeat"></i> </button></span>
@@ -314,23 +314,24 @@
                     console.log(error.response);
                     self.top_info.message = error.response.data.message;
                     self.top_info.success = 2;
+                    $("#equibar").focus();
+                    $("#equibar").select();
                 });
             },
-            equi_bar: function (event) {
+            equi_bar: function () {
                 var self = this;
-                if (event.which === 13 && self.add_loan.staff_type == '0') {
+                if (self.add_loan.staff_type == '0') {
                     $("#staffbar").focus();
                 }
-                if (event.which === 13) {
-                    self.intTopInfo();
-                    self.initBigInfo();
+                if (self.top_info.success === 2) {
+                    $("#staffbar").select();
                 }
+                self.intTopInfo();
+                self.initBigInfo();
             },
-            staff_bar: function (event) {
+            staff_bar: function () {
                 var self = this;
-                if (event.which === 13) {
-                    self.loanEquipment();
-                }
+                self.loanEquipment();
             },
             equi_clear: function () {
                 var self = this;
@@ -350,6 +351,10 @@
             self.initEquipment();
             self.initList();
             self.intTopInfo();
+        }, mounted() {
+            setTimeout(function () {
+                $("#equibar").focus();
+            }, 100);
         }
     }
 </script>

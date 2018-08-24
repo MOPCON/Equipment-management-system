@@ -1,9 +1,11 @@
 /node_modules
 /public/hot
 /public/storage
+/public/images
 /public/css/app.css
 /public/js/app.js
-/storage/*.key
+/public/fonts
+/storage
 /vendor
 /.idea
 /.vagrant

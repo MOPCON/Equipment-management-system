@@ -38,6 +38,9 @@ export default new Router({
             path: '/tool/imexport',
             component: require('../components/pages/setting/import_export.vue'),
         }, {
+            path: '/student-verify',
+            component: require('../components/pages/verify/student_verify'),
+        }, {
             path: '/*',
             redirect: '/'
         }

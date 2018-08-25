@@ -15,8 +15,8 @@
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
                                     <button type="button" class="btn btn-sm btn-primary btn-block" v-on:click="openFileSelect">
                                         <span class="glyphicon glyphicon-plus"></span> Upload
-                                        <input type="file" style="display:none" id="importFile" v-on:change="getData()">
                                     </button>
+                                    <input type="file" style="display:none" id="importFile" v-on:change="getData()">
                                 </div>
                             </div>
                             <div class="row">
@@ -25,7 +25,8 @@
                                            aria-describedby="staff_info">
                                         <thead>
                                         <tr role="row">
-                                            <th class="sortfield" tabindex="0">驗證通過</th>
+                                            <th class="sortfield" tabindex="0">驗證狀態</th>
+                                            <th class="sortfield" tabindex="0">驗證</th>
                                             <th class="sortfield" tabindex="0">驗證人員</th>
                                             <th class="sortfield" tabindex="0">訂單編號</th>
                                             <th class="sortfield" tabindex="0">報名序號</th>
@@ -37,8 +38,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="item in list">
-                                            <td><input type="checkbox"></td>
+                                        <tr v-for="(item, index) in list">
+                                            <td>{{ index }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="openVerifyData(index)">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                            </td>
                                             <td>哈西</td>
                                             <td>{{ item.order_id }}</td>
                                             <td>{{ item.no }}</td>
@@ -57,6 +63,68 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="verifyStudent" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">Student Verify</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form name="addStaff">
+                                            <div class="form-group">
+                                                <strong>kktix 訂單編號: </strong>
+                                                {{ student_verify.order_id }}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>kktix 報名序號: </strong>
+                                                {{ student_verify.no }}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>kktix 檔案網址: </strong>
+                                                {{ student_verify.file_url }}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>購票日期</strong>
+                                                <input type="date" v-model="student_verify.purchase_date" name="purchase_date"
+                                                       class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>姓名</strong>
+                                                <input type="text" v-model="student_verify.name" name="name"
+                                                       class="form-control" placeholder="Name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>Email</strong>
+                                                <input type="text" v-model="student_verify.email" name="email"
+                                                       class="form-control" placeholder="Email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>學校名稱</strong>
+                                                <input type="text" v-model="student_verify.school" name="school"
+                                                       class="form-control" placeholder="School" required/>
+                                            </div>
+                                            <div>
+                                                <strong>審核者備註</strong>
+                                                <textarea class="form-control" v-model="student_verify.comment"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary" v-on:click="verifyData()">
+                                            儲存並通過驗證
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,7 +136,8 @@
     export default {
         data: function () {
             return {
-                list: []
+                list: [],
+                student_verify: {}
             }
         },
         methods: {
@@ -86,6 +155,33 @@
                 ).then(response => {
                     console.log(response);
                     self.list = response.data.data;
+                }).catch(error => {
+                    console.error(error);
+                });
+            },
+            openVerifyData(index) {
+                let self = this;
+                self.student_verify = self.list[index];
+                console.log(self.student_verify);
+                $('#verifyStudent').modal('show');
+            },
+            verifyData() {
+                let self = this;
+                var data = {
+                    verify_year: new Date().getFullYear(),
+                    order_id: self.student_verify.order_id,
+                    register_no: self.student_verify.no,
+                    purchase_date: self.student_verify.purchase_date,
+                    name: self.student_verify.name,
+                    email: self.student_verify.email,
+                    school_name: self.student_verify.school,
+                    file_link: self.student_verify.file_url,
+                    comment: self.student_verify.comment
+                };
+                axios.post(
+                    '/api/student', data
+                ).then(response => {
+                    console.log(response);
                 }).catch(error => {
                     console.error(error);
                 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\StudentValidation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -20,6 +21,7 @@ class StudentController extends Controller
                 'register_no' => $request->get('register_no'),
             ],
             [
+                'verify_user_id' => Auth::id(),
                 'purchase_date' => $request->get('purchase_date'),
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),

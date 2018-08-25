@@ -12,9 +12,10 @@
                     <div class="box-body">
                         <div id="student_verify_wrapper" class="dataTables_wrapper dt-bootstrap">
                             <div class="row">
-                                <div class="col-xs-12 col-sm-2 col-md-1 col-lg-1">
-                                    <button type="button" class="btn btn-sm btn-primary btn-block">
+                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
+                                    <button type="button" class="btn btn-sm btn-primary btn-block" v-on:click="openFileSelect">
                                         <span class="glyphicon glyphicon-plus"></span> Upload
+                                        <input type="file" style="display:none" id="importFile" v-on:change="getData()">
                                     </button>
                                 </div>
                             </div>
@@ -71,21 +72,27 @@
             }
         },
         methods: {
-            getData: function () {
+            openFileSelect() {
+                $('#importFile').click()
+            },
+            getData() {
                 let self = this;
-                // 這邊幫我改接 /api/student/upload api
-                /*axios.get(
-                    '/api/student'
+                var formData = new FormData();
+                var importFile = document.querySelector('#importFile');
+                formData.append("file", importFile.files[0]);
+
+                axios.post(
+                    '/api/student/upload', formData
                 ).then(response => {
                     console.log(response);
                     self.list = response.data.data;
                 }).catch(error => {
                     console.error(error);
-                })*/
+                });
             }
         },
         created: function () {
-            this.getData();
+
         }
     }
 </script>

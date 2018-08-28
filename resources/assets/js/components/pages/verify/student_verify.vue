@@ -39,7 +39,10 @@
                                         </thead>
                                         <tbody>
                                         <tr v-for="(item, index) in list">
-                                            <td>{{ index }}</td>
+                                            <td>
+                                                <span v-show="item.is_verify" class="label label-success">通過</span>
+                                                <span v-show="!item.is_verify" class="label label-default">未驗證</span>
+                                            </td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="openVerifyData(index)">
                                                     <i class="fa fa-edit"></i>
@@ -118,7 +121,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close
                                         </button>
-                                        <button type="button" class="btn btn-primary" v-on:click="verifyData()">
+                                        <button type="button" class="btn btn-primary" v-on:click="verifyData(verify_index)">
                                             儲存並通過驗證
                                         </button>
                                     </div>
@@ -137,7 +140,8 @@
         data: function () {
             return {
                 list: [],
-                student_verify: {}
+                student_verify: {},
+                verify_index: 0
             }
         },
         methods: {
@@ -162,7 +166,7 @@
             openVerifyData(index) {
                 let self = this;
                 self.student_verify = self.list[index];
-                console.log(self.student_verify);
+                self.verify_index = index;
                 $('#verifyStudent').modal('show');
             },
             verifyData() {
@@ -181,7 +185,10 @@
                 axios.post(
                     '/api/student', data
                 ).then(response => {
-                    console.log(response);
+                    self.list[self.verify_index] = self.student_verify;
+                    self.list[self.verify_index].is_verify = true;
+                    $('#verifyStudent').modal('hide');
+                    console.log(self.list[self.verify_index]);
                 }).catch(error => {
                     console.error(error);
                 });

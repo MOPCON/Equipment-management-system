@@ -46,6 +46,9 @@
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="openVerifyData(index)">
                                                     <i class="fa fa-edit"></i>
+                                                </button><br>
+                                                <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="update(index, true, false)" v-show="!item.is_verify">
+                                                    <i class="fa fa-check"></i>
                                                 </button>
                                             </td>
                                             <td>哈西</td>
@@ -98,6 +101,10 @@
                                                        class="form-control" required>
                                             </div>
                                             <div class="form-group">
+                                                <strong>驗證通過</strong>
+                                                <input type="checkbox" v-model="student_verify.is_verify" name="is_verify">
+                                            </div>
+                                            <div class="form-group">
                                                 <strong>姓名</strong>
                                                 <input type="text" v-model="student_verify.name" name="name"
                                                        class="form-control" placeholder="Name" required>
@@ -121,7 +128,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close
                                         </button>
-                                        <button type="button" class="btn btn-primary" v-on:click="verifyData(verify_index)">
+                                        <button type="button" class="btn btn-primary" v-on:click="update(verify_index, student_verify.is_verify, true)">
                                             儲存並通過驗證
                                         </button>
                                     </div>
@@ -169,28 +176,34 @@
                 self.verify_index = index;
                 $('#verifyStudent').modal('show');
             },
-            verifyData() {
+            update(index, is_verify, hide_modal = false) {
                 let self = this;
+                let verify_data = self.list[index];
                 var data = {
                     verify_year: new Date().getFullYear(),
-                    order_id: self.student_verify.order_id,
-                    register_no: self.student_verify.no,
-                    purchase_date: self.student_verify.purchase_date,
-                    name: self.student_verify.name,
-                    email: self.student_verify.email,
-                    school_name: self.student_verify.school,
-                    file_link: self.student_verify.file_url,
-                    comment: self.student_verify.comment
+                    is_verify: is_verify,
+                    order_id: verify_data.order_id,
+                    register_no: verify_data.no,
+                    purchase_date: verify_data.purchase_date,
+                    name: verify_data.name,
+                    email: verify_data.email,
+                    school_name: verify_data.school,
+                    file_link: verify_data.file_url,
+                    comment: verify_data.comment
                 };
+                console.log(data);
                 axios.post(
                     '/api/student', data
                 ).then(response => {
                     self.list[self.verify_index] = self.student_verify;
-                    self.list[self.verify_index].is_verify = true;
-                    $('#verifyStudent').modal('hide');
-                    console.log(self.list[self.verify_index]);
+                    if (hide_modal) {
+                        $('#verifyStudent').modal('hide');
+                    }
                 }).catch(error => {
                     console.error(error);
+                    if (hide_modal) {
+                        $('#verifyStudent').modal('hide');
+                    }
                 });
             }
         },

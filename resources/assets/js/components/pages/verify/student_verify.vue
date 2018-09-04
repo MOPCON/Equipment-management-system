@@ -59,9 +59,16 @@
                                             <td>{{ item.email }}</td>
                                             <td>{{ item.school }}</td>
                                             <td>
-                                                <img v-bind:src="item.file_url" v-show="item.file_type === 'image'" width="100px">
-                                                <span v-show="item.file_type === 'pdf'"><a v-bind:href="item.file_url" target="_blank"><span class="fa fa-file-pdf-o fa-2x"></span></a> {{ item.file_url }}</span>
-                                                <span v-show="item.file_type !== 'image' && item.file_type !== 'pdf'"><a v-bind:href="item.file_url" target="_blank"> {{ item.file_url }}</a></span>
+                                                <img class="pointer" v-bind:src="item.file_url" v-show="item.file_type === 'image'" v-on:click="openWindow(item.file_url)" width="100px">
+                                                <span v-show="item.file_type === 'pdf'">
+                                                    <a v-bind:href="item.file_url" target="_blank">
+                                                        <span class="fa fa-file-pdf-o fa-2x"></span>
+                                                    </a>
+                                                    {{ item.file_url }}
+                                                </span>
+                                                <span v-show="item.file_type !== 'image' && item.file_type !== 'pdf'">
+                                                    <a v-bind:href="item.file_url" target="_blank"> {{ item.file_url }}</a>
+                                                </span>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -92,8 +99,17 @@
                                                 {{ student_verify.no }}
                                             </div>
                                             <div class="form-group">
-                                                <strong>kktix 檔案網址: </strong>
-                                                {{ student_verify.file_url }}
+                                                <strong>kktix 檔案: </strong>
+                                                <img class="pointer" v-bind:src="student_verify.file_url" v-show="student_verify.file_type === 'image'" v-on:click="openWindow(student_verify.file_url)" width="300px">
+                                                <span v-show="student_verify.file_type === 'pdf'">
+                                                    <a v-bind:href="student_verify.file_url" target="_blank">
+                                                        <span class="fa fa-file-pdf-o fa-2x"></span>
+                                                    </a>
+                                                    {{ student_verify.file_url }}
+                                                </span>
+                                                <span v-show="student_verify.file_type !== 'image' && student_verify.file_type !== 'pdf'">
+                                                    <a v-bind:href="student_verify.file_url" target="_blank"> {{ student_verify.file_url }}</a>
+                                                </span>
                                             </div>
                                             <div class="form-group">
                                                 <strong>購票日期</strong>
@@ -129,7 +145,7 @@
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close
                                         </button>
                                         <button type="button" class="btn btn-primary" v-on:click="update(verify_index, student_verify.is_verify, true)">
-                                            儲存並通過驗證
+                                            儲存
                                         </button>
                                     </div>
                                 </div>
@@ -172,30 +188,33 @@
             },
             openVerifyData(index) {
                 let self = this;
-                self.student_verify = self.list[index];
+                self.student_verify = Object.assign({}, self.list[index]);
                 self.verify_index = index;
                 $('#verifyStudent').modal('show');
             },
             update(index, is_verify, hide_modal = false) {
                 let self = this;
                 let verify_data = self.list[index];
-                var data = {
+                let data = {
                     verify_year: new Date().getFullYear(),
                     is_verify: is_verify,
                     order_id: verify_data.order_id,
                     register_no: verify_data.no,
-                    purchase_date: verify_data.purchase_date,
-                    name: verify_data.name,
-                    email: verify_data.email,
-                    school_name: verify_data.school,
+                    no: verify_data.no,
+                    purchase_date: (hide_modal) ? self.student_verify.purchase_date : verify_data.purchase_date,
+                    name: (hide_modal) ? self.student_verify.name : verify_data.name,
+                    email: (hide_modal) ? self.student_verify.email : verify_data.email,
+                    school_name: (hide_modal) ? self.student_verify.school : verify_data.school,
+                    school: (hide_modal) ? self.student_verify.school : verify_data.school,
                     file_link: verify_data.file_url,
-                    comment: verify_data.comment
+                    file_url: verify_data.file_url,
+                    file_type: verify_data.file_type,
+                    comment: (hide_modal) ? self.student_verify.comment : verify_data.comment
                 };
-                console.log(data);
                 axios.post(
                     '/api/student', data
                 ).then(response => {
-                    self.list[self.verify_index] = self.student_verify;
+                    this.$set(self.list, index, data);
                     if (hide_modal) {
                         $('#verifyStudent').modal('hide');
                     }
@@ -205,6 +224,9 @@
                         $('#verifyStudent').modal('hide');
                     }
                 });
+            },
+            openWindow(url) {
+                window.open(url);
             }
         },
         created: function () {

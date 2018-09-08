@@ -18,7 +18,7 @@
                                         <span class="glyphicon glyphicon-plus"></span>&nbsp;新增
                                     </button>
                                 </div>
-                                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-1">
+                                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
                                     <div class="input-group input-group-sm">
                                         <div class="input-group-addon" style="background-color: #eee">
                                             <i class="glyphicon glyphicon-bookmark"></i>

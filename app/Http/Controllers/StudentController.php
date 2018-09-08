@@ -82,6 +82,7 @@ class StudentController extends Controller
                 }
             }
 
+            $id = null;
             $is_verify = false;
             $comment = '';
             $order_id = $line[1];
@@ -91,6 +92,7 @@ class StudentController extends Controller
             $school = $line[22];
             $verify_user_name = '';
             if (isset($validated_data[$order_id])) {
+                $id = $validated_data[$order_id]->id;
                 $is_verify = (bool) $validated_data[$order_id]->is_verify;
                 $comment = $validated_data[$order_id]->comment;
                 $purchase_date = $validated_data[$order_id]->purchase_date;
@@ -101,6 +103,7 @@ class StudentController extends Controller
             }
 
             $data = [
+                'id' => $id,
                 'order_id' => $line[1],
                 'register_no' => $line[2],
                 'is_verify' => $is_verify,

@@ -41,7 +41,8 @@
                                         <tr v-for="(item, index) in list">
                                             <td>
                                                 <span v-show="item.is_verify" class="label label-success">通過</span>
-                                                <span v-show="!item.is_verify" class="label label-default">未驗證</span>
+                                                <span v-show="!item.is_verify && item.verify_user_id != null" class="label label-danger">未通過</span>
+                                                <span v-show="!item.is_verify && item.verify_user_id == null" class="label label-default">未驗證</span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="openVerifyData(index)">
@@ -173,8 +174,8 @@
             },
             getData() {
                 let self = this;
-                var formData = new FormData();
-                var importFile = document.querySelector('#importFile');
+                let formData = new FormData();
+                let importFile = document.querySelector('#importFile');
                 formData.append("file", importFile.files[0]);
 
                 axios.post(
@@ -205,16 +206,17 @@
                     name: (hide_modal) ? self.student_verify.name : verify_data.name,
                     email: (hide_modal) ? self.student_verify.email : verify_data.email,
                     school_name: (hide_modal) ? self.student_verify.school : verify_data.school,
-                    school: (hide_modal) ? self.student_verify.school : verify_data.school,
                     file_link: verify_data.file_url,
-                    file_url: verify_data.file_url,
-                    file_type: verify_data.file_type,
                     comment: (hide_modal) ? self.student_verify.comment : verify_data.comment
                 };
                 axios.post(
                     '/api/student', data
                 ).then(response => {
-                    this.$set(self.list, index, data);
+                    let res = response.data.data;
+                    res.school = res.school_name;
+                    res.file_url = res.file_link;
+                    res.file_type = verify_data.file_type;
+                    this.$set(self.list, index, res);
                     if (hide_modal) {
                         $('#verifyStudent').modal('hide');
                     }

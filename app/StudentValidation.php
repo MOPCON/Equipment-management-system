@@ -14,6 +14,6 @@ class StudentValidation extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'id', 'verify_user_id');
+        return $this->belongsTo('App\User', 'verify_user_id', 'id');
     }
 }

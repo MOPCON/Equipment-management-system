@@ -41,8 +41,7 @@
                                         <tr v-for="(item, index) in list">
                                             <td>
                                                 <span v-show="item.is_verify" class="label label-success">通過</span>
-                                                <span v-show="!item.is_verify && item.verify_user_id != null" class="label label-danger">未通過</span>
-                                                <span v-show="!item.is_verify && item.verify_user_id == null" class="label label-default">未驗證</span>
+                                                <span v-show="!item.is_verify" class="label label-default">未驗證</span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="openVerifyData(index)">
@@ -55,9 +54,9 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </td>
-                                            <td>哈西</td>
+                                            <td>{{ item.verify_user_name }}</td>
                                             <td>{{ item.order_id }}</td>
-                                            <td>{{ item.no }}</td>
+                                            <td>{{ item.register_no }}</td>
                                             <td>{{ item.purchase_date}}</td>
                                             <td>{{ item.name}}</td>
                                             <td>{{ item.email }}</td>
@@ -100,7 +99,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <strong>kktix 報名序號: </strong>
-                                                {{ student_verify.no }}
+                                                {{ student_verify.register_no }}
                                             </div>
                                             <div class="form-group">
                                                 <strong>kktix 檔案: </strong>
@@ -179,6 +178,7 @@
                 let self = this;
                 let formData = new FormData();
                 let importFile = document.querySelector('#importFile');
+                self.list = null;
                 formData.append("file", importFile.files[0]);
 
                 axios.post(
@@ -205,8 +205,7 @@
                     verify_year: new Date().getFullYear(),
                     is_verify: is_verify,
                     order_id: verify_data.order_id,
-                    register_no: verify_data.no,
-                    no: verify_data.no,
+                    register_no: verify_data.register_no,
                     purchase_date: (hide_modal) ? self.student_verify.purchase_date : verify_data.purchase_date,
                     name: (hide_modal) ? self.student_verify.name : verify_data.name,
                     email: (hide_modal) ? self.student_verify.email : verify_data.email,
@@ -221,6 +220,7 @@
                     res.school = res.school_name;
                     res.file_url = res.file_link;
                     res.file_type = verify_data.file_type;
+                    res.verify_user_name = res.user.name;
                     this.$set(self.list, index, res);
                     if (hide_modal) {
                         $('#verifyStudent').modal('hide');

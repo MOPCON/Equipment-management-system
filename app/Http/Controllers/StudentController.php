@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\StudentValidation;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,7 @@ class StudentController extends Controller
                 'comment' => $request->get('comment', '')
             ]
         );
+        $result->user;
 
         return $this->returnSuccess('Update or create success', $result);
     }
@@ -51,6 +53,8 @@ class StudentController extends Controller
         $validated_data = StudentValidation::where('verify_year', date('Y'))
             ->get()
             ->keyBy('order_id');
+
+        $users = User::all()->keyBy('id');
 
         $file_path = $request->file('file')->getRealPath();
         $fp = fopen($file_path, 'r');
@@ -85,6 +89,7 @@ class StudentController extends Controller
             $name = $line[10];
             $email = $line[11];
             $school = $line[22];
+            $verify_user_name = '';
             if (isset($validated_data[$order_id])) {
                 $is_verify = (bool) $validated_data[$order_id]->is_verify;
                 $comment = $validated_data[$order_id]->comment;
@@ -92,11 +97,12 @@ class StudentController extends Controller
                 $name = $validated_data[$order_id]->name;
                 $email = $validated_data[$order_id]->email;
                 $school = $validated_data[$order_id]->school_name;
+                $verify_user_name = $users[$validated_data[$order_id]->verify_user_id]->name;
             }
 
             $data = [
                 'order_id' => $line[1],
-                'no' => $line[2],
+                'register_no' => $line[2],
                 'is_verify' => $is_verify,
                 'purchase_date' => $purchase_date,
                 'name' => $name,
@@ -104,7 +110,8 @@ class StudentController extends Controller
                 'school' => $school,
                 'file_url' => $file_url,
                 'file_type' => $file_type,
-                'comment' => $comment
+                'comment' => $comment,
+                'verify_user_name' => $verify_user_name
             ];
 
             if ($is_verify) {

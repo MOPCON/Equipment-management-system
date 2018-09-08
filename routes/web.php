@@ -31,6 +31,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('equipment', 'EquipmentController');
     Route::apiResource('group', 'GroupController');
     Route::apiResource('loan', 'LoanController');
+    Route::apiResource('student', 'StudentController', ['only' => ['store', 'destroy']]);
+    Route::post('student/upload', 'StudentController@upload');
     Route::apiResource('raise_equipment', 'RaiseEquipmentController');
     Route::get('raise_equipment/change_status/{raiseEquipment}/{status}', 'RaiseEquipmentController@changeStatus');
     Route::post('loan/return', 'LoanController@returnLoan');

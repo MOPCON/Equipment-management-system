@@ -109,6 +109,12 @@ desired effect
                     </ul>
                 </li>
                 <li>
+                    <a><i class="fa fa-id-card" aria-hidden="true"></i><span>驗票系統</span></a>
+                    <ul class="treeview-menu">
+                        <li><a href="/#/student-verify"><i class="fa fa-id-card"></i><span>學生驗票</span></a></li>
+                    </ul>
+                </li>
+                <li>
                     <a><i class="fa fa-exchange" aria-hidden="true"></i><span>借還系統</span></a>
                     <ul class="treeview-menu">
                         <li><a href="/#/loan/action"><i class="fa fa-exchange" aria-hidden="true"></i><span>物品借還</span></a></li>

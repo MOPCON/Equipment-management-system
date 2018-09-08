@@ -47,9 +47,12 @@
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="openVerifyData(index)">
                                                     <i class="fa fa-edit"></i>
-                                                </button><br>
+                                                </button>
                                                 <button type="button" class="btn btn-sm btn-default btn-block" v-on:click="update(index, true, false)" v-show="!item.is_verify">
                                                     <i class="fa fa-check"></i>
+                                                </button>
+                                                <button v-show="item.id != null" type="button" class="btn btn-sm btn-default btn-block" v-on:click="deleteData(item.id, index)">
+                                                    <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </td>
                                             <td>哈西</td>
@@ -183,8 +186,10 @@
                 ).then(response => {
                     console.log(response);
                     self.list = response.data.data;
+                    helper.alert(response.data.message);
                 }).catch(error => {
                     console.error(error);
+                    helper.alert('發生錯誤!', 'danger');
                 });
             },
             openVerifyData(index) {
@@ -220,11 +225,28 @@
                     if (hide_modal) {
                         $('#verifyStudent').modal('hide');
                     }
+                    helper.alert(response.data.message);
                 }).catch(error => {
                     console.error(error);
                     if (hide_modal) {
                         $('#verifyStudent').modal('hide');
                     }
+                    helper.alert('發生錯誤!', 'danger');
+                });
+            },
+            deleteData(id, index) {
+                let self = this;
+                helper.deleteConfirm(function () {
+                    axios.delete(
+                        '/api/student/' + id
+                    ).then(response => {
+                        console.log(response);
+                        self.list.splice(index, 1);
+                        helper.alert(response.data.message);
+                    }).catch(error => {
+                        console.log(error);
+                        helper.alert('發生錯誤!', 'danger');
+                    })
                 });
             },
             openWindow(url) {

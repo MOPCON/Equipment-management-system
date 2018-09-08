@@ -111,7 +111,7 @@ desired effect
                 <li>
                     <a><i class="fa fa-id-card" aria-hidden="true"></i><span>驗票系統</span></a>
                     <ul class="treeview-menu">
-                        <li><a href="/#/student-verify"><i class="fa fa-id-card">學生驗票</i></a></li>
+                        <li><a href="/#/student-verify"><i class="fa fa-id-card"></i><span>學生驗票</span></a></li>
                     </ul>
                 </li>
                 <li>

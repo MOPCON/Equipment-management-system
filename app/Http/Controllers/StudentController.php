@@ -69,8 +69,8 @@ class StudentController extends Controller
 
             $file_url = '';
             $file_type = '';
-            if ($line[26] != '') {
-                $file_url = explode('?', $line[26])[0];
+            if ($line[25] != '') {
+                $file_url = explode('?', $line[25])[0];
                 $parse_url = explode('.', $file_url);
                 $file_extension = strtolower(last($parse_url));
                 if (in_array($file_extension, $this->image_type)) {
@@ -89,7 +89,7 @@ class StudentController extends Controller
             $purchase_date = $line[8];
             $name = $line[10];
             $email = $line[11];
-            $school = $line[22];
+            $school = $line[21];
             $verify_user_name = '';
             if (isset($validated_data[$order_id])) {
                 $id = $validated_data[$order_id]->id;

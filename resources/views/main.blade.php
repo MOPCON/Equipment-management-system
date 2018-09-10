@@ -52,6 +52,12 @@ desired effect
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <!-- 將網站放大至全螢幕 -->
+                    <li onclick="openFullscreen()">
+                        <a>
+                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                        </a>
+                    </li>
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
@@ -106,6 +112,12 @@ desired effect
                         <li><a href="/#/equipments"><i class="fa fa-hdd-o" aria-hidden="true"></i><span>器材管理</span></a></li>
                         <li><a href="/#/equipments/raise"><i class="fa fa-suitcase" aria-hidden="true"></i><span>募集物資管理</span></a></li>
                         <li><a href="/#/equipments/barcode"><i class="fa fa-barcode" aria-hidden="true"></i><span>條碼管理</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a><i class="fa fa-id-card" aria-hidden="true"></i><span>驗票系統</span></a>
+                    <ul class="treeview-menu">
+                        <li><a href="/#/student-verify"><i class="fa fa-id-card"></i><span>學生驗票</span></a></li>
                     </ul>
                 </li>
                 <li>
@@ -171,6 +183,20 @@ desired effect
                 type: type,
                 delay: 2500,
             });
+        }
+    };
+
+    let elem = document.documentElement;
+
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
         }
     }
 </script>

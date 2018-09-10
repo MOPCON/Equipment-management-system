@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-offset-2 col-lg-4">
+                    <div class="col-lg-offset-1 col-lg-5">
                         <form class="form-inline">
                             <label class="control-label"><i class="glyphicon glyphicon-hdd"></i> <strong>Equipment &nbsp&nbsp</strong></label>
                             <div class="radio">
@@ -38,19 +38,31 @@
                                         class="glyphicon glyphicon-repeat"></i> </button></span>
                             </div>
                             <div v-if="add_loan.equipment_type == '1'" class="row">
-                                <div class="col-xs-12 col-sm-8" style="margin-bottom: 5px">
+                                <div class="col-xs-12" style="margin-bottom: 5px">
                                     <select class="form-control" v-model="add_loan.equipment_id">
                                         <option value="0"> --- Select Equipment --- </option>
                                         <option v-for="item in equipment_list" v-if="item.hasBarcode == '0'"
                                                 v-bind:value="item.id">
-                                            {{ item.name }}-({{ item.amount - item.loan }})
-
+                                            {{ item.name }} ({{ item.amount - item.loan }})
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-xs-12 col-sm-3">
-                                    <input type="number" class="form-control" v-model="add_loan.amount" min="1"
-                                           placeholder="Amount">
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="font-size: 15px">數量</span>
+                                        <input type="number" class="form-control input-lg" v-model="add_loan.amount" min="1"
+                                               placeholder="Amount">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default btn-lg" type="button" v-on:click="add_loan.amount = add_loan.amount > 1 ? add_loan.amount - 1 : add_loan.amount">&nbsp-1&nbsp</button>
+                                        </span>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default btn-lg" type="button" v-on:click="add_loan.amount++">&nbsp+1&nbsp</button>
+                                        </span>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default btn-lg" type="button" v-on:click="add_loan.amount = 1">Reset</button>
+                                        </span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -79,12 +91,12 @@
                             <div v-if="add_loan.staff_type == '1'">
                                 <select class="form-control" v-model="add_loan.staff_id">
                                     <option value="0"> --- Select Staff --- </option>
-                                    <option v-for="item in staff_list" v-bind:value="item.id">{{ item.name }}</option>
+                                    <option v-for="item in staff_list" v-bind:value="item.id">{{ item.name }} ({{ item.barcode }})</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4" v-if="big_info.had=='1'">
+                    <div class="col-lg-5" v-if="big_info.had=='1'">
                         <div class="small-box bg-aqua-gradient">
                             <div class="icon">
                                 <i class="glyphicon glyphicon-hdd"></i>

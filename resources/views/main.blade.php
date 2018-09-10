@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>EMS</title>
     <!-- AdminLTE -->
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="css/AdminLTE.min.css">
     <link rel="stylesheet" href="css/adminlte-skin-purple-light.min.css">
     <link href="{{ asset('/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -200,7 +200,9 @@ desired effect
         }
     }
 </script>
-<script src="js/app.js" charset="utf-8"></script>
+<script src="{{ mix('/js/manifest.js') }}" charset="utf-8"></script>
+<script src="{{ mix('/js/vendor.js') }}" charset="utf-8"></script>
+<script src="{{ mix('/js/app.js') }}" charset="utf-8"></script>
 <script src="js/adminlte.js" charset="utf-8"></script>
 <script src="{{ asset('/js/sweetalert2.min.js') }}" charset="utf-8"></script>
 <script src="{{ asset('/js/bootstrap-notify.min.js')}}" charset="utf-8"></script>

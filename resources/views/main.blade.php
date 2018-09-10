@@ -52,6 +52,12 @@ desired effect
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <!-- 將網站放大至全螢幕 -->
+                    <li onclick="openFullscreen()">
+                        <a>
+                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                        </a>
+                    </li>
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
@@ -177,6 +183,20 @@ desired effect
                 type: type,
                 delay: 2500,
             });
+        }
+    };
+
+    let elem = document.documentElement;
+
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
         }
     }
 </script>

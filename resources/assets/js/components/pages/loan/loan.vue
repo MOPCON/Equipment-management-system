@@ -81,7 +81,7 @@
                                             <td>{{ item.updated_at }}</td>
                                             <td>
                                                 <button v-if="item.status == '0'"
-                                                        class="btn btn-success btn-sm"
+                                                        class="btn btn-success"
                                                         v-on:click="returnLoan(item.id, item.barcode)">歸還
                                                 </button>
                                             </td>

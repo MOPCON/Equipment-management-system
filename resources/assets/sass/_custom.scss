@@ -5,3 +5,23 @@ a:hover{
 .pointer {
   cursor: pointer;
 }
+
+.input-lg {
+  font-size: 40px !important;
+}
+
+.input-lg-select {
+  font-size: 25px !important;
+}
+
+table, select, .radio{
+  font-size: 18px !important;
+}
+
+.dataTables_paginate {
+  font-size: 25px;
+}
+
+#open-full-button {
+  display: block;
+}

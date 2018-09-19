@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TelegramMessageRequest;
+use App\Jobs\SendTelegramMessageJob;
 use App\TelegramMessage;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,15 @@ class TelegramMessageController extends Controller
         $data = $request->only(["sending_time", "channel_id", "display_name", "content"]);
         $data['user_id'] = auth()->id();
 
-        return $this->returnSuccess("Success", TelegramMessage::create($data));
+        if ($request->input('now_send')) {
+            $data['sending_time'] = date("Y-m-d H:i");
+            $message = TelegramMessage::create($data);
+            SendTelegramMessageJob::dispatch($message);
+        } else {
+            $message = TelegramMessage::create($data);
+        }
+
+        return $this->returnSuccess("Success", $message);
     }
 
     /**

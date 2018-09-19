@@ -128,6 +128,12 @@ desired effect
                     </ul>
                 </li>
                 <li>
+                    <a><i class="fa fa-telegram" aria-hidden="true"></i><span>Telegram Bot</span></a>
+                    <ul class="treeview-menu">
+                        <li><a href="/#/telegram-bot"><i class="fa fa-telegram"></i><span>Telegram Bot</span></a></li>
+                    </ul>
+                </li>
+                <li>
                     <a><i class='glyphicon glyphicon-cog'></i> <span>設定</span></a>
                     <ul class="treeview-menu">
                         <li><a href="/#/user"><i class="fa fa-user-secret" aria-hidden="true"></i><span>使用者管理</span></a></li>

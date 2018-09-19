@@ -130,8 +130,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group" v-show="add_message.now_send === '0'">
-                                                <input type="datetime-local" name="date" v-model="add_message.sending_time"
-                                                       class="form-control" placeholder="Date">
+                                                <input id="sending_time" style="width: 100%;"/>
                                             </div>
                                             <div class="form-group">
                                                 <strong>頻道</strong>
@@ -171,7 +170,7 @@
                 add_message: {
                     id: '',
                     now_send: 1,
-                    sending_time: new Date(),
+                    sending_time: '',
                     channel_id: 0,
                     display_name: '',
                     content: '',
@@ -230,13 +229,20 @@
                     backdrop: 'static',
                     keyboard: false
                 });
+                if (!$("#sending_time").data('kendoDateTimePicker')) {
+                    $("#sending_time").kendoDateTimePicker({
+                        dateInput: true,
+                        format: "yyyy/MM/dd HH:mm",
+                        value: new Date(),
+                    });
+                }
             },
             initMessage () {
                 let self = this;
                 self.add_message = {
                     id: '',
                     now_send: 1,
-                    sending_time: new Date(),
+                    sending_time: $("#sending_time").val(),
                     channel_id: (self.channel_list.length > 0) ? self.channel_list[0].id : 0,
                     display_name: '',
                     content: '',
@@ -245,7 +251,7 @@
             },
             addMessage() {
                 let self = this;
-                $('#addMessage').modal('hide');
+                self.add_message.sending_time = $("#sending_time").val();
                 axios.post(
                     '/api/telegram-message', self.add_message
                 ).then(response => {
@@ -279,14 +285,14 @@
                 }
             }
         },
-        created: function () {
+        mounted () {
             let self = this;
             self.page_info = {
                 current_page: 1,
                 limit: '15',
                 last_page: 1,
                 total: 1,
-                sort_key: 'id',
+                sort_key: 'sending_time',
                 sort_dir: 'DESC',
                 search: '',
                 list_from: 1,

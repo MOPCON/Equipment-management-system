@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/AdminLTE.min.css">
     <link rel="stylesheet" href="css/adminlte-skin-purple-light.min.css">
     <link href="{{ asset('/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.bootstrap.mobile.min.css" />
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -212,6 +215,7 @@ desired effect
 <script src="{{ mix('/js/app.js') }}" charset="utf-8"></script>
 <script src="js/adminlte.js" charset="utf-8"></script>
 <script src="{{ asset('/js/sweetalert2.min.js') }}" charset="utf-8"></script>
+<script src="https://kendo.cdn.telerik.com/2018.3.911/js/kendo.all.min.js"></script>
 <script src="{{ asset('/js/bootstrap-notify.min.js')}}" charset="utf-8"></script>
 <script src="{{ asset('/js/JsBarcode.all.min.js') }}" charset="utf-8"></script>
 <!-- Place this tag in your head or just before your close body tag. -->

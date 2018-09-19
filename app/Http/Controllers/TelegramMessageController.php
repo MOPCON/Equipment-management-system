@@ -21,7 +21,7 @@ class TelegramMessageController extends Controller
     {
         $channel_id = $request->input('channel_id', 0);
         $search = $request->input('search', '');
-        $order_field = $request->input('orderby_field', 'id');
+        $order_field = $request->input('orderby_field', 'sending_time');
         $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 25);
 

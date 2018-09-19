@@ -20,7 +20,7 @@ class CteateTelegramFeature extends Migration
             $table->unsignedInteger('channel_id');
             $table->string('display_name');
             $table->text('content');
-            $table->boolean('is_send')->default(0);
+            $table->mediumInteger('status')->default(0);
             $table->timestamps();
         });
 

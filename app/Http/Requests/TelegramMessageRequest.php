@@ -24,7 +24,7 @@ class TelegramMessageRequest extends BaseRequest
         return [
             "sending_time" => "required|date",
             "channel_id"   => 'required|exists:telegram_channels,id',
-            "display_name" => "required|string",
+            "display_name" => "string",
             "content"      => "required",
         ];
     }

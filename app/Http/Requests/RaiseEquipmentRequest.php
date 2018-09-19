@@ -7,10 +7,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\ApiTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RaiseEquipmentRequest extends FormRequest
+class RaiseEquipmentRequest extends BaseRequest
 {
-    use ApiTrait;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -41,15 +39,6 @@ class RaiseEquipmentRequest extends FormRequest
             'name'     => 'required|string',
             'staff_id' => 'required|exists:staffs,id',
         ];
-    }
-
-    /**
-     * Use json output error message.
-     * @param Validator $validator
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException($this->return400Response((string) $validator->messages()->first()));
     }
 
     /**

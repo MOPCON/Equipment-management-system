@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Staff;
 use App\Group;
+use App\TelegramMessage;
 use Illuminate\Http\Request;
 use App\Http\Requests\StaffRequest;
 use App\Http\Controllers\ApiTrait;

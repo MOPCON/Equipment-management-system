@@ -31,6 +31,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('equipment', 'EquipmentController');
     Route::apiResource('group', 'GroupController');
     Route::apiResource('loan', 'LoanController');
+    Route::apiResource('telegram-channel', 'TelegramChannelController');
+    Route::apiResource('telegram-message', 'TelegramMessageController');
     Route::apiResource('student', 'StudentController', ['only' => ['store', 'destroy']]);
     Route::post('student/upload', 'StudentController@upload');
     Route::apiResource('raise_equipment', 'RaiseEquipmentController');

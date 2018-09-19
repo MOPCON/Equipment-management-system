@@ -15,7 +15,12 @@ class TelegramMessage extends Model
 
     public function channel()
     {
-        return $this->hasOne('App\TelegramChannel');
+        return $this->hasOne('App\TelegramChannel', 'id', 'channel_id');
+    }
+
+    public function scopeWaitSend($query)
+    {
+        return $query->where('status', $this::WAIT_SEND_STATUS);
     }
 
     public function isSend()
@@ -25,11 +30,13 @@ class TelegramMessage extends Model
 
     public function changeStatusToFail()
     {
-        $this->update(['status' => $this::FAIL_STATUS]);
+        $this->status = $this::FAIL_STATUS;
+        $this->save();
     }
 
     public function changeStatusToSend()
     {
-        $this->update(['status' => $this::SEND_STATUS]);
+        $this->status = $this::SEND_STATUS;
+        $this->save();
     }
 }

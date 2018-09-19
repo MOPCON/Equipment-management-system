@@ -21,11 +21,11 @@ class TelegramMessageService
             return;
         }
 
-        $chatID = $telegramMessage->channel()->code;
+        $chatID = $telegramMessage->channel->code;
         $message = $this->generateMessage($telegramMessage);
 
         $result = $this->telegramBotService->send($chatID, $message);
-        if ($result->isOk()) {
+        if ($result) {
             $telegramMessage->changeStatusToSend();
             Log::info("[TelegramMessageService] Send message success {$telegramMessage->id}");
         } else {
@@ -34,7 +34,7 @@ class TelegramMessageService
         }
     }
 
-    public function generateMessage(TelegramMessage $telegramMessage)
+    private function generateMessage(TelegramMessage $telegramMessage)
     {
         if ($telegramMessage->display_name) {
             return "{$telegramMessage->display_name} 廣播：{$telegramMessage->content}";

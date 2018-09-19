@@ -25,25 +25,46 @@
                                         <thead>
                                         <tr role="row">
                                             <th class="sortfield" tabindex="0">id</th>
-                                            <th class="sortfield" tabindex="0">是否已發送</th>
-                                            <th class="sortfield" tabindex="0">排成時間</th>
-                                            <th class="sortfield" tabindex="0">發言人員</th>
                                             <th class="sortfield" tabindex="0">頻道</th>
                                             <th class="sortfield" tabindex="0">名稱</th>
-                                            <th class="sortfield" tabindex="0">內容</th>
-                                            <th class="sortfield" tabindex="0"></th>
+                                            <th class="sortfield" tabindex="0" width="40%">內容</th>
+                                            <th class="sortfield" tabindex="0">發言人員</th>
+                                            <th class="sortfield" tabindex="0">狀態</th>
+                                            <th class="sortfield" tabindex="0">排成時間</th>
+                                            <th class="sortfield" tabindex="0"> </th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr v-for="item in list">
                                             <td>{{ item.id }}</td>
-                                            <td>{{ item.is_send }}</td>
-                                            <td>{{ item.sending_time }}</td>
-                                            <td>{{ item.user_id}}</td>
-                                            <td>{{ item.channel_id}}</td>
+                                            <td>{{ item.channel.name}} ({{ item.channel.id}})</td>
                                             <td>{{ item.display_name }}</td>
                                             <td>{{ item.content }}</td>
-                                            <td></td>
+                                            <td>{{ item.user.name}}</td>
+                                            <td v-if="item.status === 0">
+                                                <span class="label label-default">等待發送</span>
+                                            </td>
+                                            <td v-if="item.status === 1">
+                                                <span class="label label-success">已發送</span>
+                                            </td>
+                                            <td v-if="item.status === 2">
+                                                <span class="label label-danger">發送失敗</span>
+                                            </td>
+                                            <td>{{ item.sending_time }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-success" v-if="item.status === 0 || item.status === 2"
+                                                        v-on:click="openEditChannel(item.id)" title="立即發送">
+                                                    <i class="fa fa-flash"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-primary" v-if="item.status === 0 || item.status === 2"
+                                                        v-on:click="openEditChannel(item.id)" title="編輯">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-danger" v-if="item.status === 0"
+                                                        v-on:click="deleteChannel(item.id)" title="刪除">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -93,15 +114,29 @@
                                     </div>
                                     <div class="modal-body">
                                         <form name="addStaff">
-                                            <div class="form-group">
-                                                <strong>排成日期</strong>
+                                            <div class="form-inline">
+                                                <label class="control-label"><strong>發送形式 &nbsp&nbsp</strong></label>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" value="1" v-model="add_message.now_send">
+                                                        立即執行
+                                                    </label>
+                                                </div>
+                                                &nbsp
+                                                <div class="radio">
+                                                    <label><input type="radio" value="0" v-model="add_message.now_send">
+                                                        設定時間
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" v-show="add_message.now_send === '0'">
                                                 <input type="datetime-local" name="date" v-model="add_message.sending_time"
-                                                       class="form-control" placeholder="Date" required>
+                                                       class="form-control" placeholder="Date">
                                             </div>
                                             <div class="form-group">
                                                 <strong>頻道</strong>
                                                 <select class="form-control" v-model="add_message.channel_id">
-                                                    <option v-for="channel in channel_list" v-bind:value="channel.id">{{ channel.name }}</option>
+                                                    <option v-for="channel in channel_list" v-bind:value="channel.id">{{ channel.name }} ({{ channel.id }})</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -111,7 +146,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <strong>內容</strong>
-                                                <textarea class="form-control" v-model="add_message.content" required></textarea>
+                                                <textarea class="form-control" v-model="add_message.content" required rows="10"></textarea>
                                             </div>
                                         </form>
                                     </div>
@@ -133,7 +168,15 @@
     export default {
         data: function () {
             return {
-                add_message: {},
+                add_message: {
+                    id: '',
+                    now_send: 1,
+                    sending_time: new Date(),
+                    channel_id: 0,
+                    display_name: '',
+                    content: '',
+                    user_id: 0
+                },
                 page_info: [],
                 list: [],
                 channel_list: []
@@ -183,13 +226,17 @@
             openAddMessage() {
                 let self = this;
                 self.initMessage();
-                $('#addMessage').modal('show');
+                $('#addMessage').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
             },
             initMessage () {
                 let self = this;
                 self.add_message = {
                     id: '',
-                    sending_time: '',
+                    now_send: 1,
+                    sending_time: new Date(),
                     channel_id: (self.channel_list.length > 0) ? self.channel_list[0].id : 0,
                     display_name: '',
                     content: '',

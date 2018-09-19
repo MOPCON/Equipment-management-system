@@ -128,9 +128,10 @@ desired effect
                     </ul>
                 </li>
                 <li>
-                    <a><i class="fa fa-telegram" aria-hidden="true"></i><span>Telegram Bot</span></a>
+                    <a><i class='fa fa-telegram'></i> <span>Telegram Bot</span></a>
                     <ul class="treeview-menu">
-                        <li><a href="/#/telegram-bot"><i class="fa fa-telegram"></i><span>Telegram Bot</span></a></li>
+                        <li><a href="/#/telegram-message"><i class="fa fa-commenting" aria-hidden="true"></i><span>訊息發送</span></a></li>
+                        <li><a href="/#/telegram-channel"><i class="fa fa-users" aria-hidden="true"></i><span>頻道管理</span></a></li>
                     </ul>
                 </li>
                 <li>

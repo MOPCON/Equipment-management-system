@@ -135,9 +135,8 @@
                                             <span aria-hidden="true">&times;</span>
                                             <span class="sr-only">Close</span>
                                         </button>
-                                        <h4 v-if="action == 'new'" class="modal-title" id="myModalLabel">Add Staff</h4>
-                                        <h4 v-if="action == 'edit'" class="modal-title" id="myModalLabel">
-                                            Edit Staff</h4>
+                                        <h4 v-if="action == 'new'" class="modal-title">Add Staff</h4>
+                                        <h4 v-if="action == 'edit'" class="modal-title">Edit Staff</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form name="addStaff">

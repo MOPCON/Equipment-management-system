@@ -2,8 +2,8 @@
     <div>
         <section class="content-header">
             <h1>
-                Telegram Bot
-                <small>Telegram Bot</small>
+                發送訊息
+                <small>Telegram Message</small>
             </h1>
         </section>
         <section class="content">

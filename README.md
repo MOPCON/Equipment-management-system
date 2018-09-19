@@ -37,6 +37,7 @@ npm run prod    # run deploy
 ```
 
 ### Deploy
+Command
 ```
 git clone git@github.com:s9801077/MIRDC-EKBS.git
 cp .env.example .env
@@ -48,6 +49,16 @@ php artisan key:generate
 php artisan migrate
 npm run prod 
 ```
+
+Cron setting
+```
+* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+```
+
+Note:
+* Setting Cron
+* Run queue command `php artisan queue:listen`
+
 
 ### Login data
 ```

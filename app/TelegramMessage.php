@@ -13,6 +13,11 @@ class TelegramMessage extends Model
     const SEND_STATUS = 1;
     const FAIL_STATUS = 2;
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function channel()
     {
         return $this->hasOne('App\TelegramChannel', 'id', 'channel_id');

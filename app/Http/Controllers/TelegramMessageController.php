@@ -34,6 +34,7 @@ class TelegramMessageController extends Controller
                     ->orWhere('content', 'LIKE', '%' . $search . '%');
             }
         })
+            ->with(['channel', 'user'])
             ->orderBy($order_field, $order_method)
             ->paginate($limit);
 
@@ -62,6 +63,9 @@ class TelegramMessageController extends Controller
      */
     public function show(TelegramMessage $telegramMessage)
     {
+        $telegramMessage->channel;
+        $telegramMessage->user;
+
         return $this->returnSuccess("Success", $telegramMessage);
     }
 

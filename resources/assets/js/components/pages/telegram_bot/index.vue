@@ -13,7 +13,7 @@
                         <div id="student_verify_wrapper" class="dataTables_wrapper dt-bootstrap">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
-                                    <button type="button" class="btn btn-sm btn-primary btn-block" v-on:click="openAddContent">
+                                    <button type="button" class="btn btn-sm btn-primary btn-block" v-on:click="openAddMessage">
                                         <span class="glyphicon glyphicon-plus"></span> Add
                                     </button>
                                 </div>
@@ -31,54 +31,56 @@
                                             <th class="sortfield" tabindex="0">頻道</th>
                                             <th class="sortfield" tabindex="0">名稱</th>
                                             <th class="sortfield" tabindex="0">內容</th>
-                                            <th class="sortfield" tabindex="0">修改</th>
-                                            <th class="sortfield" tabindex="0">刪除</th>
+                                            <th class="sortfield" tabindex="0"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <!--<tr v-for="(item, index) in list">-->
-                                            <!--<td>-->
-                                                <!--<span v-show="item.is_verify" class="label label-success">通過</span>-->
-                                                <!--<span v-show="!item.is_verify" class="label label-default">未驗證</span>-->
-                                            <!--</td>-->
-                                            <!--<td>-->
-                                                <!--<button type="button" class="btn btn-sm btn-default btn-block" v-on:click="openVerifyData(index)">-->
-                                                    <!--<i class="fa fa-edit"></i>-->
-                                                <!--</button>-->
-                                                <!--<button type="button" class="btn btn-sm btn-default btn-block" v-on:click="update(index, true, false)" v-show="!item.is_verify">-->
-                                                    <!--<i class="fa fa-check"></i>-->
-                                                <!--</button>-->
-                                                <!--<button v-show="item.id != null" type="button" class="btn btn-sm btn-default btn-block" v-on:click="deleteData(item.id, index)">-->
-                                                    <!--<i class="fa fa-trash-o"></i>-->
-                                                <!--</button>-->
-                                            <!--</td>-->
-                                            <!--<td>{{ item.verify_user_name }}</td>-->
-                                            <!--<td>{{ item.order_id }}</td>-->
-                                            <!--<td>{{ item.register_no }}</td>-->
-                                            <!--<td>{{ item.purchase_date}}</td>-->
-                                            <!--<td>{{ item.name}}</td>-->
-                                            <!--<td>{{ item.email }}</td>-->
-                                            <!--<td>{{ item.school }}</td>-->
-                                            <!--<td>-->
-                                                <!--<img class="pointer" v-bind:src="item.file_url" v-show="item.file_type === 'image'" v-on:click="openWindow(item.file_url)" width="100px">-->
-                                                <!--<span v-show="item.file_type === 'pdf'">-->
-                                                    <!--<a v-bind:href="item.file_url" target="_blank">-->
-                                                        <!--<span class="fa fa-file-pdf-o fa-2x"></span>-->
-                                                    <!--</a>-->
-                                                    <!--{{ item.file_url }}-->
-                                                <!--</span>-->
-                                                <!--<span v-show="item.file_type !== 'image' && item.file_type !== 'pdf'">-->
-                                                    <!--<a v-bind:href="item.file_url" target="_blank"> {{ item.file_url }}</a>-->
-                                                <!--</span>-->
-                                            <!--</td>-->
-                                        <!--</tr>-->
+                                        <tr v-for="item in list">
+                                            <td>{{ item.id }}</td>
+                                            <td>{{ item.is_send }}</td>
+                                            <td>{{ item.sending_time }}</td>
+                                            <td>{{ item.user_id}}</td>
+                                            <td>{{ item.channel_id}}</td>
+                                            <td>{{ item.display_name }}</td>
+                                            <td>{{ item.content }}</td>
+                                            <td></td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="dataTables_info" id="staff_info" role="status" aria-live="polite">
+                                        Showing {{ page_info.list_from }} to {{ page_info.list_to
+                                        }} of {{ page_info.total }} entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="staff_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button previous" id="staff_previous"
+                                                v-bind:class="[page_info.current_page-1 == 0 ? 'disabled' : '']">
+                                                <a aria-controls="staff" data-dt-idx="0" tabindex="0"
+                                                   v-on:click="changePage(page_info.current_page-1)">Previous</a>
+                                            </li>
+                                            <li v-for="i in getPageArray" class="paginate_button"
+                                                v-bind:class="[page_info.current_page == i ? 'active' : '']">
+                                                <a aria-controls="staff" data-dt-idx="1" tabindex="0"
+                                                   v-on:click="changePage(i)">{{ i }}</a>
+                                            </li>
+                                            <li class="paginate_button next" id="staff_next"
+                                                v-bind:class="[page_info.current_page+1 > page_info.last_page ? 'disabled' : '']">
+                                                <a aria-controls="staff" data-dt-idx="7" tabindex="0"
+                                                   v-on:click="changePage(page_info.current_page+1)">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="addContent" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="addMessage" tabindex="-1" role="dialog"
                              aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -87,41 +89,35 @@
                                             <span aria-hidden="true">&times;</span>
                                             <span class="sr-only">Close</span>
                                         </button>
-                                        <h4 class="modal-title" id="myModalLabel">Add Content</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Add Message</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form name="addStaff">
                                             <div class="form-group">
                                                 <strong>排成日期</strong>
-                                                <input type="date" name="date" v-model="add_content.schedule_date"
+                                                <input type="datetime-local" name="date" v-model="add_message.sending_time"
                                                        class="form-control" placeholder="Date" required>
                                             </div>
                                             <div class="form-group">
-                                                <strong>排成時間</strong>
-                                                <input type="time" name="time" v-model="add_content.schedule_time"
-                                                       class="form-control" placeholder="Time" required>
-                                            </div>
-                                            <div class="form-group">
                                                 <strong>頻道</strong>
-                                                <select class="form-control" v-model="add_content.channelId">
-                                                    <option value="0"> --- 請選擇 --- </option>
-                                                    <option value="1"> 頻道1 </option>
+                                                <select class="form-control" v-model="add_message.channel_id">
+                                                    <option v-for="channel in channel_list" v-bind:value="channel.id">{{ channel.name }}</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <strong>廣播名稱</strong>
-                                                <input type="text" name="name" v-model="add_content.name"
+                                                <input type="text" name="name" v-model="add_message.display_name"
                                                        class="form-control" placeholder="Name" required>
                                             </div>
                                             <div class="form-group">
                                                 <strong>內容</strong>
-                                                <textarea class="form-control" v-model="add_content.content" required></textarea>
+                                                <textarea class="form-control" v-model="add_message.content" required></textarea>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" v-on:click="addContent">新增</button>
+                                        <button type="button" class="btn btn-primary" v-on:click="addMessage">新增</button>
                                     </div>
                                 </div>
                             </div>
@@ -137,35 +133,121 @@
     export default {
         data: function () {
             return {
-                add_content: {}
+                add_message: {},
+                page_info: [],
+                list: [],
+                channel_list: []
             }
         },
-        methods: {
-            openAddContent() {
+        computed: {
+            getPageArray: function () {
                 let self = this;
-                self.initContent();
-                $('#addContent').modal('show');
+                let bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+                let top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+                let array = [];
+                for (let i = bottom; i <= top; i++) {
+                    array.push(i);
+                }
+                return array;
             },
-            initContent () {
+        },
+        methods: {
+            getAllMessage() {
                 let self = this;
-                self.add_content = {
+                axios.get(
+                    '/api/telegram-message?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page
+                ).then(response => {
+                    console.log(response);
+                    let res = response.data.data
+                    self.list = res.data
+                    self.page_info.current_page = res.current_page
+                    self.page_info.last_page = res.last_page
+                    self.page_info.total = res.total
+                    self.page_info.list_from = res.from
+                    self.page_info.list_to = res.to
+                    console.log(self.list);
+                }).catch(error => {
+                    console.log(error)
+                })
+            },
+            getAllChannel() {
+                let self = this;
+                axios.get(
+                    '/api/telegram-channel'
+                ).then(response => {
+                    self.channel_list = response.data.data;
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            openAddMessage() {
+                let self = this;
+                self.initMessage();
+                $('#addMessage').modal('show');
+            },
+            initMessage () {
+                let self = this;
+                self.add_message = {
                     id: '',
-                    schedule_date: new Date(),
-                    schedule_time: new Date(),
-                    channelId: 0,
-                    name: '',
+                    sending_time: '',
+                    channel_id: (self.channel_list.length > 0) ? self.channel_list[0].id : 0,
+                    display_name: '',
                     content: '',
                     user_id: 0
                 };
             },
-            addContent() {
+            addMessage() {
                 let self = this;
-                $('#addContent').modal('hide');
+                $('#addMessage').modal('hide');
+                axios.post(
+                    '/api/telegram-message', self.add_message
+                ).then(response => {
+                    $('#addMessage').modal('hide');
+                    self.getAllMessage();
+                    helper.alert(response.data.message);
+                }).catch(error => {
+                    console.log(error.response);
+                    helper.alert(error.response.data.message, 'danger');
+                });
+            },
+            searchKeyword: function (event) {
+                if (event.which === 13) {
+                    console.log(this.page_info.search);
+                    this.getAllMessage();
+                }
+            },
+            changePage: function (page) {
+                let self = this;
+                if (page > 0 && page <= self.page_info.last_page) {
+                    self.page_info.current_page = page;
+                    this.getAllMessage();
+                }
+            },
+            changeSort: function (field) {
+                let self = this;
+                if (field !== '') {
+                    self.page_info.sort_dir = self.page_info.sort_dir === 'DESC' ? 'ASC' : 'DESC';
+                    self.page_info.sort_key = field;
+                    this.getAllMessage();
+                }
             }
         },
         created: function () {
             let self = this;
-            self.initContent();
+            self.page_info = {
+                current_page: 1,
+                limit: '15',
+                last_page: 1,
+                total: 1,
+                sort_key: 'id',
+                sort_dir: 'DESC',
+                search: '',
+                list_from: 1,
+                list_to: 15
+            };
+            self.getAllMessage();
+            self.getAllChannel();
+            self.initMessage();
         }
     }
 </script>

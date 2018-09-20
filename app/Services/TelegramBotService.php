@@ -10,7 +10,7 @@ class TelegramBotService
 
     public function __construct()
     {
-        $this->telegram = new Telegram(env("TELEGRAM_API_KEY"), env("TELEGRAM_BOT_NAME"));
+        $this->telegram = new Telegram(env("PHP_TELEGRAM_BOT_API_KEY"), env("PHP_TELEGRAM_BOT_NAME"));
     }
 
     public function send($chat_id, $message)

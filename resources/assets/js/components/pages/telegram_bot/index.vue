@@ -53,15 +53,15 @@
                                             <td>{{ item.sending_time }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-success" v-if="item.status === 0 || item.status === 2"
-                                                        v-on:click="openEditChannel(item.id)" title="立即發送">
+                                                        v-on:click="nowSendMessage(item.id)" title="立即發送">
                                                     <i class="fa fa-flash"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-sm btn-primary" v-if="item.status === 0 || item.status === 2"
-                                                        v-on:click="openEditChannel(item.id)" title="編輯">
+                                                        v-on:click="openEditMessage(item.id)" title="編輯">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
                                                 <button type="button" class="btn btn-sm btn-danger" v-if="item.status === 0"
-                                                        v-on:click="deleteChannel(item.id)" title="刪除">
+                                                        v-on:click="deleteMessage(item.id)" title="刪除">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </td>
@@ -115,16 +115,17 @@
                                     <div class="modal-body">
                                         <form name="addStaff">
                                             <div class="form-inline">
-                                                <label class="control-label"><strong>發送形式 &nbsp&nbsp</strong></label>
+                                                <label class="control-label"><strong>發送形式 &nbsp;&nbsp;</strong></label>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" value="1" v-model="add_message.now_send">
+                                                        <input name="now_send" type="radio" value="1" v-model="add_message.now_send">
                                                         立即執行
                                                     </label>
                                                 </div>
-                                                &nbsp
+                                                &nbsp;
                                                 <div class="radio">
-                                                    <label><input type="radio" value="0" v-model="add_message.now_send">
+                                                    <label>
+                                                        <input name="now_send" type="radio" value="0" v-model="add_message.now_send">
                                                         設定時間
                                                     </label>
                                                 </div>
@@ -200,13 +201,13 @@
                     '/api/telegram-message?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page
                 ).then(response => {
                     console.log(response);
-                    let res = response.data.data
-                    self.list = res.data
-                    self.page_info.current_page = res.current_page
-                    self.page_info.last_page = res.last_page
-                    self.page_info.total = res.total
-                    self.page_info.list_from = res.from
-                    self.page_info.list_to = res.to
+                    let res = response.data.data;
+                    self.list = res.data;
+                    self.page_info.current_page = res.current_page;
+                    self.page_info.last_page = res.last_page;
+                    self.page_info.total = res.total;
+                    self.page_info.list_from = res.from;
+                    self.page_info.list_to = res.to;
                     console.log(self.list);
                 }).catch(error => {
                     console.log(error)
@@ -237,18 +238,6 @@
                     });
                 }
             },
-            initMessage () {
-                let self = this;
-                self.add_message = {
-                    id: '',
-                    now_send: 1,
-                    sending_time: $("#sending_time").val(),
-                    channel_id: (self.channel_list.length > 0) ? self.channel_list[0].id : 0,
-                    display_name: '',
-                    content: '',
-                    user_id: 0
-                };
-            },
             addMessage() {
                 let self = this;
                 self.add_message.sending_time = $("#sending_time").val();
@@ -262,6 +251,58 @@
                     console.log(error.response);
                     helper.alert(error.response.data.message, 'danger');
                 });
+            },
+            openEditMessage(id) {
+                let self = this;
+                axios.get(
+                    '/api/telegram-message/' + id
+                ).then(response => {
+                    response.data.data.now_send = '0';
+                    self.add_message = response.data.data;
+                    self.action = 'edit';
+                    console.log(self.add_message);
+                    $('#addMessage').modal('show');
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            deleteMessage(id) {
+                let self = this;
+                helper.deleteConfirm(function () {
+                    axios.delete(
+                        '/api/telegram-message/' + id
+                    ).then(response => {
+                        helper.alert(response.data.message);
+                        self.getAllChannel();
+                    }).catch(error => {
+                        console.log(error);
+                        helper.alert(error.response.data.message, 'danger');
+                    });
+                });
+            },
+            setKendoDateTime(time) {
+                if (!$("#sending_time").data('kendoDateTimePicker')) {
+                    $("#sending_time").kendoDateTimePicker({
+                        dateInput: true,
+                        format: "yyyy/MM/dd HH:mm",
+                        value: new Date(),
+                    });
+                }
+            },
+            nowSendMessage(id) {
+
+            },
+            initMessage () {
+                let self = this;
+                self.add_message = {
+                    id: '',
+                    now_send: 1,
+                    sending_time: $("#sending_time").val(),
+                    channel_id: (self.channel_list.length > 0) ? self.channel_list[0].id : 0,
+                    display_name: '',
+                    content: '',
+                    user_id: 0
+                };
             },
             searchKeyword: function (event) {
                 if (event.which === 13) {

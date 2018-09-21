@@ -12,11 +12,12 @@
 * Tokenizer PHP Extension
 * XML PHP Extension
 * ZipArchive PHP Extension
+* ext-curl PHP Extension
 * npm >= 3.10.0
 
 ### PHP Extension Install
 ```
-apt-get install php7.0-mbstring php7.0-mysql php7.0-mcrypt php7.0-xml php7.0-zip
+apt-get install php7.0-mbstring php7.0-mysql php7.0-mcrypt php7.0-xml php7.0-zip php7.0-curl
 ```
 
 ### Install

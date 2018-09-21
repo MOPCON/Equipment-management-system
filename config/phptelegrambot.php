@@ -18,9 +18,9 @@ return [
     ],
 
     'commands' => [
-        'before'  => true,
+        'before'  => false,
         'paths'   => [
-            __DIR__ . 'app/Http/TelegramCommands'
+            app_path('Http/TelegramCommands/Admin')
         ],
         'configs' => [
             // Custom commands configs

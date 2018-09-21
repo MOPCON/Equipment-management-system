@@ -32,7 +32,7 @@ class SaveThisCommand extends AdminCommand
      */
     protected $need_mysql = false;
 
-    protected $private_only = true;
+    protected $private_only = false;
 
     /**
      * Execute command
@@ -51,10 +51,10 @@ class SaveThisCommand extends AdminCommand
         }
 
         /** 執行區間 */
-
-        TelegramChannel::create([
-            'name' => $chat->getTitle() ?? $chat->getUsername() ?? "(未命名)",
+        TelegramChannel::updateOrCreate([
             'code' => $chat->getId()
+        ], [
+            'name' => $chat->getTitle() ?? $chat->getUsername() ?? "(未命名)",
         ]);
 
         $data = [

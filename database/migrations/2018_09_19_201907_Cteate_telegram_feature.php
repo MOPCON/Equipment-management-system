@@ -18,7 +18,7 @@ class CteateTelegramFeature extends Migration
             $table->unsignedInteger('user_id');
             $table->dateTime('sending_time');
             $table->unsignedInteger('channel_id');
-            $table->string('display_name');
+            $table->string('display_name')->nullable();
             $table->text('content');
             $table->mediumInteger('status')->default(0);
             $table->timestamps();

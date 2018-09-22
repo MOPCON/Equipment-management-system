@@ -74,7 +74,8 @@ Note:
 
 
 ### Telegram Bot Command List
-- saveid : 儲存頻道 ID
+- saveId: 儲存頻道 ID
+- whoAmI: 顯示自己的 ID `[private]`
 
 ### License
 The MIT License (MIT). Please see License File for more information.

@@ -51,14 +51,15 @@ php artisan migrate
 npm run prod 
 ```
 
-Cron setting
+Cron & Queue setting
 ```
-* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+*/1 * 	* * *   root    php /home/ems/test/artisan schedule:run >> /dev/null 2>&1
+screen -S ems php artisan queue:listen
 ```
 
 Note:
 * Setting Cron
-* Run queue command `php artisan queue:listen`
+* Run queue command
 
 
 ### Login data
@@ -66,6 +67,14 @@ Note:
  email: admin@ems.ems
  password: admin
 ```
+
+### Setting Telegram Bot
+1. 在 .env 設定 `PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 、`PHP_TELEGRAM_BOT_API_KEY` 與 `PHP_TELEGRAM_BOT_NAME` (`PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 請自行設定隨機字串，此字串將用於給 Telegram 呼叫的 web hook)
+2. 執行 `php artisan ems:set-telegram-hook` 將 web hook 設定到 Telegram
+
+
+### Telegram Bot Command List
+- saveid : 儲存頻道 ID
 
 ### License
 The MIT License (MIT). Please see License File for more information.

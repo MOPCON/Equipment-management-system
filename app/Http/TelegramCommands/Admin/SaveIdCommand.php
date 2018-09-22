@@ -5,12 +5,12 @@ use App\TelegramChannel;
 use Longman\TelegramBot\Commands\AdminCommand;
 use Longman\TelegramBot\Request;
 
-class SaveThisCommand extends AdminCommand
+class SaveIdCommand extends AdminCommand
 {
     /**
      * @var string
      */
-    protected $name = 'saveThis';
+    protected $name = 'saveId';
 
     /**
      * @var string
@@ -20,7 +20,7 @@ class SaveThisCommand extends AdminCommand
     /**
      * @var string
      */
-    protected $usage = '/saveThis';
+    protected $usage = '/saveId';
 
     /**
      * @var string

@@ -20,7 +20,8 @@ return [
     'commands' => [
         'before'  => false,
         'paths'   => [
-            app_path('Http/TelegramCommands/Admin')
+            app_path('Http/TelegramCommands/Admin'),
+            app_path('Http/TelegramCommands/User')
         ],
         'configs' => [
             // Custom commands configs

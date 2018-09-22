@@ -37,9 +37,12 @@
                                         <tbody>
                                         <tr v-for="item in list">
                                             <td>{{ item.id }}</td>
-                                            <td>{{ item.channel.name}} ({{ item.channel.id}})</td>
+                                            <td v-if="item.channel">{{ item.channel.name}} ({{ item.channel.id}})</td>
+                                            <td v-if="!item.channel">(已刪除)</td>
                                             <td>{{ item.display_name }}</td>
                                             <td>{{ item.content }}</td>
+                                            <td v-if="item.user">{{ item.user.name }}</td>
+                                            <td v-if="!item.user">(已刪除)</td>
                                             <td>{{ item.user.name}}</td>
                                             <td v-if="item.status === 0">
                                                 <span class="label label-default">等待發送</span>

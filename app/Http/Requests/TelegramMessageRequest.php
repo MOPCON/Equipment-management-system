@@ -25,7 +25,7 @@ class TelegramMessageRequest extends BaseRequest
             "now_send"     => "required|boolean",
             "sending_time" => "required_if:now_send,0|date",
             "channel_id"   => 'required|exists:telegram_channels,id',
-            "display_name" => "string",
+            "display_name" => "",
             "content"      => "required",
         ];
     }

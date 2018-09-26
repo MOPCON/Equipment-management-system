@@ -112,4 +112,20 @@ class TelegramMessageController extends Controller
 
         return $this->returnSuccess("Success", $telegramMessage->delete());
     }
+
+    public function sendNow(TelegramMessage $telegramMessage)
+    {
+        if ($telegramMessage->isSend()) {
+            return $this->return400Response("訊息已發送，無法再發送。");
+        }
+
+        $telegramMessage->sending_time = date("Y-m-d H:i");
+        $telegramMessage->status = TelegramMessage::WAIT_SEND_STATUS;
+        $telegramMessage->save();
+
+        SendTelegramMessageJob::dispatch($telegramMessage);
+
+        return $this->returnSuccess("已發送");
+    }
 }
+

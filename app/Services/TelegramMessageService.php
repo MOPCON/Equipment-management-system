@@ -15,7 +15,13 @@ class TelegramMessageService
 
     public function send(TelegramMessage $telegramMessage)
     {
-        if (!$telegramMessage->channel()) {
+        $telegramMessage = TelegramMessage::find($telegramMessage->id);
+
+        if (!$telegramMessage) {
+            return;
+        }
+        
+        if (!$telegramMessage->channel) {
             $telegramMessage->changeStatusToFail();
 
             return;

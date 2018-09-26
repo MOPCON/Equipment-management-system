@@ -26,7 +26,7 @@
                                         <tr role="row">
                                             <th class="sortfield" tabindex="0">id</th>
                                             <th class="sortfield" tabindex="0">頻道</th>
-                                            <th class="sortfield" tabindex="0">名稱</th>
+                                            <th class="sortfield" tabindex="0">顯示名稱</th>
                                             <th class="sortfield" tabindex="0" width="40%">內容</th>
                                             <th class="sortfield" tabindex="0">發言人員</th>
                                             <th class="sortfield" tabindex="0">狀態</th>
@@ -43,7 +43,6 @@
                                             <td>{{ item.content }}</td>
                                             <td v-if="item.user">{{ item.user.name }}</td>
                                             <td v-if="!item.user">(已刪除)</td>
-                                            <td>{{ item.user.name}}</td>
                                             <td v-if="item.status === 0">
                                                 <span class="label label-default">等待發送</span>
                                             </td>
@@ -113,7 +112,8 @@
                                             <span aria-hidden="true">&times;</span>
                                             <span class="sr-only">Close</span>
                                         </button>
-                                        <h4 class="modal-title" id="myModalLabel">Add Message</h4>
+                                        <h4 v-if="action === 'add'" class="modal-title" id="myModalLabel">Add Message</h4>
+                                        <h4 v-if="action === 'edit'" class="modal-title" id="myModalLabel">Edit Message</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form name="addStaff">
@@ -143,7 +143,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <strong>廣播名稱</strong>
+                                                <strong>顯示名稱</strong>
                                                 <input type="text" name="name" v-model="add_message.display_name"
                                                        class="form-control" placeholder="Name" required>
                                             </div>
@@ -155,7 +155,8 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" v-on:click="addMessage">新增</button>
+                                        <button v-if="action === 'add'" type="button" class="btn btn-primary" v-on:click="addMessage">新增</button>
+                                        <button v-if="action === 'edit'"type="button" class="btn btn-primary" v-on:click="editMessage">儲存</button>
                                     </div>
                                 </div>
                             </div>
@@ -180,9 +181,11 @@
                     content: '',
                     user_id: 0
                 },
+                action: '',
                 page_info: [],
                 list: [],
-                channel_list: []
+                channel_list: [],
+                getAllMessageInterval: null
             }
         },
         computed: {
@@ -233,13 +236,8 @@
                     backdrop: 'static',
                     keyboard: false
                 });
-                if (!$("#sending_time").data('kendoDateTimePicker')) {
-                    $("#sending_time").kendoDateTimePicker({
-                        dateInput: true,
-                        format: "yyyy/MM/dd HH:mm",
-                        value: new Date(),
-                    });
-                }
+                self.setKendoDateTime(new Date());
+                self.action = 'add';
             },
             addMessage() {
                 let self = this;
@@ -262,11 +260,25 @@
                 ).then(response => {
                     response.data.data.now_send = '0';
                     self.add_message = response.data.data;
+                    self.setKendoDateTime(response.data.data.sending_time);
                     self.action = 'edit';
-                    console.log(self.add_message);
                     $('#addMessage').modal('show');
                 }).catch(error => {
                     console.log(error);
+                });
+            },
+            editMessage() {
+                let self = this;
+                self.add_message.sending_time = $("#sending_time").val();
+                axios.put(
+                    '/api/telegram-message/' + self.add_message.id, self.add_message
+                ).then(response => {
+                    $('#addMessage').modal('hide');
+                    self.getAllMessage();
+                    helper.alert(response.data.message);
+                }).catch(error => {
+                    console.log(error.response);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             deleteMessage(id) {
@@ -276,7 +288,7 @@
                         '/api/telegram-message/' + id
                     ).then(response => {
                         helper.alert(response.data.message);
-                        self.getAllChannel();
+                        self.getAllMessage();
                     }).catch(error => {
                         console.log(error);
                         helper.alert(error.response.data.message, 'danger');
@@ -288,12 +300,21 @@
                     $("#sending_time").kendoDateTimePicker({
                         dateInput: true,
                         format: "yyyy/MM/dd HH:mm",
-                        value: new Date(),
+                        value: time,
                     });
+                } else {
+                    $("#sending_time").data('kendoDateTimePicker').value(time);
                 }
             },
             nowSendMessage(id) {
-
+                axios.post(
+                    '/api/telegram-message/send-now/' + id
+                ).then(response => {
+                    helper.alert(response.data.message);
+                }).catch(error => {
+                    console.log(error.response);
+                    helper.alert(error.response.data.message, 'danger');
+                });
             },
             initMessage () {
                 let self = this;
@@ -345,6 +366,10 @@
             self.getAllMessage();
             self.getAllChannel();
             self.initMessage();
+
+            self.getAllMessageInterval = setInterval(function () {
+                self.getAllMessage();
+            }, 1000 * 10);
         }
     }
 </script>

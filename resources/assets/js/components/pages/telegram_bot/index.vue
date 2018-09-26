@@ -28,7 +28,7 @@
                                             <th class="sortfield" tabindex="0">頻道</th>
                                             <th class="sortfield" tabindex="0">顯示名稱</th>
                                             <th class="sortfield" tabindex="0" width="40%">內容</th>
-                                            <th class="sortfield" tabindex="0">發言人員</th>
+                                            <th class="sortfield" tabindex="0">發送人員</th>
                                             <th class="sortfield" tabindex="0">狀態</th>
                                             <th class="sortfield" tabindex="0">排成時間</th>
                                             <th class="sortfield" tabindex="0"> </th>

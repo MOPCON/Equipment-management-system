@@ -37,7 +37,7 @@
                                         <tbody>
                                         <tr v-for="item in list">
                                             <td>{{ item.id }}</td>
-                                            <td v-if="item.channel">{{ item.channel.name}} ({{ item.channel.id}})</td>
+                                            <td v-if="item.channel">{{ item.channel.name}}</td>
                                             <td v-if="!item.channel">(已刪除)</td>
                                             <td>{{ item.display_name }}</td>
                                             <td>{{ item.content }}</td>

@@ -55,6 +55,7 @@
                                             <td>{{ item.id }}</td>
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.email }}</td>
+                                            <td>{{ item.telegram_id }}</td>
                                             <td>{{ item.created_at }}</td>
                                             <td>{{ item.updated_at }}</td>
                                             <td>
@@ -121,6 +122,10 @@
                                             <div class="form-group">
                                                 <strong>Email</strong>
                                                 <input type="text" v-model="add_user.email" name="email" class="form-control" placeholder="Email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>Telegram ID</strong>
+                                                <input type="text" v-model="add_user.telegram_id" name="telegram_id" class="form-control" placeholder="Telegram ID">
                                             </div>
                                             <div v-if="action == 'new'" class="form-group">
                                                 <strong>密碼</strong>
@@ -218,6 +223,9 @@
                     name: 'Email',
                     key: 'email'
                 }, {
+                    name: 'Telegram ID',
+                    key: 'telegram_id'
+                }, {
                     name: 'Created_At',
                     key: 'created_at'
                 }, {
@@ -298,6 +306,7 @@
                 var data = {
                     name: self.add_user.name,
                     email: self.add_user.email,
+                    telegram_id: self.add_user.telegram_id,
                     password: self.add_user.password,
                     password_confirmation: self.add_user.password_confirmation
                 };
@@ -319,6 +328,7 @@
                 var data = {
                     name: self.add_user.name,
                     email: self.add_user.email,
+                    telegram_id: self.add_user.telegram_id,
                     _method: 'PUT'
                 };
                 axios.post(
@@ -346,6 +356,7 @@
                         id: res.id,
                         name: res.name,
                         email: res.email,
+                        telegram_id: res.telegram_id,
                     }
                     $('#addUser').modal('show');
                 }).catch(error => {

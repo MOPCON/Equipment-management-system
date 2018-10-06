@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Http\Controllers\ApiTrait;
 
-class ImportRequest extends BaseRequest
+class TelegramChannelRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,19 +24,8 @@ class ImportRequest extends BaseRequest
     public function rules()
     {
         return [
-            'upload' => 'required|file',
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            'upload' => '檔案',
+            'name' => 'required|string',
+            'code' => 'required|string',
         ];
     }
 }

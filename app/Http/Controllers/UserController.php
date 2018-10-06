@@ -58,6 +58,7 @@ class UserController extends Controller
         $user->update([
             'name'  => $request->name,
             'email' => $request->email,
+            'telegram_id' => $request->telegram_id,
         ]);
 
         return $this->returnSuccess('Show Success.', $user);

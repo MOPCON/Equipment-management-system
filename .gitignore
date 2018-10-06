@@ -14,3 +14,6 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+/public/js/vendor.js
+/public/js/manifest.js
+/public/mix-manifest.json

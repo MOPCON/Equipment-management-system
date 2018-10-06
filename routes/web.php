@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
 Route::post('/login', 'AuthController@postLogin');
 Route::get('/logout', 'AuthController@logout');
+Route::post('/telegram/web/hook/' . env('PHP_TELEGRAM_BOT_WEB_HOOK_KEY'), 'TelegramHookController@handle');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::post('user/password/{user}', 'UserController@changePassword');
@@ -31,6 +32,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('equipment', 'EquipmentController');
     Route::apiResource('group', 'GroupController');
     Route::apiResource('loan', 'LoanController');
+    Route::apiResource('telegram-channel', 'TelegramChannelController');
+    Route::apiResource('telegram-message', 'TelegramMessageController');
+    Route::post('telegram-message/send-now/{telegramMessage}', 'TelegramMessageController@sendNow');
     Route::apiResource('student', 'StudentController', ['only' => ['store', 'destroy']]);
     Route::post('student/upload', 'StudentController@upload');
     Route::apiResource('raise_equipment', 'RaiseEquipmentController');

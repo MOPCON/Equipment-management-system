@@ -41,6 +41,12 @@ export default new Router({
             path: '/student-verify',
             component: require('../components/pages/verify/student_verify'),
         }, {
+            path: '/telegram-message',
+            component: require('../components/pages/telegram_bot/index.vue'),
+        }, {
+            path: '/telegram-channel',
+            component: require('../components/pages/telegram_bot/channel.vue'),
+        }, {
             path: '/*',
             redirect: '/'
         }

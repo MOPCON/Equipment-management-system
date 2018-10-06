@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/AdminLTE.min.css">
     <link rel="stylesheet" href="css/adminlte-skin-purple-light.min.css">
     <link href="{{ asset('/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.bootstrap.mobile.min.css" />
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -128,6 +131,13 @@ desired effect
                     </ul>
                 </li>
                 <li>
+                    <a><i class='fa fa-telegram'></i> <span>Telegram Bot</span></a>
+                    <ul class="treeview-menu">
+                        <li><a href="/#/telegram-message"><i class="fa fa-commenting" aria-hidden="true"></i><span>訊息發送</span></a></li>
+                        <li><a href="/#/telegram-channel"><i class="fa fa-users" aria-hidden="true"></i><span>頻道管理</span></a></li>
+                    </ul>
+                </li>
+                <li>
                     <a><i class='glyphicon glyphicon-cog'></i> <span>設定</span></a>
                     <ul class="treeview-menu">
                         <li><a href="/#/user"><i class="fa fa-user-secret" aria-hidden="true"></i><span>使用者管理</span></a></li>
@@ -205,6 +215,7 @@ desired effect
 <script src="{{ mix('/js/app.js') }}" charset="utf-8"></script>
 <script src="js/adminlte.js" charset="utf-8"></script>
 <script src="{{ asset('/js/sweetalert2.min.js') }}" charset="utf-8"></script>
+<script src="https://kendo.cdn.telerik.com/2018.3.911/js/kendo.all.min.js"></script>
 <script src="{{ asset('/js/bootstrap-notify.min.js')}}" charset="utf-8"></script>
 <script src="{{ asset('/js/JsBarcode.all.min.js') }}" charset="utf-8"></script>
 <!-- Place this tag in your head or just before your close body tag. -->

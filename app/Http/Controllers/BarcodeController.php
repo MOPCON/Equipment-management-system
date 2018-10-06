@@ -15,18 +15,39 @@ class BarcodeController extends Controller
 
     public function getBarcode(Request $request)
     {
-        $staff = Staff::pluck('barcode')->toArray();
-        $equipmentbarcode = EquipmentBarcode::pluck('barcode')->toArray();
-        $raiseEquipmentbarcode = RaiseEquipment::pluck('barcode')->toArray();
+        $staffs = Staff::all();
+        $equipments = EquipmentBarcode::with('equipment')->get();
+        $raiseEquipments = RaiseEquipment::all();
+        $barcode = [];
+
+        foreach ($staffs as $staff) {
+            $barcode[] = [
+                'display' => $staff->name,
+                'barcode' => $staff->barcode,
+            ];
+        }
+
+        foreach ($equipments as $equipment) {
+            $barcode[] = [
+                'display' => $equipment->equipment->name,
+                'barcode' => $equipment->barcode,
+            ];
+        }
+
+        foreach ($raiseEquipments as $raiseEquipment) {
+            $barcode[] = [
+                'display' => $raiseEquipment->name,
+                'barcode' => $raiseEquipment->barcode,
+            ];
+        }
 
         if ($request->has('backup')) {
-            $backup = [];
             for ($i = 1; $i <= $request->input('backup'); $i++) {
-                $backup[] = 'BK' . str_pad(($i), 3, '0', STR_PAD_LEFT);
+                $barcode[] = [
+                    'display' => '備用',
+                    'barcode' => 'BK' . str_pad(($i), 3, '0', STR_PAD_LEFT),
+                ];
             }
-            $barcode = array_merge($staff, $equipmentbarcode, $raiseEquipmentbarcode, $backup);
-        } else {
-            $barcode = array_merge($staff, $equipmentbarcode, $raiseEquipmentbarcode);
         }
 
         $data = [

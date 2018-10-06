@@ -7,10 +7,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\ApiTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoanReturnRequest extends FormRequest
+class LoanReturnRequest extends BaseRequest
 {
-    use ApiTrait;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -33,15 +31,6 @@ class LoanReturnRequest extends FormRequest
             'barcode' => 'required_if:loan_id,0|nullable|string',
             'amount'  => 'required|integer',
         ];
-    }
-
-    /**
-     * Use json output error message.
-     * @param Validator $validator
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException($this->return400Response((string) $validator->messages()->first()));
     }
 
     /**

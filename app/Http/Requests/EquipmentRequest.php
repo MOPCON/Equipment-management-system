@@ -3,15 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\ApiTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class EquipmentRequest extends FormRequest
+class EquipmentRequest extends BaseRequest
 {
-
-    use ApiTrait;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -50,15 +46,6 @@ class EquipmentRequest extends FormRequest
             'hasBarcode' => 'required',
             'prefix'     => 'required_if:hasBarcode,1|nullable|string|unique:equipments,prefix',
         ];
-    }
-
-    /**
-     * Use json output error message.
-     * @param Validator $validator
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException($this->return400Response((string) $validator->messages()->first()));
     }
 
     /**

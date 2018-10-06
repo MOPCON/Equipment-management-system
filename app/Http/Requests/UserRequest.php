@@ -7,10 +7,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Controllers\ApiTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UserRequest extends FormRequest
+class UserRequest extends BaseRequest
 {
-    use ApiTrait;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -52,15 +50,6 @@ class UserRequest extends FormRequest
                 'email' => 'required|email|unique:users,email,' . $id,
             ];
         }
-    }
-
-    /**
-     * Use json output error message.
-     * @param Validator $validator
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException($this->return400Response((string) $validator->messages()->first()));
     }
 
     /**

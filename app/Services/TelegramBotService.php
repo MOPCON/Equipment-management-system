@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
@@ -21,6 +22,9 @@ class TelegramBotService
         ];
 
         $result = Request::sendMessage($data);
+        if (!$result->isOk()) {
+            Log::error("[TelegramBotService] Send message error {$result->getDescription()}");
+        }
 
         return $result->isOk();
     }

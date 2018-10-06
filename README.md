@@ -49,6 +49,7 @@ npm install
 php artisan key:generate
 php artisan migrate
 npm run prod 
+chmod 777 -R storage bootstrap/cache
 ```
 
 Cron & Queue setting

@@ -296,6 +296,7 @@
                 });
             },
             setKendoDateTime(time) {
+                time = time.replace(" ", "T");
                 if (!$("#sending_time").data('kendoDateTimePicker')) {
                     $("#sending_time").kendoDateTimePicker({
                         dateInput: true,

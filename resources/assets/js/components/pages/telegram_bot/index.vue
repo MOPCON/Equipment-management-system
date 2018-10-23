@@ -44,13 +44,16 @@
                                             <td v-if="item.user">{{ item.user.name }}</td>
                                             <td v-if="!item.user">(已刪除)</td>
                                             <td v-if="item.status === 0">
-                                                <span class="label label-default">等待發送</span>
+                                                <span class="label label-default">等待排程</span>
                                             </td>
                                             <td v-if="item.status === 1">
                                                 <span class="label label-success">已發送</span>
                                             </td>
                                             <td v-if="item.status === 2">
                                                 <span class="label label-danger">發送失敗</span>
+                                            </td>
+                                            <td v-if="item.status === 3">
+                                                <span class="label label-default">發送中</span>
                                             </td>
                                             <td>{{ item.sending_time }}</td>
                                             <td>

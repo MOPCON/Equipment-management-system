@@ -260,7 +260,7 @@
                 ).then(response => {
                     response.data.data.now_send = '0';
                     self.add_message = response.data.data;
-                    self.setKendoDateTime(response.data.data.sending_time);
+                    self.setKendoDateTime(response.data.data.sending_time.replace(" ", "T"));
                     self.action = 'edit';
                     $('#addMessage').modal('show');
                 }).catch(error => {

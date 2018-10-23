@@ -55,6 +55,7 @@ class TelegramMessageController extends Controller
 
         if ($request->input('now_send')) {
             $data['sending_time'] = date("Y-m-d H:i");
+            $data['status'] = TelegramMessage::NOW_SEND;
             $message = TelegramMessage::create($data);
             SendTelegramMessageJob::dispatch($message);
         } else {

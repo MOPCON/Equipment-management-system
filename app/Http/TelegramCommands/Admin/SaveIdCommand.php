@@ -7,6 +7,8 @@ use Longman\TelegramBot\Request;
 
 class SaveIdCommand extends AdminCommand
 {
+    use CommandTrait;
+
     /**
      * @var string
      */
@@ -47,7 +49,7 @@ class SaveIdCommand extends AdminCommand
         $chat = $message->getChat();
 
         if (!in_array($message->getFrom()->getId(), $this->getTelegram()->getAdminList())) {
-            return Request::sendMessage(['chat_id' => $chat->getId(), 'text' => '(´･ω･`)']);
+            return $this->getUnAuthMessage($chat, $message);
         }
 
         /** 執行區間 */

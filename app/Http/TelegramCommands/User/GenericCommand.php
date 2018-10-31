@@ -43,10 +43,12 @@ class GenericCommand extends SystemCommand
     {
         $message = $this->getMessage();
         $chat = $message->getChat();
+        $userName = $message->getFrom()->getUsername() ? '@' . $message->getFrom()->getUsername() :
+            $message->getFrom()->getFirstName() . $message->getFrom()->getLastName();
 
         return Request::sendMessage([
             'chat_id' => $chat->getId(),
-            'text' => '@' . $message->getFrom()->getUsername() . ' (*´･д･)?'
+            'text' => $userName . ' (*´･д･)?'
         ]);
     }
 }

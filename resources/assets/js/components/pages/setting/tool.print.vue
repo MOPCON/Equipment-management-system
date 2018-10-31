@@ -67,8 +67,8 @@
                     JsBarcode('#barcode' + i, self.barcode[i-1].barcode, {
                         width: 1,
                         height: 30,
-                        fontSize: 8,
-                        text: self.barcode[i-1].barcode + "(" + self.barcode[i-1].display + ")"
+                        fontSize: 6,
+                        text: self.barcode[i-1].barcode + "-" + self.barcode[i-1].display.slice(0, 10),
                     });
                 }
 

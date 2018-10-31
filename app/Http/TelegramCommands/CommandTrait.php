@@ -7,9 +7,12 @@ trait CommandTrait
 {
     protected function getUnAuthMessage($chat, $message)
     {
+        $userName = $message->getFrom()->getUsername() ? '@' . $message->getFrom()->getUsername() :
+            $message->getFrom()->getFirstName() . $message->getFrom()->getLastName();
+
         return Request::sendMessage([
             'chat_id' => $chat->getId(),
-            'text' => '@' . $message->getFrom()->getUsername() . ' (ㆆᴗㆆ)'
+            'text' => $userName . ' (ㆆᴗㆆ)'
         ]);
     }
 }

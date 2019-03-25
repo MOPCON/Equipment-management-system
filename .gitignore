@@ -17,3 +17,4 @@ yarn-error.log
 /public/js/vendor.js
 /public/js/manifest.js
 /public/mix-manifest.json
+.phpunit.result.cache

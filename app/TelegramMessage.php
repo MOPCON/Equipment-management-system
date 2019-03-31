@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TelegramMessage extends Model
 {
-    protected $table = "telegram_messages";
-    protected $fillable = ["user_id", "sending_time", "channel_id", "display_name", "content", "status"];
+    protected $table = 'telegram_messages';
+    protected $fillable = ['user_id', 'sending_time', 'channel_id', 'display_name', 'content', 'status'];
 
     const WAIT_SEND_STATUS = 0;
     const NOW_SEND = 3;

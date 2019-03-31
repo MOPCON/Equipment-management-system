@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
-use App\Http\Controllers\ApiTrait;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class EquipmentRequest extends BaseRequest
 {
@@ -26,7 +24,7 @@ class EquipmentRequest extends BaseRequest
     public function rules()
     {
         if ($this->getMethod() == 'PUT') {
-            $id = explode("/", $this->path())[2];
+            $id = explode('/', $this->path())[2];
 
             return [
                 'name'       => 'required|string',

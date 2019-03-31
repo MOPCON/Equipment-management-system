@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Group;
 use App\Staff;
+use Illuminate\Database\Seeder;
 
 class StaffTableSeeder extends Seeder
 {
@@ -14,13 +14,13 @@ class StaffTableSeeder extends Seeder
     public function run()
     {
         Group::create([
-            'name' => '場務組'
+            'name' => '場務組',
         ]);
         Group::create([
-            'name' => '行政組'
+            'name' => '行政組',
         ]);
         Group::create([
-            'name' => '議程組'
+            'name' => '議程組',
         ]);
         for ($i = 0; $i < 40; $i++) {
             $faker = Faker\Factory::create('zh_TW');

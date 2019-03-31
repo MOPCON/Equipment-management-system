@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RaiseEquipmentRequest;
 use App\RaiseEquipment;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiTrait;
+use App\Http\Requests\RaiseEquipmentRequest;
 
 class RaiseEquipmentController extends Controller
 {
-
     use ApiTrait;
 
     /**
@@ -57,7 +55,7 @@ class RaiseEquipmentController extends Controller
      */
     public function show(RaiseEquipment $raiseEquipment)
     {
-        return $this->returnSuccess("Show success", $raiseEquipment);
+        return $this->returnSuccess('Show success', $raiseEquipment);
     }
 
     /**
@@ -71,7 +69,7 @@ class RaiseEquipmentController extends Controller
     {
         $raiseEquipment->update($request->only('name', 'staff_id', 'barcode', 'status'));
 
-        return $this->returnSuccess("已編輯", $raiseEquipment);
+        return $this->returnSuccess('已編輯', $raiseEquipment);
     }
 
     /**
@@ -82,12 +80,13 @@ class RaiseEquipmentController extends Controller
      */
     public function destroy(RaiseEquipment $raiseEquipment)
     {
-        if ($raiseEquipment->status != "0") {
-            return $this->return400Response("無法刪除");
+        if ($raiseEquipment->status != '0') {
+            return $this->return400Response('無法刪除');
         }
 
         $raiseEquipment->delete();
-        return $this->returnSuccess("已刪除");
+
+        return $this->returnSuccess('已刪除');
     }
 
     public function changeStatus(RaiseEquipment $raiseEquipment, $status)

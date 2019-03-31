@@ -1,8 +1,9 @@
 # Equipment-management-system
-![Version develop](https://img.shields.io/badge/Laravel-5.5-orange.svg)
+![Version develop](https://img.shields.io/badge/Laravel-5.8-orange.svg)
 ![Version develop](https://img.shields.io/badge/version-develop-yellow.svg)
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/s9801077/Equipment-management-system)
 ![Version develop](https://img.shields.io/badge/license-MIT-green.svg)
+![Styleci status](https://github.styleci.io/repos/89154332/shield)
 
 ### Requirement
 * PHP >= 7.0.0

@@ -28,7 +28,7 @@ class CreateEquipmentTable extends Migration
             $table->increments('id');
             $table->string('barcode');
             $table->unsignedInteger('equipment_id');
-            $table->tinyInteger('status')->default(0)->comment = "0: 未出借, 1:出借中";
+            $table->tinyInteger('status')->default(0)->comment = '0: 未出借, 1:出借中';
         });
     }
 

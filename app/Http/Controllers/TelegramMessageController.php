@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TelegramMessageRequest;
-use App\Jobs\SendTelegramMessageJob;
 use App\TelegramMessage;
 use Illuminate\Http\Request;
+use App\Jobs\SendTelegramMessageJob;
+use App\Http\Requests\TelegramMessageRequest;
 
 class TelegramMessageController extends Controller
 {
@@ -50,11 +50,11 @@ class TelegramMessageController extends Controller
      */
     public function store(TelegramMessageRequest $request)
     {
-        $data = $request->only(["sending_time", "channel_id", "display_name", "content"]);
+        $data = $request->only(['sending_time', 'channel_id', 'display_name', 'content']);
         $data['user_id'] = auth()->id();
 
         if ($request->input('now_send')) {
-            $data['sending_time'] = date("Y-m-d H:i");
+            $data['sending_time'] = date('Y-m-d H:i');
             $data['status'] = TelegramMessage::NOW_SEND;
             $message = TelegramMessage::create($data);
             SendTelegramMessageJob::dispatch($message);
@@ -62,7 +62,7 @@ class TelegramMessageController extends Controller
             $message = TelegramMessage::create($data);
         }
 
-        return $this->returnSuccess("Success", $message);
+        return $this->returnSuccess('Success', $message);
     }
 
     /**
@@ -76,7 +76,7 @@ class TelegramMessageController extends Controller
         $telegramMessage->channel;
         $telegramMessage->user;
 
-        return $this->returnSuccess("Success", $telegramMessage);
+        return $this->returnSuccess('Success', $telegramMessage);
     }
 
     /**
@@ -89,12 +89,12 @@ class TelegramMessageController extends Controller
     public function update(TelegramMessageRequest $request, TelegramMessage $telegramMessage)
     {
         if ($telegramMessage->isSend()) {
-            return $this->return400Response("訊息已發送，無法變更。");
+            return $this->return400Response('訊息已發送，無法變更。');
         }
 
         return $this->returnSuccess(
-            "Success",
-            $telegramMessage->update($request->only(["sending_time", "channel_id", "display_name", "content"]))
+            'Success',
+            $telegramMessage->update($request->only(['sending_time', 'channel_id', 'display_name', 'content']))
         );
     }
 
@@ -108,25 +108,24 @@ class TelegramMessageController extends Controller
     public function destroy(TelegramMessage $telegramMessage)
     {
         if ($telegramMessage->isSend()) {
-            return $this->return400Response("訊息已發送，無法刪除。");
+            return $this->return400Response('訊息已發送，無法刪除。');
         }
 
-        return $this->returnSuccess("Success", $telegramMessage->delete());
+        return $this->returnSuccess('Success', $telegramMessage->delete());
     }
 
     public function sendNow(TelegramMessage $telegramMessage)
     {
         if ($telegramMessage->isSend()) {
-            return $this->return400Response("訊息已發送，無法再發送。");
+            return $this->return400Response('訊息已發送，無法再發送。');
         }
 
-        $telegramMessage->sending_time = date("Y-m-d H:i");
+        $telegramMessage->sending_time = date('Y-m-d H:i');
         $telegramMessage->status = TelegramMessage::WAIT_SEND_STATUS;
         $telegramMessage->save();
 
         SendTelegramMessageJob::dispatch($telegramMessage);
 
-        return $this->returnSuccess("已發送");
+        return $this->returnSuccess('已發送');
     }
 }
-

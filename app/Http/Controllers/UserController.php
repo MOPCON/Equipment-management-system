@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\User;
-use App\Http\Controllers\ApiTrait;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-
     use ApiTrait;
 
     /**

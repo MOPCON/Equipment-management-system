@@ -4,12 +4,13 @@ namespace App\Http\Requests;
 
 use App\Http\Controllers\ApiTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class BaseRequest extends FormRequest
 {
     use ApiTrait;
+
     /**
      * Use json output error message.
      * @param Validator $validator

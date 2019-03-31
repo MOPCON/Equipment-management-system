@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\TelegramMessage;
@@ -17,11 +18,11 @@ class TelegramMessageService
     {
         $telegramMessage = TelegramMessage::find($telegramMessage->id);
 
-        if (!$telegramMessage) {
+        if (! $telegramMessage) {
             return;
         }
-        
-        if (!$telegramMessage->channel) {
+
+        if (! $telegramMessage->channel) {
             $telegramMessage->changeStatusToFail();
 
             return;

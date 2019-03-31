@@ -1,9 +1,9 @@
 <?php
+
 namespace Longman\TelegramBot\Commands\UserCommands;
 
-use App\TelegramChannel;
-use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
+use Longman\TelegramBot\Commands\UserCommand;
 
 class WhoAmICommand extends UserCommand
 {
@@ -35,7 +35,7 @@ class WhoAmICommand extends UserCommand
     protected $private_only = true;
 
     /**
-     * Execute command
+     * Execute command.
      *
      * @return \Longman\TelegramBot\Entities\ServerResponse
      * @throws \Longman\TelegramBot\Exception\TelegramException
@@ -48,7 +48,7 @@ class WhoAmICommand extends UserCommand
 
         $data = [
             'chat_id' => $chat->getId(),
-            'text'    => 'You are ' . $message->getFrom()->getId()
+            'text'    => 'You are ' . $message->getFrom()->getId(),
         ];
 
         return Request::sendMessage($data);

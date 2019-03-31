@@ -5,7 +5,7 @@
 ![Version develop](https://img.shields.io/badge/license-MIT-green.svg)
 
 ### Requirement
-* PHP >= 7.0.0
+* PHP >= 7.1.3
 * OpenSSL PHP Extension
 * PDO PHP Extension
 * Mbstring PHP Extension

@@ -19,7 +19,7 @@ class AuthController extends Controller
         $password = $request->input('password', '');
         $remember = $request->input('remember', false);
         if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
-            return redirect("/");
+            return redirect('/');
         }
 
         return back()->withInput()->with('error', '帳號或密碼錯誤');
@@ -29,6 +29,6 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        return redirect("/login");
+        return redirect('/login');
     }
 }

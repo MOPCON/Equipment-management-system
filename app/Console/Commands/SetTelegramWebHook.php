@@ -46,7 +46,7 @@ class SetTelegramWebHook extends Command
             if ($this->option('delete')) {
                 $result = $this->telegramBot->deleteWebhook();
             } else {
-                $hookUrl = action("TelegramHookController@handle");
+                $hookUrl = action('TelegramHookController@handle');
                 $result = $this->telegramBot->setWebhook($hookUrl);
             }
 
@@ -56,7 +56,7 @@ class SetTelegramWebHook extends Command
                 $this->error($result->getDescription());
             }
         } catch (\Exception $e) {
-            $this->error("發生不明錯誤");
+            $this->error('發生不明錯誤');
             Log::error($e->getMessage() . $e->getTraceAsString());
         }
     }

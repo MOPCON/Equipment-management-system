@@ -1,4 +1,5 @@
 <?php
+
 namespace Longman\TelegramBot\Commands\UserCommands;
 
 use Longman\TelegramBot\Request;
@@ -12,7 +13,7 @@ trait CommandTrait
 
         return Request::sendMessage([
             'chat_id' => $chat->getId(),
-            'text' => $userName . ' (ㆆᴗㆆ)'
+            'text' => $userName . ' (ㆆᴗㆆ)',
         ]);
     }
 }

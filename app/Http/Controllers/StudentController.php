@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\StudentValidation;
 use App\User;
+use App\StudentValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +29,7 @@ class StudentController extends Controller
                 'email' => $request->get('email'),
                 'school_name' => $request->get('school_name', ''),
                 'file_link' => $request->get('file_link', ''),
-                'comment' => $request->get('comment', '')
+                'comment' => $request->get('comment', ''),
             ]
         );
         $result->user;
@@ -46,7 +46,7 @@ class StudentController extends Controller
 
     public function upload(Request $request)
     {
-        if (!$request->hasFile('file')) {
+        if (! $request->hasFile('file')) {
             return $this->return400Response('Need upload file');
         }
 
@@ -114,7 +114,7 @@ class StudentController extends Controller
                 'file_url' => $file_url,
                 'file_type' => $file_type,
                 'comment' => $comment,
-                'verify_user_name' => $verify_user_name
+                'verify_user_name' => $verify_user_name,
             ];
 
             if ($is_verify) {

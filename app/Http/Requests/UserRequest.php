@@ -3,9 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Controllers\ApiTrait;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserRequest extends BaseRequest
 {
@@ -26,10 +23,10 @@ class UserRequest extends BaseRequest
      */
     public function rules()
     {
-        $path = explode("/", $this->path());
+        $path = explode('/', $this->path());
         if ($this->getMethod() == 'POST') {
             $type = $path[2] ?? '';
-            if ($type === "password") {
+            if ($type === 'password') {
                 return [
                     'password_confirmation' => 'required',
                     'password'              => 'required|string|min:8|confirmed',

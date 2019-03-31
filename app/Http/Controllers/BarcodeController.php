@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\RaiseEquipment;
-use Illuminate\Http\Request;
 use App\Staff;
+use App\RaiseEquipment;
 use App\EquipmentBarcode;
-use App\Http\Controllers\ApiTrait;
+use Illuminate\Http\Request;
 
 class BarcodeController extends Controller
 {
-
     use ApiTrait;
 
     public function getBarcode(Request $request)

@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
-use App\EquipmentBarcode;
 use Illuminate\Http\Request;
 use App\Http\Requests\EquipmentRequest;
-use App\Http\Controllers\ApiTrait;
 
 class EquipmentController extends Controller
 {
-
     use ApiTrait;
 
     /**
@@ -34,7 +31,6 @@ class EquipmentController extends Controller
                 ->orderBy($order_field, $order_method)
                 ->paginate($limit);
         }
-
 
         return $this->returnSuccess('Success.', $equipment);
     }

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    /**
+    /*
      * Bot configuration
      */
     'bot'      => [
@@ -9,7 +9,7 @@ return [
         'api_key' => env('PHP_TELEGRAM_BOT_API_KEY', ''),
     ],
 
-    /**
+    /*
      * Database integration
      */
     'database' => [
@@ -21,7 +21,7 @@ return [
         'before'  => false,
         'paths'   => [
             app_path('Http/TelegramCommands/Admin'),
-            app_path('Http/TelegramCommands/User')
+            app_path('Http/TelegramCommands/User'),
         ],
         'configs' => [
             // Custom commands configs
@@ -32,7 +32,7 @@ return [
         // Admin ids
     ],
 
-    /**
+    /*
      * Request limiter
      */
     'limiter' => [

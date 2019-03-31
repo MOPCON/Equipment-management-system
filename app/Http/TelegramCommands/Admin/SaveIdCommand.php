@@ -1,9 +1,10 @@
 <?php
+
 namespace Longman\TelegramBot\Commands\UserCommands;
 
 use App\TelegramChannel;
-use Longman\TelegramBot\Commands\AdminCommand;
 use Longman\TelegramBot\Request;
+use Longman\TelegramBot\Commands\AdminCommand;
 
 class SaveIdCommand extends AdminCommand
 {
@@ -37,7 +38,7 @@ class SaveIdCommand extends AdminCommand
     protected $private_only = false;
 
     /**
-     * Execute command
+     * Execute command.
      *
      * @return \Longman\TelegramBot\Entities\ServerResponse
      * @throws \Longman\TelegramBot\Exception\TelegramException
@@ -48,20 +49,20 @@ class SaveIdCommand extends AdminCommand
         $message = $this->getMessage();
         $chat = $message->getChat();
 
-        if (!in_array($message->getFrom()->getId(), $this->getTelegram()->getAdminList())) {
+        if (! in_array($message->getFrom()->getId(), $this->getTelegram()->getAdminList())) {
             return $this->getUnAuthMessage($chat, $message);
         }
 
-        /** 執行區間 */
+        /* 執行區間 */
         TelegramChannel::updateOrCreate([
-            'code' => $chat->getId()
+            'code' => $chat->getId(),
         ], [
-            'name' => $chat->getTitle() ?? $chat->getUsername() ?? "(未命名)",
+            'name' => $chat->getTitle() ?? $chat->getUsername() ?? '(未命名)',
         ]);
 
         $data = [
             'chat_id' => $chat->getId(),
-            'text'    => 'Done!'
+            'text'    => 'Done!',
         ];
 
         return Request::sendMessage($data);

@@ -12,7 +12,7 @@
 */
 
 $app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
+    realpath(__DIR__ . '/../')
 );
 
 /*
@@ -41,7 +41,7 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-require __DIR__.'/../app/Http/TelegramCommands/CommandTrait.php';
+require __DIR__ . '/../app/Http/TelegramCommands/CommandTrait.php';
 
 /*
 |--------------------------------------------------------------------------

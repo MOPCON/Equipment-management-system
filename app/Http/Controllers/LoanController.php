@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Loan;
-use App\RaiseEquipment;
 use App\Staff;
 use App\Equipment;
+use App\RaiseEquipment;
 use App\EquipmentBarcode;
-use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoanRequest;
 use App\Http\Requests\LoanReturnRequest;
-use App\Http\Controllers\ApiTrait;
 
 class LoanController extends Controller
 {
-
     use ApiTrait;
 
     /**
@@ -24,7 +21,6 @@ class LoanController extends Controller
      */
     public function index(Request $request)
     {
-
         $status = $request->input('status', [0, 1]);
         $barcode = $request->input('barcode', '');
         $order_field = $request->input('orderby_field', 'id');
@@ -52,7 +48,7 @@ class LoanController extends Controller
             $staff = Staff::where('barcode', $request->input('staff_barcode'))->first();
         }
 
-        if (!$staff) {
+        if (! $staff) {
             return $this->return404Response('Staff not found.');
         }
 
@@ -60,7 +56,7 @@ class LoanController extends Controller
             // 使用設備 id
             $equipment = Equipment::find($request->input('equipment_id'));
 
-            if (!$equipment) {
+            if (! $equipment) {
                 return $this->return404Response('Equipment not found.');
             }
 
@@ -89,7 +85,7 @@ class LoanController extends Controller
                 // 屬於募集器材
                 $raiseEquipment = RaiseEquipment::where('barcode', $request->input('equipment_barcode'))->first();
 
-                if (!$raiseEquipment) {
+                if (! $raiseEquipment) {
                     return $this->return404Response('Equipment barcode not found.');
                 }
 
@@ -108,7 +104,7 @@ class LoanController extends Controller
                 ]);
             } else {
                 // 屬於其他器材
-                if (!$equipmentBarcode) {
+                if (! $equipmentBarcode) {
                     return $this->return404Response('Equipment barcode not found.');
                 }
 
@@ -159,7 +155,7 @@ class LoanController extends Controller
             $loan = Loan::where('barcode', $request->input('barcode'))->where('status', 0)->first();
         }
 
-        if (!$loan) {
+        if (! $loan) {
             return $this->return404Response('Loan not found.');
         }
 
@@ -185,5 +181,4 @@ class LoanController extends Controller
 
         return $this->returnSuccess('Return success.', $loan);
     }
-
 }

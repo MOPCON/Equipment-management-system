@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\EquipmentBarcode;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ApiTrait;
 
 class EquipmentBarcodeController extends Controller
 {
-
     use ApiTrait;
 
     /**

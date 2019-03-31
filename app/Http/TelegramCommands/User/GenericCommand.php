@@ -10,11 +10,11 @@
 
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
-use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Request;
+use Longman\TelegramBot\Commands\SystemCommand;
 
 /**
- * Generic command
+ * Generic command.
  */
 class GenericCommand extends SystemCommand
 {
@@ -34,7 +34,7 @@ class GenericCommand extends SystemCommand
     protected $version = '1.0.0';
 
     /**
-     * Command execute method
+     * Command execute method.
      *
      * @return mixed
      * @throws \Longman\TelegramBot\Exception\TelegramException
@@ -48,7 +48,7 @@ class GenericCommand extends SystemCommand
 
         return Request::sendMessage([
             'chat_id' => $chat->getId(),
-            'text' => $userName . ' (*´･д･)?'
+            'text' => $userName . ' (*´･д･)?',
         ]);
     }
 }

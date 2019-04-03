@@ -7,16 +7,16 @@
                     <span class="sidebar-menu-text"> Menu </span>
                 </li>
                 <li>
-                    <font-awesome-icon class="icon" icon="bell"/>
-                    <span class="sidebar-menu-text"> Bell </span>
+                    <router-link to="/staffs">
+                        <font-awesome-icon class="icon" icon="user"/>
+                        <span class="sidebar-menu-text"> 工人管理 </span>
+                    </router-link>
                 </li>
                 <li>
-                    <font-awesome-icon class="icon" icon="bomb"/>
-                    <span class="sidebar-menu-text"> Bomb!! </span>
-                </li>
-                <li>
-                    <font-awesome-icon class="icon" icon="bolt"/>
-                    <span class="sidebar-menu-text"> Bolt </span>
+                    <router-link to="/groups">
+                        <font-awesome-icon class="icon" icon="users"/>
+                        <span class="sidebar-menu-text"> 群組管理 </span>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -25,37 +25,31 @@
 
 <script>
     export default {
-        data() {
+        data () {
             return {
                 sidebarExtend: false
             }
         },
         methods: {
-            changeSidebarExtend() {
-                let self = this;
+            changeSidebarExtend () {
+                let self = this
                 if (self.sidebarExtend) {
                     // 移除展開 Menu
-                    self.sidebarExtend = false;
-                    $("#sidebar").removeClass("sidebar-extend");
-                    $("#main").removeClass("main-extend");
+                    self.sidebarExtend = false
+                    $('#sidebar').removeClass('sidebar-extend');
+                    $('#main').removeClass('main-extend');
                 } else {
                     // 展開 Menu
-                    self.sidebarExtend = true;
-                    $("#sidebar").addClass("sidebar-extend");
-                    $("#main").addClass("main-extend");
+                    self.sidebarExtend = true
+                    $('#sidebar').addClass('sidebar-extend');
+                    $('#main').addClass('main-extend');
                 }
             }
         },
-        computed: {
-
-        },
-        watch: {
-
-        },
-        components: {
-
-        },
-        mounted() {
+        computed: {},
+        watch: {},
+        components: {},
+        mounted () {
 
         }
     }
@@ -63,6 +57,7 @@
 
 <style scoped lang="scss">
     @import '../../sass/variables';
+
     .sidebar {
         width: $sidebar-width;
         height: $sidebar-height;
@@ -75,6 +70,7 @@
 
         .sidebar-menu {
             width: 100%;
+
             ul, li {
                 border: 0;
                 margin: 0;
@@ -82,6 +78,7 @@
                 text-decoration: none;
                 color: #999999;
             }
+
             li {
                 padding: 15px 0px;
 
@@ -97,7 +94,7 @@
                     display: none;
                     position: absolute;
                 }
-                
+
                 &:hover {
                     width: $sidebar-extend-width;
                     background: #666666;

@@ -185,7 +185,7 @@
         },
         methods: {
             initCol: function () {
-                var self = this;
+                const self = this;
                 self.col = [{
                     name: 'id',
                     key: 'id'
@@ -210,14 +210,14 @@
                 }];
             },
             intTopInfo: function () {
-                var self = this;
+                const self = this;
                 self.top_info = {
                     success: 0, //0->none, 1->success, 2->error
                     message: '',
                 }
             },
             initLoan: function () {
-                var self = this;
+                const self = this;
                 self.add_loan = {
                     staff_type: self.add_loan.staff_type ? self.add_loan.staff_type : '0',    // 0->barcode, 1->select
                     staff_id: self.staff_continue ? self.add_loan.staff_id: '0',
@@ -229,11 +229,11 @@
                 }
             },
             initEquipment: function () {
-                var self = this;
+                const self = this;
                 axios.get(
                     '/api/equipment?all=true&orderby_field=name&orderby_method=asc'
                 ).then(response => {
-                    var res = response.data.data;
+                    const res = response.data.data;
                     self.equipment_list = res;
                     console.log(self.equipment_list);
                 }).catch(error => {
@@ -241,7 +241,7 @@
                 });
             },
             initBigInfo: function () {
-                var self = this;
+                const self = this;
                 self.big_info.equipment_type = '0';
                 self.big_info.equipment_name = '';
                 self.big_info.equipment_barcode = '';
@@ -250,11 +250,11 @@
                 self.big_info.amount = '1';
             },
             initList: function () {
-                var self = this;
+                const self = this;
                 axios.get(
                     '/api/staff?all=true&orderby_field=name&orderby_method=asc'
                 ).then(response => {
-                    var res = response.data.data;
+                    const res = response.data.data;
                     self.staff_list = res;
                     console.log(self.staff_list);
                 }).catch(error => {
@@ -272,8 +272,8 @@
                 };
             },
             loanEquipment: function () {
-                var self = this;
-                var data = {
+                const self = this;
+                const data = {
                     equipment_id: '0',
                     staff_id: '0',
                     amount: '1'
@@ -293,7 +293,7 @@
                 axios.post(
                     '/api/loan', data
                 ).then(response => {
-                    var res = response.data.data;
+                    const res = response.data.data;
                     console.log(response);
                     self.top_info.message = response.data.message;
                     self.top_info.success = 1;
@@ -305,7 +305,7 @@
                     self.big_info.staff_name = res.staff_name;
                     self.big_info.staff_barcode = res.staff.barcode;
                     self.big_info.amount = res.amount;
-                    var tmp_log = {
+                    const tmp_log = {
                         id: self.big_info.number,
                         staff_name: res.staff_name,
                         staff_barcode: res.staff.barcode,
@@ -331,7 +331,7 @@
                 });
             },
             equi_bar: function () {
-                var self = this;
+                const self = this;
                 if (self.add_loan.staff_type == '0') {
                     $("#staffbar").focus();
                 }
@@ -342,22 +342,22 @@
                 self.initBigInfo();
             },
             staff_bar: function () {
-                var self = this;
+                const self = this;
                 self.loanEquipment();
             },
             equi_clear: function () {
-                var self = this;
+                const self = this;
                 self.add_loan.equipment_barcode = '';
                 $("#equibar").focus();
             },
             staff_clear: function () {
-                var self = this;
+                const self = this;
                 self.add_loan.staff_barcode = '';
                 self.staff_continue = false;
                 $("#staffbar").focus();
             }
         }, created: function () {
-            var self = this;
+            const self = this;
             self.initCol();
             self.initLoan();
             self.initEquipment();

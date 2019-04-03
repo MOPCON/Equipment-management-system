@@ -172,7 +172,7 @@ desired effect
 
 <!-- AdminLTE App -->
 <script>
-    var helper = {
+    const helper = {
         deleteConfirm: function deleteConfirm(callback) {
             swal({
                 title: '確定要刪除?',
@@ -183,12 +183,12 @@ desired effect
                 confirmButtonText: 'Yes, delete it!'
             }).then(callback);
         },
-        alert: function alert(message, type='success') {
+        alert: function alert(message, type = 'success') {
             $.notify({
                 // options
                 icon: 'glyphicon glyphicon-warning-sign',
                 message: message
-            },{
+            }, {
                 // settings
                 type: type,
                 delay: 2500,
@@ -200,7 +200,7 @@ desired effect
 
     function toogleFullscreen() {
 
-        var isFullScreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+        const isFullScreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
 
         if (isFullScreen) {
             if (document.exitFullscreen) {

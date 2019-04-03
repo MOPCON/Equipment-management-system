@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="favicon-128x128.png" sizes="16x16 32x32 64x64 128x128">
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link href="{{ asset('/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
     <title>EMS</title>
 </head>
@@ -19,8 +20,67 @@
 <div id="app">
     <App></App>
 </div>
+
+<script>
+    const helper = {
+        deleteConfirm: function deleteConfirm(callback) {
+            swal({
+                title: '確定要刪除?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(callback);
+        },
+        alert: function alert(message, type = 'success') {
+            $.notify({
+                // options
+                icon: 'glyphicon glyphicon-warning-sign',
+                message: message
+            }, {
+                // settings
+                type: type,
+                delay: 2500,
+            });
+        }
+    };
+
+    let elem = document.documentElement;
+
+    function toogleFullscreen() {
+
+        const isFullScreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+
+        if (isFullScreen) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        } else {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+        }
+    }
+</script>
+
 <script src="{{ mix('/js/manifest.js') }}"></script>
 <script src="{{ mix('/js/vendor.js') }}"></script>
 <script src="{{ mix('/js/app.js') }}"></script>
+<script src="{{ asset('/js/bootstrap-notify.min.js')}}" charset="utf-8"></script>
+<script src="{{ asset('/js/sweetalert2.min.js') }}" charset="utf-8"></script>
+
 </body>
 </html>

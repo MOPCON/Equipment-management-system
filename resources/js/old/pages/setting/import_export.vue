@@ -81,8 +81,8 @@
                 $('#importFile').click()
             },
             importData() {
-                var formData = new FormData();
-                var importFile = document.querySelector('#importFile');
+                const formData = new FormData();
+                const importFile = document.querySelector('#importFile');
                 console.log(importFile.files[0]);
                 formData.append("upload", importFile.files[0]);
                 axios.post('/api/import/' + this.select_model, formData, {

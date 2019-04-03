@@ -20,7 +20,7 @@ const mutations = {
         state.user = payload;
     }
 }
-const getters = {}
+const getters = {};
 
 export default {
     namespaced: true,

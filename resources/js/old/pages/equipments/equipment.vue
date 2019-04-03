@@ -210,11 +210,11 @@
         },
         computed: {
             getPageArray: function () {
-                var self = this
-                var bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2
-                var top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5
-                var array = []
-                for (var i = bottom; i <= top; i++) {
+                const self = this;
+                const bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+                const top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+                const array = [];
+                for (let i = bottom; i <= top; i++) {
                     array.push(i)
                 }
                 return array
@@ -223,7 +223,7 @@
         methods:
             {
                 initCol: function () {
-                    var self = this
+                    const self = this;
                     self.col = [{
                         name: 'id',
                         key: 'id'
@@ -251,7 +251,7 @@
                     }]
                 },
                 initEquipment: function () {
-                    var self = this
+                    const self = this;
                     self.add_equipment = {
                         id: '',
                         name: '',
@@ -263,12 +263,12 @@
                     }
                 },
                 getAllEquipment: function () {
-                    var self = this
+                    const self = this;
                     axios.get(
                         '/api/equipment?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page
                     ).then(response => {
-                        var self = this
-                        var res = response.data.data
+                        const self = this;
+                        const res = response.data.data;
                         self.list = res.data
                         self.page_info.current_page = res.current_page
                         self.page_info.last_page = res.last_page
@@ -290,14 +290,14 @@
                     }
                 },
                 changePage: function (page) {
-                    var self = this
+                    const self = this;
                     if (page > 0 && page <= self.page_info.last_page) {
                         self.page_info.current_page = page
                         this.getAllEquipment()
                     }
                 },
                 changeSort: function (field) {
-                    var self = this
+                    const self = this;
                     if (field != '') {
                         self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC'
                         self.page_info.sort_key = field
@@ -310,15 +310,15 @@
                     $('#addEquipment').modal('show')
                 },
                 createNewEquipment: function () {
-                    var self = this
-                    var data = {
+                    const self = this;
+                    const data = {
                         name: self.add_equipment.name,
                         source: self.add_equipment.source,
                         memo: self.add_equipment.memo,
                         amount: self.add_equipment.amount,
                         hasBarcode: self.add_equipment.hasBarcode,
                         prefix: self.add_equipment.hasBarcode === '1' ? self.add_equipment.prefix : ''
-                    }
+                    };
                     axios.post(
                         '/api/equipment', data
                     ).then(response => {
@@ -332,8 +332,8 @@
                     })
                 },
                 saveEquipment: function (id) {
-                    var self = this
-                    var data = {
+                    const self = this;
+                    const data = {
                         name: self.add_equipment.name,
                         source: self.add_equipment.source,
                         memo: self.add_equipment.memo,
@@ -341,7 +341,7 @@
                         hasBarcode: self.add_equipment.hasBarcode,
                         prefix: self.add_equipment.hasBarcode === '1' ? self.add_equipment.prefix : '',
                         _method: 'PUT'
-                    }
+                    };
                     console.log(data)
                     axios.post(
                         '/api/equipment/' + id, data
@@ -356,12 +356,12 @@
                     })
                 },
                 openEditEquipment: function (id) {
-                    var self = this
+                    const self = this;
                     self.action = 'edit'
                     axios.get(
                         '/api/equipment/' + id
                     ).then(response => {
-                        var res = response.data.data
+                        const res = response.data.data;
                         console.log(response)
                         self.form.action = 'edit'
                         self.add_equipment = {
@@ -379,7 +379,7 @@
                     })
                 },
                 deleteEquipment: function (id) {
-                    var _self = this
+                    const _self = this;
                     helper.deleteConfirm(function () {
                         axios.delete(
                             '/api/equipment/' + id
@@ -395,7 +395,7 @@
                 }
             },
         created: function () {
-            var self = this
+            const self = this;
             self.page_info = {
                 current_page: 1,
                 limit: '15',

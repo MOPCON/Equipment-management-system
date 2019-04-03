@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from './pages/Index'
+import staff from './pages/staffs/staff'
+import group from './pages/staffs/group'
 
 Vue.use(VueRouter)
 
@@ -10,14 +12,14 @@ const router = new VueRouter({
         {
             path: '/',
             component: Index,
+        }, {
+            path: '/staffs',
+            component: staff,
+        }, {
+            path: '/groups',
+            component: group,
         },
         // {
-        //     path: '/staffs',
-        //     component: require('../components/pages/staffs/staff.vue'),
-        // }, {
-        //     path: '/groups',
-        //     component: require('../components/pages/staffs/group.vue'),
-        // }, {
         //     path: '/equipments',
         //     component: require('../components/pages/equipments/equipment.vue'),
         // }, {

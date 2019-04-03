@@ -200,11 +200,11 @@
         },
         computed: {
             getPageArray: function () {
-                var self = this;
-                var bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
-                var top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
-                var array = [];
-                for (var i = bottom; i <= top; i++) {
+                const self = this;
+                const bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+                const top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+                const array = [];
+                for (let i = bottom; i <= top; i++) {
                     array.push(i);
                 }
                 return array;
@@ -212,7 +212,7 @@
         },
         methods: {
             initCol: function() {
-                var self = this;
+                const self = this;
                 self.col = [{
                     name: 'id',
                     key: 'id'
@@ -237,7 +237,7 @@
                 }];
             },
             initUser: function() {
-                var self = this;
+                const self = this;
                 self.add_user = {
                     id: '',
                     name: '',
@@ -247,7 +247,7 @@
                 };
             },
             initPassword: function () {
-                var self = this;
+                const self = this;
                 self.change_password = {
                     id: '',
                     password: '',
@@ -255,12 +255,12 @@
                 };
             },
             getAllUser: function() {
-                var self = this;
+                const self = this;
                 axios.get(
                     '/api/user?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' +  self.page_info.current_page
                 ).then(response => {
-                    var self = this;
-                    var res = response.data.data;
+                    const self = this;
+                    const res = response.data.data;
                     self.list = res.data;
                     self.page_info.current_page = res.current_page;
                     self.page_info.last_page = res.last_page;
@@ -282,14 +282,14 @@
                 }
             },
             changePage: function(page) {
-                var self = this;
+                const self = this;
                 if (page > 0 && page <= self.page_info.last_page) {
                     self.page_info.current_page = page;
                     this.getAllUser();
                 }
             },
             changeSort: function(field) {
-                var self = this;
+                const self = this;
                 if (field != '') {
                     self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC';
                     self.page_info.sort_key = field;
@@ -302,8 +302,8 @@
                 $('#addUser').modal('show');
             },
             createNewUser: function() {
-                var self = this;
-                var data = {
+                const self = this;
+                const data = {
                     name: self.add_user.name,
                     email: self.add_user.email,
                     telegram_id: self.add_user.telegram_id,
@@ -324,8 +324,8 @@
                 });
             },
             saveUser: function(id) {
-                var self = this;
-                var data = {
+                const self = this;
+                const data = {
                     name: self.add_user.name,
                     email: self.add_user.email,
                     telegram_id: self.add_user.telegram_id,
@@ -344,12 +344,12 @@
                 });
             },
             openEditUser: function(id) {
-                var self = this;
+                const self = this;
                 self.action = 'edit';
                 axios.get(
                     '/api/user/' + id
                 ).then(response => {
-                    var res = response.data.data;
+                    const res = response.data.data;
                     console.log(response);
                     self.form.action = 'edit'
                     self.add_user = {
@@ -364,14 +364,14 @@
                 });
             },
             openEditPassword: function (id) {
-                var self = this;
+                const self = this;
                 self.initPassword();
                 self.change_password.id = id;
                 $('#changePassword').modal('show');
             },
             changePassword: function() {
-                var self = this;
-                var data = {
+                const self = this;
+                const data = {
                     password: self.change_password.password,
                     password_confirmation: self.change_password.password_confirmation
                 };
@@ -388,7 +388,7 @@
                 });
             },
             deleteUser: function(id) {
-                var _self = this;
+                const _self = this;
                 helper.deleteConfirm(function () {
                     axios.delete(
                         '/api/user/' + id
@@ -404,7 +404,7 @@
             },
         },
         created: function () {
-            var self = this;
+            const self = this;
             self.page_info = {
                 current_page: 1,
                 limit: '15',

@@ -137,11 +137,11 @@
         },
         computed: {
             getPageArray: function () {
-                var self = this
-                var bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2
-                var top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5
-                var array = []
-                for (var i = bottom; i <= top; i++) {
+                const self = this;
+                const bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+                const top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+                const array = [];
+                for (let i = bottom; i <= top; i++) {
                     array.push(i)
                 }
                 return array
@@ -150,7 +150,7 @@
         methods:
             {
                 initCol: function () {
-                    var self = this
+                    const self = this;
                     self.col = [{
                         name: 'id',
                         key: 'id'
@@ -187,13 +187,13 @@
                     }]
                 },
                 getAllLoan: function () {
-                    var self = this
+                    const self = this;
                     console.log(self.page_info.status)
                     axios.get(
                         '/api/loan?barcode=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page + (self.page_info.status == '' ? '' : '&status[0]=' + self.page_info.status)
                     ).then(response => {
-                        var self = this
-                        var res = response.data.data
+                        const self = this;
+                        const res = response.data.data;
                         self.list = res.data
                         self.page_info.current_page = res.current_page
                         self.page_info.last_page = res.last_page
@@ -216,14 +216,14 @@
                     }
                 },
                 changePage: function (page) {
-                    var self = this
+                    const self = this;
                     if (page > 0 && page <= self.page_info.last_page) {
                         self.page_info.current_page = page
                         this.getAllLoan()
                     }
                 },
                 changeSort: function (field) {
-                    var self = this
+                    const self = this;
                     if (field != '') {
                         self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC'
                         self.page_info.sort_key = field
@@ -263,7 +263,7 @@
                 }
             },
         created: function () {
-            var self = this
+            const self = this;
             self.page_info = {
                 current_page: 1,
                 limit: '15',

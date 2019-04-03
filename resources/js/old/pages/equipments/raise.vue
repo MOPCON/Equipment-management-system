@@ -204,11 +204,11 @@
         },
         computed: {
             getPageArray: function () {
-                var self = this
-                var bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2
-                var top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5
-                var array = []
-                for (var i = bottom; i <= top; i++) {
+                const self = this;
+                const bottom = self.page_info.current_page - 2 <= 0 ? 1 : self.page_info.current_page - 2;
+                const top = bottom + 5 > self.page_info.last_page ? self.page_info.last_page : bottom + 5;
+                const array = [];
+                for (let i = bottom; i <= top; i++) {
                     array.push(i)
                 }
                 return array
@@ -217,7 +217,7 @@
         methods:
             {
                 initCol: function () {
-                    var self = this
+                    const self = this;
                     self.col = [{
                         name: 'id',
                         key: 'id'
@@ -239,7 +239,7 @@
                     }]
                 },
                 initEquipment: function () {
-                    var self = this
+                    const self = this;
                     self.add_equipment = {
                         id: '',
                         name: '',
@@ -252,8 +252,8 @@
                     axios.get(
                         '/api/staff?all=true&orderby_field=name&orderby_method=asc'
                     ).then(response => {
-                        var self = this
-                        var res = response.data.data
+                        const self = this;
+                        const res = response.data.data;
                         self.staff_list = res
                         console.log(response)
                     }).catch(error => {
@@ -261,12 +261,12 @@
                     })
                 },
                 getAllEquipment: function () {
-                    var self = this
+                    const self = this;
                     axios.get(
                         '/api/raise_equipment?search=' + self.page_info.search + '&orderby_field=' + self.page_info.sort_key + '&orderby_method=' + self.page_info.sort_dir + '&limit=' + self.page_info.limit + '&page=' + self.page_info.current_page
                     ).then(response => {
-                        var self = this
-                        var res = response.data.data
+                        const self = this;
+                        const res = response.data.data;
                         self.list = res.data
                         self.page_info.current_page = res.current_page
                         self.page_info.last_page = res.last_page
@@ -288,14 +288,14 @@
                     }
                 },
                 changePage: function (page) {
-                    var self = this
+                    const self = this;
                     if (page > 0 && page <= self.page_info.last_page) {
                         self.page_info.current_page = page
                         this.getAllEquipment()
                     }
                 },
                 changeSort: function (field) {
-                    var self = this
+                    const self = this;
                     if (field != '') {
                         self.page_info.sort_dir = self.page_info.sort_dir == 'DESC' ? 'ASC' : 'DESC'
                         self.page_info.sort_key = field
@@ -308,12 +308,12 @@
                     $('#addEquipment').modal('show')
                 },
                 createNewEquipment: function () {
-                    var self = this
-                    var data = {
+                    const self = this;
+                    const data = {
 
                         name: self.add_equipment.name,
                         staff_id: self.add_equipment.staff_id,
-                    }
+                    };
                     axios.post(
                         '/api/raise_equipment', data
                     ).then(response => {
@@ -327,14 +327,14 @@
                     })
                 },
                 saveEquipment: function (id) {
-                    var self = this
-                    var data = {
+                    const self = this;
+                    const data = {
                         name: self.add_equipment.name,
                         staff_id: self.add_equipment.staff_id,
                         status: self.add_equipment.status,
                         barcode: self.add_equipment.barcode,
                         _method: 'PUT'
-                    }
+                    };
                     console.log(data)
                     axios.post(
                         '/api/raise_equipment/' + id, data
@@ -349,12 +349,12 @@
                     })
                 },
                 openEditEquipment: function (id) {
-                    var self = this
+                    const self = this;
                     self.action = 'edit'
                     axios.get(
                         '/api/raise_equipment/' + id
                     ).then(response => {
-                        var res = response.data.data
+                        const res = response.data.data;
                         console.log(response)
                         self.form.action = 'edit'
                         self.add_equipment = {
@@ -370,7 +370,7 @@
                     })
                 },
                 deleteEquipment: function (id) {
-                    var _self = this
+                    const _self = this;
                     helper.deleteConfirm(function () {
                         axios.delete(
                             '/api/raise_equipment/' + id
@@ -385,7 +385,7 @@
                     })
                 },
                 changeStatus(id, status) {
-                    var self = this
+                    const self = this;
                     axios.get(
                         '/api/raise_equipment/change_status/' + id + '/' + status,
                     ).then(response => {
@@ -399,7 +399,7 @@
                 }
             },
         created: function () {
-            var self = this
+            const self = this;
             self.page_info = {
                 current_page: 1,
                 limit: '15',

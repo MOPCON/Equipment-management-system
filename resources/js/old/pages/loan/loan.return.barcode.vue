@@ -108,7 +108,7 @@
         },
         methods: {
             initCol: function () {
-                var self = this;
+                const self = this;
                 self.col = [{
                     name: 'id',
                     key: 'id'
@@ -133,18 +133,18 @@
                 }];
             },
             intTopInfo: function () {
-                var self = this;
+                const self = this;
                 self.top_info = {
                     success: 0, //0->none, 1->success, 2->error
                     message: '',
                 };
             },
             initData: function () {
-                var self = this;
+                const self = this;
                 self.return_barcode = '';
             },
             initBigInfo: function () {
-                var self = this;
+                const self = this;
                 self.big_info.equipment_name = '';
                 self.big_info.equipment_barcode = '';
                 self.big_info.staff_name = '';
@@ -152,7 +152,7 @@
                 self.big_info.amount = '1';
             },
             initList: function () {
-                var self = this;
+                const self = this;
                 self.big_info = {
                     had: '0',    // have
                     number: 0,
@@ -164,8 +164,8 @@
                 };
             },
             retuenEquipment: function () {
-                var self = this;
-                var data = {
+                const self = this;
+                const data = {
                     loan_id: '0',
                     barcode: self.return_barcode,
                     amount: '1'
@@ -174,7 +174,7 @@
                 axios.post(
                     '/api/loan/return', data
                 ).then(response => {
-                    var res = response.data.data;
+                    const res = response.data.data;
                     console.log(response);
                     self.top_info.message = response.data.message;
                     self.top_info.success = 1;
@@ -186,7 +186,7 @@
                     self.big_info.staff_name = res.staff_name;
                     self.big_info.staff_barcode = res.staff.barcode;
                     self.big_info.amount = res.amount;
-                    var tmp_log = {
+                    const tmp_log = {
                         id: self.big_info.number,
                         staff_name: res.staff_name,
                         staff_barcode: res.staff.barcode,
@@ -209,18 +209,18 @@
                 });
             },
             equi_bar: function () {
-                var self = this;
+                const self = this;
                 self.retuenEquipment();
                 self.intTopInfo();
                 self.initBigInfo();
             },
             equi_clear: function () {
-                var self = this;
+                const self = this;
                 self.return_barcode = '';
                 $("#equrbar").focus();
             }
         }, created: function () {
-            var self = this;
+            const self = this;
             self.initCol();
             self.initData();
             self.initList();

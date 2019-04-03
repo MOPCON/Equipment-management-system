@@ -1,32 +1,32 @@
 <template>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination" :class="center ? 'justify-content-center' : ''">
             <li class="page-item" :class="pageInfo.current_page === 1 ? 'disabled' : ''">
-                <a class="page-link" href="#" aria-label="First"
+                <button class="page-link" href="#" aria-label="First"
                    @click="changePage(1)">
                     <span aria-hidden="true">&laquo;&laquo;</span>
-                </a>
+                </button>
             </li>
             <li class="page-item" :class="pageInfo.current_page - 1 === 0 ? 'disabled' : ''">
-                <a class="page-link" href="#" aria-label="Previous"
+                <button class="page-link" href="#" aria-label="Previous"
                    @click="changePage(pageInfo.current_page - 1)">
                     <span aria-hidden="true">&laquo;</span>
-                </a>
+                </button>
             </li>
             <li v-for="i in PageNumbers" class="page-item" :class="pageInfo.current_page === i ? 'active' : ''">
-                <a class="page-link" href="#" @click="changePage(i)">{{ i }}</a>
+                <button class="page-link" href="#" @click="changePage(i)">{{ i }}</button>
             </li>
             <li class="page-item" :class="pageInfo.current_page + 1 > pageInfo.last_page ? 'disabled' : ''">
-                <a class="page-link" href="#" aria-label="Next"
+                <button class="page-link" href="#" aria-label="Next"
                    @click="changePage(pageInfo.current_page + 1)">
                     <span aria-hidden="true">&raquo;</span>
-                </a>
+                </button>
             </li>
             <li class="page-item" :class="pageInfo.current_page === pageInfo.last_page ? 'disabled' : ''">
-                <a class="page-link" href="#" aria-label="Last"
+                <button class="page-link" href="#" aria-label="Last"
                    @click="changePage(pageInfo.last_page)">
                     <span aria-hidden="true">&raquo;&raquo;</span>
-                </a>
+                </button>
             </li>
         </ul>
     </nav>
@@ -36,7 +36,7 @@
 
 <script>
     export default {
-        props: ['pageInfo'],
+        props: ['pageInfo', 'center'],
 
         data() {
             return {}
@@ -52,9 +52,10 @@
                 const top = bottom + 5 > this.pageInfo.last_page ? this.pageInfo.last_page : bottom + 5;
                 const array = [];
                 for (let i = bottom; i <= top; i++) {
-                    array.push(i)
+                    array.push(i);
                 }
-                return array
+
+                return array;
             },
         },
         watch: {},

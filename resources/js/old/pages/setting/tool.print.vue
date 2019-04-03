@@ -54,16 +54,16 @@
 //                }
             },
             printBarcode: function (printlist) {
-                var value = $('#print_parts')[0].outerHTML;
-                var printPage = window.open("", "Printing...", "");
+                const value = $('#print_parts')[0].outerHTML;
+                const printPage = window.open("", "Printing...", "");
                 printPage.document.open();
                 printPage.document.write("<HTML><head></head><BODY onload='window.print();window.close()'>");
                 printPage.document.write(value);
                 printPage.document.close("</BODY></HTML>");
             },
             genrateBarcode: function () {
-                var self = this;
-                for (var i = 1; i <= self.count; i++) {
+                const self = this;
+                for (let i = 1; i <= self.count; i++) {
                     JsBarcode('#barcode' + i, self.barcode[i-1].barcode, {
                         width: 1,
                         height: 30,
@@ -74,11 +74,11 @@
 
             },
             getBarcode: function () {
-                var self = this;
+                const self = this;
                 axios.get(
                     '/api/barcode' + '?backup=' + self.backup
                 ).then(response => {
-                    var res = response.data.data;
+                    const res = response.data.data;
                     self.barcode = res.barcode;
                     self.count = res.count;
                     console.log(response);

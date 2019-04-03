@@ -2,7 +2,7 @@
     <div class="h-100">
         <Navbar/>
         <Sidebar/>
-        <div id="main" class="main">
+        <div id="main" class="main container-fluid">
             <router-view></router-view>
         </div>
     </div>

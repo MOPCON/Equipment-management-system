@@ -1,15 +1,12 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import "variables";
+@import 'variables';
 
 // Custom
-@import "custom";
+@import 'custom';
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
-//Font awesome
-@import "../../node_modules/font-awesome/scss/font-awesome.scss";
+@import '~bootstrap/scss/bootstrap';

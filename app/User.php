@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Notifications\Notifiable;
+use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -28,7 +28,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $appends = ["avatar"];
+    protected $appends = ['avatar'];
 
     public function getAvatarAttribute()
     {

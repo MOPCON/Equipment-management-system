@@ -7,7 +7,7 @@
         <div class="row mb-3">
             <div class="col-12 col-sm-2 col-md-2 col-lg-2">
                 <button type="button" class="btn btn-sm btn-primary btn-block" @click="openAddGroup()">
-                    <span class="glyphicon glyphicon-plus"></span>&nbsp;新增
+                    <font-awesome-icon icon="plus"/>&nbsp;新增
                 </button>
             </div>
             <div class="col-12 col-sm-4 col-md-3 col-lg-2">

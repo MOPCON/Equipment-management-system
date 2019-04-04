@@ -14,6 +14,18 @@
                     <font-awesome-icon class="icon" icon="users"/>
                     <span class="sidebar-menu-text"> 群組管理 </span>
                 </li>
+                <li class="menu" @click="changeRouterPage('/equipments')">
+                    <font-awesome-icon class="icon" icon="hdd"/>
+                    <span class="sidebar-menu-text"> 器材管理 </span>
+                </li>
+                <li class="menu" @click="changeRouterPage('/equipments/barcode')">
+                    <font-awesome-icon class="icon" icon="barcode"/>
+                    <span class="sidebar-menu-text"> 器材條碼管理 </span>
+                </li>
+                <li class="menu" @click="changeRouterPage('/equipments/raise')">
+                    <font-awesome-icon class="icon" icon="suitcase"/>
+                    <span class="sidebar-menu-text"> 募集物資管理 </span>
+                </li>
             </ul>
         </div>
     </div>

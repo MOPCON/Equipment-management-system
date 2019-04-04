@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Index from './pages/Index'
 import staff from './pages/staffs/staff'
 import group from './pages/staffs/group'
+import equipment from "./pages/equipments/equipment";
+import equbarcode from "./pages/equipments/equbarcode";
+import raise from "./pages/equipments/raise";
 
 Vue.use(VueRouter)
 
@@ -18,17 +21,17 @@ const router = new VueRouter({
         }, {
             path: '/groups',
             component: group,
+        }, {
+            path: '/equipments',
+            component: equipment,
+        }, {
+            path: '/equipments/barcode',
+            component: equbarcode,
+        }, {
+            path: '/equipments/raise',
+            component: raise,
         },
         // {
-        //     path: '/equipments',
-        //     component: require('../components/pages/equipments/equipment.vue'),
-        // }, {
-        //     path: '/equipments/barcode',
-        //     component: require('../components/pages/equipments/equbarcode.vue'),
-        // }, {
-        //     path: '/equipments/raise',
-        //     component: require('../components/pages/equipments/raise.vue'),
-        // }, {
         //     path: '/loan',
         //     component: require('../components/pages/loan/loan.vue'),
         // }, {

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <h1>
             工人管理
             <small>Staffs</small>
@@ -8,7 +8,7 @@
             <div class="col-12 col-sm-3 col-md-2 col-lg-1">
                 <button type="button" class="btn btn-sm btn-primary btn-block"
                         @click="openAddStaff()">
-                    <span class="glyphicon glyphicon-plus"></span>&nbsp;新增
+                    <font-awesome-icon icon="plus"/>&nbsp;新增
                 </button>
             </div>
             <div class="col-12 col-sm-3 col-md-2 col-lg-2">
@@ -132,16 +132,16 @@
                     <div class="form-group">
                         <strong>組別</strong>
                         <select class="form-control" v-model="add_staff.group">
-                            <option v-for="item in group" v-bind:value="item.id">{{ item.name
-                                }}
+                            <option v-for="item in group" v-bind:value="item.id">
+                                {{ item.name }}
                             </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <strong>角色</strong>
                         <select class="form-control" v-model="add_staff.role">
-                            <option v-for="item in roles" v-bind:value="item.id">{{ item.name
-                                }}
+                            <option v-for="item in roles" v-bind:value="item.id">
+                                {{ item.name }}
                             </option>
                         </select>
                     </div>

@@ -25,6 +25,13 @@
                 <li class="menu" @click="changeRouterPage('/equipments/raise')">
                     <font-awesome-icon class="icon" icon="suitcase"/>
                     <span class="sidebar-menu-text"> 募集物資管理 </span>
+                <li class="menu" @click="changeRouterPage('/telegram-message')">
+                    <font-awesome-icon class="icon" icon="comment"/>
+                    <span class="sidebar-menu-text"> 訊息發送 </span>
+                </li>
+                <li class="menu" @click="changeRouterPage('/telegram-channel')">
+                    <font-awesome-icon class="icon" icon="users"/>
+                    <span class="sidebar-menu-text"> 頻道管理 </span>
                 </li>
             </ul>
         </div>

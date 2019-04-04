@@ -6,6 +6,8 @@ import group from './pages/staffs/group'
 import equipment from "./pages/equipments/equipment";
 import equbarcode from "./pages/equipments/equbarcode";
 import raise from "./pages/equipments/raise";
+import telegram_message from './pages/telegram_bot/index'
+import telegram_channel from './pages/telegram_bot/channel'
 
 Vue.use(VueRouter)
 
@@ -49,13 +51,13 @@ const router = new VueRouter({
         // }, {
         //     path: '/student-verify',
         //     component: require('../components/pages/verify/student_verify'),
-        // }, {
-        //     path: '/telegram-message',
-        //     component: require('../components/pages/telegram_bot/index.vue'),
-        // }, {
-        //     path: '/telegram-channel',
-        //     component: require('../components/pages/telegram_bot/channel.vue'),
-        // },
+        {
+            path: '/telegram-message',
+            component: telegram_message,
+        }, {
+            path: '/telegram-channel',
+            component: telegram_channel,
+        },
         {
             path: '/*',
             redirect: '/'

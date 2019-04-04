@@ -12,12 +12,12 @@
 
     <title>EMS</title>
 </head>
-<body>
+<body class="h-100">
 <noscript>
     <strong>We're sorry but LinkMux doesn't work properly without JavaScript enabled. Please enable it to
         continue.</strong>
 </noscript>
-<div id="app">
+<div id="app" class="h-100">
     <App></App>
 </div>
 

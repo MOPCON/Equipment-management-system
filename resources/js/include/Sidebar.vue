@@ -2,21 +2,17 @@
     <div id="sidebar" class="sidebar">
         <div class="sidebar-menu">
             <ul>
-                <li @click="changeSidebarExtend">
+                <li class="menu" @click="changeSidebarExtend">
                     <font-awesome-icon class="icon" icon="bars"/>
                     <span class="sidebar-menu-text"> Menu </span>
                 </li>
-                <li>
-                    <router-link to="/staffs">
-                        <font-awesome-icon class="icon" icon="user"/>
-                        <span class="sidebar-menu-text"> 工人管理 </span>
-                    </router-link>
+                <li class="menu" @click="changeRouterPage('/staffs')">
+                    <font-awesome-icon class="icon" icon="user"/>
+                    <span class="sidebar-menu-text"> 工人管理 </span>
                 </li>
-                <li>
-                    <router-link to="/groups">
-                        <font-awesome-icon class="icon" icon="users"/>
-                        <span class="sidebar-menu-text"> 群組管理 </span>
-                    </router-link>
+                <li class="menu" @click="changeRouterPage('/groups')">
+                    <font-awesome-icon class="icon" icon="users"/>
+                    <span class="sidebar-menu-text"> 群組管理 </span>
                 </li>
             </ul>
         </div>
@@ -44,6 +40,9 @@
                     $('#sidebar').addClass('sidebar-extend');
                     $('#main').addClass('main-extend');
                 }
+            },
+            changeRouterPage (router_name) {
+                this.$router.push(router_name);
             }
         },
         computed: {},
@@ -60,7 +59,7 @@
 
     .sidebar {
         width: $sidebar-width;
-        height: $sidebar-height;
+        min-height: 100%;
         background: black;
         font-size: 18px;
         line-height: 18px;
@@ -77,31 +76,37 @@
                 padding: 0;
                 text-decoration: none;
                 color: #999999;
-            }
 
-            li {
-                padding: 15px 0px;
+                li {
+                    padding: 15px 0px;
 
-                .icon {
-                    width: $sidebar-width;
-                    text-align: center;
-                    float: left;
-                }
+                    .icon {
+                        width: $sidebar-width;
+                        text-align: center;
+                        float: left;
+                    }
 
-                .sidebar-menu-text {
-                    width: calc(#{$sidebar-extend-width} - #{$sidebar-width});
-                    text-align: left;
-                    display: none;
-                    position: absolute;
-                }
+                    .sidebar-menu-text {
+                        width: calc(#{$sidebar-extend-width} - #{$sidebar-width});
+                        text-align: left;
+                        display: none;
+                        position: absolute;
+                    }
 
-                &:hover {
-                    width: $sidebar-extend-width;
-                    background: #666666;
-                    color: #FFFFFF;
-                    cursor: pointer;
+                    &:hover, &:hover a {
+                        width: $sidebar-extend-width;
+                        background: #666666;
+                        color: #FFFFFF;
+                        cursor: pointer;
 
-                    @extend %sidebar-hover;
+                        @extend %sidebar-hover;
+                    }
+
+                    a {
+                        color: #999999;
+                        text-decoration: none;
+                        display: block;
+                    }
                 }
             }
         }

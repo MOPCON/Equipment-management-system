@@ -1,5 +1,5 @@
 <template>
-    <div class="h-100">
+    <div class="wrapper h-100">
         <Navbar/>
         <Sidebar/>
         <div id="main" class="main container-fluid">
@@ -33,6 +33,8 @@
     @import '../sass/variables';
     .main {
         width: $main-width;
+        min-height: $sidebar-height;
+        height: auto;
         margin-left: $sidebar-width;
         margin-top: 15px;
     }
@@ -40,5 +42,12 @@
     .main-extend {
         width: $main-extend-width;
         margin-left: $sidebar-extend-width;
+    }
+
+    .wrapper {
+        height: 100%;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: hidden;
     }
 </style>

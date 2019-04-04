@@ -33,6 +33,10 @@
                     <font-awesome-icon class="icon" icon="users"/>
                     <span class="sidebar-menu-text"> 頻道管理 </span>
                 </li>
+                <li class="menu" @click="changeRouterPage('/student-verify')">
+                    <font-awesome-icon class="icon" icon="id-card"/>
+                    <span class="sidebar-menu-text"> 學生驗票 </span>
+                </li>
             </ul>
         </div>
     </div>

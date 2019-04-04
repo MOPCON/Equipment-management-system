@@ -8,6 +8,7 @@ import equbarcode from "./pages/equipments/equbarcode";
 import raise from "./pages/equipments/raise";
 import telegram_message from './pages/telegram_bot/index'
 import telegram_channel from './pages/telegram_bot/channel'
+import student_verify from "./pages/verify/student_verify";
 
 Vue.use(VueRouter)
 
@@ -48,10 +49,11 @@ const router = new VueRouter({
         // }, {
         //     path: '/tool/imexport',
         //     component: require('../components/pages/setting/import_export.vue'),
-        // }, {
-        //     path: '/student-verify',
-        //     component: require('../components/pages/verify/student_verify'),
+        // },
         {
+            path: '/student-verify',
+            component: student_verify,
+        }, {
             path: '/telegram-message',
             component: telegram_message,
         }, {

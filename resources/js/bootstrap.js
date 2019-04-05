@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -11,8 +10,29 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
-    require('bootstrap-sass');
-} catch (e) {}
+    require('bootstrap');
+} catch (e) {
+    console.log(e);
+}
+
+
+// Input tempusdominus-bootstrap-4
+window.moment = require('moment');
+require('tempusdominus-bootstrap-4');
+$.fn.datetimepicker.Constructor.Default.icons = {
+    time: 'icon-c c-time',
+    date: 'icon-c c-date',
+    up: 'icon-c c-arrow-up',
+    down: 'icon-c c-arrow-down',
+    previous: 'icon-c c-chevron-left',
+    next: 'icon-c c-chevron-right',
+    today: 'icon-c c-calendar-check',
+    clear: 'icon-c c-trash-alt',
+    close: 'icon-c c-times'
+};
+
+$.fn.datetimepicker.Constructor.Default.format = "YYYY-MM-DD HH:mm:ss";
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

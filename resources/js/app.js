@@ -1,25 +1,26 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import bootstrap from "./bootstrap";
+import Vue from 'vue';
+import router from './routes';
+import store from './store';
+import App from './App.vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-require('./bootstrap')
+library.add(fas, fab);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-window.Vue = require('vue')
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-import router from './router'
-import App from './components/App.vue';
-
-const app = new Vue({
-    el: '#app',
-    router,
-    template: '<App/>',
-    components: {App}
+// Include All Components
+const files = require.context('./components', true, /\.vue$/i);
+files.keys().forEach(key => {
+    Vue.component(key.split('/').pop().split('.')[0], files(key).default);
 });
+
+const vue = new Vue({
+    el: '#app',
+    render: h => h(App),
+    router,
+    store,
+});
+

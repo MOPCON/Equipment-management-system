@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <h1>
             條碼列印
             <small>Barcode</small>

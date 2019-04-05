@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <h1>
             匯入匯出
             <small>Import & Export</small>

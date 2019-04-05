@@ -1,71 +1,94 @@
 <template>
     <div>
-        <div class="box">
-            <h4 class="box-title" style="text-align: center">
+        <div class="card">
+            <h5 class="card-header text-center">
                 Scanner Form
-            </h4>
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-8">
-                        <div class="callout callout-danger" v-if="top_info.success == 2">
-                            <h4><i class="glyphicon glyphicon-remove"></i> {{ top_info.message }}</h4>
+            </h5>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <div class="alert alert-danger" v-if="top_info.success == 2" role="alert">
+                            <h4>
+                                <font-awesome-icon icon="exclamation"/>
+                                {{ top_info.message }}
+                            </h4>
                         </div>
-                        <div class="callout callout-success" v-if="top_info.success == 1">
-                            <h4><i class="glyphicon glyphicon-ok"></i> {{ top_info.message }}</h4>
+                        <div class="alert alert-success" v-if="top_info.success == 1">
+                            <h4>
+                                <font-awesome-icon icon="check"/>
+                                {{ top_info.message }}
+                            </h4>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-offset-2 col-lg-4">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="equbar" class="control-label"><i class="glyphicon glyphicon-hdd"></i> <strong>Equipment &nbsp&nbsp</strong></label>&nbsp&nbsp
+                            <label class="control-label">
+                                <font-awesome-icon icon="hdd"/>&nbsp;<strong>器材 Equipment &nbsp;&nbsp;</strong>
+                            </label>
                             <div class="input-group">
                                 <input id="equrbar" type="text"
                                        class="form-control input-lg" v-model="return_barcode"
-                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup.enter="equi_bar()" autofocus>
-                                <span class="input-group-btn"><button class="btn btn-default btn-lg" type="button"
-                                                                      v-on:click="equi_clear()"><i
-                                        class="glyphicon glyphicon-repeat"></i> </button></span>
+                                       placeholder="Equipment Barcode" tabindex="1" v-on:keyup.enter="equi_bar()"
+                                       autofocus>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-danger btn-lg" type="button" @click="equi_clear()">
+                                        <font-awesome-icon icon="times" size="lg"/>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4" v-if="big_info.had=='1'">
-                        <div class="small-box bg-aqua-gradient">
-                            <div class="icon">
-                                <i class="glyphicon glyphicon-hdd"></i>
-                            </div>
-                            <div class="inner">
-                                <h3>{{ big_info.equipment_name }} * {{ big_info.amount }}</h3>
-                                <h4>{{ big_info.equipment_barcode }}&nbsp</h4>
+                    <div class="col-lg-5">
+                        <div class="alert alert-primary" v-if="big_info.had === '1'">
+                            <div class="row">
+                                <div class="col-2">
+                                    <h2>
+                                        <strong>
+                                            <font-awesome-icon icon="hdd" size="2x"/>
+                                        </strong>
+                                    </h2>
+                                </div>
+                                <div class="col-10">
+                                    <h2>{{ big_info.equipment_name }} * {{ big_info.amount }}</h2>
+                                    <h4>{{ big_info.equipment_barcode }}&nbsp</h4>
+                                </div>
                             </div>
                         </div>
-                        <div class="small-box bg-aqua-gradient">
-                            <div class="icon">
-                                <i class="glyphicon glyphicon-user"></i>
-                            </div>
-                            <div class="inner">
-                                <h3>{{ big_info.staff_name }}</h3>
-                                <h4>{{ big_info.staff_barcode }}</h4>
+                        <div class="alert alert-primary" v-if="big_info.had === '1'">
+                            <div class="row">
+                                <div class="col-2">
+                                    <h2>
+                                        <strong>
+                                            <font-awesome-icon icon="user" size="2x"/>
+                                        </strong>
+                                    </h2>
+                                </div>
+                                <div class="col-10">
+                                    <h2>{{ big_info.staff_name }}</h2>
+                                    <h4>{{ big_info.staff_barcode }}</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-offset-4 col-lg-4">
-                        <button v-on:click="retuenEquipment()" type="button" class="btn btn-block btn-lg bg-purple">
-                            Submit
 
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-3">
+                        <button v-on:click="retuenEquipment()" type="button" class="btn btn-block btn-lg btn-primary">
+                            送出
                         </button>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="box">
-            <h4 class="box-title" style="text-align: center">
+        <div class="card">
+            <h4 class="card-header text-center">
                 Scanner log
             </h4>
-            <div class="box-body">
+            <div class="card-body">
                 <div class="table-responsive">
                     <table id="group" class="table table-bordered table-striped dataTable" role="grid"
                            aria-describedby="group_info">
@@ -97,19 +120,18 @@
 
 <script>
     export default {
-        data: function () {
+        data() {
             return {
                 col: [],
                 log: [],
                 return_barcode: '',
                 big_info: [],
                 top_info: [],
-            }
+            };
         },
         methods: {
-            initCol: function () {
-                const self = this;
-                self.col = [{
+            initCol() {
+                this.col = [{
                     name: 'id',
                     key: 'id'
                 }, {
@@ -132,28 +154,24 @@
                     key: ''
                 }];
             },
-            intTopInfo: function () {
-                const self = this;
-                self.top_info = {
+            intTopInfo() {
+                this.top_info = {
                     success: 0, //0->none, 1->success, 2->error
                     message: '',
                 };
             },
-            initData: function () {
-                const self = this;
-                self.return_barcode = '';
+            initData() {
+                this.return_barcode = '';
             },
-            initBigInfo: function () {
-                const self = this;
-                self.big_info.equipment_name = '';
-                self.big_info.equipment_barcode = '';
-                self.big_info.staff_name = '';
-                self.big_info.staff_barcode = '';
-                self.big_info.amount = '1';
+            initBigInfo() {
+                this.big_info.equipment_name = '';
+                this.big_info.equipment_barcode = '';
+                this.big_info.staff_name = '';
+                this.big_info.staff_barcode = '';
+                this.big_info.amount = '1';
             },
-            initList: function () {
-                const self = this;
-                self.big_info = {
+            initList() {
+                this.big_info = {
                     had: '0',    // have
                     number: 0,
                     equipment_name: '',
@@ -163,22 +181,19 @@
                     amount: '1',
                 };
             },
-            retuenEquipment: function () {
+            retuenEquipment() {
                 const self = this;
                 const data = {
                     loan_id: '0',
                     barcode: self.return_barcode,
                     amount: '1'
                 };
-                console.log(data);
                 axios.post(
                     '/api/loan/return', data
                 ).then(response => {
                     const res = response.data.data;
-                    console.log(response);
                     self.top_info.message = response.data.message;
                     self.top_info.success = 1;
-//                    helper.alert(response.data.message);
                     self.big_info.had = '1';
                     self.big_info.number++;
                     self.big_info.equipment_barcode = res.barcode;
@@ -195,7 +210,6 @@
                         amount: res.amount,
                         return_time: res.return_at
                     };
-                    console.log(self.big_info.number);
                     self.log.reverse();
                     self.log.push(tmp_log);
                     self.log.reverse();
@@ -208,23 +222,21 @@
                     $("#equrbar").select();
                 });
             },
-            equi_bar: function () {
-                const self = this;
-                self.retuenEquipment();
-                self.intTopInfo();
-                self.initBigInfo();
+            equi_bar() {
+                this.retuenEquipment();
+                this.intTopInfo();
+                this.initBigInfo();
             },
-            equi_clear: function () {
-                const self = this;
-                self.return_barcode = '';
+            equi_clear() {
+                this.return_barcode = '';
                 $("#equrbar").focus();
             }
-        }, created: function () {
-            const self = this;
-            self.initCol();
-            self.initData();
-            self.initList();
-            self.intTopInfo();
+        },
+        mounted() {
+            this.initCol();
+            this.initData();
+            this.initList();
+            this.intTopInfo();
         }
-    }
+    };
 </script>

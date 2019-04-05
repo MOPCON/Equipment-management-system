@@ -25,6 +25,15 @@
                 <li class="menu" @click="changeRouterPage('/equipments/raise')">
                     <font-awesome-icon class="icon" icon="suitcase"/>
                     <span class="sidebar-menu-text"> 募集物資管理 </span>
+                </li>
+                <li class="menu" @click="changeRouterPage('/loan/action')">
+                    <font-awesome-icon class="icon" icon="exchange-alt"/>
+                    <span class="sidebar-menu-text"> 借還系統 </span>
+                </li>
+                <li class="menu" @click="changeRouterPage('/loan')">
+                    <font-awesome-icon class="icon" icon="tasks"/>
+                    <span class="sidebar-menu-text"> 批量管理 </span>
+                </li>
                 <li class="menu" @click="changeRouterPage('/telegram-message')">
                     <font-awesome-icon class="icon" icon="comment"/>
                     <span class="sidebar-menu-text"> 訊息發送 </span>
@@ -56,37 +65,37 @@
 
 <script>
     export default {
-        data () {
+        data() {
             return {
                 sidebarExtend: false
-            }
+            };
         },
         methods: {
-            changeSidebarExtend () {
-                let self = this
+            changeSidebarExtend() {
+                let self = this;
                 if (self.sidebarExtend) {
                     // 移除展開 Menu
-                    self.sidebarExtend = false
+                    self.sidebarExtend = false;
                     $('#sidebar').removeClass('sidebar-extend');
                     $('#main').removeClass('main-extend');
                 } else {
                     // 展開 Menu
-                    self.sidebarExtend = true
+                    self.sidebarExtend = true;
                     $('#sidebar').addClass('sidebar-extend');
                     $('#main').addClass('main-extend');
                 }
             },
-            changeRouterPage (router_name) {
+            changeRouterPage(router_name) {
                 this.$router.push(router_name);
             }
         },
         computed: {},
         watch: {},
         components: {},
-        mounted () {
+        mounted() {
 
         }
-    }
+    };
 </script>
 
 <style scoped lang="scss">

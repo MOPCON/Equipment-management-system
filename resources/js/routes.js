@@ -1,19 +1,21 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Index from './pages/Index'
-import staff from './pages/staffs/staff'
-import group from './pages/staffs/group'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Index from './pages/Index';
+import staff from './pages/staffs/staff';
+import group from './pages/staffs/group';
 import equipment from "./pages/equipments/equipment";
 import equbarcode from "./pages/equipments/equbarcode";
 import raise from "./pages/equipments/raise";
-import telegram_message from './pages/telegram_bot/index'
-import telegram_channel from './pages/telegram_bot/channel'
+import telegram_message from './pages/telegram_bot/index';
+import telegram_channel from './pages/telegram_bot/channel';
 import student_verify from './pages/verify/student_verify';
 import setting_user from './pages/setting/user';
 import setting_print from './pages/setting/tool.print';
 import setting_imexport from './pages/setting/import_export.vue';
+import loan from "./pages/loan/loan";
+import action from "./pages/loan/action";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const router = new VueRouter({
     base: '/',
@@ -36,14 +38,13 @@ const router = new VueRouter({
         }, {
             path: '/equipments/raise',
             component: raise,
-        },
-        // {
-        //     path: '/loan',
-        //     component: require('../components/pages/loan/loan.vue'),
-        // }, {
-        //     path: '/loan/action',
-        //     component: require('../components/pages/loan/action.vue'),
-         {
+        }, {
+            path: '/loan',
+            component: loan,
+        }, {
+            path: '/loan/action',
+            component: action,
+        }, {
             path: '/user',
             component: setting_user,
         }, {
@@ -67,6 +68,6 @@ const router = new VueRouter({
             redirect: '/'
         }
     ]
-})
+});
 
-export default router
+export default router;

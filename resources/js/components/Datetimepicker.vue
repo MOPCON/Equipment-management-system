@@ -15,6 +15,7 @@
     <!--<Datetimepicker target="sending_time" :value="datetime" @onChangeValue="onChangeValue"/>-->
 <!--</div>-->
 
+<!--Doc: https://tempusdominus.github.io/bootstrap-4/Functions/#enable-->
 <script>
     export default {
         props: ['target', 'value'],

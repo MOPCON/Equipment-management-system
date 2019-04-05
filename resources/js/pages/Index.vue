@@ -1,6 +1,6 @@
 <template>
-    <div class="container h-100">
-        <div class="text-center">
+    <div class="container h-100 pt-5">
+        <div class="text-center mb-5">
             <font-awesome-icon icon="database" size="10x"/>
         </div>
         <h1 class="text-center">

@@ -1,0 +1,45 @@
+.icon-c::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.c-arrow-up::before {
+  content: "\f062";
+}
+
+.c-arrow-down::before {
+  content: "\f063";
+}
+
+.c-chevron-left::before {
+  content: "\f053";
+}
+
+.c-chevron-right::before {
+  content: "\f054";
+}
+
+.c-calendar-check::before {
+  content: "\f274";
+}
+
+.c-trash-alt::before {
+  content: "\f2ed";
+}
+
+.c-trash-times::before {
+  content: "\f00d";
+}
+
+.c-time::before {
+  content: "\f017";
+}
+
+.c-date::before {
+  content: "\f073";
+}

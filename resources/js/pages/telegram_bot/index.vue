@@ -111,13 +111,7 @@
                         </div>
                     </div>
                     <div class="form-group" v-show="add_message.now_send === '0'">
-                        <!--<input id="sending_time" style="width: 100%;"/>-->
-                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                <div class="input-group-text"><font-awesome-icon icon="calendar"/></div>
-                            </div>
-                        </div>
+                        <Datetimepicker target="sending_time" :value="add_message.sending_time" @onChangeValue="onChangeValue"/>
                     </div>
                     <div class="form-group">
                         <strong>頻道</strong>
@@ -177,6 +171,9 @@
                 this.page_info.current_page = page;
                 this.getAllMessage();
             },
+            onChangeValue(value) {
+                this.add_message.sending_time = value;
+            },
             getAllMessage() {
                 let self = this;
                 axios.get(
@@ -204,18 +201,15 @@
                 });
             },
             openAddMessage() {
-                let self = this;
-                self.initMessage();
+                this.initMessage();
                 $('#addMessage').modal({
                     backdrop: 'static',
                     keyboard: false
                 });
-                //self.setKendoDateTime(new Date());
-                self.action = 'add';
+                this.action = 'add';
             },
             addMessage() {
                 let self = this;
-                self.add_message.sending_time = $("#sending_time").val();
                 axios.post(
                     '/api/telegram-message', self.add_message
                 ).then(response => {
@@ -234,7 +228,6 @@
                 ).then(response => {
                     response.data.data.now_send = '0';
                     self.add_message = response.data.data;
-                    //self.setKendoDateTime(response.data.data.sending_time.replace(" ", "T"));
                     self.action = 'edit';
                     $('#addMessage').modal('show');
                 }).catch(error => {
@@ -243,7 +236,7 @@
             },
             editMessage() {
                 let self = this;
-                self.add_message.sending_time = $("#sending_time").val();
+                self.add_message.sending_time = $("#sending_time input").val();
                 axios.put(
                     '/api/telegram-message/' + self.add_message.id, self.add_message
                 ).then(response => {
@@ -269,17 +262,6 @@
                     });
                 });
             },
-//            setKendoDateTime(time) {
-//                if (!$("#sending_time").data('kendoDateTimePicker')) {
-//                    $("#sending_time").kendoDateTimePicker({
-//                        dateInput: true,
-//                        format: "yyyy/MM/dd HH:mm",
-//                        value: time,
-//                    });
-//                } else {
-//                    $("#sending_time").data('kendoDateTimePicker').value(time);
-//                }
-//            },
             nowSendMessage(id) {
                 axios.post(
                     '/api/telegram-message/send-now/' + id
@@ -291,12 +273,11 @@
                 });
             },
             initMessage() {
-                let self = this;
-                self.add_message = {
+                this.add_message = {
                     id: '',
                     now_send: 1,
-                    sending_time: $("#sending_time").val(),
-                    channel_id: (self.channel_list.length > 0) ? self.channel_list[0].id : 0,
+                    sending_time: "",
+                    channel_id: (this.channel_list.length > 0) ? this.channel_list[0].id : 0,
                     display_name: '',
                     content: '',
                     user_id: 0
@@ -304,8 +285,7 @@
             }
         },
         mounted() {
-            let self = this;
-            self.page_info = {
+            this.page_info = {
                 current_page: 1,
                 limit: '15',
                 last_page: 1,
@@ -316,37 +296,14 @@
                 list_from: 1,
                 list_to: 15
             };
-            self.getAllMessage();
-            self.getAllChannel();
-            self.initMessage();
+            this.getAllMessage();
+            this.getAllChannel();
+            this.initMessage();
 
-            self.getAllMessageInterval = setInterval(function () {
+            let self = this;
+            this.getAllMessageInterval = setInterval(function () {
                 self.getAllMessage();
             }, 1000 * 10);
-            $.fn.datetimepicker.Constructor.Default.icons = {
-                time:     'fas fa-arrow-up',
-                date:     'fas fa-arrow-up',
-                up:       'fas fa-arrow-up',
-                down:     'fas fa-arrow-down',
-                previous: 'fas fa-chevron-left',
-                next:     'fas fa-chevron-right',
-                today:    'far fa-calendar-check',
-                clear:    'fas fa-trash-alt',
-                close:    'fas fa-times'
-            };
-            $('#datetimepicker1').datetimepicker({
-                icons:{
-                    time:     'fas fa-arrow-up',
-                    date:     'fas fa-arrow-up',
-                    up:       'fas fa-arrow-up',
-                    down:     'fas fa-arrow-down',
-                    previous: 'fas fa-chevron-left',
-                    next:     'fas fa-chevron-right',
-                    today:    'far fa-calendar-check',
-                    clear:    'fas fa-trash-alt',
-                    close:    'fas fa-times'
-                }
-            });
         }
     }
 </script>

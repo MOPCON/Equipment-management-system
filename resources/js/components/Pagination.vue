@@ -32,7 +32,7 @@
     </nav>
 </template>
 
-<!--Example: <Pagination :pageInfo="shorts" @onChangePage="getList"/> -->
+<!--<Pagination :pageInfo="shorts" @onChangePage="getList"/> -->
 
 <script>
     export default {

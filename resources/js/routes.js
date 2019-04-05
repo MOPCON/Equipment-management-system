@@ -8,7 +8,10 @@ import equbarcode from "./pages/equipments/equbarcode";
 import raise from "./pages/equipments/raise";
 import telegram_message from './pages/telegram_bot/index'
 import telegram_channel from './pages/telegram_bot/channel'
-import student_verify from "./pages/verify/student_verify";
+import student_verify from './pages/verify/student_verify';
+import setting_user from './pages/setting/user';
+import setting_print from './pages/setting/tool.print';
+import setting_imexport from './pages/setting/import_export.vue';
 
 Vue.use(VueRouter)
 
@@ -40,17 +43,16 @@ const router = new VueRouter({
         // }, {
         //     path: '/loan/action',
         //     component: require('../components/pages/loan/action.vue'),
-        // }, {
-        //     path: '/user',
-        //     component: require('../components/pages/setting/user.vue'),
-        // }, {
-        //     path: '/tool/print',
-        //     component: require('../components/pages/setting/tool.print.vue'),
-        // }, {
-        //     path: '/tool/imexport',
-        //     component: require('../components/pages/setting/import_export.vue'),
-        // },
-        {
+         {
+            path: '/user',
+            component: setting_user,
+        }, {
+            path: '/tool/print',
+            component: setting_print,
+        }, {
+            path: '/tool/imexport',
+            component: setting_imexport,
+        }, {
             path: '/student-verify',
             component: student_verify,
         }, {

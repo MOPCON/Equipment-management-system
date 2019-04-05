@@ -37,6 +37,18 @@
                     <font-awesome-icon class="icon" icon="id-card"/>
                     <span class="sidebar-menu-text"> 學生驗票 </span>
                 </li>
+                <li class="menu" @click="changeRouterPage('/user')">
+                    <font-awesome-icon class="icon" icon="user-secret"/>
+                    <span class="sidebar-menu-text"> 使用者管理 </span>
+                </li>
+                <li class="menu" @click="changeRouterPage('/tool/print')">
+                    <font-awesome-icon class="icon" icon="barcode"/>
+                    <span class="sidebar-menu-text"> 條碼列印 </span>
+                </li>
+                <li class="menu" @click="changeRouterPage('/tool/imexport')">
+                    <font-awesome-icon class="icon" icon="exchange-alt"/>
+                    <span class="sidebar-menu-text"> 匯入匯出 </span>
+                </li>
             </ul>
         </div>
     </div>

@@ -111,7 +111,13 @@
                         </div>
                     </div>
                     <div class="form-group" v-show="add_message.now_send === '0'">
-                        <input id="sending_time" style="width: 100%;"/>
+                        <!--<input id="sending_time" style="width: 100%;"/>-->
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><font-awesome-icon icon="calendar"/></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <strong>頻道</strong>
@@ -145,6 +151,8 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         data: function () {
             return {
@@ -315,6 +323,30 @@
             self.getAllMessageInterval = setInterval(function () {
                 self.getAllMessage();
             }, 1000 * 10);
+            $.fn.datetimepicker.Constructor.Default.icons = {
+                time:     'fas fa-arrow-up',
+                date:     'fas fa-arrow-up',
+                up:       'fas fa-arrow-up',
+                down:     'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next:     'fas fa-chevron-right',
+                today:    'far fa-calendar-check',
+                clear:    'fas fa-trash-alt',
+                close:    'fas fa-times'
+            };
+            $('#datetimepicker1').datetimepicker({
+                icons:{
+                    time:     'fas fa-arrow-up',
+                    date:     'fas fa-arrow-up',
+                    up:       'fas fa-arrow-up',
+                    down:     'fas fa-arrow-down',
+                    previous: 'fas fa-chevron-left',
+                    next:     'fas fa-chevron-right',
+                    today:    'far fa-calendar-check',
+                    clear:    'fas fa-trash-alt',
+                    close:    'fas fa-times'
+                }
+            });
         }
     }
 </script>

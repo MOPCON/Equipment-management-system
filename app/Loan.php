@@ -14,7 +14,7 @@ class Loan extends Model
 
     public function getStaffNameAttribute()
     {
-        return $this->staff->name ?? "(No Name)";
+        return $this->staff->name ?? '(No Name)';
     }
 
     public function getEquipmentNameAttribute()

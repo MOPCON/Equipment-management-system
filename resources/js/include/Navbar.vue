@@ -1,7 +1,16 @@
 <template>
     <div class="navbar navbar-dark navbar-custom">
         <a class="navbar-brand" href="#">EMS</a>
-        <img :src="user.avatar" class="rounded-circle">
+        <div class="dropdown">
+            <a id="dropdownMenu" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img :src="user.avatar" class="rounded-circle">
+                <span>{{ user.name }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -45,5 +54,10 @@
             width: 35px;
             height:35px;
         }
+    }
+    
+    .dropdown-toggle {
+        color: #FFF;
+        text-decoration: none;
     }
 </style>

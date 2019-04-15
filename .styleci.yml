@@ -1,0 +1,15 @@
+preset: laravel
+risky: false
+enabled:
+  - concat_with_spaces
+disabled:
+  - concat_without_spaces
+finder:
+  exclude:
+    - modules
+    - node_modules
+    - storage
+    - vendor
+    - tests
+  name: "*.php"
+  not-name: "*.blade.php"

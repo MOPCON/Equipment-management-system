@@ -2,16 +2,13 @@
 
 namespace App\Providers;
 
-use App\Equipment;
-use App\EquipmentBarcode;
+use Hash;
+use App\User;
+use App\Staff;
 use App\RaiseEquipment;
 use Illuminate\Support\Collection;
-use Illuminate\Support\ServiceProvider;
-use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\Facades\Schema;
-use App\Staff;
-use App\User;
-use Hash;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,18 +21,18 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        /**
+        /*
          * 自動產生barcode
          */
         Staff::creating(function ($staff) {
-            $staff->barcode = 'ST' . str_pad((((int) str_replace("ST", "", Staff::pluck('barcode')->last())) + 1), 3, '0', STR_PAD_LEFT);
+            $staff->barcode = 'ST' . str_pad((((int) str_replace('ST', '', Staff::pluck('barcode')->last())) + 1), 3, '0', STR_PAD_LEFT);
         });
 
         RaiseEquipment::creating(function ($equipment) {
-            $equipment->barcode = 'RE' . str_pad((((int) str_replace("RE", "", RaiseEquipment::pluck('barcode')->last())) + 1), 3, '0', STR_PAD_LEFT);
+            $equipment->barcode = 'RE' . str_pad((((int) str_replace('RE', '', RaiseEquipment::pluck('barcode')->last())) + 1), 3, '0', STR_PAD_LEFT);
         });
 
-        /**
+        /*
          * 密碼加密
          */
         User::creating(function ($user) {

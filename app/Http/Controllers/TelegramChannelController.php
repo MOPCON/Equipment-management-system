@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TelegramChannelRequest;
 use App\TelegramChannel;
-use Illuminate\Http\Request;
+use App\Http\Requests\TelegramChannelRequest;
 
 class TelegramChannelController extends Controller
 {

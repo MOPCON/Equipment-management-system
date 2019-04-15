@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AddTypeToLoanTable extends Migration
@@ -14,7 +13,7 @@ class AddTypeToLoanTable extends Migration
     public function up()
     {
         Schema::table('loans', function ($table) {
-            $table->unsignedInteger('type')->comment = "類型(0:Equipment,1:RaiseEquipment)";
+            $table->unsignedInteger('type')->comment = '類型(0:Equipment,1:RaiseEquipment)';
         });
     }
 

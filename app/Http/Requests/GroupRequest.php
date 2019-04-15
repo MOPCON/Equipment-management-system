@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Controllers\ApiTrait;
-
 class GroupRequest extends BaseRequest
 {
     /**

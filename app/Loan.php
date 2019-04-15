@@ -8,13 +8,13 @@ class Loan extends Model
 {
     protected $table = 'loans';
     protected $fillable = [
-        'staff_id', 'equipment_id', 'amount', 'barcode', 'type'
+        'staff_id', 'equipment_id', 'amount', 'barcode', 'type',
     ];
     protected $appends = ['staff_name', 'equipment_name'];
 
     public function getStaffNameAttribute()
     {
-        return $this->staff->name;
+        return $this->staff->name ?? '(No Name)';
     }
 
     public function getEquipmentNameAttribute()

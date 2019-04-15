@@ -2,10 +2,10 @@
 
 namespace App\Jobs;
 
-use App\Services\TelegramMessageService;
 use App\TelegramMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
+use App\Services\TelegramMessageService;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

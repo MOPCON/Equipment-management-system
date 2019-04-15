@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Staff;
 
 class Group extends Model
 {
@@ -29,7 +28,7 @@ class Group extends Model
     }
 
     /**
-     * 取得群組ID陣列
+     * 取得群組ID陣列.
      * @return array
      */
     public static function getGroupIdArray()

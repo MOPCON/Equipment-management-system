@@ -21,7 +21,7 @@ trait ApiTrait
     }
 
     /**
-     * Return 200
+     * Return 200.
      * @param string $message
      * @param array  $data
      * @return \Illuminate\Http\JsonResponse
@@ -32,7 +32,7 @@ trait ApiTrait
     }
 
     /**
-     * Return 400
+     * Return 400.
      * @param string $message
      * @param array  $data
      * @return \Illuminate\Http\JsonResponse
@@ -43,7 +43,7 @@ trait ApiTrait
     }
 
     /**
-     * Return 404
+     * Return 404.
      * @param string $message
      * @param array  $data
      * @return \Illuminate\Http\JsonResponse
@@ -52,5 +52,4 @@ trait ApiTrait
     {
         return $this->returnApiResponse($message, $data, false, 404);
     }
-
 }

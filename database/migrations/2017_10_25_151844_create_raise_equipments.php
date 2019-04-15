@@ -16,9 +16,9 @@ class CreateRaiseEquipments extends Migration
         Schema::create('raise_equipments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('staff_id')->comment = "出借人";
+            $table->unsignedInteger('staff_id')->comment = '出借人';
             $table->string('barcode');
-            $table->unsignedInteger('status')->default(0)->comment = "0:未收到,1:未出借,2:出借中,3:已歸還";
+            $table->unsignedInteger('status')->default(0)->comment = '0:未收到,1:未出借,2:出借中,3:已歸還';
             $table->timestamps();
         });
     }

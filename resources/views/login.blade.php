@@ -83,11 +83,11 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <a href="https://github.com/s9801077/Equipment-management-system"><i class="fa fa-github" aria-hidden="true"></i>
+            <a href="https://github.com/puckwang/Equipment-management-system"><i class="fa fa-github" aria-hidden="true"></i>
                     Equipment Management System</a><br>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2016-{{ date("Y") }} <a href="https://github.com/s9801077">PuckWang</a> & <a href="https://github.com/k9532121">ChienYun</a>.</strong> All rights reserved.
-            <a href="https://github.com/s9801077/Equipment-management-system/blob/master/LICENSE">LICENSE</a>
+            <strong>Copyright &copy; 2016-{{ date("Y") }} <a href="https://github.com/puckwang">PuckWang</a> & <a href="https://github.com/yuuuna">Yuuna</a>.</strong> All rights reserved.
+            <a href="https://github.com/puckwang/Equipment-management-system/blob/master/LICENSE">LICENSE</a>
         </footer>
 </div> <!-- /container -->
 

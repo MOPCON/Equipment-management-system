@@ -6,11 +6,9 @@ use App\Group;
 use App\Staff;
 use Illuminate\Http\Request;
 use App\Http\Requests\GroupRequest;
-use App\Http\Controllers\ApiTrait;
 
 class GroupController extends Controller
 {
-
     use ApiTrait;
 
     /**

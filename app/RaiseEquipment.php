@@ -16,7 +16,7 @@ class RaiseEquipment extends Model
 
     public function getStaffNameAttribute()
     {
-        return $this->staff->name;
+        return $this->staff->name ?? '(No Name)';
     }
 
     public function getStatusNameAttribute()

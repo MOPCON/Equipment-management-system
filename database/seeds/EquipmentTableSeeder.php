@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Equipment;
-use App\EquipmentBarcode;
+use Illuminate\Database\Seeder;
 
 class EquipmentTableSeeder extends Seeder
 {

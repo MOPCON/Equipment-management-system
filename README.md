@@ -5,7 +5,15 @@
 ![Version develop](https://img.shields.io/badge/license-MIT-green.svg)
 ![Styleci status](https://github.styleci.io/repos/89154332/shield)
 
-### Requirement
+## Table of Contents
+- [Requirement](#requirement)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Requirement
 * PHP >= 7.1.3
     * OpenSSL PHP Extension
     * PDO PHP Extension
@@ -17,71 +25,140 @@
 * npm >= 3.10.0
 * Yarn
 
+## Installation
+以下為 `開發環境` 安裝指南，欲部署到正式機，請至 [Deployment](#deployment)。
 
-### PHP Extension Install
-```
-apt-get install php7.0-mbstring php7.0-mysql php7.0-mcrypt php7.0-xml php7.0-zip php7.0-curl
-```
-
-### Install
+1. 從 Github Clone 到本機。
 ```
 git clone git@github.com:s9801077/Equipment-management-system.git
+cd Equipment-management-system
+```
+
+2. 複製 `.env.example` 至 `.env`。
+```
 cp .env.example .env
+```
+
+3. 至 `.env` 設定資料庫登入資訊，請將以下設定依照開發環境修改。
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+```
+
+4. 安裝 PHP 與 Node 相依套件。
+```
 composer install
 yarn install
+```
+
+5. 產生 App Key。
+```
 php artisan key:generate
+```
+
+6. 產生資料表與假資料，如果不想產生假資料，請移掉 `--seed` 參數。
+```
 php artisan migrate --seed
 ```
 
-### Build Command
+7. 編譯前端資源與執行內建的開發用伺服器
+```
+yarn run watch
+php artisan serve
+```
+到這裡就完成安裝。
+
+### Font-End Build Command
 ```
 yarn run dev     # run dev mode
 yarn run watch   # run watch mode
 yarn run prod    # run deploy
 ```
 
-### Deploy
-Command
+## Usage
+使用瀏覽器開啟 `http://127.0.0.1:8000` 就會看到登入畫面，預設的帳號密碼如下:
+
 ```
-git clone git@github.com:s9801077/MIRDC-EKBS.git
-cp .env.example .env
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-composer install
-yarn install
-php artisan key:generate
-php artisan migrate
-npm run prod 
+Account: admin@ems.ems
+Password: admin
+```
+
+## Deployment
+部署流程跟 [Installation](#installation) 差不多，只有以下幾點要注意。
+
+1. 請將網頁伺服器虛擬主機跟目錄指向專案跟目錄中的 `public`。
+
+2. 網頁伺服器務必設定好 `Rewrite`。
+
+3. 如果不要有假資料，請於執行 `php artisan migrate` 不要加上 `--seed`
+
+4. 設定資料夾權限
+```sh
 chmod 777 -R storage bootstrap/cache
 ```
 
-Cron & Queue setting
+5. 前端資源編譯指令改使用這個
+```
+yarn run prod
+```
+
+### Note:
+* 記得設定排程。
+* 記得執行 Queue 的處理指令。
+
+## Configuration
+
+### 設定排程
+請將以下設定修改路徑後新增至 `Cron`。
 ```
 */1 * 	* * *   root    php /home/ems/test/artisan schedule:run >> /dev/null 2>&1
+```
+
+### 設定 Queue
+1. 將 `.env` 中的 `QUEUE_DRIVER` 設定修改為 `database`。
+
+2. 執行 Queue 指令
+如果你是本機要用，可以直接執行 `php artisan queue:listen` 如果是正式機要用，
+可以使用以下指令： 
+```
 screen -S ems php artisan queue:listen
 ```
-
-Note:
-* Setting Cron
-* Run queue command
-
-
-### Login data
-```
- email: admin@ems.ems
- password: admin
-```
+> screen 是一個管理背景執行的套件。
 
 ### Setting Telegram Bot
 1. 在 .env 設定 `PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 、`PHP_TELEGRAM_BOT_API_KEY` 與 `PHP_TELEGRAM_BOT_NAME` (`PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 請自行設定隨機字串，此字串將用於給 Telegram 呼叫的 web hook)
 2. 執行 `php artisan ems:set-telegram-hook` 將 web hook 設定到 Telegram
 
+#### Telegram Bot 指令清單
 
-### Telegram Bot Command List
+標示 `[private]` 的為僅允許在個人頻道使用。
+
 - saveId: 儲存頻道 ID
 - whoAmI: 顯示自己的 ID `[private]`
 
-### License
+詳細 Telegram bot 說明可洽 [WIKI](https://github.com/puckwang/Equipment-management-system/wiki/Telegram-chatbot)
+
+## Contributing
+
+請遵照 Git Flow 流程，從 `develop` 創建一個分支、提交變更並開 Pull Request。
+
+### PHP 注意事項
+
+請遵守 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) 的規範，以統一專案內程式碼的風格，雖然我們有設定 StyleCI 修正錯誤的格式，但請將它當作最後防線。
+
+### Vue 注意事項
+
+1. 任何 `.vue` 的組件檔案名稱大寫駝峰式。
+2. 獨立一個頁面一個資料夾且名稱為小寫駝峰，每個獨立頁面的根組件與其上層資料夾同名。
+3. 路由名稱與頁面資料夾名稱相同。
+4. 為於 `components` 資料夾內的組件會自動註冊，各別頁面所切出來的請自行於各別的根組件註冊。
+
+
+## License
 The MIT License (MIT). Please see License File for more information.
 
 

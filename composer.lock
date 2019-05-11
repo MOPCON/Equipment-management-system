@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4c68976a2741a892b2144051ecce5a3",
+    "content-hash": "85c5c2dd0a7b04679b6a0e24b6581a79",
     "packages": [
         {
             "name": "botman/botman",
@@ -1287,59 +1287,6 @@
             "time": "2019-03-30T13:22:34+00:00"
         },
         {
-            "name": "longman/telegram-bot",
-            "version": "0.53.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-telegram-bot/core.git",
-                "reference": "ed50346851088a13f2af27e067d3f595b900b55f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-telegram-bot/core/zipball/ed50346851088a13f2af27e067d3f595b900b55f",
-                "reference": "ed50346851088a13f2af27e067d3f595b900b55f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-mbstring": "*",
-                "ext-pdo": "*",
-                "guzzlehttp/guzzle": "^6.3",
-                "monolog/monolog": "^1.23",
-                "php": "^5.5|^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8|^5.7|^6.5|^7.0",
-                "squizlabs/php_codesniffer": "^3.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Longman\\TelegramBot\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Avtandil Kikabidze aka LONGMAN",
-                    "email": "akalongman@gmail.com",
-                    "homepage": "http://longman.me",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP Telegram bot",
-            "homepage": "https://github.com/php-telegram-bot/core",
-            "keywords": [
-                "api",
-                "bot",
-                "telegram"
-            ],
-            "time": "2018-03-31T22:35:18+00:00"
-        },
-        {
             "name": "maatwebsite/excel",
             "version": "2.1.30",
             "source": {
@@ -1753,66 +1700,6 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
-        },
-        {
-            "name": "php-telegram-bot/laravel",
-            "version": "0.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-telegram-bot/laravel.git",
-                "reference": "b1d8ed66e8c1a2d83bfe9f0f42a50a953e99ab89"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-telegram-bot/laravel/zipball/b1d8ed66e8c1a2d83bfe9f0f42a50a953e99ab89",
-                "reference": "b1d8ed66e8c1a2d83bfe9f0f42a50a953e99ab89",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "5.*",
-                "illuminate/support": "5.*",
-                "longman/telegram-bot": "^0.53.0",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "graham-campbell/testbench": "^3.4",
-                "longman/php-code-style": "^1.0",
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~4.8|~5.7"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "PhpTelegramBot\\Laravel\\PhpTelegramBotServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpTelegramBot\\Laravel\\": "src/Laravel"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Avtandil Kikabidze aka LONGMAN",
-                    "email": "akalongman@gmail.com",
-                    "homepage": "http://longman.me",
-                    "role": "Maintainer, Developer"
-                }
-            ],
-            "description": "Package to integrate PHP Telegram Bot library in Laravel 5.x",
-            "homepage": "https://github.com/php-telegram-bot/laravel",
-            "keywords": [
-                "bot",
-                "laravel",
-                "telegram"
-            ],
-            "time": "2018-04-18T19:59:20+00:00"
         },
         {
             "name": "phpoffice/phpexcel",

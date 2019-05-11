@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
 Route::post('/login', 'AuthController@postLogin');
 Route::get('/logout', 'AuthController@logout');
-Route::post('/telegram/web/hook/' . env('PHP_TELEGRAM_BOT_WEB_HOOK_KEY'), 'TelegramHookController@handle');
+Route::post('/telegram/web/hook/' . env('BOT_WEB_HOOK_HASH'), 'TelegramHookController@handle');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/whoami', function () {

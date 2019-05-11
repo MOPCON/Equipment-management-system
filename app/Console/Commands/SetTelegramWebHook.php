@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use PhpTelegramBot\Laravel\PhpTelegramBotContract;
 
 class SetTelegramWebHook extends Command
 {
@@ -27,12 +26,10 @@ class SetTelegramWebHook extends Command
     /**
      * Create a new command instance.
      *
-     * @param PhpTelegramBotContract $telegramBot
      */
-    public function __construct(PhpTelegramBotContract $telegramBot)
+    public function __construct()
     {
         parent::__construct();
-        $this->telegramBot = $telegramBot;
     }
 
     /**
@@ -44,17 +41,11 @@ class SetTelegramWebHook extends Command
     {
         try {
             if ($this->option('delete')) {
-                $result = $this->telegramBot->deleteWebhook();
             } else {
                 $hookUrl = action('TelegramHookController@handle');
-                $result = $this->telegramBot->setWebhook($hookUrl);
             }
 
-            if ($result->isOk()) {
-                $this->info($result->getDescription());
-            } else {
-                $this->error($result->getDescription());
-            }
+
         } catch (\Exception $e) {
             $this->error('發生不明錯誤');
             Log::error($e->getMessage() . $e->getTraceAsString());

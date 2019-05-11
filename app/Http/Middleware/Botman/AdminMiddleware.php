@@ -4,13 +4,13 @@ namespace App\Http\Middleware\Botman;
 
 use App\User;
 use BotMan\BotMan\BotMan;
+use Illuminate\Support\Facades\Cache;
 use BotMan\BotMan\Interfaces\Middleware\Heard;
 use BotMan\BotMan\Interfaces\Middleware\Sending;
 use BotMan\BotMan\Interfaces\Middleware\Captured;
 use BotMan\BotMan\Interfaces\Middleware\Matching;
 use BotMan\BotMan\Interfaces\Middleware\Received;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
-use Illuminate\Support\Facades\Cache;
 
 class AdminMiddleware implements Received, Captured, Matching, Heard, Sending
 {
@@ -55,7 +55,7 @@ class AdminMiddleware implements Received, Captured, Matching, Heard, Sending
     {
         $isAdmin = in_array($message->getSender(), $this->getAdminIds());
 
-        if (!$isAdmin && $regexMatched) {
+        if (! $isAdmin && $regexMatched) {
             $userTag = $message->getPayload()['from']['username'] !== '' ?
                 '@' . $message->getPayload()['from']['username'] : '';
             $botman = app('botman');

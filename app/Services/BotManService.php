@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\TelegramMessage;
-use BotMan\Drivers\Telegram\TelegramDriver;
 use Illuminate\Support\Facades\Log;
+use BotMan\Drivers\Telegram\TelegramDriver;
 
 class BotManService
 {
@@ -16,14 +16,15 @@ class BotManService
     }
 
     /**
-     * 發送訊息至 Telegram
+     * 發送訊息至 Telegram.
      * @param TelegramMessage $telegramMessage
      */
     public function send(TelegramMessage $telegramMessage): void
     {
         try {
-            if (!$telegramMessage->channel) {
+            if (! $telegramMessage->channel) {
                 $telegramMessage->changeStatusToFail();
+
                 return;
             }
 

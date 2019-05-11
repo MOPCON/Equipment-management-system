@@ -130,7 +130,7 @@ screen -S ems php artisan queue:listen
 > screen 是一個管理背景執行的套件。
 
 ### Setting Telegram Bot
-1. 在 .env 設定 `PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 、`PHP_TELEGRAM_BOT_API_KEY` 與 `PHP_TELEGRAM_BOT_NAME` (`PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 請自行設定隨機字串，此字串將用於給 Telegram 呼叫的 web hook)
+1. 在 .env 設定 `TELEGRAM_TOKEN` 與 `BOT_WEB_HOOK_HASH` (`BOT_WEB_HOOK_HASH` 請自行設定隨機字串，此字串將用於給 Telegram 呼叫的 web hook)
 2. 執行 `php artisan ems:set-telegram-hook` 將 web hook 設定到 Telegram
 
 #### Telegram Bot 指令清單

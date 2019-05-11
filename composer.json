@@ -9,6 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
+        "botman/botman": "^2.4",
+        "botman/driver-telegram": "^1.5",
+        "botman/studio-addons": "^1.5",
         "creativeorange/gravatar": "~1.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",

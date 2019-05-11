@@ -16,8 +16,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "maatwebsite/excel": "~2.1.0",
-        "php-telegram-bot/laravel": "^0.0.1"
+        "maatwebsite/excel": "~2.1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

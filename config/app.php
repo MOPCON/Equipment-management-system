@@ -167,7 +167,6 @@ return [
          */
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        PhpTelegramBot\Laravel\PhpTelegramBotServiceProvider::class,
 
         /*
          * Application Service Providers...

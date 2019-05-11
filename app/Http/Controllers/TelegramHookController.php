@@ -11,20 +11,10 @@ class TelegramHookController extends Controller
 {
     private $expiresMinutes = 10;
 
-    public function handle(PhpTelegramBotContract $telegramBot)
+    public function handle()
     {
-        $request = json_decode(Request::getInput(), true);
-        $isBotCommand = array_key_exists('message', $request) &&
-            array_key_exists('entities', $request['message']) &&
-            in_array('bot_command', array_pluck($request['message']['entities'], 'type'));
-
-        if (! $isBotCommand) {
-            return;
-        }
-        info('[TelegramHook] Got Command: ' . Request::getInput());
-        $adminIds = $this->getAdminIds();
-        $telegramBot->enableAdmins($adminIds);
-        $telegramBot->handle();
+        $botman = app('botman');
+        $botman->listen();
     }
 
     private function getAdminIds()

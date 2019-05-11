@@ -25,7 +25,6 @@ class SetTelegramWebHook extends Command
 
     /**
      * Create a new command instance.
-     *
      */
     public function __construct()
     {
@@ -48,7 +47,7 @@ class SetTelegramWebHook extends Command
 
             $remove = $this->option('delete', null);
 
-            if (!$remove) {
+            if (! $remove) {
                 $url .= '?url=' . action('TelegramHookController@handle');
             }
 

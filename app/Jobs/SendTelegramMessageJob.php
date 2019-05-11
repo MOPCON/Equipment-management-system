@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Services\BotManService;
 use App\TelegramMessage;
 use Illuminate\Bus\Queueable;
+use App\Services\BotManService;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

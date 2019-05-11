@@ -26,7 +26,7 @@ class AdminMiddleware implements Matching
     {
         $isAdmin = in_array($message->getSender(), $this->getAdminIds());
 
-        if (!$isAdmin && $regexMatched) {
+        if (! $isAdmin && $regexMatched) {
             $userTag = $message->getPayload()['from']['username'] !== '' ?
                 '@' . $message->getPayload()['from']['username'] : '';
             $botman = app('botman');

@@ -1,16 +1,15 @@
 <?php
 
-use App\Conversations\Commands\SaveIdConversation;
+use BotMan\BotMan\BotMan;
 use App\Conversations\WhoAmIConversation;
 use App\Http\Middleware\Botman\AdminMiddleware;
+use App\Conversations\Commands\SaveIdConversation;
 use App\Http\Middleware\Botman\PrivateChatMiddleware;
-use BotMan\BotMan\BotMan;
 
 /** @var BotMan $botman */
 $botman = resolve('botman');
 
-
-/** 私人頻道限定 */
+/* 私人頻道限定 */
 $botman->group(['middleware' => new PrivateChatMiddleware()], function (BotMan $botman) {
     $botman->hears('/start', function (BotMan $bot) {
         $bot->reply('Hello!');
@@ -21,10 +20,9 @@ $botman->group(['middleware' => new PrivateChatMiddleware()], function (BotMan $
     });
 });
 
-/** 管理員限定 */
+/* 管理員限定 */
 $botman->group(['middleware' => new AdminMiddleware()], function (BotMan $botman) {
     $botman->hears('/saveId', function (BotMan $bot) {
         $bot->startConversation(new SaveIdConversation());
     });
 });
-

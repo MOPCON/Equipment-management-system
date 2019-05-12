@@ -14,9 +14,12 @@ class AddESTAndASTToTelegramMessagesTable extends Migration
     public function up()
     {
         Schema::table('telegram_messages', function (Blueprint $table) {
-            $table->dateTime('sending_time')->nullable()->change()->comment = '預計發送時間';
             $table->renameColumn('sending_time', 'es_time');
             $table->dateTime('as_time')->nullable()->after('sending_time')->comment = '實際發送時間';
+        });
+
+        Schema::table('telegram_messages', function (Blueprint $table) {
+            $table->dateTime('es_time')->nullable()->change()->comment = '預計發送時間';
         });
     }
 

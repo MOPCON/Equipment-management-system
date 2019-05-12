@@ -13,6 +13,7 @@
         "botman/driver-telegram": "^1.5",
         "botman/studio-addons": "^1.5",
         "creativeorange/gravatar": "~1.0",
+        "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",

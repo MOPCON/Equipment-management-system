@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TelegramMessage extends Model
 {
     protected $table = 'telegram_messages';
-    protected $fillable = ['user_id', 'sending_time', 'channel_id', 'display_name', 'content', 'status'];
+    protected $fillable = ['user_id', 'es_time', 'channel_id', 'display_name', 'content', 'status'];
 
     const WAIT_SEND_STATUS = 0;
     const SENDING = 3;
@@ -32,6 +32,12 @@ class TelegramMessage extends Model
     public function isSend()
     {
         return $this->status === $this::SEND_STATUS;
+    }
+
+    public function changeStatusToWaitSend()
+    {
+        $this->status = $this::WAIT_SEND_STATUS;
+        $this->save();
     }
 
     public function changeStatusToSending()

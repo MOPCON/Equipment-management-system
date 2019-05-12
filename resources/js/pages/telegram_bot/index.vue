@@ -23,7 +23,8 @@
                         <th class="sortfield" tabindex="0" width="40%">內容</th>
                         <th class="sortfield" tabindex="0">發送人員</th>
                         <th class="sortfield" tabindex="0">狀態</th>
-                        <th class="sortfield" tabindex="0">排成時間</th>
+                        <th class="sortfield" tabindex="0">預計發送時間</th>
+                        <th class="sortfield" tabindex="0">實際發送時間</th>
                         <th class="sortfield" tabindex="0"></th>
                     </tr>
                     </thead>
@@ -48,11 +49,12 @@
                         <td v-if="item.status === 3">
                             <span class="label label-default">發送中</span>
                         </td>
-                        <td>{{ item.sending_time }}</td>
+                        <td>{{ item.es_time || '-' }}</td>
+                        <td>{{ item.as_time || '-' }}</td>
                         <td>
                             <button type="button" class="btn btn-sm btn-success"
                                     v-if="item.status === 0 || item.status === 2"
-                                    v-on:click="nowSendMessage(item.id)" title="立即發送">
+                                    v-on:click="nowSendMessage(item.id)" title="立即發送 / 重啟排程">
                                 <font-awesome-icon class="icon" icon="play"/>
                             </button>
                             <button type="button" class="btn btn-sm btn-primary"
@@ -111,7 +113,7 @@
                         </div>
                     </div>
                     <div class="form-group" v-show="add_message.now_send === '0'">
-                        <Datetimepicker target="sending_time" :value="add_message.sending_time" @onChangeValue="onChangeValue"/>
+                        <Datetimepicker target="es_time" :value="add_message.es_time" @onChangeValue="onChangeValue"/>
                     </div>
                     <div class="form-group">
                         <strong>頻道</strong>
@@ -153,7 +155,7 @@
                 add_message: {
                     id: '',
                     now_send: 1,
-                    sending_time: '',
+                    es_time: '',
                     channel_id: 0,
                     display_name: '',
                     content: '',
@@ -172,7 +174,7 @@
                 this.getAllMessage();
             },
             onChangeValue(value) {
-                this.add_message.sending_time = value;
+                this.add_message.es_time = value;
             },
             getAllMessage() {
                 let self = this;
@@ -236,7 +238,7 @@
             },
             editMessage() {
                 let self = this;
-                self.add_message.sending_time = $("#sending_time input").val();
+                self.add_message.es_time = $("#es_time input").val();
                 axios.put(
                     '/api/telegram-message/' + self.add_message.id, self.add_message
                 ).then(response => {
@@ -276,7 +278,7 @@
                 this.add_message = {
                     id: '',
                     now_send: 1,
-                    sending_time: "",
+                    es_time: "",
                     channel_id: (this.channel_list.length > 0) ? this.channel_list[0].id : 0,
                     display_name: '',
                     content: '',
@@ -290,7 +292,7 @@
                 limit: '15',
                 last_page: 1,
                 total: 1,
-                sort_key: 'sending_time',
+                sort_key: 'id',
                 sort_dir: 'DESC',
                 search: '',
                 list_from: 1,

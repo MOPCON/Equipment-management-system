@@ -34,7 +34,7 @@
                         <td v-if="item.channel">{{ item.channel.name}}</td>
                         <td v-if="!item.channel">(已刪除)</td>
                         <td>{{ item.display_name }}</td>
-                        <td>{{ item.content }}</td>
+                        <td>{{ item.full_message }}</td>
                         <td v-if="item.user">{{ item.user.name }}</td>
                         <td v-if="!item.user">(已刪除)</td>
                         <td v-if="item.status === 0">
@@ -126,7 +126,7 @@
                     <div class="form-group">
                         <strong>顯示名稱</strong>
                         <input type="text" name="name" v-model="add_message.display_name"
-                               class="form-control" placeholder="Name" required>
+                               class="form-control" placeholder="(option)" required>
                     </div>
                     <div class="form-group">
                         <strong>內容</strong>

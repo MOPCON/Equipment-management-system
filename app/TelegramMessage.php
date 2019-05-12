@@ -8,6 +8,7 @@ class TelegramMessage extends Model
 {
     protected $table = 'telegram_messages';
     protected $fillable = ['user_id', 'es_time', 'channel_id', 'display_name', 'content', 'status'];
+    protected $appends = ['full_message'];
 
     const WAIT_SEND_STATUS = 0;
     const SENDING = 3;
@@ -22,6 +23,15 @@ class TelegramMessage extends Model
     public function channel()
     {
         return $this->hasOne('App\TelegramChannel', 'id', 'channel_id');
+    }
+
+    public function getFullMessageAttribute()
+    {
+        if ($this->display_name !== null) {
+            return "{$this->display_name} 說：\n" . $this->content;
+        }
+
+        return $this->content;
     }
 
     public function scopeWaitSend($query)

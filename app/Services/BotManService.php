@@ -29,7 +29,7 @@ class BotManService
             }
 
             $chatID = $telegramMessage->channel->code;
-            $message = $telegramMessage->content;
+            $message = $telegramMessage->full_message;
 
             $this->botman->say($message, $chatID, TelegramDriver::class);
             $telegramMessage->as_time = date('Y-m-d H:i:s');

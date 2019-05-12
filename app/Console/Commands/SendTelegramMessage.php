@@ -41,7 +41,9 @@ class SendTelegramMessage extends Command
     {
         $messages = TelegramMessage::waitSend()->where('sending_time', '<', date('Y-m-d H:i'))->get();
 
+        /** @var TelegramMessage $message */
         foreach ($messages as $message) {
+            $message->changeStatusToSending();
             SendTelegramMessageJob::dispatch($message);
         }
     }

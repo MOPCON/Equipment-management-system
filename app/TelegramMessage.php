@@ -10,7 +10,7 @@ class TelegramMessage extends Model
     protected $fillable = ['user_id', 'sending_time', 'channel_id', 'display_name', 'content', 'status'];
 
     const WAIT_SEND_STATUS = 0;
-    const NOW_SEND = 3;
+    const SENDING = 3;
     const SEND_STATUS = 1;
     const FAIL_STATUS = 2;
 
@@ -32,6 +32,12 @@ class TelegramMessage extends Model
     public function isSend()
     {
         return $this->status === $this::SEND_STATUS;
+    }
+
+    public function changeStatusToSending()
+    {
+        $this->status = $this::SENDING;
+        $this->save();
     }
 
     public function changeStatusToFail()

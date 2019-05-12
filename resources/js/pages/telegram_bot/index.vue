@@ -34,20 +34,20 @@
                         <td v-if="item.channel">{{ item.channel.name}}</td>
                         <td v-if="!item.channel">(已刪除)</td>
                         <td>{{ item.display_name }}</td>
-                        <td>{{ item.content }}</td>
+                        <td>{{ item.full_message }}</td>
                         <td v-if="item.user">{{ item.user.name }}</td>
                         <td v-if="!item.user">(已刪除)</td>
                         <td v-if="item.status === 0">
-                            <span class="label label-default">等待排程</span>
+                            <span class="badge badge-secondary">等待排程</span>
                         </td>
                         <td v-if="item.status === 1">
-                            <span class="label label-success">已發送</span>
+                            <span class="badge badge-success">已發送</span>
                         </td>
                         <td v-if="item.status === 2">
-                            <span class="label label-danger">發送失敗</span>
+                            <span class="badge badge-danger">發送失敗</span>
                         </td>
                         <td v-if="item.status === 3">
-                            <span class="label label-default">發送中</span>
+                            <span class="badge badge-primary">發送中</span>
                         </td>
                         <td>{{ item.es_time || '-' }}</td>
                         <td>{{ item.as_time || '-' }}</td>
@@ -126,7 +126,7 @@
                     <div class="form-group">
                         <strong>顯示名稱</strong>
                         <input type="text" name="name" v-model="add_message.display_name"
-                               class="form-control" placeholder="Name" required>
+                               class="form-control" placeholder="(option)" required>
                     </div>
                     <div class="form-group">
                         <strong>內容</strong>

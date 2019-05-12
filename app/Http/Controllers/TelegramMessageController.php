@@ -21,7 +21,7 @@ class TelegramMessageController extends Controller
     {
         $channel_id = $request->input('channel_id', 0);
         $search = $request->input('search', '');
-        $order_field = $request->input('orderby_field', 'sending_time');
+        $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 25);
 
@@ -50,12 +50,11 @@ class TelegramMessageController extends Controller
      */
     public function store(TelegramMessageRequest $request)
     {
-        $data = $request->only(['sending_time', 'channel_id', 'display_name', 'content']);
+        $data = $request->only(['es_time', 'channel_id', 'display_name', 'content']);
         $data['user_id'] = auth()->id();
 
         if ($request->input('now_send')) {
-            $data['sending_time'] = date('Y-m-d H:i');
-            $data['status'] = TelegramMessage::NOW_SEND;
+            $data['status'] = TelegramMessage::SENDING;
             $message = TelegramMessage::create($data);
             SendTelegramMessageJob::dispatch($message);
         } else {
@@ -68,7 +67,7 @@ class TelegramMessageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TelegramMessage  $telegramMessage
+     * @param  \App\TelegramMessage $telegramMessage
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(TelegramMessage $telegramMessage)
@@ -120,10 +119,12 @@ class TelegramMessageController extends Controller
             return $this->return400Response('訊息已發送，無法再發送。');
         }
 
-        $telegramMessage->sending_time = date('Y-m-d H:i');
-        $telegramMessage->status = TelegramMessage::WAIT_SEND_STATUS;
-        $telegramMessage->save();
+        if ($telegramMessage->es_time !== null) {
+            $telegramMessage->changeStatusToWaitSend();
+            return $this->returnSuccess('已重啟排程');
+        }
 
+        $telegramMessage->changeStatusToSending();
         SendTelegramMessageJob::dispatch($telegramMessage);
 
         return $this->returnSuccess('已發送');

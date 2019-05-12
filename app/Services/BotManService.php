@@ -32,6 +32,7 @@ class BotManService
             $message = $telegramMessage->content;
 
             $this->botman->say($message, $chatID, TelegramDriver::class);
+            $telegramMessage->as_time = date('Y-m-d H:i:s');
             $telegramMessage->changeStatusToSend();
             Log::info("[TelegramMessageService] Send message success {$telegramMessage->id}");
         } catch (\Exception $e) {

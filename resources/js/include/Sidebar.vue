@@ -1,73 +1,100 @@
 <template>
-    <div id="sidebar" class="sidebar">
-        <div class="sidebar-menu">
-            <ul>
-                <li class="menu" @click="changeSidebarExtend">
-                    <font-awesome-icon class="icon" icon="bars"/>
-                    <span class="sidebar-menu-text"> Menu </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/staffs')">
-                    <font-awesome-icon class="icon" icon="user"/>
-                    <span class="sidebar-menu-text"> 工人管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/groups')">
-                    <font-awesome-icon class="icon" icon="users"/>
-                    <span class="sidebar-menu-text"> 群組管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/equipments')">
-                    <font-awesome-icon class="icon" icon="hdd"/>
-                    <span class="sidebar-menu-text"> 器材管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/equipments/barcode')">
-                    <font-awesome-icon class="icon" icon="barcode"/>
-                    <span class="sidebar-menu-text"> 器材條碼管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/equipments/raise')">
-                    <font-awesome-icon class="icon" icon="suitcase"/>
-                    <span class="sidebar-menu-text"> 募集物資管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/loan/action')">
-                    <font-awesome-icon class="icon" icon="exchange-alt"/>
-                    <span class="sidebar-menu-text"> 借還系統 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/loan')">
-                    <font-awesome-icon class="icon" icon="tasks"/>
-                    <span class="sidebar-menu-text"> 批量管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/telegram-message')">
-                    <font-awesome-icon class="icon" icon="comment"/>
-                    <span class="sidebar-menu-text"> 訊息發送 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/telegram-channel')">
-                    <font-awesome-icon class="icon" icon="users"/>
-                    <span class="sidebar-menu-text"> 頻道管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/student-verify')">
-                    <font-awesome-icon class="icon" icon="id-card"/>
-                    <span class="sidebar-menu-text"> 學生驗票 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/user')">
-                    <font-awesome-icon class="icon" icon="user-secret"/>
-                    <span class="sidebar-menu-text"> 使用者管理 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/tool/print')">
-                    <font-awesome-icon class="icon" icon="barcode"/>
-                    <span class="sidebar-menu-text"> 條碼列印 </span>
-                </li>
-                <li class="menu" @click="changeRouterPage('/tool/imexport')">
-                    <font-awesome-icon class="icon" icon="exchange-alt"/>
-                    <span class="sidebar-menu-text"> 匯入匯出 </span>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <sidebar-menu id="sidebar" :menu="menu" width="200px" collapsed="true" @collapse="changeSidebarExtend" />
 </template>
 
 <script>
+    import { SidebarMenu } from 'vue-sidebar-menu'
+    import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+
     export default {
         data() {
             return {
-                sidebarExtend: false
+                sidebarExtend: false,
+                menu: [
+                    {
+                        title: '工人管理',
+                        icon: 'fas fa-user',
+                        child: [
+                            {
+                                href: '/staffs',
+                                title: '工人資料管理',
+                                icon: 'fas fa-user'
+                            }, {
+                                href: '/groups',
+                                title: '群組管理',
+                                icon: 'fas fa-users'
+                            }
+                        ]
+                    }, {
+                        title: '器材管理',
+                        icon: 'fas fa-hdd',
+                        child: [
+                            {
+                                href: '/equipments',
+                                title: '器材管理',
+                                icon: 'fas fa-hdd'
+                            }, {
+                                href: '/equipments/barcode',
+                                title: '器材條碼管理',
+                                icon: 'fas fa-barcode'
+                            }, {
+                                href: '/equipments/raise',
+                                title: '募集物資管理',
+                                icon: 'fas fa-suitcase'
+                            }
+                        ]
+                    }, {
+                        title: '借還系統',
+                        icon: 'fas fa-exchange-alt',
+                        child: [
+                            {
+                                href: '/loan/action',
+                                title: '借還系統',
+                                icon: 'fas fa-exchange-alt'
+                            }, {
+                                href: '/loan',
+                                title: '批量管理',
+                                icon: 'fas fa-tasks'
+                            }
+                        ]
+                    }, {
+                        title: 'Telegram Bot',
+                        icon: 'fab fa-telegram',
+                        child: [
+                            {
+                                href: '/telegram-message',
+                                title: '訊息發送',
+                                icon: 'fas fa-comment'
+                            }, {
+                                href: '/telegram-channel',
+                                title: '頻道管理',
+                                icon: 'fas fa-users'
+                            }
+                        ]
+                    }, {
+                        title: '學生驗票',
+                        icon: 'fas fa-id-card',
+                        href: '/student-verify'
+                    }, {
+                        title: '設定',
+                        icon: 'fas fa-cogs',
+                        child: [
+                            {
+                                href: '/user',
+                                title: '帳號管理',
+                                icon: 'fas fa-user-secret'
+                            }, {
+                                href: '/tool/print',
+                                title: '條碼列印',
+                                icon: 'fas fa-barcode'
+                            }, {
+                                href: '/tool/imexport',
+                                title: '匯入匯出',
+                                icon: 'fas fa-exchange-alt'
+                            }
+                        ]
+                    }
+                ]
             };
         },
         methods: {
@@ -76,22 +103,19 @@
                 if (self.sidebarExtend) {
                     // 移除展開 Menu
                     self.sidebarExtend = false;
-                    $('#sidebar').removeClass('sidebar-extend');
                     $('#main').removeClass('main-extend');
                 } else {
                     // 展開 Menu
                     self.sidebarExtend = true;
-                    $('#sidebar').addClass('sidebar-extend');
                     $('#main').addClass('main-extend');
                 }
-            },
-            changeRouterPage(router_name) {
-                this.$router.push(router_name);
             }
         },
         computed: {},
         watch: {},
-        components: {},
+        components: {
+            SidebarMenu
+        },
         mounted() {
 
         }
@@ -100,79 +124,8 @@
 
 <style scoped lang="scss">
     @import '../../sass/variables';
-
-    .sidebar {
-        width: $sidebar-width;
-        min-height: 100%;
-        background: black;
-        font-size: 18px;
-        line-height: 18px;
-        position: absolute;
-        z-index: 1000;
-        transition: transform .3s ease-in-out, width .3s ease-in-out;
-
-        .sidebar-menu {
-            width: 100%;
-
-            ul, li {
-                border: 0;
-                margin: 0;
-                padding: 0;
-                text-decoration: none;
-                color: #999999;
-
-                li {
-                    padding: 15px 0px;
-
-                    .icon {
-                        width: $sidebar-width;
-                        text-align: center;
-                        float: left;
-                    }
-
-                    .sidebar-menu-text {
-                        width: calc(#{$sidebar-extend-width} - #{$sidebar-width});
-                        text-align: left;
-                        display: none;
-                        position: absolute;
-                    }
-
-                    &:hover, &:hover a {
-                        width: $sidebar-extend-width;
-                        background: #666666;
-                        color: #FFFFFF;
-                        cursor: pointer;
-
-                        @extend %sidebar-hover;
-                    }
-
-                    a {
-                        color: #999999;
-                        text-decoration: none;
-                        display: block;
-                    }
-                }
-            }
-        }
-    }
-
-    .sidebar-extend {
-        width: $sidebar-extend-width;
-
-        .sidebar-menu li {
-            @extend %sidebar-hover;
-        }
-    }
-
-    %sidebar-hover {
-        .icon {
-            width: $sidebar-width;
-        }
-
-        .sidebar-menu-text {
-            width: calc(#{$sidebar-extend-width} - #{$sidebar-width});
-            display: inline !important;
-            //opacity:1;
-        }
+    #sidebar {
+        margin-top: $navbar-height;
+        height: $sidebar-height;
     }
 </style>

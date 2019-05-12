@@ -23,7 +23,8 @@ $cyan: #6cb2eb;
 // navbar & sidebar
 $navbar-height: 50px;
 $sidebar-height: calc(100vh - #{$navbar-height});
-$sidebar-width: 60px;
-$sidebar-extend-width: 240px;
+$sidebar-width: 50px;
+$sidebar-extend-width: 200px;
 $main-width: calc(100vw - #{$sidebar-width});
 $main-extend-width: calc(100vw - #{$sidebar-extend-width});
+$main-margin-top: calc(15px + #{$navbar-height});

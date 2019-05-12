@@ -41,8 +41,6 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-require __DIR__ . '/../app/Http/TelegramCommands/CommandTrait.php';
-
 /*
 |--------------------------------------------------------------------------
 | Return The Application

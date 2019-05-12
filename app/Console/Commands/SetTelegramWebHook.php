@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use PhpTelegramBot\Laravel\PhpTelegramBotContract;
 
 class SetTelegramWebHook extends Command
 {
@@ -13,7 +12,7 @@ class SetTelegramWebHook extends Command
      *
      * @var string
      */
-    protected $signature = 'ems:set-telegram-hook {--d|delete : 刪除所有 WebHook}';
+    protected $signature = 'ems:set-telegram-hook {--d|delete : 刪除所有 WebHook} {--output}';
 
     /**
      * The console command description.
@@ -26,37 +25,52 @@ class SetTelegramWebHook extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param PhpTelegramBotContract $telegramBot
      */
-    public function __construct(PhpTelegramBotContract $telegramBot)
+    public function __construct()
     {
         parent::__construct();
-        $this->telegramBot = $telegramBot;
     }
 
     /**
      * Execute the console command.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function handle()
     {
         try {
-            if ($this->option('delete')) {
-                $result = $this->telegramBot->deleteWebhook();
-            } else {
-                $hookUrl = action('TelegramHookController@handle');
-                $result = $this->telegramBot->setWebhook($hookUrl);
+            $client = new \GuzzleHttp\Client();
+            $url = 'https://api.telegram.org/bot'
+                . config('botman.telegram.token')
+                . '/setWebhook';
+
+            $remove = $this->option('delete', null);
+
+            if (! $remove) {
+                $url .= '?url=' . action('TelegramHookController@handle');
             }
 
-            if ($result->isOk()) {
-                $this->info($result->getDescription());
-            } else {
-                $this->error($result->getDescription());
+            $this->info('Using ' . $url);
+
+            $this->info('Pinging Telegram...');
+
+            $response = @$client->request('GET', $url);
+            $result = json_decode($response->getBody());
+            if ($result->ok == true && $result->result == true) {
+                $this->info(
+                    $remove
+                    ? 'Your bot Telegram\'s webhook has been removed!'
+                    : 'Your bot is now set up with Telegram\'s webhook!'
+                );
+            }
+
+            if ($this->option('output')) {
+                dump($result);
             }
         } catch (\Exception $e) {
             $this->error('發生不明錯誤');
+            $this->error($e->getMessage());
             Log::error($e->getMessage() . $e->getTraceAsString());
         }
     }

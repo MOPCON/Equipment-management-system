@@ -167,7 +167,6 @@ return [
          */
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Jenssegers\Agent\AgentServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -193,7 +192,6 @@ return [
 
     'aliases' => [
 
-        'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

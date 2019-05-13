@@ -29,14 +29,16 @@ class BotManService
             }
 
             $chatID = $telegramMessage->channel->code;
+            $message = $telegramMessage->full_message;
             $message = $telegramMessage->content;
 
             $this->botman->say($message, $chatID, TelegramDriver::class);
+            $telegramMessage->as_time = date('Y-m-d H:i:s');
             $telegramMessage->changeStatusToSend();
             Log::info("[TelegramMessageService] Send message success {$telegramMessage->id}");
         } catch (\Exception $e) {
             $telegramMessage->changeStatusToFail();
-            Log::error("[TelegramMessageService] Send message error {$telegramMessage->id} 
+            Log::error("[TelegramMessageService] Send message error {$telegramMessage->id}
             \n {$e->getMessage()} \n{$e->getTraceAsString()}");
         }
     }

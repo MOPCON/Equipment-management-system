@@ -17,7 +17,7 @@ class CreateSystemLogsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('type_id');
-            $table->text('content')->nullable()->default('');
+            $table->text('content')->nullable();
             $table->string('ip', 45)->nullable()->default('');
             $table->string('device')->nullable()->default('');
             $table->string('browser')->nullable()->default('');

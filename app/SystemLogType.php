@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SystemLogType extends Model
 {
-    protected $table = 'system_log_type';
+    protected $table = 'system_log_types';
     protected $fillable = ['name'];
 
     public function system_log()

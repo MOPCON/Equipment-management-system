@@ -1,5 +1,5 @@
 <template>
-    <sidebar-menu id="sidebar" :menu="menu" width="200px" collapsed="true" @collapse="changeSidebarExtend" />
+    <sidebar-menu id="sidebar" :menu="menu" width="200px" :collapsed="true" @collapse="changeSidebarExtend" />
 </template>
 
 <script>
@@ -76,6 +76,20 @@
                         icon: 'fas fa-id-card',
                         href: '/student-verify'
                     }, {
+                        title: '表單填寫',
+                        icon: 'fab fa-wpforms',
+                        child: [
+                            {
+                                href: '/form/speaker',
+                                title: '講師表單',
+                                icon: 'fas fa-user-edit'
+                            }, {
+                                href: '/form/',
+                                title: '贊助表單',
+                                icon: 'fas fa-hands-helping'
+                            }
+                        ]
+                    }, {
                         title: '設定',
                         icon: 'fas fa-cogs',
                         child: [
@@ -93,7 +107,11 @@
                                 icon: 'fas fa-exchange-alt'
                             }
                         ]
-                    }
+                    }, {
+                        title: 'System log',
+                        icon: 'far fa-clock',
+                        href: '/logs'
+                    },
                 ]
             };
         },

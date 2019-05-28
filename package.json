@@ -32,6 +32,8 @@
         "@fortawesome/free-brands-svg-icons": "^5.8.1",
         "jsbarcode": "^3.11.0",
         "tempusdominus-bootstrap-4": "^5.1.2",
-        "vue-sidebar-menu": "^3.8.0"
+        "vee-validate": "^2.2.8",
+        "vue-sidebar-menu": "^3.8.0",
+        "vue2-verify": "^1.1.5"
     }
 }

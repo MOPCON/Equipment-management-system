@@ -6327,6 +6327,11 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
+vee-validate@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.2.8.tgz#fa0af21bf7deb8eaaf1c043d917a22f8bd7be43f"
+  integrity sha512-wVFsNLBuKUdo3O6XR4fFv9oXgAuVhEGgvHhg//hsOVoJO7/KgV+hXKJluhRSnCj/1TtRtlQorUl7YPO+2rDNyg==
+
 vendors@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
@@ -6388,7 +6393,14 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.5.21, vue@^2.6.8:
+vue2-verify@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/vue2-verify/-/vue2-verify-1.1.5.tgz#d26e01c266b09e55de79274e95ff568892220b4c"
+  integrity sha512-jsp1elCWzYS+GGTzbwoeQJaH5FbADj5truRXM2U0bLgjkiZwWOZUJfMDhpmDNFDowtYy2moemU5Dm/ss2nem9A==
+  dependencies:
+    vue "^2.5.2"
+
+vue@^2.5.2, vue@^2.5.21, vue@^2.6.8:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==

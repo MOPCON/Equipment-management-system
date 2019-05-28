@@ -14,6 +14,7 @@ import setting_print from './pages/setting/tool.print';
 import setting_imexport from './pages/setting/import_export.vue';
 import loan from "./pages/loan/loan";
 import action from "./pages/loan/action";
+import logs from "./pages/logs";
 
 Vue.use(VueRouter);
 
@@ -62,8 +63,10 @@ const router = new VueRouter({
         }, {
             path: '/telegram-channel',
             component: telegram_channel,
-        },
-        {
+        }, {
+            path: '/logs',
+            component: logs,
+        }, {
             path: '/*',
             redirect: '/'
         }

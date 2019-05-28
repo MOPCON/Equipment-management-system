@@ -93,6 +93,10 @@
                                 icon: 'fas fa-exchange-alt'
                             }
                         ]
+                    }, {
+                      title: 'System log',
+                      icon: 'far fa-clock',
+                      href: '/logs'
                     }
                 ]
             };

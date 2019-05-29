@@ -7,12 +7,8 @@
           <div class="input-group-addon" style="background-color: #eee">
             <i class="glyphicon glyphicon-bookmark"></i>
           </div>
-          <select class="form-control" name="table_status"
-            v-model="selectedType" @change="handleSendSearch">
-            <option v-for="item in types" :key="item.key"
-              :value="item.key">{{ item.value
-              }}
-            </option>
+          <select class="form-control" name="table_status" v-model="selectedType" @change="handleSendSearch">
+            <option v-for="item in types" :key="item.key" :value="item.key">{{ item.value }}</option>
           </select>
         </div>
       </div>
@@ -38,10 +34,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in logContentsBySearch"
-                :key="item.id">
-                <td>{{ item.createdAt |
-                  timeFormat}}</td>
+              <tr v-for="item in logContentsBySearch" :key="item.id">
+                <td>{{ item.createdAt | timeFormat}}</td>
                 <td>{{ item.user }}</td>
                 <td>{{ item.type.value }}</td>
                 <td>{{ item.desc }}</td>
@@ -156,6 +150,7 @@ export default {
   },
   computed: {
     // client search
+    // 後端 todo ...
     logContentsBySearch() {
       let tempData = this.logContents;
       // 過濾 type
@@ -215,6 +210,7 @@ export default {
         keyword: this.keyword,
         type: this.selectedType
       };
+      // 後端 todo ...
       // 發送 api ...
       // let self = this;
       // const apiUrl = "/api/logs?search";

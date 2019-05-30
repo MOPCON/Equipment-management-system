@@ -52,4 +52,5 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
         ->where(['model' => '[a-z]+', 'type' => '(csv|xls|xlsx)']);
     Route::post('import/{model}', 'ImportExportController@import')
         ->where(['model' => '[a-z]+']);
+    Route::apiResource('system-log-type', 'SystemLogTypeController', ['only' => ['index']]);
 });

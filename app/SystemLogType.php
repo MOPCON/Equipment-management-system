@@ -13,4 +13,13 @@ class SystemLogType extends Model
     {
         return $this->hasMany('App\SystemLog');
     }
+
+    /**
+     * 取得群組ID陣列.
+     * @return array
+     */
+    public static function getSystemLogTypeIdArray()
+    {
+        return SystemLogType::pluck('id');
+    }
 }

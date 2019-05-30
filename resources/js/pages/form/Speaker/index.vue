@@ -10,17 +10,20 @@
       <!-- 個人資料區塊 Start -->
       <div class="profile">
         <h2 class="profile__title">個人資料</h2>
+        <hr>
         <div class="form-group form-row">
           <div class="col-12 col-md-6">
+            <label>姓名 *</label>
             <input type="text" class="form-control"
               name="username" v-model="formData.username"
               v-validate="'required'" :class="{'is-invalid': errors.has('username')}"
-              placeholder="*姓名">
+              placeholder="姓名">
             <p v-show="errors.has('username')"
               class="text-danger">{{errors.first('username')
               | errorTextFormat}}</p>
           </div>
           <div class="col-12 col-md-6 mt-3 mt-md-0">
+            <label>英文名稱 *</label>
             <input type="text" class="form-control"
               v-model="formData.usernameEn"
               placeholder="英文名稱">
@@ -29,36 +32,40 @@
 
         <div class="form-group form-row">
           <div class="col-12 col-md-6">
+            <label>公司 / 組織</label>
             <input type="text" class="form-control"
               v-model="formData.company"
-              placeholder="公司/組織">
+              placeholder="公司 / 組織">
           </div>
           <div class="col-12 col-md-6 mt-3 mt-md-0">
+            <label>職稱 *</label>
             <input type="text" class="form-control"
               name="title" v-model="formData.title"
               v-validate="'required'" :class="{'is-invalid': errors.has('title')}"
-              placeholder="*職稱">
+              placeholder="職稱">
             <p v-show="errors.has('title')" class="text-danger">{{errors.first('title')|
               errorTextFormat}}</p>
           </div>
         </div>
 
         <div class="form-group">
+          <label>個人介紹 *</label>
           <textarea class="form-control" id="desc"
-            name="desc" placeholder="*個人介紹" rows="3"
+            name="desc" placeholder="個人介紹" rows="3"
             v-validate="'required'" :class="{'is-invalid': errors.has('desc')}"></textarea>
           <p v-show="errors.has('desc')" class="text-danger">{{errors.first('desc')
             | errorTextFormat}}</p>
         </div>
 
         <div class="form-group">
+          <label>個人介紹 ( 英文 )</label>
           <textarea class="form-control" id="descEn"
-            placeholder="個人介紹(英文)" rows="3"></textarea>
+            placeholder="個人介紹 ( 英文 )" rows="3"></textarea>
         </div>
 
         <div class="avatar mb-3">
           <div class="form-group">
-            <label for="avatar">*講者照片</label>
+            <label for="avatar">講者照片 *</label>
             <input type="file" class="form-control-file"
               @change="handleFileChange" id="avatar"
               name="image_avatar" v-validate
@@ -67,28 +74,32 @@
             <p v-show="errors.has('image_avatar')"
               class="text-danger">{{errors.first('image_avatar')
               | errorTextFormat}}</p>
-            <p v-show="!avatarSizevalidate" class="text-danger">照片尺寸必須大於寬500px,
-              高500px</p>
-
+            <p v-show="!avatarSizevalidate" class="text-danger">照片尺寸必須大於寬
+              500px,
+              高 500px</p>
+            <div class="avatar__img" :style="`background-image: url('${avatar}')`"></div>
           </div>
-          <div class="avatar__img" :style="`background-image: url('${avatar}')`"></div>
         </div>
-
-        <div class="form-group">
+        <label for="avatar">相關連結</label>
+        <div class="form-group form-group--inline-icon">
+          <i class="fab fa-facebook-square"></i>
           <input type="text" class="form-control"
             v-model="formData.fbLink" placeholder="Facebook url">
         </div>
-        <div class="form-group">
+        <div class="form-group form-group--inline-icon">
+          <i class="fab fa-github"></i>
           <input type="text" class="form-control"
             v-model="formData.githubLink"
             placeholder="GitHub url">
         </div>
-        <div class="form-group">
+        <div class="form-group form-group--inline-icon">
+          <i class="fab fa-twitter"></i>
           <input type="text" class="form-control"
             v-model="formData.twitterLink"
             placeholder="Twitter url">
         </div>
-        <div class="form-group">
+        <div class="form-group form-group--inline-icon">
+          <i class="fas fa-globe"></i>
           <input type="text" class="form-control"
             v-model="formData.otherLink"
             placeholder="其他(如Website/Blog) url">
@@ -100,54 +111,54 @@
       <div class="classinfo">
         <h2 class="classinfo__title">議程資料</h2>
 
-        <div class="form-group">
-          <textarea class="form-control" id="classTitle"
-            name="classTitle" v-model="formData.classTitle"
-            placeholder="*演講主題(32字內)" rows="2"
-            @input="updateTextLength($event, 'classTitle')"
-            v-validate="'required|max:32'" :class="{'is-invalid': errors.has('classTitle')}"></textarea>
+        <div class="form-group form-group--length">
+          <label>演講主題 *</label>
           <span class="text-length" :class="{'text-danger': errors.has('classTitle')}">{{classTitle.currentLength}}
             / {{classTitle.minLength}}</span>
+          <textarea class="form-control" id="classTitle"
+            name="classTitle" v-model="formData.classTitle"
+            placeholder="演講主題" rows="2" @input="updateTextLength($event, 'classTitle')"
+            v-validate="'required|max:32'" :class="{'is-invalid': errors.has('classTitle')}"></textarea>
           <p v-show="errors.has('classTitle')"
             class="text-danger">{{errors.first('classTitle')
             | errorTextFormat}}</p>
 
         </div>
 
-        <div class="form-group">
-          <textarea class="form-control" id="classTitleEn"
-            name="classTitleEn" v-model="formData.classTitleEn"
-            placeholder="演講主題 英文(64字內)" rows="2"
-            @input="updateTextLength($event, 'classTitleEn')"
-            v-validate="'max:64'" :class="{'is-invalid': errors.has('classTitleEn')}"></textarea>
+        <div class="form-group form-group--length">
+          <label>演講主題 英文 ( 若無提供，將由我們工作人員協助翻譯 )</label>
           <span class="text-length" :class="{'text-danger': errors.has('classTitleEn')}">{{classTitleEn.currentLength}}
             / {{classTitleEn.minLength}}</span>
+          <textarea class="form-control" id="classTitleEn"
+            name="classTitleEn" v-model="formData.classTitleEn"
+            placeholder="演講主題 英文" rows="2" @input="updateTextLength($event, 'classTitleEn')"
+            v-validate="'max:64'" :class="{'is-invalid': errors.has('classTitleEn')}"></textarea>
           <p v-show="errors.has('classTitleEn')"
             class="text-danger">{{errors.first('classTitleEn')
             | errorTextFormat}}</p>
         </div>
 
-        <div class="form-group">
-          <textarea class="form-control" id="classDesc"
-            name="classDesc" v-model="formData.classDesc"
-            placeholder="演講摘要(240字內)" rows="3"
-            @input="updateTextLength($event, 'classDesc')"
-            v-validate="'max:240'"></textarea>
+        <div class="form-group form-group--length">
+          <label>演講摘要 *</label>
           <span class="text-length" :class="{'text-danger': errors.has('classDesc')}">{{classDesc.currentLength}}
             / {{classDesc.minLength}}</span>
+          <textarea class="form-control" id="classDesc"
+            name="classDesc" v-model="formData.classDesc"
+            placeholder="演講摘要" rows="3" @input="updateTextLength($event, 'classDesc')"
+            v-validate="'required|max:240'"></textarea>
           <p v-show="errors.has('classDesc')"
             class="text-danger">{{errors.first('classDesc')
             | errorTextFormat}}</p>
         </div>
 
-        <div class="form-group">
-          <textarea class="form-control" id="classDescEn"
-            name="classDescEn" v-model="formData.classDescEn"
-            placeholder="演講摘要 英文(480字內)" rows="3"
-            @input="updateTextLength($event, 'classDescEn')"
-            v-validate="'max:480'"></textarea>
+        <div class="form-group form-group--length">
+          <label>演講摘要 英文 ( 若無提供，將由我們工作人員協助翻譯 )</label>
           <span class="text-length" :class="{'text-danger': errors.has('classDescEn')}">{{classDescEn.currentLength}}
             / {{classDescEn.minLength}}</span>
+          <textarea class="form-control" id="classDescEn"
+            name="classDescEn" v-model="formData.classDescEn"
+            placeholder="演講摘要 英文" rows="3" @input="updateTextLength($event, 'classDescEn')"
+            v-validate="'max:480'"></textarea>
           <p v-show="errors.has('classDescEn')"
             class="text-danger">{{errors.first('classDescEn')
             | errorTextFormat}}</p>
@@ -163,6 +174,7 @@
               :value="item.value">
             <label class="form-check-label" :for="item.value">{{item.value}}</label>
           </div>
+          <div class="form-group-check__text">若無適用的標籤，請告知我們工作人員。</div>
         </div>
 
         <!-- 難易度-單選 -->
@@ -216,9 +228,10 @@
       <div class="otherinfo">
         <h2 class="classinfo__title">行政資訊</h2>
 
-        <!-- T-shirt尺寸 - 單選 -->
+        <!-- T-shirt 尺寸 - 單選 -->
         <div class="form-group-radio mt-4 form-group-radio--inline">
-          <p class="form-group-radio__title">T-shirt尺寸</p>
+          <p class="form-group-radio__title">T-shirt
+            尺寸</p>
           <div class="form-check" v-for="size in clothSize"
             :key="size.id">
             <input class="form-check-input" type="radio"
@@ -230,7 +243,7 @@
 
         <!-- 是否需要停車磁扣 - 單選 -->
         <div class="form-group-radio mt-4 form-group-radio--inline">
-          <p class="form-group-radio__title">您是否需要ICCK停車磁釦？</p>
+          <p class="form-group-radio__title">您是否需有停車需求？</p>
           <div class="form-check">
             <input class="form-check-input" type="radio"
               id="parkingCardTrue" v-model="formData.parkingCard"
@@ -416,6 +429,10 @@ export default {
         {
           id: 13,
           value: "Data Science"
+        },
+        {
+          id: 14,
+          value: "Agile"
         }
       ],
       levels: [
@@ -446,11 +463,11 @@ export default {
         },
         {
           id: 2,
-          value: "以 CC BY-SA 3.0 姓名標示-相同方式授權。"
+          value: "以 CC BY-SA 3.0 姓名標示 - 相同方式授權。"
         },
         {
           id: 3,
-          value: "以 CC BY-NC 3.0 姓名標示-非商業性方式授權。"
+          value: "以 CC BY-NC 3.0 姓名標示 - 非商業性方式授權。"
         },
         {
           id: 4,
@@ -507,7 +524,7 @@ export default {
     this.licenseSelectInit();
     this.clothSizeSelectInit();
     this.mealTypeSelectInit();
-    this.verifyTextFormat()
+    this.verifyTextFormat();
   },
   methods: {
     handleTagsClick(tag) {
@@ -532,7 +549,8 @@ export default {
     // 替換驗證文字 换一张 => 換一張
     verifyTextFormat() {
       if (this.$refs.verify) {
-        this.$refs.verify.$el.querySelector('.verify-change-code').innerText = '換一張'
+        this.$refs.verify.$el.querySelector(".verify-change-code").innerText =
+          "換一張";
       }
     },
     verifySuccess() {

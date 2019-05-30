@@ -36,6 +36,10 @@ form {
     margin-bottom: 0;
     font-size: 18px;
   }
+  &__text {
+    width: 100%;
+    margin-top: 5px;
+  }
   .form-check {
     min-width: calc(25% - 20px);
     margin: 5px 20px 0 0;
@@ -74,12 +78,11 @@ form {
 }
 
 .avatar {
-  display: flex;
-  justify-content: space-between;
   &__img {
     position: relative;
-    width: 100px;
-    height: 120px;
+    width: 150px;
+    height: 200px;
+    margin-top: 20px;
     background-size: cover;
     background-position: center;
     &:before {
@@ -95,14 +98,38 @@ form {
   }
 }
 
-.text-length {
-  display: block;
-  margin-top: 5px;
-  color: #999;
-  text-align: right;
-  font-size: 14px;
+.form-group--length {
+  position: relative;
+  .text-length {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #999;
+    font-size: 14px;
+  }
 }
 
-.text-length + .text-danger {
-  text-align: right;
+.form-group--inline-icon {
+  position: relative;
+  i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+  }
+  input {
+    padding-left: 46px;
+  }
+}
+
+// rwd 786px 斷點
+@media (max-width: 768px) {
+  form h1 {
+    font-size: 30px;
+  }
+  .form-check.form-check-inline {
+    min-width: calc(50% - 20px);
+  }
 }

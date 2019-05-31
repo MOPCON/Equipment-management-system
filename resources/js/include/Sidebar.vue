@@ -1,5 +1,5 @@
 <template>
-    <sidebar-menu id="sidebar" :menu="menu" width="200px" collapsed="true" @collapse="changeSidebarExtend" />
+    <sidebar-menu id="sidebar" :menu="menu" width="200px" :collapsed="true" @collapse="changeSidebarExtend" />
 </template>
 
 <script>
@@ -93,6 +93,10 @@
                                 icon: 'fas fa-exchange-alt'
                             }
                         ]
+                    }, {
+                      title: 'System log',
+                      icon: 'far fa-clock',
+                      href: '/logs'
                     }
                 ]
             };

@@ -304,34 +304,31 @@
 
       </div>
       <!-- 行政資訊 End -->
-
       <div class="form-group">
-        <div class="col-sm-12 pl-0 pr-0">
-          <Verify ref="verify" @success="verifySuccess"
-            class="verify" :class="{error: verifyStatus === 'error'}"
-            @error="verifyError" :type="1"></Verify>
-        </div>
+        <vue-recaptcha :sitekey="reCaptchaKey" @verify="verifyRecaptchaSuccess"></vue-recaptcha>
       </div>
 
       <div class="form-group">
         <div class="col-sm-12 pl-0 pr-0">
-          <button type="submit" class="btn btn-primary btn-block">送出</button>
+          <button type="submit" :disabled="!reCaptchaStatus" class="btn btn-primary btn-block">送出</button>
         </div>
       </div>
     </form>
   </div>
 </template>
 
- <script>
-import Verify from "vue2-verify";
+<script>
+ import VueRecaptcha from 'vue-recaptcha';
+
 export default {
   name: "app-form",
   components: {
-    Verify
+    VueRecaptcha
   },
   data() {
     return {
-      verifyStatus: null,
+      reCaptchaStatus: false,
+      reCaptchaKey: '6LfGbKYUAAAAAMDM_ULu4wuvylMQupaqDW93sZkT',
       formData: {
         username: "",
         usernameEn: "",
@@ -524,9 +521,14 @@ export default {
     this.licenseSelectInit();
     this.clothSizeSelectInit();
     this.mealTypeSelectInit();
-    this.verifyTextFormat();
   },
+
   methods: {
+    verifyRecaptchaSuccess(e) {
+      if (e) {
+        this.reCaptchaStatus = true
+      }
+    },
     handleTagsClick(tag) {
       // 檢查是否已經在 tags 內, 有就刪除, 否則 push
       const tags = [...this.formData.tags];
@@ -546,34 +548,18 @@ export default {
         this.formData.mealPeople = el.target.value;
       }
     },
-    // 替換驗證文字 换一张 => 換一張
-    verifyTextFormat() {
-      if (this.$refs.verify) {
-        this.$refs.verify.$el.querySelector(".verify-change-code").innerText =
-          "換一張";
-      }
-    },
-    verifySuccess() {
-      this.verifyStatus = "success";
-    },
-    verifyError() {
-      this.verifyStatus = "error";
-    },
     handleSubmit() {
       this.$validator.validateAll().then(res => {
+
         if (res && this.avatarSizevalidate) {
-          this.$refs.verify.checkCode();
-          if (this.verifyStatus !== "success") {
-            console.log("驗證碼未通過");
-            return;
-          } else {
-            console.log("通過,發送 api");
-            const form = new FormData();
-            form.append("userFile", this.file);
-            form.append("userData", this.formData);
-            console.log("form.userFile", form.get("userFile"));
-            console.log("this.formData", this.formData);
-          }
+          if (!this.reCaptchaStatus) return
+          const form = new FormData();
+          form.append("userFile", this.file);
+          form.append("userData", this.formData);
+          // todo ... api post
+          console.log("通過,發送 api");
+          console.log("form.userFile", form.get("userFile"));
+          console.log("this.formData", this.formData);
         } else {
           console.log("欄位未填寫正確");
         }
@@ -636,23 +622,3 @@ export default {
 </script>
 
 <style lang="scss" src="./style.scss" scoped></style>
-<style lang="scss">
-.verify {
-  input {
-    outline: none;
-    padding: 3px 6px;
-    height: 32px;
-  }
-  .cerify-code-panel + div {
-    display: none;
-  }
-}
-.verify.error {
-  .varify-input-code {
-    border: solid 1px red;
-  }
-  .verify-change-code {
-    color: red;
-  }
-}
-</style>

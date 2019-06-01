@@ -10,6 +10,16 @@ use App\Http\Requests\TelegramMessageRequest;
 class TelegramMessageController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * TelegramMessageController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+        $this->checkPermission('TelegramMessage:Write', 'sendNow');
+    }
 
     /**
      * Display a listing of the resource.

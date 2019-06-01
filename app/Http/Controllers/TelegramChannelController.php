@@ -8,6 +8,15 @@ use App\Http\Requests\TelegramChannelRequest;
 class TelegramChannelController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * TelegramChannelController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * Display a listing of the resource.

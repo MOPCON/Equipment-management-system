@@ -9,6 +9,16 @@ use App\Http\Requests\UserRequest;
 class UserController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+        $this->checkPermission('User:Write', 'changePassword');
+    }
 
     /**
      * @param Request $request

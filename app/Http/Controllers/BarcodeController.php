@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 class BarcodeController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * BarcodeController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermission('Barcode:Read', 'getBarcode');
+    }
 
     public function getBarcode(Request $request)
     {

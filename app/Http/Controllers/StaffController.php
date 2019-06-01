@@ -10,6 +10,15 @@ use App\Http\Requests\StaffRequest;
 class StaffController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * StaffController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * @param $request

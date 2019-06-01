@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class ImportExportController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
 
     private $allowImportField = [
         'staff'     => ['name', 'email', 'phone', 'group_id', 'duties', 'role_name'],
@@ -23,6 +24,15 @@ class ImportExportController extends Controller
         'staff'     => ['name', 'email', 'phone', 'group_name', 'role_name', 'duties', 'barcode'],
         'equipment' => ['name', 'source', 'memo', 'amount', 'hasBarcode', 'prefix'],
     ];
+
+    /**
+     * ImportExportController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermission('ImportExport:Read', 'export');
+        $this->checkPermission('ImportExport:Write', 'import');
+    }
 
     /**
      * @param $model

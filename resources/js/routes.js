@@ -15,6 +15,7 @@ import setting_imexport from './pages/setting/import_export.vue';
 import loan from "./pages/loan/loan";
 import action from "./pages/loan/action";
 import logs from "./pages/logs";
+import formSpeaker from "./pages/form/Speaker";
 
 Vue.use(VueRouter);
 
@@ -66,6 +67,9 @@ const router = new VueRouter({
         }, {
             path: '/logs',
             component: logs,
+        }, {
+            path: '/form/speaker',
+            component: formSpeaker,
         }, {
             path: '/*',
             redirect: '/'

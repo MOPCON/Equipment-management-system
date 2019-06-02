@@ -106,6 +106,23 @@ chmod 777 -R storage bootstrap/cache
 yarn run prod
 ```
 
+### Deploy with Envoy
+
+詳細使用方式可以參考 Laravel 官網[說明](https://laravel.com/docs/5.8/envoy)
+
+#### 設定
+
+請先至 `.env` 進行環境參數設定
+
+```
+Slack_HOOK_URL // 支援 slack 通知，可以在 deploy 完成傳送 slack web hook
+SLACK_CHANNEL // 設定通知的 slack channel
+SERVER_NAME // 設定要 deploy 的 server 格式可以是 xxx@xxx.xxx.com or xxx.xxx.com
+```
+
+- Deploy production: envoy run production-cms --branch=master
+- Deploy testing:  envoy run testing-cms --branch=develop
+
 ### Note:
 * 記得設定排程。
 * 記得執行 Queue 的處理指令。

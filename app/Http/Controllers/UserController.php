@@ -61,11 +61,12 @@ class UserController extends Controller
 
     /**
      * @param UserRequest $request
-     * @param User        $user
+     * @param             $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, $id)
     {
+        $user = User::findOrFail($id);
         $user->update([
             'name'  => $request->name,
             'email' => $request->email,

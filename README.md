@@ -65,6 +65,11 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 
+可用以下指令建立操作類別(無建立假資料)
+```
+php artisan db:seed --class=SystemLogTypeTableSeeder
+```
+
 7. 編譯前端資源與執行內建的開發用伺服器
 ```
 yarn run watch

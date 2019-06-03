@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -55,6 +56,29 @@ class Handler extends ExceptionHandler
             ], 404);
         }
 
+        if ($exception instanceof UnauthorizedException) {
+            return $this->unauthorized($request, $exception);
+        }
+
         return parent::render($request, $exception);
+    }
+
+    /**
+     * 沒有權限時的處理方式
+     * @param           $request
+     * @param Exception $exception
+     * @return \Illuminate\Http\Response
+     */
+    private function unauthorized($request, Exception $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Forbidden',
+                'data'    => [],
+            ], 403);
+        }
+
+        abort(403);
     }
 }

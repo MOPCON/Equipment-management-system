@@ -16,6 +16,7 @@ import loan from "./pages/loan/loan";
 import action from "./pages/loan/action";
 import logs from "./pages/logs";
 import formSpeaker from "./pages/form/Speaker";
+import page_403 from "./pages/error/403";
 
 Vue.use(VueRouter);
 
@@ -70,6 +71,9 @@ const router = new VueRouter({
         }, {
             path: '/form/speaker',
             component: formSpeaker,
+        }, {
+            path: '/403',
+            component: page_403,
         }, {
             path: '/*',
             redirect: '/'

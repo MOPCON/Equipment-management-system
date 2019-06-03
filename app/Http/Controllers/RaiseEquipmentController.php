@@ -9,6 +9,16 @@ use App\Http\Requests\RaiseEquipmentRequest;
 class RaiseEquipmentController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * RaiseEquipmentController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+        $this->checkPermission('RaiseEquipment:Write', 'changeStatus');
+    }
 
     /**
      * Display a listing of the resource.

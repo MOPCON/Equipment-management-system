@@ -14,6 +14,16 @@ use App\Http\Requests\LoanReturnRequest;
 class LoanController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * LoanController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+        $this->checkPermission('Loan:Write', 'returnLoan');
+    }
 
     /**
      * @param Request $request

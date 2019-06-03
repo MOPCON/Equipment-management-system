@@ -241,17 +241,13 @@
           'use strict';
           window.addEventListener('load', function () {
             const vm = this;
-            console.log(process.env)
-            console.log(vm.reCaptchaKey)
             var forms = document.getElementsByClassName('needs-validation');
             var validation = Array.prototype.filter.call(forms, function (form) {
               form.addEventListener('submit', function (event) {
                 if (form.checkValidity() === false) {
                   event.preventDefault();
                   event.stopPropagation();
-                  console.log(form.checkValidity())
                 } else {
-                  console.log('驗證成功可送出表單');
                 }
                 form.classList.add('was-validated');
               }, false);
@@ -261,9 +257,9 @@
       },
       countdown(num, type) {
         const vm = this;
-        if (type == 'intro') {
+        if (type === 'intro') {
           vm.introTextConunt = num - vm.introText.length;
-        } else if (type == 'dinnerPartyIntro') {
+        } else if (type === 'dinnerPartyIntro') {
           vm.dinnerPartyIntroTextConunt = num - vm.dinnerPartyIntroText.length;
         }
       },

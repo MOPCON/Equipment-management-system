@@ -9,7 +9,7 @@ import raise from "./pages/equipments/raise";
 import telegram_message from './pages/telegram_bot/index';
 import telegram_channel from './pages/telegram_bot/channel';
 import student_verify from './pages/verify/student_verify';
-import setting_user from './pages/setting/user';
+import user from './pages/users/user';
 import setting_print from './pages/setting/tool.print';
 import setting_imexport from './pages/setting/import_export.vue';
 import loan from "./pages/loan/loan";
@@ -50,7 +50,7 @@ const router = new VueRouter({
             component: action,
         }, {
             path: '/user',
-            component: setting_user,
+            component: user,
         }, {
             path: '/tool/print',
             component: setting_print,

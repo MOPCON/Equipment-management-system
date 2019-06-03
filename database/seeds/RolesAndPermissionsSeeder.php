@@ -41,6 +41,8 @@ class RolesAndPermissionsSeeder extends Seeder
             ['name' => 'Barcode:Read', 'description' => '檢視所有 Barcode'],
             ['name' => 'ImportExport:Read', 'description' => '匯出資料'],
             ['name' => 'ImportExport:Write', 'description' => '匯入資料'],
+            ['name' => 'Role:Read', 'description' => '檢視角色'],
+            ['name' => 'Role:Write', 'description' => '管理角色'],
         ];
 
         foreach ($permissions as $permission) {

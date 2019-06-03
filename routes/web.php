@@ -35,6 +35,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('equipment', 'EquipmentController');
     Route::apiResource('group', 'GroupController');
     Route::apiResource('loan', 'LoanController');
+    Route::apiResource('permission', 'PermissionController');
+    Route::apiResource('role', 'RoleController');
     Route::apiResource('telegram-channel', 'TelegramChannelController');
     Route::apiResource('telegram-message', 'TelegramMessageController');
     Route::post('telegram-message/send-now/{telegramMessage}', 'TelegramMessageController@sendNow');

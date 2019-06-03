@@ -42,6 +42,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = User::create($request->all());
+        $user->syncRoles($request->input('roles'));
 
         return $this->returnSuccess('Store Success.', $user);
     }
@@ -67,6 +68,7 @@ class UserController extends Controller
             'email' => $request->email,
             'telegram_id' => $request->telegram_id,
         ]);
+        $user->syncRoles($request->input('roles'));
 
         return $this->returnSuccess('Show Success.', $user);
     }

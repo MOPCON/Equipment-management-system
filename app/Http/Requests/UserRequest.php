@@ -38,6 +38,7 @@ class UserRequest extends BaseRequest
                 'email'                 => 'required|email|unique:users,email',
                 'password_confirmation' => 'required',
                 'password'              => 'required|string|min:8|confirmed',
+                'roles'                 => 'required|array',
             ];
         } else {
             $id = $path[2];
@@ -45,6 +46,7 @@ class UserRequest extends BaseRequest
             return [
                 'name'  => 'required|string',
                 'email' => 'required|email|unique:users,email,' . $id,
+                'roles' => 'required|array',
             ];
         }
     }

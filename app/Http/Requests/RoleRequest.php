@@ -26,13 +26,13 @@ class RoleRequest extends BaseRequest
 
             return [
                 'name'        => 'required|string|unique:roles,name,' . $id,
-                'permissions' => 'required|array',
+                'permissions' => 'present|array',
             ];
         }
 
         return [
             'name'        => 'required|string|unique:roles',
-            'permissions' => 'required|array',
+            'permissions' => 'present|array',
         ];
     }
 

@@ -29,7 +29,8 @@ class UserController extends Controller
         $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('order_method', 'desc');
         $limit = $request->input('limit', 15);
-        $user = User::orderBy($order_field, $order_method)
+        $user = User::with('roles')
+            ->orderBy($order_field, $order_method)
             ->paginate($limit);
 
         return $this->returnSuccess('Success.', $user);
@@ -48,11 +49,13 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::with('roles')->findOrFail($id);
+
         return $this->returnSuccess('Show Success.', $user);
     }
 

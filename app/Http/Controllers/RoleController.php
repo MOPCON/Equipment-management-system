@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RoleRequest;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -62,11 +61,12 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param RoleRequest $request
-     * @param Role        $role
+     * @param             $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(RoleRequest $request, Role $role)
+    public function update(RoleRequest $request, $id)
     {
+        $role = Role::findOrFail($id);
         $role->update($request->only('name'));
         $role->syncPermissions($request->input('permissions'));
 
@@ -76,12 +76,12 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Role $role
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
+        $role = Role::findOrFail($id);
         $role->delete();
 
         return $this->returnSuccess('Success', $role);

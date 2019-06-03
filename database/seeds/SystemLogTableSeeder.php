@@ -13,13 +13,6 @@ class SystemLogTableSeeder extends Seeder
      */
     public function run()
     {
-        SystemLogType::create([
-            'name' => '類別一'
-        ]);
-        SystemLogType::create([
-            'name' => '類別二'
-        ]);
-
         $devices = ['iphone', 'android', 'desktop'];
         $browsers = ['ie', 'chrome', 'safari'];
 
@@ -27,7 +20,7 @@ class SystemLogTableSeeder extends Seeder
             $faker = Faker\Factory::create('zh_TW');
             SystemLog::create([
                 'user_id' => rand(1, 6),
-                'type_id' => rand(1, 2),
+                'type_id' => rand(1, 3),
                 'content' => $faker->sentence(),
                 'ip' => $faker->ipv4,
                 'device' => $devices[rand(0, 2)],

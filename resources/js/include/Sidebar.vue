@@ -83,6 +83,10 @@
                                 href: '/user',
                                 title: '使用者管理',
                                 icon: 'fas fa-user-secret'
+                            }, {
+                                href: '/user/role',
+                                title: '角色管理',
+                                icon: 'fas fa-id-badge'
                             }
                         ]
                     }, {

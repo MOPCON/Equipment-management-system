@@ -306,6 +306,9 @@
             this.getAllMessageInterval = setInterval(function () {
                 self.getAllMessage();
             }, 1000 * 10);
+        },
+        destroyed() {
+            clearInterval(this.getAllMessageInterval);
         }
     }
 </script>

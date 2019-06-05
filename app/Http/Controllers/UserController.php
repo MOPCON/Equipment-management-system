@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\SystemLogType;
+use App\Services\SystemLogService;
 
 class UserController extends Controller
 {
     use ApiTrait;
     use CheckPermissionTrait;
+
+    private $SystemLog;
+    private $SystemLogTypeId;
 
     /**
      * UserController constructor.
@@ -18,6 +23,8 @@ class UserController extends Controller
     {
         $this->checkPermissionApiResource();
         $this->checkPermission('User:Write', 'changePassword');
+        $this->SystemLog = new SystemLogService();
+        $this->SystemLogTypeId = SystemLogType::where('name', '使用者管理')->first()->id;
     }
 
     /**
@@ -44,6 +51,9 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
         $user->syncRoles($request->input('roles'));
+
+        $content = '新增 -> ' . $user->name . '(id:' . $user->id . ')';
+        $this->SystemLog->write($content, $this->SystemLogTypeId);
 
         return $this->returnSuccess('Store Success.', $user);
     }
@@ -74,6 +84,9 @@ class UserController extends Controller
         ]);
         $user->syncRoles($request->input('roles'));
 
+        $content = '編輯 -> ' . $user->name . '(id:' . $user->id . ')';
+        $this->SystemLog->write($content, $this->SystemLogTypeId);
+
         return $this->returnSuccess('Show Success.', $user);
     }
 
@@ -84,6 +97,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
+        $content = '刪除使用者 -> ' . $user->name . '(id:' . $user->id . ')';
+        $this->SystemLog->write($content, $this->SystemLogTypeId);
 
         return $this->returnSuccess('Destroy Success.', $user);
     }
@@ -97,6 +113,9 @@ class UserController extends Controller
     {
         $user->password = bcrypt($request->password);
         $user->save();
+
+        $content = '修改密碼 -> ' . $user->name . '(id:' . $user->id . ')';
+        $this->SystemLog->write($content, $this->SystemLogTypeId);
 
         return $this->returnSuccess('Change password Success.', $user);
     }

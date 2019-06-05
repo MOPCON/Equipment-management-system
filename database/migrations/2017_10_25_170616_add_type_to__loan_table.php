@@ -13,7 +13,7 @@ class AddTypeToLoanTable extends Migration
     public function up()
     {
         Schema::table('loans', function ($table) {
-            $table->unsignedInteger('type')->comment = '類型(0:Equipment,1:RaiseEquipment)';
+            $table->unsignedInteger('type')->default(0)->comment = '類型(0:Equipment,1:RaiseEquipment)';
         });
     }
 

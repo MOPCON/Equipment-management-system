@@ -76,14 +76,24 @@
                         icon: 'fas fa-id-card',
                         href: '/student-verify'
                     }, {
+                        title: '使用者管理',
+                        icon: 'fas fa-users-cog',
+                        child: [
+                            {
+                                href: '/user',
+                                title: '使用者管理',
+                                icon: 'fas fa-user-secret'
+                            }, {
+                                href: '/user/role',
+                                title: '角色管理',
+                                icon: 'fas fa-id-badge'
+                            }
+                        ]
+                    }, {
                         title: '設定',
                         icon: 'fas fa-cogs',
                         child: [
                             {
-                                href: '/user',
-                                title: '帳號管理',
-                                icon: 'fas fa-user-secret'
-                            }, {
                                 href: '/tool/print',
                                 title: '條碼列印',
                                 icon: 'fas fa-barcode'

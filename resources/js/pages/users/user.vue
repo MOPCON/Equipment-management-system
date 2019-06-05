@@ -52,6 +52,11 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.email }}</td>
                         <td>{{ item.telegram_id }}</td>
+                        <td>
+                            <div v-for="role in item.roles">
+                                {{ role.name }}
+                            </div>
+                        </td>
                         <td>{{ item.created_at }}</td>
                         <td>{{ item.updated_at }}</td>
                         <td>
@@ -125,6 +130,13 @@
                         <input type="password" v-model="add_user.password_confirmation" name="password confirmation"
                                class="form-control" placeholder="Password Confirmation" required>
                     </div>
+                    <div class="form-group">
+                        <strong>角色</strong><br>
+                        <div class="form-check form-check-inline" v-for="(item, index) in roleList">
+                            <input class="form-check-input" type="checkbox" :id="'role-' + index" :value="item.name" v-model="add_user.roles">
+                            <label class="form-check-label" :for="'role-' + index">{{ item.name }}</label>
+                        </div>
+                    </div>
                 </form>
             </template>
             <template v-slot:footer>
@@ -188,6 +200,7 @@
                 add_user: [],
                 change_password: [],
                 action: 'new',
+                roleList: []
             }
         },
         computed: {},
@@ -207,6 +220,9 @@
                     name: 'Telegram ID',
                     key: 'telegram_id'
                 }, {
+                    name: 'Role',
+                    key: ''
+                }, {
                     name: 'Created_At',
                     key: 'created_at'
                 }, {
@@ -224,7 +240,8 @@
                     name: '',
                     email: '',
                     password: '',
-                    password_confirmation: ''
+                    password_confirmation: '',
+                    roles: []
                 };
             },
             initPassword() {
@@ -252,6 +269,16 @@
                     self.page_info.total = res.total;
                     self.page_info.list_from = res.from;
                     self.page_info.list_to = res.to;
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            getAllRole() {
+                const self = this;
+                axios.get(
+                    '/api/role'
+                ).then(response => {
+                    self.roleList = response.data.data;
                 }).catch(error => {
                     console.log(error);
                 });
@@ -284,7 +311,8 @@
                     email: self.add_user.email,
                     telegram_id: self.add_user.telegram_id,
                     password: self.add_user.password,
-                    password_confirmation: self.add_user.password_confirmation
+                    password_confirmation: self.add_user.password_confirmation,
+                    roles: self.add_user.roles
                 };
                 axios.post(
                     '/api/user', data
@@ -303,6 +331,7 @@
                     name: self.add_user.name,
                     email: self.add_user.email,
                     telegram_id: self.add_user.telegram_id,
+                    roles: self.add_user.roles,
                     _method: 'PUT'
                 };
                 axios.post(
@@ -323,13 +352,19 @@
                     '/api/user/' + id
                 ).then(response => {
                     const res = response.data.data;
-                    self.form.action = 'edit'
+                    self.form.action = 'edit';
+                    let roles = res.roles;
+                    let role = [];
+                    roles.forEach( function (item) {
+                        role.push(item.name);
+                    });
                     self.add_user = {
                         id: res.id,
                         name: res.name,
                         email: res.email,
                         telegram_id: res.telegram_id,
-                    }
+                        roles: role
+                    };
                     $('#addUser').modal('show');
                 }).catch(error => {
                     console.log(error);
@@ -395,6 +430,7 @@
             self.initUser();
             self.initPassword();
             self.getAllUser();
+            self.getAllRole();
         },
         watch: {}
     }

@@ -33,7 +33,7 @@ axios.interceptors.response.use(
     response => response,
     (error) => {
         if (error.response.status === 403) {
-            router.push('403')
+            router.push('/403');
         }
     }
 );

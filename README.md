@@ -4,6 +4,7 @@
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/s9801077/Equipment-management-system)
 ![Version develop](https://img.shields.io/badge/license-MIT-green.svg)
 ![Styleci status](https://github.styleci.io/repos/89154332/shield)
+![Travis-ci](https://travis-ci.org/MOPCON/Equipment-management-system.svg?branch=develop)
 
 ## Table of Contents
 - [Requirement](#requirement)

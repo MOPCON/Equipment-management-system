@@ -413,7 +413,7 @@ export default {
         },
         {
           id: 10,
-          value: "FinTech / Quant"
+          value: "Quant"
         },
         {
           id: 11,

@@ -7,8 +7,10 @@
           <div class="input-group-addon" style="background-color: #eee">
             <i class="glyphicon glyphicon-bookmark"></i>
           </div>
-          <select class="form-control" name="table_status" v-model="selectedType" @change="handleSendSearch">
-            <option v-for="item in types" :key="item.key" :value="item.key">{{ item.value }}</option>
+          <select class="form-control" name="table_status"
+            v-model="selectedType" @change="handleSendSearch">
+            <option v-for="item in types" :key="item.id"
+              :value="item.id">{{ item.name }}</option>
           </select>
         </div>
       </div>
@@ -28,17 +30,17 @@
             <thead>
               <tr role="row">
                 <th v-for="row in logHead" class="sortfield"
-                  :key="row.key" tabindex="0">
+                  :class="row.key" :key="row.key" tabindex="0">
                   {{ row.value }}
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="item in logContentsBySearch" :key="item.id">
-                <td>{{ item.createdAt | timeFormat}}</td>
-                <td>{{ item.user }}</td>
-                <td>{{ item.type.value }}</td>
-                <td>{{ item.desc }}</td>
+                <td>{{ item.updated_at }}</td>
+                <td>{{ item.user.name }}</td>
+                <td>{{ item.type.name }}</td>
+                <td>{{ item.content }}</td>
                 <td>{{ item.device }}</td>
                 <td>{{ item.ip }}</td>
                 <td>{{ item.browser }}</td>
@@ -49,16 +51,12 @@
       </div>
       <div class="row">
         <div class="col-12 col-sm-5">
-          <div class="dataTables_info" id="group_info"
-            role="status" aria-live="polite">
-            Showing {{ pageInfo.list_from }} to
-            {{ pageInfo.list_to
-            }} of {{ pageInfo.total }} entries
+          <div class="dataTables_info" id="group_info" role="status" aria-live="polite">
+            Showing {{ pageInfo.list_from }} to {{ pageInfo.list_to }} of {{ pageInfo.total }} entries
           </div>
         </div>
         <div class="col-12 col-sm-7">
-          <Pagination :pageInfo="pageInfo"
-            @onChangePage="onChangePage" />
+          <Pagination :pageInfo="pageInfo" @onChangePage="onChangePage" />
         </div>
       </div>
     </div>
@@ -69,7 +67,7 @@
 import axios from "axios";
 import logContentsData from "../../../json/logs.json";
 export default {
-  name: 'logs',
+  name: "logs",
   data() {
     return {
       logHead: [
@@ -102,40 +100,14 @@ export default {
           key: "browser"
         }
       ],
-      logContents: [
-        // {
-        //   id: 0,
-        //   createdAt: "1558759864244",
-        //   user: "Mars",
-        //   type: {
-        //     key: "edit",
-        //     value: "編輯"
-        //   },
-        //   desc: "器材管理",
-        //   device: "Mac OS",
-        //   ip: "127.0.0.0.1",
-        //   browser: "chrome 74.0.1"
-        // }
-      ],
+      logContents: [],
       types: [
         {
-          key: "all",
-          value: "All"
-        },
-        {
-          key: "edit",
-          value: "編輯"
-        },
-        {
-          key: "created",
-          value: "新增"
-        },
-        {
-          key: "delete",
-          value: "刪除"
+          id: 0,
+          name: "All"
         }
       ],
-      selectedType: "all",
+      selectedType: 0,
       keyword: "",
       keywordFilter: "",
       pageInfo: {
@@ -154,8 +126,8 @@ export default {
     logContentsBySearch() {
       let tempData = this.logContents;
       // 過濾 type
-      if (this.selectedType !== "all") {
-        tempData = tempData.filter(item => item.type.key === this.selectedType);
+      if (this.selectedType !== 0) {
+        tempData = tempData.filter(item => item.type_id === this.selectedType);
       }
       // 過濾 keyword (user、desc)
       const filterByUser = this.fuzzyQuery(
@@ -194,8 +166,14 @@ export default {
       const reg = new RegExp(keyword, "gi");
       var arr = [];
       for (var i = 0; i < data.length; i++) {
-        if (reg.test(data[i][queryType])) {
-          arr.push(data[i]);
+        if (queryType === "user") {
+          if (reg.test(data[i][queryType]["name"])) {
+            arr.push(data[i]);
+          }
+        } else if (queryType === "desc") {
+          if (reg.test(data[i]["content"])) {
+            arr.push(data[i]);
+          }
         }
       }
       return arr;
@@ -203,50 +181,63 @@ export default {
     onChangePage(page) {
       this.pageInfo.current_page = page;
       this.handleSendSearch();
-      console.log("change", page);
+      this.loadSystemLog(page);
     },
     handleSendSearch() {
       const searchData = {
         keyword: this.keyword,
         type: this.selectedType
       };
-      // 後端 todo ...
-      // 發送 api ...
-      // let self = this;
-      // const apiUrl = "/api/logs?search";
-      // axios
-      //   .get(
-      //     apiUrl +
-      //       this.keywordFilter +
-      //       "&limit=" +
-      //       self.pageInfo.limit +
-      //       "&page=" +
-      //       self.pageInfo.current_page
-      //   )
-      //   .then(response => {
-      //     let self = this;
-      //     let res = response.data.data;
-      //     self.list = res.data;
-      //     self.pageInfo.current_page = res.current_page;
-      //     self.pageInfo.last_page = res.last_page;
-      //     self.pageInfo.total = res.total;
-      //     self.pageInfo.list_from = res.from;
-      //     self.pageInfo.list_to = res.to;
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
     },
-    // 本地假資料
-    logContentsInit() {
-      this.logContents = logContentsData.logContents;
+    loadSystemLogType() {
+      axios
+        .get("api/system-log-type")
+        .then(({ data, status }) => {
+          if (status === 200) {
+            if (this.types.length === 1) {
+              this.types = this.types.concat(data.data);
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    loadSystemLog(page) {
+      const pageId = page ? page : 1;
+      axios
+        .get(`api/system-log?page=${pageId}`)
+        .then(({ data, status }) => {
+          if (status === 200) {
+            this.logContents = data.data.data;
+            this.pageInfo.current_page = data.data.current_page;
+            this.pageInfo.last_page = data.data.last_page;
+            this.pageInfo.total = data.data.total;
+            this.pageInfo.list_to = data.data.to;
+            this.pageInfo.list_from = data.data.from;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
-  created() {
-    this.logContentsInit();
-  },
   mounted() {
+    this.loadSystemLogType();
+    this.loadSystemLog(1);
     this.handleSendSearch();
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.sortfield.type {
+  min-width: 120px;
+}
+
+@media (max-width: 1024px) {
+  .sortfield.type {
+    min-width: 80px;
+  }
+}
+</style>

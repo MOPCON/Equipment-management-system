@@ -41,6 +41,7 @@ class Speaker extends Model
         'M',
         'L',
         'XL',
+        '2XL',
     ];
     public static $mealPreferenceItem = [
         '葷',
@@ -97,7 +98,9 @@ class Speaker extends Model
     {
         $tmp_collection = collect($this->tag);
         $new_collection = $tmp_collection->map(function ($item) {
-            return $this->tagItem[$item];
+            return $this->tagItem[$item] ?? '';
+        })->reject(function ($item) {
+            return empty($item);
         });
 
         return $new_collection->all();
@@ -105,21 +108,21 @@ class Speaker extends Model
 
     public function getLevelTextAttribute()
     {
-        return $this->levelItem[$this->level];
+        return $this->levelItem[$this->level] ?? '';
     }
 
     public function getLicenseTextAttribute()
     {
-        return $this->licenseItem[$this->license];
+        return $this->licenseItem[$this->license] ?? '';
     }
 
     public function getTshirtTextAttribute()
     {
-        return $this->tshirtSizeItem[$this->tshirt_size];
+        return $this->tshirtSizeItem[$this->tshirt_size] ?? '';
     }
 
     public function getMealPreferenceTextAttribute()
     {
-        return $this->mealPreferenceItem[$this->meal_preference];
+        return $this->mealPreferenceItem[$this->meal_preference] ?? '';
     }
 }

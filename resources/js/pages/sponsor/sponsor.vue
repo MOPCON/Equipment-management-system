@@ -140,14 +140,16 @@
                             <tr v-for="(item, key, index) in sponsorDetailData.open_data">
                                 <th v-if="index == 0" rowspan="13" scope="row" width="120px">公開宣傳資料</th>
                                 <td width="150px">{{ columnTranslate('open_data', key) }}</td>
-                                <td v-if="columnContainLink(key)"><a :href="item">檔案下載</a></td>
+                                <td v-if="columnContainLink(key)"><a :href="item">{{ item }}</a></td>
+                                <td v-else-if="columnContainFile(key)"><a :href="item" download>檔案下載</a></td>
                                 <td v-else>{{ item }}</td>
                             </tr>
 
                             <tr v-for="(item, key, index) in sponsorDetailData.recipe_data">
                                 <th v-if="index == 0" rowspan="8" scope="row" width="120px">開立收據資料</th>
                                 <td width="150px">{{ columnTranslate('recipe_data', key) }}</td>
-                                <td v-if="columnContainLink(key)"><a :href="item">檔案下載</a></td>
+                                <td v-if="columnContainLink(key)"><a :href="item">{{ item }}</a></td>
+                                <td v-if="columnContainLink(key)"><a :href="item" download>檔案下載</a></td>
                                 <td v-else>{{ item }}</td>
                             </tr>
 
@@ -171,7 +173,7 @@
                             <tr v-if="sponsorDetailData.sponsor_type.type == 'Bruce Wayne'">
                                 <th scope="row" width="180px">Bruce Wayne 以上</th>
                                 <td>Keynote 引言</td>
-                                <td>{{ sponsorDetailData.sponsor_type.content }}</td>
+                                <td>{{ sponsorDetailData.sponsor_type.introduction }}</td>
                             </tr>
                             <tr v-if="sponsorDetailData.sponsor_type.type == 'Tony Stark'">
                                 <th scope="row" width="180px">{{ sponsorDetailData.sponsor_type.type }}</th>
@@ -245,8 +247,8 @@
                             </div>
                         </div>
                     </div>
-                    <p class="mb-0">更新日期：{{ sponsorDetailData.update_staff }}</p>
-                    <p class="mb-0">最後更新者 {{ sponsorDetailData.update_time }}</p>
+                    <p class="mb-0">更新日期：{{ sponsorDetailData.update_time }}</p>
+                    <p class="mb-0">最後更新者：{{ sponsorDetailData.update_staff }}</p>
                 </div>
             </template>
             <template v-slot:footer>
@@ -309,8 +311,8 @@
         methods:
         {
             initCol() {
-                const self = this;
-                self.col = [{
+                const vm = this;
+                vm.col = [{
                     name: '選取',
                     key: 'choose'
                 }, {
@@ -399,6 +401,9 @@
                 vm.selectAll = !select;
             },
             columnContainLink(key) {
+                return key.includes('_url');
+            },
+            columnContainFile(key) {
                 return key.includes('_link');
             },
             columnTranslate(type, key) {

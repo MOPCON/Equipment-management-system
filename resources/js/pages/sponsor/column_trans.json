@@ -1,34 +1,34 @@
 [
-	{
-		"open_data": {
-			"company_name": "公司名稱",
-			"company_name_en": "公司英文名稱",
-			"company_intro": "公司簡介 (專業背景與沿革)",
-			"company_intro_en": "公司英文簡介",
-			"company_url": "公司網站",
-			"social_media_url": "社群媒體 (如 FB 等)",
-			"main_intro": "產品及服務介紹 (主要商品、服務、核心能力、技術)",
-			"logo_link": "公司LOGO ( ai 向量圖檔佳)",
-			"serve_img_link": "產品或服務照片",
-			"hope_intro": "希望MOPCON宣傳的內容，我們將於FB等社群分享",
-			"ppt_link": "場間投影片 (建議1920x1080px圖檔)",
-			"eSignboard_link": "電子看板 (建議1920x1080px圖檔)",
-			"dinner_intro": "晚宴簡介 (於晚宴中將由主持人介紹貴公司)"
-		},
-		"recipe_data": {
-			"company_fullName": "公司/組織全銜",
-			"company_number": "統一編號",
-			"sponsor_price": "贊助金額",
-			"contact_name": "聯絡人姓名",
-			"contact_position": "聯絡人職稱",
-			"contact_phone": "聯絡人電話",
-			"contact_email": "聯絡人Email",
-			"contact_address": "收件地址"
-		},
-		"others": {
-			"why_sponsor": "為什麼本次選擇贊助 MOPCON？",
-			"want_to_do": "希望能在本次大會達成的目標",
-			"remarks": "贊助商備註"
-		}
-	}
+    {
+        "open_data": {
+            "company_name": "公司名稱",
+            "company_name_en": "公司英文名稱",
+            "company_intro": "公司簡介 (專業背景與沿革)",
+            "company_intro_en": "公司英文簡介",
+            "company_url": "公司網站",
+            "social_media_url": "社群媒體 (如 FB 等)",
+            "main_intro": "產品及服務介紹 (主要商品、服務、核心能力、技術)",
+            "logo_link": "公司LOGO ( ai 向量圖檔佳)",
+            "product_img_link": "產品或服務照片",
+            "hope_intro": "希望MOPCON宣傳的內容，我們將於FB等社群分享",
+            "ppt_link": "場間投影片 (建議1920x1080px圖檔)",
+            "eSignboard_link": "電子看板 (建議1920x1080px圖檔)",
+            "dinner_intro": "晚宴簡介 (於晚宴中將由主持人介紹貴公司)"
+        },
+        "recipe_data": {
+            "company_fullName": "公司/組織全銜",
+            "company_number": "統一編號",
+            "sponsor_price": "贊助金額",
+            "contact_name": "聯絡人姓名",
+            "contact_position": "聯絡人職稱",
+            "contact_phone": "聯絡人電話",
+            "contact_email": "聯絡人Email",
+            "contact_address": "收件地址"
+        },
+        "others": {
+            "why_sponsor": "為什麼本次選擇贊助 MOPCON？",
+            "want_to_do": "希望能在本次大會達成的目標",
+            "remarks": "贊助商備註"
+        }
+    }
 ]

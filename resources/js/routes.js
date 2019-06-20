@@ -19,6 +19,7 @@ import logs from "./pages/logs";
 import formSpeaker from "./pages/form/Speaker";
 import page_403 from "./pages/error/403";
 import sponsor_upload from "./pages/sponsor/sponsor_upload";
+import sponsor from "./pages/sponsor/sponsor";
 
 Vue.use(VueRouter);
 
@@ -83,6 +84,10 @@ const router = new VueRouter({
         {
             path: '/sponsor/upload',
             component: sponsor_upload,
+        },
+        {
+            path: '/sponsor/sponsor',
+            component: sponsor,
         },
         {
             path: '/*',

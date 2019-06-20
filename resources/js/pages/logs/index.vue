@@ -22,6 +22,11 @@
         </div>
       </div>
     </div>
+    <div class="row" v-if="error">
+      <div class="col">
+        <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+      </div>
+    </div>
     <div id="staff_wrapper" class="dataTables_wrapper dt-bootstrap">
       <div class="row">
         <div class="col-10 col-sm-12 col-md-12 col-lg-12 table-responsive">
@@ -117,12 +122,12 @@ export default {
         total: 1,
         list_from: 1,
         list_to: 25
-      }
+      },
+      error: false,
+      errorMsg: '',
     };
   },
   computed: {
-    // client search
-    // 後端 todo ...
     logContentsBySearch() {
       let tempData = this.logContents;
       // 過濾 type
@@ -191,6 +196,8 @@ export default {
       this.loadSystemLog(searchData)
     },
     loadSystemLogType() {
+      this.errorInit();
+
       axios
         .get("api/system-log-type")
         .then(({ data, status }) => {
@@ -201,10 +208,12 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
+          this.error = true;
+          this.errorMsg = error.message;
         });
     },
     loadSystemLog(params) {
+      this.errorInit();
       const url = 'api/system-log';
 
       axios
@@ -220,8 +229,13 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
+          this.error = true;
+          this.errorMsg = error.message
         });
+    },
+    errorInit() {
+      this.error = false;
+      this.errorMsg = '';
     }
   },
   mounted() {

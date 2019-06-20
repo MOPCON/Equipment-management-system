@@ -181,13 +181,14 @@ export default {
     onChangePage(page) {
       this.pageInfo.current_page = page;
       this.handleSendSearch();
-      this.loadSystemLog(page);
+      this.loadSystemLog({page: page});
     },
     handleSendSearch() {
       const searchData = {
         keyword: this.keyword,
         type: this.selectedType
       };
+      this.loadSystemLog(searchData)
     },
     loadSystemLogType() {
       axios
@@ -203,10 +204,11 @@ export default {
           console.log(error);
         });
     },
-    loadSystemLog(page) {
-      const pageId = page ? page : 1;
+    loadSystemLog(params) {
+      const url = 'api/system-log';
+
       axios
-        .get(`api/system-log?page=${pageId}`)
+        .get(url, { params: params })
         .then(({ data, status }) => {
           if (status === 200) {
             this.logContents = data.data.data;
@@ -224,8 +226,7 @@ export default {
   },
   mounted() {
     this.loadSystemLogType();
-    this.loadSystemLog(1);
-    this.handleSendSearch();
+    this.loadSystemLog({page: 1});
   }
 };
 </script>

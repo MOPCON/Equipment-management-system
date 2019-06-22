@@ -8,18 +8,20 @@
             <i class="glyphicon glyphicon-bookmark"></i>
           </div>
           <select class="form-control" name="table_status"
-            v-model="selectedType" @change="handleSendSearch">
+            v-model="selectedType">
             <option v-for="item in types" :key="item.id"
               :value="item.id">{{ item.name }}</option>
           </select>
         </div>
       </div>
-      <div class="col-12 col-sm-3 col-md-3 col-lg-3">
-        <div class="input-group input-group-sm">
-          <input type="search" class="form-control"
-            placeholder="Search" aria-controls="staff"
-            v-model.trim="keyword" @keyup.enter="handleSendSearch">
-        </div>
+      <div class="col-12 col-sm-9 col-md-9 col-lg-9">
+        <form class="form-inline" @submit.prevent="loadSystemLog">
+          <div class="form-group input-group-sm">
+            <input type="search" class="form-control" placeholder="使用者" aria-controls="staff" v-model.trim="username">
+            <input type="search" class="form-control ml-2" placeholder="內容" aria-controls="staff" v-model.trim="content">
+          </div>
+          <button type="submit" class="btn btn-primary btn-s ml-2">搜尋</button>
+        </form>
       </div>
     </div>
     <div class="row" v-if="error">
@@ -113,15 +115,15 @@ export default {
         }
       ],
       selectedType: 0,
-      keyword: "",
-      keywordFilter: "",
+      username: "",
+      content: "",
       pageInfo: {
         current_page: 1,
-        limit: 25,
+        limit: '15',
         last_page: 1,
         total: 1,
         list_from: 1,
-        list_to: 25
+        list_to: 15
       },
       error: false,
       errorMsg: '',
@@ -134,22 +136,8 @@ export default {
       if (this.selectedType !== 0) {
         tempData = tempData.filter(item => item.type_id === this.selectedType);
       }
-      // 過濾 keyword (user、desc)
-      const filterByUser = this.fuzzyQuery(
-        tempData,
-        "user",
-        this.keywordFilter
-      );
-      const filterByContent = this.fuzzyQuery(
-        tempData,
-        "desc",
-        this.keywordFilter
-      );
-      // 將 filter 完的 user、desc 資料合併，最後使用 Set 剔除重複內容
-      let finalData = filterByUser.concat(filterByContent);
-      finalData = [...new Set(finalData)];
-      if (finalData) tempData = finalData;
-      this.pageInfo.total = finalData.length;
+
+      this.pageInfo.total = tempData.length;
       this.pageInfo.last_page = Math.ceil(
         this.pageInfo.total / this.pageInfo.limit
       );
@@ -159,41 +147,10 @@ export default {
       });
     }
   },
-  watch: {
-    // 監聽 search 輸入框
-    keyword(val) {
-      this.keywordFilter = val;
-    }
-  },
   methods: {
-    // 模糊搜尋
-    fuzzyQuery(data, queryType, keyword) {
-      const reg = new RegExp(keyword, "gi");
-      var arr = [];
-      for (var i = 0; i < data.length; i++) {
-        if (queryType === "user") {
-          if (reg.test(data[i][queryType]["name"])) {
-            arr.push(data[i]);
-          }
-        } else if (queryType === "desc") {
-          if (reg.test(data[i]["content"])) {
-            arr.push(data[i]);
-          }
-        }
-      }
-      return arr;
-    },
     onChangePage(page) {
       this.pageInfo.current_page = page;
-      this.handleSendSearch();
-      this.loadSystemLog({page: page});
-    },
-    handleSendSearch() {
-      const searchData = {
-        keyword: this.keyword,
-        type: this.selectedType
-      };
-      this.loadSystemLog(searchData)
+      this.loadSystemLog();
     },
     loadSystemLogType() {
       this.errorInit();
@@ -212,20 +169,30 @@ export default {
           this.errorMsg = error.message;
         });
     },
-    loadSystemLog(params) {
+    loadSystemLog() {
       this.errorInit();
+
+      const searchData = {
+        search: {
+          username: this.username,
+          content: this.content
+        },
+        page: this.pageInfo.current_page
+      };
       const url = 'api/system-log';
 
       axios
-        .get(url, { params: params })
+        .get(url, { params: searchData })
         .then(({ data, status }) => {
           if (status === 200) {
             this.logContents = data.data.data;
             this.pageInfo.current_page = data.data.current_page;
             this.pageInfo.last_page = data.data.last_page;
             this.pageInfo.total = data.data.total;
-            this.pageInfo.list_to = data.data.to;
             this.pageInfo.list_from = data.data.from;
+            this.pageInfo.list_to = data.data.to;
+
+            this.searchInit();
           }
         })
         .catch(error => {
@@ -236,11 +203,16 @@ export default {
     errorInit() {
       this.error = false;
       this.errorMsg = '';
+    },
+    searchInit() {
+      this.username = '';
+      this.content = '';
+      this.selectedType = 0;
     }
   },
   mounted() {
     this.loadSystemLogType();
-    this.loadSystemLog({page: 1});
+    this.loadSystemLog();
   }
 };
 </script>
@@ -248,6 +220,10 @@ export default {
 <style lang="scss" scoped>
 .sortfield.type {
   min-width: 120px;
+}
+
+.btn-s {
+  padding: 3px 20px;
 }
 
 @media (max-width: 1024px) {

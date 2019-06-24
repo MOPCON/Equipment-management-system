@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class Speaker extends Model
 {
+    public static $photoPath = '/images/speaker';
     public static $tagItem = [
         'AI',
         'AR/VR',
@@ -48,32 +49,25 @@ class Speaker extends Model
         '全素',
         '奶蛋素',
     ];
+    public static $speakerStatusItem = [
+        '待確認',
+        '確認中',
+        '已確認',
+        '下架',
+    ];
+    public static $speakerTypeItem = [
+        '贊助商',
+        'CFP',
+        'CFR',
+        '內推',
+        '其他',
+    ];
+
     protected $table = 'speakers';
-    protected $fillable = [
-        'name',
-        'name_e',
-        'company',
-        'job_title',
-        'bio',
-        'bio_e',
+    protected $guarded = [
+        'id',
         'photo',
-        'link_fb',
-        'link_github',
-        'link_twitter',
-        'link_other',
-        'topic',
-        'topic_e',
-        'summary',
-        'summary_e',
-        'tag',
-        'level',
-        'license',
-        'promotion',
-        'tshirt_size',
-        'need_parking_space',
-        'has_dinner',
-        'meal_preference',
-        'has_companion',
+        'access_key',
         'access_secret',
     ];
     protected $appends = [
@@ -81,7 +75,9 @@ class Speaker extends Model
         'level_text',
         'license_text',
         'tshirt_size_text',
-        'meal_preference_text'
+        'meal_preference_text',
+        'speaker_status_text',
+        'speaker_type_text',
     ];
     protected $casts = ['tag' => 'array'];
 
@@ -94,11 +90,11 @@ class Speaker extends Model
         });
     }
 
-    public function getTaxTextAttribute()
+    public function getTagTextAttribute()
     {
         $tmp_collection = collect($this->tag);
         $new_collection = $tmp_collection->map(function ($item) {
-            return $this->tagItem[$item] ?? '';
+            return self::$tagItem[$item] ?? '';
         })->reject(function ($item) {
             return empty($item);
         });
@@ -108,21 +104,31 @@ class Speaker extends Model
 
     public function getLevelTextAttribute()
     {
-        return $this->levelItem[$this->level] ?? '';
+        return self::$levelItem[$this->level] ?? '';
     }
 
     public function getLicenseTextAttribute()
     {
-        return $this->licenseItem[$this->license] ?? '';
+        return self::$licenseItem[$this->license] ?? '';
     }
 
-    public function getTshirtTextAttribute()
+    public function getTshirtSizeTextAttribute()
     {
-        return $this->tshirtSizeItem[$this->tshirt_size] ?? '';
+        return self::$tshirtSizeItem[$this->tshirt_size] ?? '';
     }
 
     public function getMealPreferenceTextAttribute()
     {
-        return $this->mealPreferenceItem[$this->meal_preference] ?? '';
+        return self::$mealPreferenceItem[$this->meal_preference] ?? '';
+    }
+
+    public function getSpeakerStatusTextAttribute()
+    {
+        return self::$speakerStatusItem[$this->speaker_status] ?? '';
+    }
+
+    public function getSpeakerTypeTextAttribute()
+    {
+        return self::$speakerTypeItem[$this->speaker_type] ?? '';
     }
 }

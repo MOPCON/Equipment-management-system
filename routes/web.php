@@ -23,6 +23,7 @@ Route::get('/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
 Route::post('/login', 'AuthController@postLogin');
 Route::get('/logout', 'AuthController@logout');
 Route::post('/telegram/web/hook/' . env('BOT_WEB_HOOK_HASH'), 'TelegramHookController@handle');
+Route::get('/speaker/get-options', 'SpeakerController@getOptions');
 Route::get('/speaker/{accessKey}', 'SpeakerController@externalShow');
 Route::post('/speaker/{accessKey}', 'SpeakerController@externalUpdate');
 

@@ -96,6 +96,24 @@ class SpeakerController extends Controller
     }
 
     /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getOptions()
+    {
+        $options = [
+            'tagItem' => Speaker::$tagItem,
+            'levelItem' => Speaker::$levelItem,
+            'licenseItem' => Speaker::$licenseItem,
+            'tshirtSizeItem' => Speaker::$tshirtSizeItem,
+            'mealPreferenceItem' => Speaker::$mealPreferenceItem,
+            'speakerStatusItem' => Speaker::$speakerStatusItem,
+            'speakerTypeItem' => Speaker::$speakerTypeItem,
+        ];
+
+        return $this->returnSuccess('Success.', $options);
+    }
+
+    /**
      * @param $accessKey
      * @return \Illuminate\Http\JsonResponse
      */

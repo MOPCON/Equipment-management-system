@@ -33,7 +33,7 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'has_dinner' => rand(0, 1),
         'meal_preference' => rand(0, count(Speaker::$mealPreferenceItem) - 1),
         'has_companion' => rand(0, 10),
-        'speaker_status' => rand(0, count(Speaker::$speakerStatusItem) -1),
+        'speaker_status' => rand(0, count(Speaker::$speakerStatusItem) - 1),
         'speaker_type' => rand(0, count(Speaker::$speakerTypeItem) - 1),
     ];
 });

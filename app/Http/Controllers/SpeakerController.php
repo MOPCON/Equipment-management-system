@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Speaker;
 use App\Http\Requests\SpeakerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class SpeakerController extends Controller
 {
@@ -161,17 +159,5 @@ class SpeakerController extends Controller
         $speaker->save();
 
         return $speaker;
-    }
-
-    public function savePhotoTest(Request $request, $accessKey)
-    {
-        // print_r($request->file('file'));
-        // die();
-        $speaker = Speaker::where('access_key', '=', $accessKey)->first();
-        if ($speaker) {
-            $speaker = $this->savePhoto($request->file('file'), $speaker);
-        }
-
-        return $this->returnSuccess('Update success.', $speaker);
     }
 }

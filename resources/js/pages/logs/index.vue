@@ -162,9 +162,10 @@ export default {
             }
           }
         })
-        .catch(error => {
+        .catch(({ response }) => {
+          console.log("error", response);
           this.error = true;
-          this.errorMsg = error.message;
+          this.errorMsg = response.data.message;
         });
     },
     loadSystemLog() {
@@ -177,10 +178,9 @@ export default {
         },
         page: this.pageInfo.current_page
       };
-      const url = 'api/system-log';
 
       axios
-        .get(url, { params: searchData })
+        .get("api/system-log", { params: searchData })
         .then(({ data, status }) => {
           if (status === 200) {
             this.logContents = data.data.data;
@@ -193,9 +193,10 @@ export default {
             this.searchInit();
           }
         })
-        .catch(error => {
+        .catch(({ response }) => {
+          console.log("error", response);
           this.error = true;
-          this.errorMsg = error.message
+          this.errorMsg = response.data.message;
         });
     },
     errorInit() {

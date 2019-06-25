@@ -117,14 +117,14 @@ export default {
       content: "",
       pageInfo: {
         current_page: 1,
-        limit: '15',
+        limit: "15",
         last_page: 1,
         total: 1,
         list_from: 1,
         list_to: 15
       },
       error: false,
-      errorMsg: '',
+      errorMsg: ""
     };
   },
   computed: {
@@ -201,11 +201,11 @@ export default {
     },
     errorInit() {
       this.error = false;
-      this.errorMsg = '';
+      this.errorMsg = "";
     },
     searchInit() {
-      this.username = '';
-      this.content = '';
+      this.username = "";
+      this.content = "";
       this.selectedType = 0;
     }
   },

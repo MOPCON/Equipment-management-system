@@ -34,6 +34,8 @@ axios.interceptors.response.use(
     (error) => {
         if (error.response.status === 403) {
             router.push('/403');
+        } else {
+          return Promise.reject(error);
         }
     }
 );

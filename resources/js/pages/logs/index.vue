@@ -71,8 +71,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import logContentsData from "../../../json/logs.json";
 export default {
   name: "logs",
   data() {

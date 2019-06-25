@@ -29,14 +29,16 @@ files.keys().forEach(key => {
 });
 
 // Add global 403 error Handler
-// axios.interceptors.response.use(
-//     response => response,
-//     (error) => {
-//         if (error.response.status === 403) {
-//             router.push('/403');
-//         }
-//     }
-// );
+axios.interceptors.response.use(
+    response => response,
+    (error) => {
+        if (error.response.status === 403) {
+            router.push('/403');
+        } else {
+          return Promise.reject(error);
+        }
+    }
+);
 
 const vue = new Vue({
     el: '#app',

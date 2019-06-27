@@ -62,7 +62,6 @@ class Speaker extends Model
         '內推',
         '其他',
     ];
-
     protected $table = 'speakers';
     protected $guarded = [
         'id',

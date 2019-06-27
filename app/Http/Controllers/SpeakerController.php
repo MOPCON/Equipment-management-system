@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Speaker;
-use App\Http\Requests\SpeakerRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\SpeakerRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 class SpeakerController extends Controller
 {
     use ApiTrait;
-    use CheckPermissionTrait;
+    // use CheckPermissionTrait;
 
     /**
      * @param $request
@@ -54,11 +54,12 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @param Speaker $speaker
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Speaker $speaker)
+    public function show($id)
     {
+        $speaker = Speaker::findOrFail($id);
         return $this->returnSuccess('Show success.', $speaker);
     }
 
@@ -66,12 +67,13 @@ class SpeakerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  SpeakerRequest  $request
-     * @param  Speaker  $speaker
+     * @param             $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(SpeakerRequest $request, Speaker $speaker)
+    public function update(SpeakerRequest $request, $id)
     {
-        $data = $request->except('file', 'last_edited_by');
+        $speaker = Speaker::findOrFail($id);
+        $data = $request->except(['file', 'last_edited_by']);
         $data['last_edited_by'] = auth()->user()->name;
         $speaker->update($data);
 
@@ -117,7 +119,7 @@ class SpeakerController extends Controller
      */
     public function externalShow($accessKey)
     {
-        $speaker = Speaker::where('access_key', '=', $accessKey)->first();
+        $speaker = Speaker::where('access_key', '=', $accessKey)->first()->setHidden(['id', 'speaker_status', 'speaker_type', 'speaker_status_text', 'speaker_type_text', 'last_edited_by', 'access_secret']);
         return $this->returnSuccess('Success.', $speaker);
     }
 
@@ -130,7 +132,11 @@ class SpeakerController extends Controller
     {
         $speaker = Speaker::where('access_key', '=', $accessKey)->first();
         if ($speaker) {
-            $data = $request->except('file', 'speaker_status', 'speaker_type', 'last_edited_by');
+            if ($speaker->access_secret !== $request->input('password')) {
+                return $this->return400Response();
+            }
+
+            $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password']);
             $data['last_edited_by'] = $speaker->name;
             $speaker->update($data);
 

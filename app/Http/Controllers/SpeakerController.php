@@ -96,6 +96,15 @@ class SpeakerController extends Controller
     }
 
     /**
+     * @param $accessKey
+     * @return temp string
+     */
+    public function exportTSV(Request $request)
+    {
+        return "will export tsv for ids: {$request->get('ids')}";
+    }
+
+    /**
      * @return \Illuminate\Http\JsonResponse
      */
     public function getOptions()
@@ -114,12 +123,27 @@ class SpeakerController extends Controller
     }
 
     /**
+     * @param $request
+     * @return \Illuminate\Support\Facades\View
+     */
+    public function externalForm($accessKey)
+    {
+        $speaker = Speaker::where('access_key', '=', $accessKey)->first()->setHidden(['id', 'speaker_status', 'speaker_type', 'speaker_status_text', 'speaker_type_text', 'last_edited_by', 'access_secret']);
+        $data = [
+            'speaker' => $speaker->toArray(),
+        ];
+
+        return view('form.speaker', $data);
+    }
+
+    /**
      * @param $accessKey
      * @return \Illuminate\Http\JsonResponse
      */
     public function externalShow($accessKey)
     {
         $speaker = Speaker::where('access_key', '=', $accessKey)->first()->setHidden(['id', 'speaker_status', 'speaker_type', 'speaker_status_text', 'speaker_type_text', 'last_edited_by', 'access_secret']);
+
         return $this->returnSuccess('Success.', $speaker);
     }
 

@@ -16,7 +16,7 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <form method="POST" action="/speaker/{{$speaker['access_key']}}" enctype="multipart/form-data">
-            <div><label>密碼</label><br /><input type="password" name="password" value="wuhVW71Yf3RRKGd2spuz"></div>
+            <div><label>密碼</label><br /><input type="password" name="password" value=""></div>
             <div><label>上傳</label><br /><input type="file" name="file"></div>
         @php
             foreach($speaker as $key => $value){

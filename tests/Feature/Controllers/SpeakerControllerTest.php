@@ -106,4 +106,15 @@ class SpeakerControllerTest extends TestCase
             ]
         ]);
     }
+
+    public function testExportSpeakers()
+    {
+        $speakers = factory(Speaker::class, 5)->create();
+        $ids = $speakers->map(function ($item) {
+            return $item->id;
+        });
+        $response = $this->get('/api/speaker/export?ids=' . implode(',', $ids->all()));
+
+        $response->assertSuccessful();
+    }
 }

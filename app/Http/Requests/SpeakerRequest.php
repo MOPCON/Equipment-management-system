@@ -31,7 +31,7 @@ class SpeakerRequest extends BaseRequest
             'job_title' => 'nullable|string|max:100',
             'bio' => 'nullable|string|max:120',
             'bio_e' => 'nullable|string|max:240',
-            'file' => 'nullable|image',
+            'file' => 'nullable|dimensions:min_width=500,min_height=500',
             'link_fb' => 'nullable|url',
             'link_github' => 'nullable|url',
             'link_twitter' => 'nullable|url',

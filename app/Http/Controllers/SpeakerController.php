@@ -146,10 +146,10 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @param Speaker $speaker
-     * @return String
+     * @param Speaker $speakers
+     * @return string
      */
-    public function transformToTSV($speakers)
+    private function transformToTSV(Speaker $speakers)
     {
         $fieldNames = implode("\t", array_values(SpeakerController::$FieldsForTSV)) . "\r\n";
 
@@ -183,8 +183,8 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @param $accessKey
-     * @return temp string
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function exportTSV(Request $request)
     {

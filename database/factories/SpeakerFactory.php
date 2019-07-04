@@ -12,10 +12,12 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'name' => $zhFaker->name,
         'name_e' => $faker->name,
         'company' => $zhFaker->company,
+        'company_e' => $faker->company,
         'job_title' => $zhFaker->jobTitle,
+        'job_title_e' => $faker->jobTitle,
         'bio' => $zhFaker->text(120),
         'bio_e' => $faker->text(240),
-        'photo' => 'https://picsum.photos/200',
+        'photo' => 'https://picsum.photos/500',
         'link_fb' => $faker->url,
         'link_github' => $faker->url,
         'link_twitter' => $faker->url,
@@ -35,5 +37,6 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'has_companion' => rand(0, 10),
         'speaker_status' => rand(0, count(Speaker::$speakerStatusItem) - 1),
         'speaker_type' => rand(0, count(Speaker::$speakerTypeItem) - 1),
+        'note' => $zhFaker->text(),
     ];
 });

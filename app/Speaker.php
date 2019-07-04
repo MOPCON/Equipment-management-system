@@ -84,6 +84,7 @@ class Speaker extends Model
     {
         parent::boot();
         self::creating(function ($model) {
+            $model->speaker_status = 0;
             $model->access_key = Str::uuid();
             $model->access_secret = Str::random(20);
         });

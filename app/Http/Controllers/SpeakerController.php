@@ -7,6 +7,7 @@ use App\Http\Requests\SpeakerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class SpeakerController extends Controller
 {
@@ -146,10 +147,10 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @param Speaker $speakers
+     * @param Collection $speakers
      * @return string
      */
-    private function transformToTSV(Speaker $speakers)
+    private function transformToTSV(Collection $speakers)
     {
         $fieldNames = implode("\t", array_values(SpeakerController::$FieldsForTSV)) . "\r\n";
 

@@ -21,5 +21,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/telegram/web/hook/*',
         '/speaker/*',
+        '/sponsor/*',
     ];
 }

@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="col-md-2">
-        <button type="button" class="btn btn-sm btn-primary btn-block">
+        <button type="button" class="btn btn-sm btn-primary btn-block" @click="exportData()">
           <font-awesome-icon icon="file-export" />&nbsp;匯出
         </button>
       </div>
@@ -45,10 +45,11 @@
                 <td v-else>{{ item.bio }}</td>
                 <td>{{ item.topic }}</td>
                 <td>{{ item.updated_at }}</td>
-                <td>{{ item.speaker_status_text = '待確認' }}</td>
+                <td v-if="item.speaker_status_text !== ''">{{ item.speaker_status_text }}</td>
+                <td v-else>待確認</td>
                 <td>{{ item.speaker_type_text }}</td>
                 <td>
-                  <button type="button" class="btn btn-primary" @click.prevent="openspeakerDetail(item.id)">
+                  <button type="button" class="btn btn-sm btn-primary" @click.prevent="openspeakerDetail(item.id)">
                     詳細
                   </button>
                 </td>
@@ -70,8 +71,8 @@
     </div>
     <Modal target="speakerModal" size="lg">
       <template v-slot:title>
-        <h4 v-if="action == 'new'" class="modal-title">建立講者</h4>
-        <h4 v-if="action == 'detail'" class="modal-title">講者詳細資料</h4>
+        <h4 v-if="action === 'new'" class="modal-title">建立講者</h4>
+        <h4 v-if="action === 'detail'" class="modal-title">講者詳細資料</h4>
       </template>
       <template v-slot:header>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="resetStep()">
@@ -79,8 +80,8 @@
         </button>
       </template>
       <template v-slot:body>
-        <form v-if="action == 'new'" name="addspeaker">
-          <div v-if="step == 1">
+        <form v-if="action === 'new'" name="addspeaker">
+          <div v-if="step === 1">
             <div class="form-group">
               <label for="speakerName">講師名稱*</label>
               <input type="text" class="form-control" id="speakerName" placeholder="講者名稱"
@@ -93,13 +94,13 @@
               </select>
             </div>
           </div>
-          <div v-if="step == 2">
+          <div v-if="step === 2">
             <h3 class="mb-3 text-center">講者專屬表單已建立</h3>
             <div class="form-group">
               <label for="speaker_form_url">連結</label>
               <div class="input-group">
                 <input type="text" class="form-control" id="speaker_created_form_url"
-                  :value="'http://cms.mopcon.org/' + createSpeakerData.access_key">
+                  :value="createSpeakerData.access_key">
                 <div class="input-group-append">
                   <button class="btn btn-outline-primary copy" type="button"
                     data-clipboard-target="#speaker_created_form_url">
@@ -123,51 +124,255 @@
             </div>
           </div>
         </form>
-        <div v-if="action == 'detail'" class="detail-content">
+        <div v-if="action === 'detail'" class="detail-content">
           <table class="table table-bordered">
             <thead>
-              <tr>
-                <th v-for="row in speakerDetailcol" class="sortfield" tabindex="0">
-                  {{ row.name }}
-                </th>
-              </tr>
+                <tr>
+                  <th tabindex="0" class="sortfield">分類</th>
+                  <th tabindex="0" width="170px" class="sortfield">欄位名稱</th>
+                  <th tabindex="0" class="sortfield">內容</th>
+                </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, key) in Object.entries(speakerDetailData).slice(0, 12)">
-                <th v-if="key == 0" :rowspan="Object.entries(speakerDetailData).slice(0, 12).length" scope="row"
-                  width="120px">個人資料</th>
-                <td width="150px">{{ item[0] }}</td>
-                <td v-if="columnContainLink(item[0])"><a :href="item[1]" target="_blank">{{ item[1] }}</a></td>
-                <td v-else-if="item[0] == 'photo'">
-                  <img :src="item[1]" alt="" srcset="" width="120px"><br>
-                  <a v-if="item[1]" download :href="item[1]" target="_blank">下載檔案</a>
-                </td>
-                <td v-else>{{ item[1] }}</td>
+              <tr>
+                <th rowspan="14" scope="row">個人資料</th>
+                <td>id</td>
+                <td>{{ speakerDetailData.id }}</td>
               </tr>
-
-              <tr v-for="(item, key) in Object.entries(speakerDetailData).slice(12, 20)">
-                <th v-if="key == 0" :rowspan="Object.entries(speakerDetailData).slice(12, 20).length" scope="row"
-                  width="120px">議程資料</th>
-                <td width="150px">{{ item[0] }}</td>
-                <td v-if="columnContainLink(item[0])"><a :href="item[1]" target="_blank">{{ item[1] }}</a></td>
-                <td v-else-if="item[0] == 'tag'">
-                  <span v-for="(tag, index) in item[1]">{{ tagsItem[tag] }}, </span>
+              <tr>
+                <td>姓名</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.name">
                 </td>
-                <td v-else-if="item[0] == 'level'">{{ levelItem[item[1]] }}</td>
-                <td v-else-if="item[0] == 'license'">{{ licenseItem[item[1]] }}</td>
-                <td v-else-if="item[0] == 'promotion'">{{ promotionItem[item[1]] }}</td>
-                <td v-else>{{ item[1] }}</td>
               </tr>
-
-              <tr v-for="(item, key) in Object.entries(speakerDetailData).slice(20, 25)">
-                <th v-if="key == 0" :rowspan="Object.entries(speakerDetailData).slice(20, 25).length" scope="row"
-                  width="120px">行政資訊</th>
-                <td width="150px">{{ item[0] }}</td>
-                <td v-if="item[0] == 'tshirt_size'">{{ tshirtSizeItem[item[1]] }}</td>
-                <td v-else-if="item[0] == 'meal_preference'">{{ mealPreferenceItem[item[1]] }}</td>
-                <td v-else-if="item[0] == 'has_dinner' || item[0] == 'need_parking_space'">{{ promotionItem[item[1]] }}
+              <tr>
+                <td>英文名稱</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.name_e">
                 </td>
-                <td v-else>{{ item[1] }}</td>
+              </tr>
+              <tr>
+                <td>公司/組織</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.company ">
+                </td>
+              </tr>
+              <tr>
+                <td>英文公司/組織 (若無則同上)</td>
+                <td v-if="speakerDetailData.company_e !== null" class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.company_e">
+                </td>
+                <td v-else class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" :placeholder="speakerDetailData.company" v-model="speakerDetailData.company_e">
+                </td>
+              </tr>
+              <tr>
+                <td>職稱</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.job_title">
+                </td>
+              </tr>
+              <tr>
+                <td>英文職稱 (若無則同上)</td>
+                <td v-if="speakerDetailData.job_title_e !== null" class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.job_title_e">
+                </td>
+                <td v-else class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" :placeholder="speakerDetailData.job_title" v-model="speakerDetailData.job_title_e">
+                </td>
+              </tr>
+              <tr>
+                <td>個人介紹</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio" maxlength="120">
+                      {{ speakerDetailData.bio }}
+                  </textarea>  
+                </td>
+              </tr>
+              <tr>
+                <td>個人介紹 (英文)</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio_e" maxlength="240">
+                    {{ speakerDetailData.bio_e }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>照片</td>
+                <td>
+                  <img :src="speakerDetailData.photo" alt="" srcset="" width="120px"><br>
+                    <a v-if="speakerDetailData.photo !== null" download :href="speakerDetailData.photo" target="_blank">下載檔案</a>
+                    <input type="file" name="file" class="form-control-file" id="personalPhoto" @change="valideFile($event)">
+                </td>
+              </tr>
+              <tr>
+                <td>Facebook</td>
+                <td class="p-0 v-align-middle">
+                  <div class="input-group">
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_fb" id="link_fb" @blur="checkUrl('link_fb')">
+                    <div class="input-group-append align-items-center" v-if="speakerDetailData.link_fb !== null">
+                        <a :href="speakerDetailData.link_fb" target="_blank" class="btn btn-primary rounded-0">link</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Github</td>
+                <td class="p-0 v-align-middle">
+                  <div class="input-group">
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_github" id="link_github" @blur="checkUrl('link_github')">
+                    <div class="input-group-append" v-if="speakerDetailData.link_github !== null">
+                        <a :href="speakerDetailData.link_github" target="_blank" class="btn btn-primary rounded-0">link</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Twitter</td>
+                <td class="p-0 v-align-middle">
+                  <div class="input-group">
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_twitter" id="link_twitter" @blur="checkUrl('link_twitter')">
+                    <div class="input-group-append" v-if="speakerDetailData.link_twitter !== null">
+                        <a :href="speakerDetailData.link_twitter" target="_blank" class="btn btn-primary rounded-0">link</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>其他(如 Website / Blog)</td>
+                <td class="p-0 v-align-middle">
+                  <div class="input-group">
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_other" id="link_other" @blur="checkUrl('link_other')">
+                    <div class="input-group-append" v-if="speakerDetailData.link_other !== null">
+                        <a :href="speakerDetailData.link_other" target="_blank" class="btn btn-primary rounded-0">link</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="8" scope="row" width="120px">議程資料</th>
+                <td>演講主題</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic" maxlength="32">
+                </td>
+              </tr>
+              <tr>
+                <td>演講主題 (英文)</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic_e" maxlength="64">
+                </td>
+              </tr>
+              <tr>
+                <td>演講摘要</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary" maxlength="240">
+                    {{ speakerDetailData.summary }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>演講摘要 (英文)</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary_e" maxlength="480">
+                    {{ speakerDetailData.summary_e }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>標籤</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in tagsItem" :key="name">
+                      <input class="form-check-input" type="checkbox" :id="'tag' + index" :value="index" v-if="speakerDetailData.tag !== null" v-model="speakerDetailData.tag">
+                    <input class="form-check-input" type="checkbox" :id="'tag' + index" :value="index" v-else v-model="tags">
+                    <label class="form-check-label" :for="'tag' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>難易度</td>
+                <td>
+                    <div class="form-check-inline" v-for="(name, index) in levelItem" :key="name">
+                      <input class="form-check-input" type="radio" :id="'level' + index" :value="index" v-model="speakerDetailData.level" >
+                      <label class="form-check-label" :for="'level' + index">
+                        {{ name }}
+                      </label>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td>授權方式</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in licenseItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'license' + index" :value="index" v-model="speakerDetailData.license" >
+                    <label class="form-check-label" :for="'license' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>是否同意公開宣傳？ (是/否)</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'open' + index" :value="index" v-model="speakerDetailData.promotion" >
+                    <label class="form-check-label" :for="'open' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th rowspan="5" scope="row">行政資訊</th>
+                <td>T-shirt 尺寸</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in tshirtSizeItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'size' + index" :value="index" v-model="speakerDetailData.tshirt_size" >
+                    <label class="form-check-label" :for="'size' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>您是否需有停車需求？</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'parking' + index" :value="index" v-model="speakerDetailData.need_parking_space" >
+                    <label class="form-check-label" :for="'parking' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>敬邀參加講者晚宴</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'dinner' + index" :value="index" v-model="speakerDetailData.has_dinner" >
+                    <label class="form-check-label" :for="'dinner' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-nowrap">葷素食偏好 (葷/全素/奶蛋素)</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in mealPreferenceItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'eatLike' + index" :value="index" v-model="speakerDetailData.meal_preference" >
+                    <label class="form-check-label" :for="'eatLike' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>晚宴攜伴人數</td>
+                <td class="p-0 v-align-middle">
+                  <input type="number" class="form-control border-0 rounded-0" v-model="speakerDetailData.has_companion">
+                </td>
               </tr>
             </tbody>
           </table>
@@ -178,7 +383,7 @@
               <div class="col-sm-10">
                 <div class="form-check form-check-inline" v-for="(item, index) in editStatusList" :key="item">
                   <input class="form-check-input" type="radio" name="editStatus" :id="item" :value="index"
-                    v-model="speakerDetailData.speaker_status = '0'">
+                    v-model="speakerDetailData.speaker_status">
                   <label class="form-check-label" :for="item">{{ item }}</label>
                 </div>
               </div>
@@ -186,7 +391,7 @@
           </fieldset>
           <fieldset class="form-group">
             <div class="row">
-              <legend class="col-form-label col-sm-2 pt-0">修改狀態</legend>
+              <legend class="col-form-label col-sm-2 pt-0">修改類型</legend>
               <div class="col-sm-10">
                 <div class="form-check form-check-inline" v-for="(item, index) in types" :key="item">
                   <input class="form-check-input" type="radio" name="speakerType" :id="item" :value="index"
@@ -198,14 +403,13 @@
           </fieldset>
           <div class="form-group">
             <label for="remark">備註</label>
-            <textarea class="form-control" id="remark" rows="3">{{ speakerDetailData.note }}</textarea>
+            <textarea class="form-control" id="remark" rows="3" v-model="speakerDetailData.note">{{ speakerDetailData.note }}</textarea>
           </div>
           <h5>資訊</h5>
           <div class="form-group">
             <label for="speaker_form_url">連結</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="speaker_form_url"
-                :value="'http://cms.mopcon.org/'+speakerDetailData.access_key">
+              <input type="text" class="form-control" id="speaker_form_url" :value="speakerDetailData.access_key">
               <div class="input-group-append">
                 <button class="btn btn-outline-primary copy" type="button" data-clipboard-target="#speaker_form_url">
                   <font-awesome-icon icon="copy" />
@@ -231,17 +435,17 @@
         </div>
       </template>
       <template v-slot:footer>
-        <div v-if="action == 'new'">
-          <div v-if="step == 1">
+        <div v-if="action === 'new'">
+          <div v-if="step === 1">
             <button type="button" class="btn btn-light" data-dismiss="modal" @click="resetStep()">取消</button>
-            <button type="button" class="btn btn-primary" @click="nextStep()">確認建立</button>
+            <button type="button" class="btn btn-primary" @click="postSpeakerUrlData()">確認建立</button>
           </div>
-          <div v-if="step == 2">
+          <div v-if="step === 2">
             <button type="button" class="btn btn-primary" data-dismiss="modal" @click="resetStep()">返回清單</button>
           </div>
         </div>
-        <div v-if="action == 'detail'">
-          <button type="button" class="btn btn-primary">更新</button>
+        <div v-if="action === 'detail'">
+          <button type="button" class="btn btn-primary" @click="updateSpeakerData(speakerDetailData.id)">更新</button>
           <button type="reset" class="btn btn-light" data-dismiss="modal">返回</button>
         </div>
       </template>
@@ -257,7 +461,6 @@
     data() {
       return {
         col: [],
-        speakerDetailcol: [],
         page_info: {},
         types: [],
         tagsItem: [],
@@ -267,11 +470,12 @@
         mealPreferenceItem: [],
         promotionItem: ['是', '否'],
         editStatusList: [],
-        step: '1',
+        step: 1,
         fullData: [],
         allSelected: false,
         checkboxSelectedList: [],
         speakerDetailData: {},
+        tags: [],
         createSpeakerData: {
           name: '',
           type: 0,
@@ -319,16 +523,6 @@
           key: 'detail'
         },
         ];
-        vm.speakerDetailcol = [{
-          name: '分類',
-          key: 'category'
-        }, {
-          name: '欄位名稱',
-          key: 'name'
-        }, {
-          name: '內容',
-          key: 'content'
-        }];
       },
       getSpeakerOption() {
         const vm = this;
@@ -369,13 +563,77 @@
         axios.post('api/speaker', {
           name: vm.createSpeakerData.name,
           speaker_type: vm.createSpeakerData.type
-        }
-        ).then(response => {
-          const res = response.data.data;
-          vm.createSpeakerData.access_key = res.access_key;
-          vm.createSpeakerData.access_secret = res.access_secret;
+        }).then(response => {
+          const res = response.data;
+          if (res.success) {
+            vm.step++;
+            vm.createSpeakerData.access_key = res.data.access_key;
+            vm.createSpeakerData.access_secret = res.data.access_secret;
+          }
         }).catch(error => {
-          console.log(error);
+          vm.resetStep();
+          $('#speakerModal').modal('hide');
+          helper.alert(error.response.data.message, 'danger');
+        });
+      },
+      valideFile(e) {
+        const file = e.target.files[0];
+        const img = new Image();
+        const _URL = window.URL || window.webkitURL;
+        img.onload = () => {
+            if (img.width < 500 || img.height < 500) {
+              alert("寬高需大於 500");
+              document.getElementById('personalPhoto').value = "";
+            }
+        };
+        img.src = _URL.createObjectURL(file);
+      },
+      checkUrl(key) {
+        if (!document.getElementById(key).checkValidity()) {
+          document.getElementById(key).value = ''
+          alert('請輸入 url')
+        }
+      },
+      updateSpeakerData(id) {
+        const vm = this;
+        let updateData = vm.speakerDetailData;
+        Object.keys(updateData).forEach((key) => {
+          if (key.includes('_text') || key.includes('access_') || key.includes('updated')) {
+            delete updateData[key];
+          }
+        })
+        var bodyFormData = new FormData(); 
+        let file = document.getElementById('personalPhoto').files[0];
+        if (file !== undefined) {
+          bodyFormData.set('file', file);
+        }
+        bodyFormData.set('_method', 'PUT')
+        Object.keys(updateData).forEach(key => {
+          if (updateData[key] !== null && updateData[key] !== '') {
+            bodyFormData.set(key, updateData[key]);
+          }
+        });
+        if (vm.speakerDetailData.tag !== null ) {
+          for (let i = 0; i < vm.speakerDetailData.tag.length; i++) {
+            bodyFormData.append('tag[]', vm.speakerDetailData.tag[i]);
+          }
+        } else {
+          for (let i = 0; i < vm.tags.length; i++) {
+            bodyFormData.append('tag[]', vm.tags[i]);
+          }
+        }
+        
+        axios.post(`api/speaker/${id}`, bodyFormData).then(response => {
+          const res = response.data;
+          $('#speakerModal').modal('hide');
+          if (res.success) {
+            helper.alert(res.message, 'success');
+          } else {
+            helper.alert(res.message, 'danger');
+          }
+        }).catch(error => {
+          $('#speakerModal').modal('hide');
+          helper.alert(error.response.data.message, 'danger');
         });
       },
       onChangePage(page) {
@@ -399,21 +657,24 @@
         vm.action = 'detail';
         vm.fullData.forEach((data) => {
           if (data.id === speaker_id) {
-            vm.speakerDetailData = data;
+            if (data.speaker_status !== null) {
+              vm.speakerDetailData = data
+            } else {
+              vm.speakerDetailData = {
+                ...data,
+                speaker_status: 0,
+              };
+            }
           }
         });
         $('#speakerModal').modal('show');
-      },
-      nextStep() {
-        const vm = this;
-        vm.step++;
-        vm.postSpeakerUrlData();
       },
       resetStep() {
         const vm = this;
         vm.createSpeakerData.name = '';
         vm.createSpeakerData.type = 0;
         vm.step = 1;
+        vm.getSpeakerData();
       },
       toggleSelect: function () {
         const vm = this;
@@ -428,6 +689,16 @@
       columnContainLink(key) {
         return key.includes('link_');
       },
+      exportData() {
+        const checkedId = document.querySelectorAll('.speaker-check');
+        let idArr = '';
+        checkedId.forEach((ele) => {
+          if(ele.checked) {
+            idArr += `${ele.id},`
+          }
+        })
+        window.location = `api/speaker/export?ids=${idArr}`;
+      },
     },
     mounted() {
       this.initCol();
@@ -437,3 +708,9 @@
     },
   };
 </script>
+
+<style scoped>
+  .v-align-middle {
+    vertical-align: middle !important;
+  }
+</style>

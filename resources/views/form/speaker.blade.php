@@ -17,7 +17,6 @@
         <![endif]-->
         <form method="POST" action="/speaker/{{$speaker['access_key']}}" enctype="multipart/form-data">
             <div><label>密碼</label><br /><input type="password" name="password" value=""></div>
-            <div><label>上傳</label><br /><input type="file" name="file"></div>
         @php
             foreach($speaker as $key => $value){
                 if(!(preg_match('/(_at|_text|_key)/', $key) === 1 || is_array($value))){

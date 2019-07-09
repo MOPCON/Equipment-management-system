@@ -26,7 +26,8 @@ Route::post('/telegram/web/hook/' . env('BOT_WEB_HOOK_HASH'), 'TelegramHookContr
 Route::get('/speaker/get-options', 'SpeakerController@getOptions');
 Route::get('/speaker/form/{accessKey}', 'SpeakerController@externalForm');
 Route::get('/speaker/{accessKey}', 'SpeakerController@externalShow');
-Route::post('/speaker/{accessKey}', 'SpeakerController@externalUpdate');
+Route::post('/speaker/{accessKey}', 'SpeakerController@externalShow');
+Route::put('/speaker/{accessKey}', 'SpeakerController@externalUpdate');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/whoami', function () {

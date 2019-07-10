@@ -52,7 +52,7 @@ class SponsorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SponsorRequest $request)
     {
         $data = $request->only(['name', 'sponsor_type']);
         $data['update_by'] = auth()->user()->id;
@@ -196,42 +196,41 @@ class SponsorController extends Controller
     public function externalUpdate(SponsorRequest $request, $accessKey)
     {
         $sponsor = Sponsor::where('access_key', '=', $accessKey)->firstOrFail();
-        if ($sponsor) {
-            if ($sponsor->access_secret !== $request->input('password')) {
-                return $this->return400Response('密碼錯誤');
+
+        if ($sponsor->access_secret !== $request->input('password')) {
+            return $this->return400Response('密碼錯誤');
+        }
+
+        $getFile = SponsorController::$uploadFileList;
+        $except = array_merge($getFile, ['Sponsor_status', 'Sponsor_type', 'update_by', 'password']);
+        $data = $request->except($except);
+        $data['update_by'] = 0;
+        $data['sponsor_status'] = 1;
+
+        //檔案上傳
+        foreach ($getFile as $value) {
+            if ($request->hasFile($value)) {
+                $filename = $this->saveFile($request->file($value), $sponsor);
+                $data[$value] = url(Sponsor::$filePath . '/' . $filename);
+            }
+        }
+
+        $sponsor->update($data);
+
+        $sponsorData = $sponsor->setHidden(SponsorController::$hiddenFieldsForExternal)->toArray();
+        $data = [];
+        foreach ($sponsorData as $key => $item) {
+            if (preg_match('/(advence_)/', $key)) {
+                $data['advence'][$key] = $item;
+                continue;
             }
 
-            $getFile = SponsorController::$uploadFileList;
-            $except = array_merge($getFile, ['Sponsor_status', 'Sponsor_type', 'update_by', 'password']);
-            $data = $request->except($except);
-            $data['update_by'] = 0;
-            $data['sponsor_status'] = 1;
-
-            //檔案上傳
-            foreach ($getFile as $value) {
-                if ($request->hasFile($value)) {
-                    $filename = $this->saveFile($request->file($value), $sponsor);
-                    $data[$value] = url(Sponsor::$filePath . '/' . $filename);
-                }
+            if (preg_match('/(recipe_)/', $key)) {
+                $data['recipe'][$key] = $item;
+                continue;
             }
 
-            $sponsor->update($data);
-
-            $sponsorData = $sponsor->setHidden(SponsorController::$hiddenFieldsForExternal)->toArray();
-            $data = [];
-            foreach ($sponsorData as $key => $item) {
-                if (preg_match('/(advence_)/', $key)) {
-                    $data['advence'][$key] = $item;
-                    continue;
-                }
-
-                if (preg_match('/(recipe_)/', $key)) {
-                    $data['recipe'][$key] = $item;
-                    continue;
-                }
-
-                $data['main'][$key] = $item;
-            }
+            $data['main'][$key] = $item;
         }
 
         return $this->returnSuccess('Update success.', $data);
@@ -244,7 +243,7 @@ class SponsorController extends Controller
      * @param  Sponsor  $sponsor
      * @return string file_path
      */
-    public function saveFile(UploadedFile $file, Sponsor $sponsor)
+    private function saveFile(UploadedFile $file, Sponsor $sponsor)
     {
         $newFileName = $sponsor->name . '-' . Str::random(8) . '.' . $file->getClientOriginalExtension();
         $file->move(public_path(Sponsor::$filePath), $newFileName);

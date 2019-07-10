@@ -26,7 +26,7 @@ class Add2FieldsToSpeakerTable extends Migration
      */
     public function down()
     {
-        Schema::table('speaker', function (Blueprint $table) {
+        Schema::table('speakers', function (Blueprint $table) {
             $table->dropColumn('company_e');
             $table->dropColumn('job_title_e');
         });

@@ -81,6 +81,16 @@ class Speaker extends Model
     ];
     protected $casts = ['tag' => 'array'];
 
+    public function __construct()
+    {
+        // 利用 $guarded 來建立 $fillable，避免 mass assignment 吃到怪欄位噴錯
+        $this->fillable = collect(
+            $this->getConnection()
+                ->getSchemaBuilder()
+                ->getColumnListing($this->getTable())
+        )->except($this->guarded)->toArray();
+    }
+
     public static function boot()
     {
         parent::boot();

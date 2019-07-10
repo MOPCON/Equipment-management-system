@@ -21,7 +21,7 @@ class SpeakerController extends Controller
         'speaker_status_text',
         'speaker_type_text',
         'last_edited_by',
-        'access_secret'
+        'access_secret',
     ];
 
     public static $FieldsForTSV = [
@@ -55,14 +55,14 @@ class SpeakerController extends Controller
         'speaker_status_text' => '修改狀態',
         'speaker_type_text' => '修改類型',
         'note' => '備註',
-        'access_key' => '表單連結',
+        'external_link' => '表單連結',
         'access_secret' => 'Password',
         'updated_at' => '更新日期',
         'last_edited_by' => '最後更新者',
     ];
 
     /**
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -167,9 +167,6 @@ class SpeakerController extends Controller
                     case 'has_dinner':
                         $row .= (($item[$key] == 1)?'是':'否') . "\t";
                         break;
-                    case 'access_key':
-                        $row .= url("/speaker/form/{$item[$key]}") . "\t";
-                        break;
                     default:
                         $row .= "{$item[$key]}\t";
                 }
@@ -227,38 +224,48 @@ class SpeakerController extends Controller
     }
 
     /**
-     * @param $request
+     * @param string $accessKey
      * @return \Illuminate\Support\Facades\View
      */
-    public function externalForm($accessKey)
+    public function externalForm(string $accessKey)
     {
-        $speaker = Speaker::where('access_key', '=', $accessKey)->first()->setHidden(SpeakerController::$hiddenFieldsForExternal);
+        $speaker = Speaker::where('access_key', '=', $accessKey)->first() ?? abort(404);
+
         $data = [
-            'speaker' => $speaker->toArray(),
+            'speaker' => $speaker->only(['access_key']),
         ];
 
         return view('form.speaker', $data);
     }
 
     /**
-     * @param $accessKey
+     * @param Request $request
+     * @param string $accessKey
      * @return \Illuminate\Http\JsonResponse
      */
-    public function externalShow($accessKey)
+    public function externalShow(Request $request, string $accessKey)
     {
-        $speaker = Speaker::where('access_key', '=', $accessKey)->first()->setHidden(SpeakerController::$hiddenFieldsForExternal);
+        if ($request->isMethod('get')) {
+            return $this->return400Response();
+        }
 
-        return $this->returnSuccess('Success.', $speaker);
+        $speaker = Speaker::where('access_key', '=', $accessKey)->firstOrFail();
+
+        if ($speaker->access_secret !== $request->input('password')) {
+            return $this->return400Response();
+        }
+
+        return $this->returnSuccess('Success.', $speaker->setHidden(SpeakerController::$hiddenFieldsForExternal));
     }
 
     /**
      * @param  SpeakerRequest  $request
-     * @param  $accessKey
+     * @param  string $accessKey
      * @return \Illuminate\Http\JsonResponse
      */
-    public function externalUpdate(SpeakerRequest $request, $accessKey)
+    public function externalUpdate(SpeakerRequest $request, string $accessKey)
     {
-        $speaker = Speaker::where('access_key', '=', $accessKey)->first();
+        $speaker = Speaker::where('access_key', '=', $accessKey)->firstOrFail();
         if ($speaker) {
             if ($speaker->access_secret !== $request->input('password')) {
                 return $this->return400Response();
@@ -274,9 +281,8 @@ class SpeakerController extends Controller
             }
         }
 
-        return $this->returnSuccess('Update success.', $speaker);
+        return $this->returnSuccess('Update success.', $speaker->setHidden(SpeakerController::$hiddenFieldsForExternal));
     }
-
 
     /**
      * Update the specified resource in storage.

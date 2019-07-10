@@ -91,7 +91,7 @@ class SpeakerControllerTest extends TestCase
         $name_e = $this->faker->name;
         $speaker = factory(Speaker::class, 1)->create()->first();
         $response = $this->json(
-            'POST',
+            'PUT',
             "/speaker/{$speaker->access_key}",
             [
                 'name' => $speaker->name,

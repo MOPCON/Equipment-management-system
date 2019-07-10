@@ -11,8 +11,16 @@ FORMAT: 1A
 
     + accessKey: f5afbbd5-ba82-48c8-949e-720852930475 (uuid)
 
-## GET
+## POST
 取得講師資料
++ Request (multipart/form-data)
+
+    + Body
+
+        {
+            password: access_secret
+        }
+
 
 + Response
 
@@ -79,11 +87,13 @@ FORMAT: 1A
                 "license_text": "授予 MOPCON 演講時錄影，後製與上傳至公開線上影音平台之權利。",
                 "tshirt_size_text": "L",
                 "meal_preference_text": "全素",
+                "external_link": "http://127.0.0.1:8000/speaker/form/a17b53ad-148f-4d4c-985c-0e836bb78402"
             }
         }
 
-## POST
+## PUT
 更新講者資料，需多加一個 password 欄位，比對 access_secret 正確才能寫入。
+要使用 POST，Body 再加上 "_method"="PUT"
 
 + Request (multipart/form-data)
 
@@ -218,7 +228,8 @@ FORMAT: 1A
                 "tshirt_size_text": "L",
                 "meal_preference_text": "全素",
                 "speaker_status_text": "已確認",
-                "speaker_type_text": "贊助商"
+                "speaker_type_text": "贊助商",
+                "external_link": "http://127.0.0.1:8000/speaker/form/5730ee39-6561-4e8a-a06e-1408a3206172"
             }
         }
 

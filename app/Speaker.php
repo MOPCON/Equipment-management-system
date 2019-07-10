@@ -77,6 +77,7 @@ class Speaker extends Model
         'meal_preference_text',
         'speaker_status_text',
         'speaker_type_text',
+        'external_link',
     ];
     protected $casts = ['tag' => 'array'];
 
@@ -130,5 +131,10 @@ class Speaker extends Model
     public function getSpeakerTypeTextAttribute()
     {
         return self::$speakerTypeItem[$this->speaker_type] ?? '';
+    }
+
+    public function getExternalLinkAttribute()
+    {
+        return $this->access_key ? (url("/speaker/form/{$this->access_key}")) : '';
     }
 }

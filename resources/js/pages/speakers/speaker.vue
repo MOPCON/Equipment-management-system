@@ -17,7 +17,7 @@
       </div>
       <div class="col-md-3">
         <input type="text" class="form-control form-control-sm" placeholder="Search" aria-controls="speaker"
-          v-model="searchText" @keyup="searchKeyword($event)" />
+          v-model="searchText" @keyup.enter="searchKeyword($event)" />
       </div>
     </div>
     <div class="form-group form-check">
@@ -159,7 +159,7 @@
               </tr>
               <tr>
                 <td>英文公司/組織 (若無則同上)</td>
-                <td v-if="speakerDetailData.company_e !== null" class="p-0 v-align-middle">
+                <td v-if="speakerDetailData.company_e !== null && speakerDetailData.company_e !== ''" class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.company_e">
                 </td>
                 <td v-else class="p-0 v-align-middle">
@@ -175,7 +175,7 @@
               </tr>
               <tr>
                 <td>英文職稱 (若無則同上)</td>
-                <td v-if="speakerDetailData.job_title_e !== null" class="p-0 v-align-middle">
+                <td v-if="speakerDetailData.job_title_e !== null && speakerDetailData.job_title_e !== ''" class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.job_title_e">
                 </td>
                 <td v-else class="p-0 v-align-middle">
@@ -433,7 +433,7 @@
           <div class="form-group">
             <label for="speaker_form_url">連結</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="speaker_form_url" :value="speakerDetailData.access_key">
+              <input type="text" class="form-control" id="speaker_form_url" :value="speakerDetailData.external_link">
               <div class="input-group-append">
                 <button class="btn btn-outline-primary copy" type="button" data-clipboard-target="#speaker_form_url">
                   <font-awesome-icon icon="copy" />
@@ -545,8 +545,7 @@
         }, {
           name: '查看',
           key: 'detail'
-        },
-        ];
+        }];
       },
       getSpeakerOption() {
         const vm = this;
@@ -635,6 +634,8 @@
         Object.keys(updateData).forEach(key => {
           if (updateData[key] !== null && updateData[key] !== '') {
             bodyFormData.set(key, updateData[key]);
+          } else if (updateData[key] === '') {
+            bodyFormData.set(key, updateData[key]);
           }
         });
         if (vm.speakerDetailData.tag !== null) {
@@ -667,9 +668,7 @@
       },
       searchKeyword(event) {
         const vm = this;
-        if (event.which === 13) {
-          vm.getSpeakerData();
-        }
+        vm.getSpeakerData();
       },
       openAddspeaker() {
         const vm = this;
@@ -678,6 +677,7 @@
       },
       openspeakerDetail(speaker_id) {
         const vm = this;
+        vm.updateAllData();
         vm.action = 'detail';
         vm.fullData.forEach((data) => {
           if (data.id === speaker_id) {
@@ -722,6 +722,11 @@
           }
         })
         window.location = `api/speaker/export?ids=${idArr}`;
+      },
+      updateAllData() {
+        const vm = this;
+        $('#speakerModal').on('hidden.bs.modal', () => vm.getSpeakerData());
+        $('#speakerModal').on('show.bs.modal', () => vm.getSpeakerData());
       },
     },
     mounted() {

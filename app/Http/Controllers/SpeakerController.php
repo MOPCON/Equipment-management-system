@@ -296,7 +296,7 @@ class SpeakerController extends Controller
         $newFileName = $speaker->name . '-' . Str::random(8) . '.' . $image->getClientOriginalExtension();
         $image->move(public_path(Speaker::$photoPath), $newFileName);
 
-        $speaker->photo = Speaker::$photoPath . '/' . $newFileName;
+        $speaker->photo = url(Speaker::$photoPath . '/' . $newFileName);
         $speaker->save();
 
         return $speaker;

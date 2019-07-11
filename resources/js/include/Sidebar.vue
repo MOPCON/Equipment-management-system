@@ -1,5 +1,5 @@
 <template>
-    <sidebar-menu id="sidebar" :menu="menu" width="200px" :collapsed="true" @collapse="changeSidebarExtend" />
+    <sidebar-menu id="sidebar" :menu="menu" width="210px" :collapsed="true" @collapse="changeSidebarExtend" />
 </template>
 
 <script>
@@ -87,6 +87,20 @@
                                 href: '/user/role',
                                 title: '角色管理',
                                 icon: 'fas fa-id-badge'
+                            }
+                        ]
+                    }, {
+                        title: '贊助商 / 講者管理',
+                        icon: 'fas fa-user-tie',
+                        child: [
+                            {
+                                href: '/sponsor/sponsor',
+                                title: '贊助商管理',
+                                icon: 'fas fa-hand-holding-usd'
+                            }, {
+                                href: '/speaker/speaker',
+                                title: '講者管理',
+                                icon: 'fas fa-chalkboard-teacher'
                             }
                         ]
                     }, {

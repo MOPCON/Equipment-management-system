@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "@fortawesome/free-brands-svg-icons": "^5.8.1",
+        "clipboard": "^2.0.4",
         "jsbarcode": "^3.11.0",
         "tempusdominus-bootstrap-4": "^5.1.2",
         "vee-validate": "^2.2.8",

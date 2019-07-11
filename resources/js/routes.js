@@ -17,6 +17,7 @@ import loan from "./pages/loan/loan";
 import action from "./pages/loan/action";
 import logs from "./pages/logs";
 import formSpeaker from "./pages/form/Speaker";
+import speaker from "./pages/speakers/speaker";
 import page_403 from "./pages/error/403";
 import sponsor_upload from "./pages/sponsor/sponsor_upload";
 import sponsor from "./pages/sponsor/sponsor";
@@ -77,6 +78,9 @@ const router = new VueRouter({
         }, {
             path: '/form/speaker',
             component: formSpeaker,
+        },{
+            path: '/speaker/speaker',
+            component: speaker,
         }, {
             path: '/403',
             component: page_403,

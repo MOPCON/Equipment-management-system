@@ -653,6 +653,7 @@
           $('#speakerModal').modal('hide');
           if (res.success) {
             helper.alert(res.message, 'success');
+            vm.getSpeakerData();
           } else {
             helper.alert(res.message, 'danger');
           }
@@ -677,19 +678,21 @@
       },
       openspeakerDetail(speaker_id) {
         const vm = this;
-        vm.updateAllData();
         vm.action = 'detail';
-        vm.fullData.forEach((data) => {
-          if (data.id === speaker_id) {
-            if (data.speaker_status !== null) {
-              vm.speakerDetailData = data
-            } else {
-              vm.speakerDetailData = {
-                ...data,
-                speaker_status: 0,
-              };
-            }
+        axios.get(     
+          'api/speaker/'+ speaker_id
+        ).then(response => {
+          const res = response.data.data
+          if (res.speaker_status !== null) {
+            vm.speakerDetailData = res
+          } else {
+            vm.speakerDetailData = {
+              ...res,
+              speaker_status: 0,
+            };
           }
+        }).catch(error => {
+          console.log(error);
         });
         $('#speakerModal').modal('show');
       },
@@ -722,11 +725,6 @@
           }
         })
         window.location = `api/speaker/export?ids=${idArr}`;
-      },
-      updateAllData() {
-        const vm = this;
-        $('#speakerModal').on('hidden.bs.modal', () => vm.getSpeakerData());
-        $('#speakerModal').on('show.bs.modal', () => vm.getSpeakerData());
       },
     },
     mounted() {

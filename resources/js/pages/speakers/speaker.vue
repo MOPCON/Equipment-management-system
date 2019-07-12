@@ -581,23 +581,6 @@
           console.log(error);
         });
       },
-      getSpeakerDetail(id) {
-        const vm = this;
-        axios.get(     
-          'api/speaker/'+ id
-        ).then(response => {
-          const res = response.data.data
-          const newData = [];
-          const objIndex = vm.fullData.findIndex(obj => obj.id === id);
-          vm.fullData[objIndex] = response.data.data
-          vm.fullData.forEach((ele) => {
-            newData.push(ele);
-          })
-          vm.fullData = newData;
-        }).catch(error => {
-          console.log(error);
-        });
-      },
       postSpeakerUrlData() {
         const vm = this;
         axios.post('api/speaker', {
@@ -670,7 +653,7 @@
           $('#speakerModal').modal('hide');
           if (res.success) {
             helper.alert(res.message, 'success');
-            vm.getSpeakerDetail(id);
+            vm.getSpeakerData();
           } else {
             helper.alert(res.message, 'danger');
           }
@@ -695,19 +678,21 @@
       },
       openspeakerDetail(speaker_id) {
         const vm = this;
-        vm.getSpeakerDetail(speaker_id);
         vm.action = 'detail';
-        vm.fullData.forEach((data) => {
-          if (data.id === speaker_id) {
-            if (data.speaker_status !== null) {
-              vm.speakerDetailData = data
-            } else {
-              vm.speakerDetailData = {
-                ...data,
-                speaker_status: 0,
-              };
-            }
+        axios.get(     
+          'api/speaker/'+ speaker_id
+        ).then(response => {
+          const res = response.data.data
+          if (res.speaker_status !== null) {
+            vm.speakerDetailData = res
+          } else {
+            vm.speakerDetailData = {
+              ...res,
+              speaker_status: 0,
+            };
           }
+        }).catch(error => {
+          console.log(error);
         });
         $('#speakerModal').modal('show');
       },

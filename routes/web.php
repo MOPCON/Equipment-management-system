@@ -28,6 +28,10 @@ Route::get('/speaker/form/{accessKey}', 'SpeakerController@externalForm');
 Route::get('/speaker/{accessKey}', 'SpeakerController@externalShow');
 Route::post('/speaker/{accessKey}', 'SpeakerController@externalShow');
 Route::put('/speaker/{accessKey}', 'SpeakerController@externalUpdate');
+Route::get('/sponsor/get-options', 'SponsorController@getOptions');
+Route::get('/sponsor/form/{accessKey}', 'SponsorController@externalForm');
+Route::post('/sponsor/{accessKey}', 'SponsorController@externalShow');
+Route::put('/sponsor/{accessKey}', 'SponsorController@externalUpdate');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/whoami', function () {
@@ -61,4 +65,5 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('system-log-type', 'SystemLogTypeController', ['only' => ['index']]);
     Route::get('speaker/export', 'SpeakerController@exportTSV');
     Route::apiResource('speaker', 'SpeakerController');
+    Route::apiResource('sponsor', 'SponsorController');
 });

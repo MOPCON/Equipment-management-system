@@ -18,7 +18,7 @@ class SponsorController extends Controller
         'sponsor_status_text',
         'sponsor_type_text',
         'sponsor_file_text',
-        'update_by',
+        'updated_by',
         'access_secret'
     ];
 
@@ -181,9 +181,9 @@ class SponsorController extends Controller
                 $data['recipe'][$key] = $item;
                 continue;
             }
-
+        
             $data['main'][$key] = $item;
-        }
+    }
         return $this->returnSuccess('Success.', $data);
     }
 

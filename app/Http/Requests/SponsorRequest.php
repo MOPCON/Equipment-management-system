@@ -56,7 +56,7 @@ class SponsorRequest extends BaseRequest
             'advence_keynote'              => 'nullable|string',
             'advence_hall_flag_path'       => 'nullable|image',
             'advence_main_flow_flag_path'  => 'nullable|image',
-            'update_by'                    => 'nullable|string',
+            'updated_by'                    => 'nullable|string',
         ];
     }
 }

@@ -15,7 +15,6 @@ class SponsorController extends Controller
     public static $hiddenFieldsForExternal = [
         'id',
         'sponsor_status',
-        'sponsor_type',
         'sponsor_status_text',
         'sponsor_type_text',
         'sponsor_file_text',

@@ -116,7 +116,7 @@
     + **data**
         + passward [string] 密碼 ***(required)***
         + name [string] 公司名稱 ***(required)***
-        + en_name [string] 	公司英文名稱
+        + en_name [string] 公司英文名稱
         + introduction [string] 公司簡介
         + en_introduction [string] 公司英文簡介
         + website [url] 公司網站
@@ -130,18 +130,18 @@
         + opening_remarks [string] 晚宴簡介
         + recipe_full_name [string] 公司/組織全銜
 		+ recipe_tax_id_number [string] 統一編號
-		+ recipe_amount [integer]贊助金額
+		+ recipe_amount [integer] 贊助金額
 		+ recipe_contact_name [string] 聯絡人姓名
 		+ recipe_contact_title [string] 聯絡人職稱
 		+ recipe_contact_phone [string] 聯絡人電話
-		+ recipe_contact_email [email]聯絡人Email
+		+ recipe_contact_email [email] 聯絡人Email
 		+ recipe_contact_address [string] 收件地址
 		+ reason [string] 為什麼本次選擇贊助 MOPCON？
 		+ purpose [string] 希望能在本次大會達成的目標
 		+ remark [string] 備註
-		+ advence_icck_ad_path [image] ICCK大門兩側廣告圖檔
+		+ advence_icck_ad_path [image] ICCK 大門兩側廣告圖檔
 		+ advence_registration_ad_path [image] 報到處全版廣告空間圖檔
-		+ advence_keynote Keynote [string] 引言圖檔
+		+ advence_keynote [string] Keynote 引言
 		+ advence_hall_flag_path [image] 演講廳旗幟圖檔
 		+ advence_main_flow_flag_path [image] 主動線旗幟廣告圖檔
         
@@ -205,7 +205,95 @@
 + **Method :** 
 
     **`GET`**
+
++ **Parameters**
+
+  + **search :** 研華百貨有限公司 [string] 搜尋公司名稱/聯絡人
+  + **filter :** `{'status': 0, 'type: 3'}` [json] 篩選:贊助商狀態/等級 **註:須用 `JSON.stringify()` 轉換**
+  + **sort :** updated_at [string] 欄位名稱 eg: name, sponsor_type, updated_at, ...
+  + **order :** ASC [string] ASC/DESC
     
++ **Response**
+  + **data-type:** application/json
+
+  + **data**
+    ```json
+    {
+        success: true,
+        message: "Success.",
+        data: {
+            current_page: 1,
+            data: [
+                {
+                    id: 51,
+                    sponsor_type: 4,
+                    sponsor_status: 0,
+                    name: "廖傑",
+                    en_name: null,
+                    introduction: null,
+                    en_introduction: null,
+                    website: null,
+                    social_media: null,
+                    production: null,
+                    logo_path: null,
+                    service_photo_path: null,
+                    promote: null,
+                    slide_path: null,
+                    board_path: null,
+                    opening_remarks: null,
+                    recipe_full_name: null,
+                    recipe_tax_id_number: null,
+                    recipe_amount: null,
+                    recipe_contact_name: null,
+                    recipe_contact_title: null,
+                    recipe_contact_phone: null,
+                    recipe_contact_email: null,
+                    recipe_contact_address: null,
+                    reason: null,
+                    purpose: null,
+                    remark: null,
+                    advence_icck_ad_path: null,
+                    advence_registration_ad_path: null,
+                    advence_keynote: null,
+                    advence_hall_flag_path: null,
+                    advence_main_flow_flag_path: null,
+                    access_key: "80404beb-edec-418b-8aba-0ee6091de6aa",
+                    access_secret: "4tvioK6Qzi0VHVsCXJ3S",
+                    updated_by: 0,
+                    created_at: "2019-07-13 17:05:43",
+                    updated_at: "2019-07-13 17:05:43",
+                    sponsor_type_text: "其他",
+                    sponsor_file_text: [ ],
+                    sponsor_status_text: "待確認",
+                    external_link: "http://192.168.1.32:8000/sponsor/form/80404beb-edec-418b-8aba-0ee6091de6aa"
+                },
+                {...}
+            ],
+            first_page_url: "http://192.168.1.32:8000/api/sponsor?page=1",
+            from: 1,
+            last_page: 3,
+            last_page_url: "http://192.168.1.32:8000/api/sponsor?page=3",
+            next_page_url: "http://192.168.1.32:8000/api/sponsor?page=2",
+            path: "http://192.168.1.32:8000/api/sponsor",
+            per_page: "25",
+            prev_page_url: null,
+            to: 25,
+            total: 51
+        }
+    }
+    ```
+## 匯出贊助商資料
++ **URL :**
+
+    **`/api/sponsor/export`**
+
++ **Method :** 
+
+    **`GET`**
+
++ **Parameters**
+  
+  + **ids :** 1,2,3 [string] id 用 '**,**' 分隔的字串
 
 ## 新增贊助商
 
@@ -267,7 +355,7 @@
                 "remark": "Maiores atque accusamus delectus sit aut. Cumque cupiditate maxime ratione repellat animi. Soluta id est quia tempore.",
                 "access_key": "2277771d-ca3b-4543-af2b-452e070b7f73",
                 "access_secret": "CcEqeg0aArJljICuz5xA",
-                "update_by": "遊戲橘子機械公司",
+                "updated_by": "遊戲橘子機械公司",
                 "created_at": "2019-07-11 03:15:24",
                 "updated_at": "2019-07-11 03:15:24",
                 "sponsor_status_text": "待確認",
@@ -301,11 +389,11 @@
     }
     ```
     
-# 更新贊助商資料/狀態
+## 更新贊助商資料/狀態
 
 + **URL :** 
  
-    **`/sponsor/{accessKey}`**
+    **`/api/sponsor/{id}`**
     
 + **Method :** 
 
@@ -349,4 +437,71 @@
 		+ advence_main_flow_flag_path [image] 主動線旗幟廣告圖檔
 		+ sponsor_status [int] 贊助商狀態
         + sponsor_type [int] 贊助商類型
++ **Response** 
+    + **data-type:** application/json
 
+    + **data**
+    ```json
+    {
+        "success": true,
+        "message": "Update success.",
+        "data": {
+            "main": {
+                "id": 3,
+                "sponsor_status": 0,
+                "name": "遊戲西瓜",
+                "en_name": "Smith-Schultz",
+                "introduction": "Dolor corporis iure rerum deserunt. Dolore tempora et ipsam enim. Exercitationem aliquid et saepe atque quas.",
+                "en_introduction": "Cum est voluptatem eos. Inventore cupiditate voluptate ea quis voluptatum quae.",
+                "website": "https://www.kris.com/veniam-iure-ipsum-eveniet-adipisci-repellendus-velit",
+                "social_media": "http://www.daugherty.com/quo-tenetur-labore-et-ea-dolorum-quia-quia",
+                "production": "Expedita quia natus veritatis optio molestias. Officia molestiae unde consequatur fugiat in.",
+                "logo_path": "https://lorempixel.com/120/120/cats/?52084",
+                "service_photo_path": "https://lorempixel.com/120/120/cats/?71377",
+                "promote": "Exercitationem molestiae voluptatibus quasi est et dolorem officia.",
+                "slide_path": "https://lorempixel.com/120/120/cats/?65445",
+                "board_path": "https://lorempixel.com/120/120/cats/?77731",
+                "opening_remarks": "Eum eum et voluptatum mollitia non pariatur. Amet necessitatibus rerum veritatis nisi consequatur aspernatur.",
+                "reason": "Mollitia at quia vel omnis debitis modi. Est eos natus quibusdam dolores non voluptatem.",
+                "purpose": "Quia rerum eum et. Est iste quidem doloribus iusto debitis provident rerum.",
+                "remark": "Voluptas saepe fugit molestias est voluptates. Velit quod autem ea id. Numquam sit quisquam ab quae aut.",
+                "access_key": "bca3feaf-b85b-450f-9c2f-c7dfff65a579",
+                "access_secret": "f3jFSvlYN7ZFSB6fe8Tv",
+                "updated_by": "admin",
+                "created_at": "2019-07-13 12:05:44",
+                "updated_at": "2019-07-14 16:26:10",
+                "sponsor_status_text": "待確認",
+                "external_link": "http://192.168.1.32:8000/sponsor/form/bca3feaf-b85b-450f-9c2f-c7dfff65a579"
+            },
+            "advence": {
+                "sponsor_type": 3,
+                "advence_icck_ad_path": "https://lorempixel.com/120/120/cats/?73415",
+                "advence_registration_ad_path": "https://lorempixel.com/120/120/cats/?42440",
+                "advence_keynote": "Occaecati veniam et corrupti eos. A et tempore veniam est. Tenetur aut reiciendis aut placeat ut.",
+                "advence_hall_flag_path": "https://lorempixel.com/120/120/cats/?18177",
+                "advence_main_flow_flag_path": "https://lorempixel.com/120/120/cats/?79501",
+                "sponsor_type_text": "Developer",
+                "sponsor_file_text": []
+            },
+            "recipe": {
+                "recipe_full_name": "訊連股份有限公司",
+                "recipe_tax_id_number": "59466758",
+                "recipe_amount": 225343,
+                "recipe_contact_name": "閔俊",
+                "recipe_contact_title": "autem",
+                "recipe_contact_phone": "(035)508-865",
+                "recipe_contact_email": "ethelyn.nicolas@yahoo.com",
+                "recipe_contact_address": "690 新北市新店區松智三街879巷919弄73號4樓"
+            }
+        }
+    }
+    ```
+## 刪除贊助商
+
++ **URL :** 
+ 
+    **`/api/sponsor/{id}`**
+    
++ **Method :** 
+
+    **`DELETE`**

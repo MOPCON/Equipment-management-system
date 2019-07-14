@@ -54,7 +54,7 @@
                                     <label for="introduction">公司簡介 (專業背景與沿革)*</label>
                                     <span class="d-inline-block text-right"> @{{ introTextConunt }} / 250</span>
                                 </div>
-                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.main.introduction" maxlength="250" required></textarea>
+                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.main.introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.introduction)" required></textarea>
                                 <div class="invalid-feedback">
                                     產品及服務介紹為必填
                                 </div>
@@ -76,7 +76,7 @@
                                     <span class="d-inline-block text-right"> @{{ productionTextConunt }} / 250</span>
                                 </div>
                                 <textarea class="form-control" id="production" rows="4"
-                                v-model="formData.main.production" maxlength="250" required></textarea>
+                                v-model="formData.main.production" maxlength="250" v-on:keyup="countText(250, 'productionTextConunt', formData.main.production);" required></textarea>
                                 <div class="invalid-feedback">
                                 產品及服務介紹為必填
                                 </div>
@@ -115,7 +115,7 @@
                                     <label for="dinnerPartyIntro">晚宴簡介 (於晚宴中將由主持人介紹貴公司)</label>
                                     <span class="d-inline-block text-right"> @{{ dinnerPartyIntroTextConunt }} / 80</span>
                                 </div>
-                                <textarea class="form-control" id="dinnerPartyIntro" rows="2" v-model="formData.main.opening_remarks" maxlength="80"></textarea>
+                                <textarea class="form-control" id="dinnerPartyIntro" rows="2" v-model="formData.main.opening_remarks" maxlength="80" v-on:keyup="countText(80, 'dinnerPartyIntroTextConunt', formData.main.opening_remarks);"></textarea>
                             </div>
                             <h4 class="text-primary mt-2">收據資料</h4>
                             <hr>
@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="taxIDNumber">統一編號*</label>
-                                    <input type="text" class="form-control" id="taxIDNumber" placeholder="統一編號" v-model="formData.recipe.recipe_tax_id_number" required>
+                                    <input type="number" class="form-control" id="taxIDNumber" placeholder="統一編號" v-model="formData.recipe.recipe_tax_id_number" oninput="if(value.length>8)value=value.slice(0,8)" required>
                                     <div class="invalid-feedback">
                                         統一編號為必填
                                     </div>
@@ -157,18 +157,18 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                <label for="contactPhoneNumber">聯絡人電話*</label>
-                                <input type="text" class="form-control" id="contactPhoneNumber" v-model="formData.recipe.recipe_contact_phone" placeholder="聯絡人電話" required>
-                                <div class="invalid-feedback">
-                                    聯絡人電話為必填
-                                </div>
+                                    <label for="contactPhoneNumber">聯絡人電話*</label>
+                                    <input type="text" class="form-control" id="contactPhoneNumber" v-model="formData.recipe.recipe_contact_phone" placeholder="聯絡人電話" required>
+                                    <div class="invalid-feedback">
+                                        聯絡人電話為必填
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                <label for="contactMail">聯絡人 Email*</label>
-                                <input type="email" class="form-control" id="contactMail" v-model="formData.recipe.recipe_contact_email" placeholder="聯絡人 Email" required> 
-                                <div class="invalid-feedback">
-                                    聯絡人 Email 為必填
-                                </div>
+                                    <label for="contactMail">聯絡人 Email*</label>
+                                    <input type="email" class="form-control" id="contactMail" v-model="formData.recipe.recipe_contact_email" placeholder="聯絡人 Email" required>
+                                    <div class="invalid-feedback">
+                                        聯絡人 Email 為必填
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -313,6 +313,9 @@
                     recipe: {},
                     advence: {},
                 },
+                introTextConunt: 250,
+                productionTextConunt: 250,
+                dinnerPartyIntroTextConunt: 80,
             },
             methods: {
                 getSponsorForm: function (password) {
@@ -325,6 +328,9 @@
                             vm.formData = response.data.data;
                             vm.show = false;
                             vm.alertShow = false;
+                            vm.countText(250, 'introTextConunt', vm.formData.main.introduction);
+                            vm.countText(250, 'productionTextConunt', vm.formData.main.production);
+                            vm.countText(80, 'dinnerPartyIntroTextConunt', vm.formData.main.opening_remarks);
                             vm.reCaptchaInit();
                         } else {
                             vm.alertShow = true;
@@ -412,9 +418,9 @@
                         if (document.getElementById('vali')) {
                             const vm = this;
                             grecaptcha.render('vali', {
-                                'sitekey' : '6Lda8KUUAAAAAL2e2BiHk2So9aK03CYgvO6t6di0',
+                            'sitekey' : '{{ env('MIX_RECAPTCHA_KEY') }}',
                                 'callback': function () {
-                                    return new Promise(function(resolve, reject) {  
+                                    return new Promise(function(resolve, reject) {
                                         var response = grecaptcha.getResponse();
                                         if (response.length > 0) {
                                             document.getElementById('formSubmit').disabled = false;
@@ -424,33 +430,15 @@
                             });
                         }
                     }, 1000)
-                },         
-            },
-            computed: {
-                introTextConunt: function () {
+                },
+                countText(num, data, content) {
                     const vm = this;
-                    if (vm.formData.main.introduction) {
-                        return 250 - vm.formData.main.introduction.length
+                    if (content) {
+                        vm[data] = num - content.length;
                     } else {
-                        return 250
+                        return num
                     }
                 },
-                productionTextConunt: function () {
-                    const vm = this;
-                    if (vm.formData.main.production) {
-                        return 250 - vm.formData.main.production.length
-                    } else {
-                        return 250
-                    }
-                },
-                dinnerPartyIntroTextConunt: function () {
-                    const vm = this;
-                    if (vm.formData.main.opening_remarks) {
-                        return 80 - vm.formData.main.opening_remarks.length
-                    } else {
-                        return 80
-                    }
-                }
             },
         })
     </script>

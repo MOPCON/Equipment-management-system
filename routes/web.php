@@ -65,5 +65,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('system-log-type', 'SystemLogTypeController', ['only' => ['index']]);
     Route::get('speaker/export', 'SpeakerController@exportTSV');
     Route::apiResource('speaker', 'SpeakerController');
+    Route::get('sponsor/export', 'SponsorController@exportTSV');
     Route::apiResource('sponsor', 'SponsorController');
 });

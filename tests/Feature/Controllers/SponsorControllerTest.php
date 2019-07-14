@@ -215,4 +215,191 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testGetSponsorListWithfilterAll()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $filter = json_encode([
+            'status' => $sponsor->sponsor_status,
+            'type' => $sponsor->sponsor_type,
+        ]);
+        
+        $response = $this->get('/api/sponsor', [
+            'filter' => $filter
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'data' => [
+                        [
+                            'sponsor_status' => $sponsor->sponsor_status,
+                            'sponsor_type' => $sponsor->sponsor_type,
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    public function testGetSponsorListWithfilterStatus()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $filter = json_encode([
+            'status' => $sponsor->sponsor_status,
+        ]);
+        
+        $response = $this->get('/api/sponsor', [
+            'filter' => $filter
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'data' => [
+                        [
+                            'sponsor_status' => $sponsor->sponsor_status,
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    public function testGetSponsorListWithfilterType()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $filter = json_encode([
+            'type' => $sponsor->sponsor_type,
+        ]);
+
+        $response = $this->get('/api/sponsor', [
+            'filter' => $filter
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'data' => [
+                        [
+                            'sponsor_type' => $sponsor->sponsor_type,
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    public function testGetSponsorListWithSearchName()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $search = $sponsor->name;
+
+        $response = $this->get('/api/sponsor', [
+            'search' => $search
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'data' => [
+                        [
+                            'name' => $search,
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    public function testGetSponsorListWithSearchContact()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $search = $sponsor->recipe_contact_name;
+
+        $response = $this->get('/api/sponsor', [
+            'search' => $search
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'data' => [
+                        [
+                            'recipe_contact_name' => $search,
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    public function testGetSponsorListWithSearchAndFilter()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $search = $sponsor->recipe_contact_name;
+        $filter = json_encode([
+            'status' => $sponsor->sponsor_status,
+            'type' => $sponsor->sponsor_type,
+        ]);
+
+        $response = $this->get('/api/sponsor', [
+            'search' => $search,
+            'filter' => $filter
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'data' => [
+                        [
+                            'recipe_contact_name' => $search,
+                            'sponsor_status' => $sponsor->sponsor_status,
+                            'sponsor_type' => $sponsor->sponsor_type,
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    public function testUpdateSponsor()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $name= $this->faker->company;
+        $contact = $this->faker->name;
+
+        $response = $this->json('PUT', '/api/sponsor/' . $sponsor->id, [
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'main' => [
+                        'name' => $name,
+                    ],
+                    'recipe' => [
+                        'recipe_contact_name' =>$contact,
+                    ]
+                ]
+            ]);
+    }
+
+    public function testDeleteSponsor()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $response = $this->json('DELETE', "/api/sponsor/" . $sponsor->id);
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'destroy success.',
+            ]);
+    }
+
+    public function testExportSponsor()
+    {
+        $sponsor = factory(Sponsor::class, 5)->create();
+        $ids = $sponsor->map(function ($item) {
+            return $item->id;
+        });
+        $response = $this->get('/api/sponsor/export?ids=' . implode(',', $ids->all()));
+
+        $response->assertSuccessful()
+            ->assertHeader('Content-Type', 'text/tab-separated-values; charset=UTF-8');
+    }
 }

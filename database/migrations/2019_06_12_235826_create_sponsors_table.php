@@ -48,7 +48,7 @@ class CreateSponsorsTable extends Migration
             $table->string('advence_main_flow_flag_path')->nullable()->comment  = '主動線旗幟廣告(path)';
             $table->uuid('access_key')->index()->comment                        = '認證token';
             $table->string('access_secret', 20)->comment                        = '認證secret';
-            $table->unsignedInteger('update_by')->nullable()->comment           = '最後更新者';
+            $table->unsignedInteger('updated_by')->nullable()->comment          = '最後更新者';
             $table->timestamps();
         });
     }

@@ -12,14 +12,14 @@ class SponsorController extends Controller
 {
     use ApiTrait;
 
-    public static $hiddenFieldsForExternal = [
+    private static $hiddenFieldsForExternal = [
         'id',
         'sponsor_status',
-        'sponsor_type',
         'sponsor_status_text',
         'sponsor_type_text',
         'sponsor_file_text',
-        'update_by',
+        'updated_by',
+        'updated_by_name',
         'access_secret'
     ];
 
@@ -34,15 +34,76 @@ class SponsorController extends Controller
         'advence_main_flow_flag_path',
     ];
 
+    private static $FieldsForTSV = [
+        'id'                            => 'id',
+        'sponsor_status_text'           => '贊助商狀態',
+        'sponsor_type_text'             => '贊助商類型',
+        'name'                          => '公司名稱',
+        'en_name'                       => '公司英文名稱',
+        'introduction'                  => '公司簡介',
+        'en_introduction'               => '公司英文簡介',
+        'website'                       => '公司網站',
+        'social_media'                  => '社群媒體(如FB等)',
+        'production'                    => '產品及服務介紹',
+        'logo_path'                     => 'logo',
+        'service_photo_path'            => '產品或服務照片',
+        'promote'                       => '希望MOPCON宣傳的內容',
+        'slide_path'                    => '場間投影片',
+        'board_path'                    => '電子看板',
+        'opening_remarks'               => '晚宴簡介',
+        'recipe_full_name'              => '公司/組織全銜',
+        'recipe_tax_id_number'          => '統一編號',
+        'recipe_amount'                 => '贊助金額',
+        'recipe_contact_name'           => '聯絡人姓名',
+        'recipe_contact_title'          => '聯絡人職稱',
+        'recipe_contact_phone'          => '聯絡人電話',
+        'recipe_contact_email'          => '聯絡人Email',
+        'recipe_contact_address'        => '收件地址',
+        'advence_icck_ad_path'          => 'ICCK大門兩側廣告',
+        'advence_registration_ad_path'  => '報到處全版廣告空間',
+        'advence_keynote'               => 'Keynote 引言',
+        'advence_hall_flag_path'        => '演講廳旗幟',
+        'advence_main_flow_flag_path'   => '主動線旗幟廣告',
+        'reason'                        => '為什麼本次選擇贊助 MOPCON？',
+        'purpose'                       => '希望能在本次大會達成的目標',
+        'remark'                        => '備註',
+        'external_link'                 => '外部連結',
+        'access_secret'                 => '密碼',
+        'updated_at'                    => '更新日期',
+        'updated_by'                    => '最後更新者',
+    ];
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sponsor = Sponsor::all();
+        $search = $request->input('search', '');
+        $filter = json_decode($request->input('filter', '{}'), true); //status, type
+        $order_field = $request->input('sort', 'id');
+        $order_method = $request->input('order', 'desc');
+        $limit = $request->input('limit', 25);
+
+        $sponsor = Sponsor::where(function ($query) use ($filter) {
+            if (isset($filter['status'])) {
+                $query->where('sponsor_status', $filter['status']);
+            }
+
+            if (isset($filter['type'])) {
+                $query->where('sponsor_type', $filter['type']);
+            }
+        })
+            ->where(function ($query) use ($search) {
+                if ($search !== '') {
+                    $query->orWhere('name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('recipe_contact_name', 'LIKE', '%' . $search . '%');
+                }
+            })
+            ->orderBy($order_field, $order_method)
+            ->paginate($limit);
+
         return $this->returnSuccess('Success.', $sponsor);
     }
 
@@ -55,7 +116,7 @@ class SponsorController extends Controller
     public function store(SponsorRequest $request)
     {
         $data = $request->only(['name', 'sponsor_type']);
-        $data['update_by'] = auth()->user()->id;
+        $data['updated_by'] = auth()->user()->id;
         $sponsor = Sponsor::create($data);
 
         return $this->returnSuccess('Success.', $sponsor);
@@ -70,27 +131,7 @@ class SponsorController extends Controller
     public function show($id)
     {
         $sponsor = Sponsor::findOrFail($id);
-        $sponsorData = collect($sponsor);
-
-        $data = [];
-        foreach ($sponsorData as $key => $item) {
-            if (preg_match('/(advence_)|(sponsor_type)|(sponsor_file_text)/', $key)) {
-                $data['advence'][$key] = $item;
-                continue;
-            }
-
-            if (preg_match('/(recipe_)/', $key)) {
-                $data['recipe'][$key] = $item;
-                continue;
-            }
-
-            if ($key === 'update_by') {
-                $data['main'][$key] = $item ? $sponsor->user->name : $sponsor->name;
-                continue;
-            }
-
-            $data['main'][$key] = $item;
-        }
+        $data = $this->arrangeSponsorData($sponsor);
 
         return $this->returnSuccess('Show success.', $data);
     }
@@ -105,9 +146,9 @@ class SponsorController extends Controller
     {
         $sponsor = Sponsor::findOrFail($id);
         $getFile = SponsorController::$uploadFileList;
-        $except = array_merge($getFile, ['update_by']);
+        $except = array_merge($getFile, []);
         $data = $request->except($except);
-        $data['update_by'] = auth()->user()->id;
+        $data['updated_by'] = auth()->user()->id;
 
         //檔案上傳
         foreach ($getFile as $value) {
@@ -119,7 +160,9 @@ class SponsorController extends Controller
 
         $sponsor->update($data);
 
-        return $this->returnSuccess('Update success.', $sponsor);
+        $sponsorData = $this->arrangeSponsorData($sponsor);
+
+        return $this->returnSuccess('Update success.', $sponsorData);
     }
 
     /**
@@ -133,6 +176,43 @@ class SponsorController extends Controller
         $sponsor->delete();
 
         return $this->returnSuccess('destroy success.');
+    }
+
+    public function exportTSV(Request $request)
+    {
+        $ids = $request->query('ids', '');
+        if (is_null($ids) || $ids === '') {
+            return $this->return400Response('沒有選擇贊助商');
+        }
+        $find_ids = explode(',', $ids);
+        $sponsors = Sponsor::WhereIn('id', $find_ids)->get()->toArray();
+        $callback = function () use ($sponsors) {
+            echo $this->transformToTSV($sponsors);
+        };
+
+        $filename = sprintf("sponsors-%s.tsv", time());
+        $headers = ['Content-Type' => 'text/tab-separated-values'];
+
+        return response()->streamDownload($callback, $filename, $headers);
+    }
+
+    private function transformToTSV(array $sponsors)
+    {
+        $output_rows = [];
+        $field_names_row = implode("\t", SponsorController::$FieldsForTSV);
+        $output_rows[] = $field_names_row;
+
+        $fieldNameKeys = array_keys(SponsorController::$FieldsForTSV);
+
+        foreach ($sponsors as $sponsor) {
+            $row = [];
+            foreach ($fieldNameKeys as $key) {
+                $row[] = $sponsor[$key];
+            }
+            $output_rows[] = implode("\t", $row);
+        }
+        $output = implode("\n", $output_rows);
+        return $output;
     }
 
     /**
@@ -170,22 +250,11 @@ class SponsorController extends Controller
         if ($sponsor->access_secret !== $password) {
             return $this->return400Response('密碼錯誤');
         }
-        $output = $sponsor->setHidden(SponsorController::$hiddenFieldsForExternal)->toArray();
-        $data = [];
-        foreach ($output as $key => $item) {
-            if (preg_match('/(advence_)/', $key)) {
-                $data['advence'][$key] = $item;
-                continue;
-            }
 
-            if (preg_match('/(recipe_)/', $key)) {
-                $data['recipe'][$key] = $item;
-                continue;
-            }
-
-            $data['main'][$key] = $item;
-        }
-        return $this->returnSuccess('Success.', $data);
+        $data = $sponsor->setHidden(SponsorController::$hiddenFieldsForExternal);
+        $result = $this->arrangeSponsorData($data);
+        
+        return $this->returnSuccess('Success.', $result);
     }
 
     /**
@@ -202,9 +271,9 @@ class SponsorController extends Controller
         }
 
         $getFile = SponsorController::$uploadFileList;
-        $except = array_merge($getFile, ['Sponsor_status', 'Sponsor_type', 'update_by', 'password']);
+        $except = array_merge($getFile, ['Sponsor_status', 'Sponsor_type', 'updated_by', 'password']);
         $data = $request->except($except);
-        $data['update_by'] = 0;
+        $data['updated_by'] = 0;
         $data['sponsor_status'] = 1;
 
         //檔案上傳
@@ -217,23 +286,10 @@ class SponsorController extends Controller
 
         $sponsor->update($data);
 
-        $sponsorData = $sponsor->setHidden(SponsorController::$hiddenFieldsForExternal)->toArray();
-        $data = [];
-        foreach ($sponsorData as $key => $item) {
-            if (preg_match('/(advence_)/', $key)) {
-                $data['advence'][$key] = $item;
-                continue;
-            }
+        $sponsorData = $sponsor->setHidden(SponsorController::$hiddenFieldsForExternal);
+        $result = $this->arrangeSponsorData($sponsorData);
 
-            if (preg_match('/(recipe_)/', $key)) {
-                $data['recipe'][$key] = $item;
-                continue;
-            }
-
-            $data['main'][$key] = $item;
-        }
-
-        return $this->returnSuccess('Update success.', $data);
+        return $this->returnSuccess('Update success.', $result);
     }
 
     /**
@@ -249,5 +305,36 @@ class SponsorController extends Controller
         $file->move(public_path(Sponsor::$filePath), $newFileName);
 
         return $newFileName;
+    }
+
+    /**
+     * 整理 sponsor 資料為 main, recipe, advance
+     *
+     * @param  Sponsor $sponsor
+     * @return Array
+     */
+    private function arrangeSponsorData(Sponsor $sponsor)
+    {
+        $data = [];
+        foreach ($sponsor->toArray() as $key => $item) {
+            if (preg_match('/(advence_)|(sponsor_type)|(sponsor_file_text)/', $key)) {
+                $data['advence'][$key] = $item;
+                continue;
+            }
+
+            if (preg_match('/(recipe_)/', $key)) {
+                $data['recipe'][$key] = $item;
+                continue;
+            }
+
+            if ($key === 'updated_by') {
+                $data['main'][$key] = $item ? $sponsor->user->name : $sponsor->name;
+                continue;
+            }
+
+            $data['main'][$key] = $item;
+        }
+
+        return $data;
     }
 }

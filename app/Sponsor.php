@@ -80,6 +80,7 @@ class Sponsor extends Model
         'advence_keynote',
         'advence_hall_flag_path',
         'advence_main_flow_flag_path',
+        'updated_by'
     ];
 
     protected $appends = [
@@ -132,6 +133,6 @@ class Sponsor extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'update_by');
+        return $this->belongsTo('App\User', 'updated_by');
     }
 }

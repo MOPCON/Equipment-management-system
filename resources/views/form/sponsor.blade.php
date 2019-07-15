@@ -191,8 +191,8 @@
                                 <label for="sponseRemarks">備註 ( 其他想對 MOPCON 說的話或資訊 )</label>
                                 <textarea class="form-control" id="sponseRemarks" v-model="formData.main.remark"></textarea>
                             </div>
-                            <h4 class="text-primary mt-4" v-if="formData.main.sponsor_type !== 3 && formData.main.sponsor_type !== 4">進階贊助商資料</h4>
-                                <div class="card my-2" v-if="formData.main.sponsor_type === 0">
+                            <h4 class="text-primary mt-4" v-if="formData.advence.sponsor_type !== 3 && formData.advence.sponsor_type !== 4">進階贊助商資料</h4>
+                                <div class="card my-2" v-if="formData.advence.sponsor_type === 0">
                                     <div class="card-header">
                                         贊助商類型：Tony Stark
                                     </div>
@@ -223,7 +223,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card my-2" v-else-if="formData.main.sponsor_type === 1">
+                                <div class="card my-2" v-else-if="formData.advence.sponsor_type === 1">
                                     <div class="card-header">
                                         贊助商類型：Bruce Wayne 以上
                                     </div>
@@ -244,7 +244,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card my-2" v-else-if="formData.main.sponsor_type === 2">
+                                <div class="card my-2" v-else-if="formData.advence.sponsor_type === 2">
                                     <div class="card-header" >
                                         贊助商類型：Hacker以上
                                     </div>
@@ -418,7 +418,7 @@
                         if (document.getElementById('vali')) {
                             const vm = this;
                             grecaptcha.render('vali', {
-                            'sitekey' : '{{ env('MIX_RECAPTCHA_KEY') }}',
+                            'sitekey' : '{{ env('RECAPTCHA_KEY') }}',
                                 'callback': function () {
                                     return new Promise(function(resolve, reject) {
                                         var response = grecaptcha.getResponse();

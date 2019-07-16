@@ -154,7 +154,7 @@ class SponsorController extends Controller
         foreach ($getFile as $value) {
             if ($request->hasFile($value)) {
                 $filename = $this->saveFile($request->file($value), $sponsor);
-                $data[$value] = Sponsor::$filePath . '/' . $filename;
+                $data[$value] = url(Sponsor::$filePath . '/' . $filename);
             }
         }
 

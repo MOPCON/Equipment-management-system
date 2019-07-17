@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\User;
 use App\Sponsor;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -133,6 +134,70 @@ class SponsorControllerTest extends TestCase
             ]);
     }
 
+    public function testExternalUpdateSponsorUploadImage()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $access_key = $sponsor->access_key;
+        $password = $sponsor->access_secret;
+
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo_path = pathinfo($logo, PATHINFO_BASENAME);
+        $ext = mime_content_type($logo);
+        $file = new UploadedFile($logo, $logo_path, $ext, null, true);
+
+        $response = $this->post('/sponsor/' . $access_key, [
+            '_method' => 'PUT',
+            'password' => $password,
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'logo_path' => $file,
+        ]);
+
+        $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
+        $new_path_info = explode('/', $new_path);
+        $new_file_name = end($new_path_info);
+        $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Update success.',
+                'data' => [
+                    'main' => [
+                        'name' => $name,
+                    ],
+                    'recipe' => [
+                        'recipe_contact_name' =>$contact,
+                    ]
+                ]
+            ]);
+        @unlink(public_path() . '/' .$new_path);
+    }
+
+    public function testExternalUpdateSponsorUploadIllegalFile()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $access_key = $sponsor->access_key;
+        $password = $sponsor->access_secret;
+
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+        $file = $file = UploadedFile::fake()->create('document.pdf', 100);
+
+        $response = $this->post('/sponsor/' . $access_key, [
+            '_method' => 'PUT',
+            'password' => $password,
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'logo_path' => $file,
+        ]);
+
+        $response->assertStatus(400)
+            ->assertJson([
+                'message' => 'The logo path must be an image.',
+            ]);
+    }
+
     public function testExternalUpdateSponsorWithWrongAccessKey()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
@@ -146,7 +211,7 @@ class SponsorControllerTest extends TestCase
             'name' => $newCompanyName,
             'recipe_full_name' => $newCompanyName
         ]);
-        
+
         $response->assertStatus(404)
             ->assertJson([
                 'message' => 'Not found'
@@ -166,7 +231,7 @@ class SponsorControllerTest extends TestCase
             'name' => $newCompanyName,
             'recipe_full_name' => $newCompanyName
         ]);
-        
+
         $response->assertStatus(400)
             ->assertJson([
                 'message' => '密碼錯誤'
@@ -247,7 +312,7 @@ class SponsorControllerTest extends TestCase
         $filter = json_encode([
             'status' => $sponsor->sponsor_status,
         ]);
-        
+
         $response = $this->get('/api/sponsor', [
             'filter' => $filter
         ]);
@@ -401,5 +466,61 @@ class SponsorControllerTest extends TestCase
 
         $response->assertSuccessful()
             ->assertHeader('Content-Type', 'text/tab-separated-values; charset=UTF-8');
+    }
+
+    public function testUpdateSponsorUploadImage()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo_path = pathinfo($logo, PATHINFO_BASENAME);
+        $ext = mime_content_type($logo);
+        $file = new UploadedFile($logo, $logo_path, $ext, null, true);
+
+        $response = $this->post('/api/sponsor/' . $sponsor->id, [
+            '_method' => 'PUT',
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'logo_path' => $file,
+        ]);
+
+        $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
+        $new_path_info = explode('/', $new_path);
+        $new_file_name = end($new_path_info);
+        $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Update success.',
+                'data' => [
+                    'main' => [
+                        'name' => $name,
+                    ],
+                    'recipe' => [
+                        'recipe_contact_name' =>$contact,
+                    ]
+                ]
+            ]);
+        @unlink(public_path() . '/' .$new_path);
+    }
+
+    public function testUpdateSponsorUploadIllegalFile()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+        $file = UploadedFile::fake()->create('document.pdf', 100);
+
+        $response = $this->post('/api/sponsor/' . $sponsor->id, [
+            '_method' => 'PUT',
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'logo_path' => $file,
+        ]);
+
+        $response->assertStatus(400)
+            ->assertJson([
+                'message' => 'The logo path must be an image.',
+            ]);
     }
 }

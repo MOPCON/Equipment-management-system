@@ -100,7 +100,7 @@
               <label for="speaker_form_url">連結</label>
               <div class="input-group">
                 <input type="text" class="form-control" id="speaker_created_form_url"
-                  :value="createSpeakerData.access_key">
+                  :value="createSpeakerData.external_link">
                 <div class="input-group-append">
                   <button class="btn btn-outline-primary copy" type="button"
                     data-clipboard-target="#speaker_created_form_url">
@@ -115,7 +115,7 @@
                 <input type="text" class="form-control" id="speaker_created_form_password"
                   :value="createSpeakerData.access_secret">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-primary" type="button"
+                  <button class="btn btn-outline-primary copy" type="button"
                     data-clipboard-target="#speaker_created_form_password">
                     <font-awesome-icon icon="copy" />
                   </button>
@@ -503,7 +503,7 @@
         createSpeakerData: {
           name: '',
           type: 0,
-          access_key: '',
+          external_link: '',
           access_secret: '',
         },
         action: 'new',
@@ -590,7 +590,7 @@
           const res = response.data;
           if (res.success) {
             vm.step++;
-            vm.createSpeakerData.access_key = res.data.access_key;
+            vm.createSpeakerData.external_link = res.data.external_link;
             vm.createSpeakerData.access_secret = res.data.access_secret;
           }
         }).catch(error => {

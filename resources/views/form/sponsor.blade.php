@@ -20,7 +20,7 @@
                     <div class="col-md-6" v-if="show">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="text-center">贊助商資料上傳表單</h3>
+                                <h3 class="text-center">{{trans('sponsor.sponsor_upload_form')}}</h3>
                             </div>
                             <div class="card-body">
                                 <accesskey-form v-on:accesskey_method="getSponsorForm"></accesskey-form>
@@ -28,193 +28,210 @@
                         </div>
                     </div>
                     <div class="col-md-10" id="sponsorForm" v-if="!show">
-                        <h2 class="d-inline-block my-3">贊助商表單</h2>
-                        <h4 class="d-inline-block mx-2">Sponsor form</h4>
+                        <h2 class="d-inline-block my-3">{{trans('sponsor.sponsor_form')}}</h2>
+                        <h4 class="d-inline-block mx-2">{{trans('sponsor.sponsor_form_c')}}</h4>
                         <form id="sendform" class="needs-validation" novalidate>
-                            <h4 class="text-primary mt-2">公開宣傳資料</h4>
+                            <h4 class="text-primary mt-2">{{trans('sponsor.promote_data')}}</h4>
                             <hr>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="companyName">公司名稱*</label>
+                                    <label for="companyName">{{trans('sponsor.main.name')}}*</label>
                                     <input type="text" class="form-control" id="companyName" placeholder="公司名稱" v-model="formData.main.name" required>
                                     <div class="invalid-feedback">
-                                        公司名稱為必填
+                                        {{trans('sponsor.required.main_name')}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="companyEnglishName">公司英文名稱*</label>
+                                    <label for="companyEnglishName">{{trans('sponsor.main.en_name')}}*</label>
                                     <input type="text" class="form-control" id="companyEnglishName" placeholder="公司英文名稱" v-model="formData.main.en_name" required>
                                     <div class="invalid-feedback">
-                                        公司英文名稱為必填
+                                        {{trans('sponsor.required.main_en_name')}}
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
-                                    <label for="introduction">公司簡介 (專業背景與沿革)*</label>
+                                    <label for="introduction">{{trans('sponsor.main.introduction')}}*</label>
                                     <span class="d-inline-block text-right"> @{{ introTextConunt }} / 250</span>
                                 </div>
-                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.main.introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.introduction)" required></textarea>
+                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.main.en_introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.introduction)" required></textarea>
                                 <div class="invalid-feedback">
-                                    產品及服務介紹為必填
+                                    {{trans('sponsor.required.main_introduction')}}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="companyUrl">公司網址*</label>
-                                <input type="url" class="form-control" id="companyUrl" placeholder="公司網址" v-model="formData.main.website" required>
+                                <div class="d-flex justify-content-between flex-column flex-md-row">
+                                    <label for="englishIntroduction">{{trans('sponsor.main.en_introduction')}}</label>
+                                </div>
+                                <textarea class="form-control" id="englishIntroduction" rows="4" v-model="formData.main.introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.en_introduction)"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyUrl">{{trans('sponsor.main.website')}}*</label>
+                                <input type="url" class="form-control" id="companyUrl" placeholder="{{trans('sponsor.main.website')}}" v-model="formData.main.website" required>
                                 <div class="invalid-feedback">
-                                公司網址為必填
+                                    {{trans('sponsor.required.main_website')}}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="socialMedia">社群媒體（如：FB）</label>
+                                <label for="socialMedia">{{trans('sponsor.main.social_media')}}</label>
                                 <input type="url" class="form-control" id="socialMedia" placeholder="FaceBook Url" v-model="formData.main.social_media">
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
-                                    <label for="production">產品及服務介紹 (主要商品、服務、核心能力、技術)*</label>
+                                    <label for="production">{{trans('sponsor.main.production')}}*</label>
                                     <span class="d-inline-block text-right"> @{{ productionTextConunt }} / 250</span>
                                 </div>
                                 <textarea class="form-control" id="production" rows="4"
                                 v-model="formData.main.production" maxlength="250" v-on:keyup="countText(250, 'productionTextConunt', formData.main.production);" required></textarea>
                                 <div class="invalid-feedback">
-                                產品及服務介紹為必填
+                                    {{trans('sponsor.required.main_production')}}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="logo_path">公司 LOGO ( ai 向量圖檔佳)*</label>
+                                <label for="logo_path">{{trans('sponsor.main.logo')}}*</label>
                                 <input type="file" class="form-control-file" id="logo_path" :required="formData.main.logo_path == null" @change="imagePreview('logo_path')">
                                 <img :src="formData.main.logo_path" class="mt-2" width="200px">
-                                <div class="invalid-feedback">請上傳公司 LOGO</div>
+                                <div class="invalid-feedback">
+                                    {{trans('sponsor.required.main_logo')}}
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="service_photo_path">產品或服務照片*</label>
+                                <label for="service_photo_path">{{trans('sponsor.main.service_photo')}}*</label>
                                 <input type="file" class="form-control-file" id="service_photo_path" :required="formData.main.service_photo_path == null" @change="imagePreview('service_photo_path')">
                                 <img :src="formData.main.service_photo_path" class="mt-2" width="200px">
-                                <div class="invalid-feedback">請上傳產品或服務照片</div>
+                                <div class="invalid-feedback">
+                                    {{trans('sponsor.required.main_service_photo')}}
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="promotionalMaterial">希望 MOPCON 宣傳的內容（ 我們將於 FB 等社群分享 ）</label>
+                                <label for="promotionalMaterial">{{trans('sponsor.main.promotion')}}</label>
                                 <textarea class="form-control" id="promotionalMaterial" rows="3" v-model="formData.main.promote">
                                 </textarea>
                             </div>
                             <div class="form-group">
-                                <label for="slide_path">場間投影片 (建議 1920 x 1080px 圖檔)*</label>
+                                <label for="slide_path">{{trans('sponsor.main.slide')}}*</label>
                                 <input type="file" class="form-control-file" id="slide_path" :required="formData.main.slide_path == null" @change="imagePreview('slide_path')">
                                 <img :src="formData.main.slide_path" class="mt-2" width="200px">
-                                <div class="invalid-feedback">請上傳場間投影片圖片</div>
+                                <div class="invalid-feedback">
+                                    {{trans('sponsor.required.main_slide')}}
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="board_path">電子看板 (建議1920x1080px圖檔)*</label>
+                                <label for="board_path">{{trans('sponsor.main.board')}}*</label>
                                 <input type="file" class="form-control-file" id="board_path" :required="formData.main.board_path == null" @change="imagePreview('board_path')">
                                 <img :src="formData.main.board_path" class="mt-2" width="200px">
-                                <div class="invalid-feedback">請上傳產品或服務照片</div>
+                                <div class="invalid-feedback">
+                                    {{trans('sponsor.required.main_board')}}
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
-                                    <label for="dinnerPartyIntro">晚宴簡介 (於晚宴中將由主持人介紹貴公司)</label>
+                                    <label for="dinnerPartyIntro">{{trans('sponsor.main.dinner_intro')}}</label>
                                     <span class="d-inline-block text-right"> @{{ dinnerPartyIntroTextConunt }} / 80</span>
                                 </div>
                                 <textarea class="form-control" id="dinnerPartyIntro" rows="2" v-model="formData.main.opening_remarks" maxlength="80" v-on:keyup="countText(80, 'dinnerPartyIntroTextConunt', formData.main.opening_remarks);"></textarea>
                             </div>
-                            <h4 class="text-primary mt-2">收據資料</h4>
+                            <h4 class="text-primary mt-2">{{trans('sponsor.recipe_data')}}</h4>
                             <hr>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="companyFullName">公司 / 組織全銜*</label>
+                                    <label for="companyFullName">{{trans('sponsor.recipe.company_full_name')}}*</label>
                                     <input type="text" class="form-control" id="companyFullName" placeholder="公司 / 組織全銜" v-model="formData.recipe.recipe_full_name" required>
                                     <div class="invalid-feedback">
-                                        公司 / 組織全銜為必填
+                                        {{trans('sponsor.required.recipe_company_full_name')}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="taxIDNumber">統一編號*</label>
+                                    <label for="taxIDNumber">{{trans('sponsor.recipe.tax_id_number')}}*</label>
                                     <input type="number" class="form-control" id="taxIDNumber" placeholder="統一編號" v-model="formData.recipe.recipe_tax_id_number" oninput="if(value.length>8)value=value.slice(0,8)" required>
                                     <div class="invalid-feedback">
-                                        統一編號為必填
+                                        {{trans('sponsor.required.recipe_tax_id_number')}}
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="sponsePrice">贊助金額*</label>
-                                <input type="number" class="form-control" id="sponsePrice" placeholder="1,000" v-model="formData.recipe.recipe_amount" disabled>
+                                <label for="sponsePrice">{{trans('sponsor.recipe.sponse_price')}}*</label>
+                                <input type="number" class="form-control" id="sponsePrice" placeholder="1,000" v-model="formData.recipe.recipe_amount" required>
+                                <div class="invalid-feedback">
+                                    {{trans('sponsor.required.recipe_sponse_price')}}
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                <label for="contactName">聯絡人姓名*</label>
+                                <label for="contactName">{{trans('sponsor.recipe.contact_name')}}*</label>
                                 <input type="text" class="form-control" id="contactName" placeholder="聯絡人姓名" v-model="formData.recipe.recipe_contact_name" required>
                                 <div class="invalid-feedback">
-                                    聯絡人姓名為必填
+                                    {{trans('sponsor.required.recipe_contact_name')}}
                                 </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                <label for="contactTitle">聯絡人職稱</label>
+                                <label for="contactTitle">{{trans('sponsor.recipe.contact_title')}}</label>
                                 <input type="text" class="form-control" id="contactTitle" v-model="formData.recipe.recipe_contact_title" placeholder="聯絡人職稱">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="contactPhoneNumber">聯絡人電話*</label>
+                                    <label for="contactPhoneNumber">{{trans('sponsor.recipe.contact_phone_number')}}*</label>
                                     <input type="text" class="form-control" id="contactPhoneNumber" v-model="formData.recipe.recipe_contact_phone" placeholder="聯絡人電話" required>
                                     <div class="invalid-feedback">
-                                        聯絡人電話為必填
+                                        {{trans('sponsor.required.recipe_contact_phone_number')}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="contactMail">聯絡人 Email*</label>
+                                    <label for="contactMail">{{trans('sponsor.recipe.contact_mail')}}*</label>
                                     <input type="email" class="form-control" id="contactMail" v-model="formData.recipe.recipe_contact_email" placeholder="聯絡人 Email" required>
                                     <div class="invalid-feedback">
-                                        聯絡人 Email 為必填
+                                        {{trans('sponsor.required.recipe_contact_mail')}}
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="contactAddress">收件地址*</label>
+                                <label for="contactAddress">{{trans('sponsor.recipe.contact_address')}}*</label>
                                 <input type="" class="form-control" id="contactAddress" placeholder="請填寫完整收件地址" v-model="formData.recipe.recipe_contact_address" required>
                                 <div class="invalid-feedback">
-                                收件地址為必填
+                                    {{trans('sponsor.required.recipe_contact_address')}}
                                 </div>
                             </div>
                             <hr>
                             <div class="form-group">
-                                <label for="sponseReason">為什麼本次選擇贊助 MOPCON？( 貴公司希望與 MOPCON 合作，並期待達成的效益與目的 )</label>
+                            <label for="sponseReason">{{trans('sponsor.main.sponse_reason')}}</label>
                                 <textarea class="form-control" id="sponseReason" rows="2" v-model="formData.main.reason"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="sponseAims">希望能在本次大會達成的目標 (貴公司希望在 MOPCON 活動中達成的目標。交流、推廣、介紹產品與服務...等等) </label>
+                                <label for="sponseAims">{{trans('sponsor.main.sponse_aims')}}</label>
                                 <textarea class="form-control" id="sponseAims" rows="2" v-model="formData.main.purpose"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="sponseRemarks">備註 ( 其他想對 MOPCON 說的話或資訊 )</label>
+                                <label for="sponseRemarks">{{trans('sponsor.main.sponse_remarks')}}</label>
                                 <textarea class="form-control" id="sponseRemarks" v-model="formData.main.remark"></textarea>
                             </div>
                             <h4 class="text-primary mt-4" v-if="formData.advence.sponsor_type !== 3 && formData.advence.sponsor_type !== 4">進階贊助商資料</h4>
                                 <div class="card my-2" v-if="formData.advence.sponsor_type === 0">
                                     <div class="card-header">
-                                        贊助商類型：Tony Stark
+                                        {{trans('sponsor.advance.sponsor_type')}}：{{trans('sponsor.advance.tony_stark')}}
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="advence_icck_ad_path"> ICCK大門兩側廣告 </label>
+                                            <label for="advence_icck_ad_path">{{trans('sponsor.advance.icck')}}</label>
                                             <input type="file" class="form-control-file" id="advence_icck_ad_path"  @change="imagePreview('advence_icck_ad_path')">
                                             <img class="mt-2" :src="formData.advence.advence_icck_ad_path" width="200px">
                                         </div>
                                         <div class="form-group">
-                                            <label for="advence_registration_ad_path"> 報到處全版廣告空間</label>
+                                        <label for="advence_registration_ad_path">{{trans('sponsor.advance.registration')}}</label>
                                             <input type="file" class="form-control-file" id="advence_registration_ad_path" @change="imagePreview('advence_registration_ad_path')">
                                             <img class="mt-2" :src="formData.advence.advence_registration_ad_path" width="200px">
                                         </div>
                                         <div class="form-group">
-                                            <label for="keynoteIntroduction">Keynote 引言</label>
+                                            <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
                                             <textarea class="form-control" id="keynoteIntroduction" rows="4" v-model="formData.advence.advence_keynote"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="advence_hall_flag_path"> 演講廳旗幟 </label>
+                                            <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
                                             <input type="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_hall_flag_path" width="200px">
                                         </div>
                                         <div class="form-group">
-                                            <label for="advence_main_flow_flag_path">主動線旗幟廣告</label>
+                                            <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
                                             <input type="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_main_flow_flag_path" width="200px">
                                         </div>
@@ -222,20 +239,20 @@
                                 </div>
                                 <div class="card my-2" v-else-if="formData.advence.sponsor_type === 1">
                                     <div class="card-header">
-                                        贊助商類型：Bruce Wayne 以上
+                                        {{trans('sponsor.advance.sponsor_type')}}：{{trans('sponsor.advance.bruce_wayne')}}
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="keynoteIntroduction">Keynote 引言</label>
+                                            <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
                                             <textarea class="form-control" id="keynoteIntroduction" rows="4" v-model="formData.advence.advence_keynote"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="advence_hall_flag_path"> 演講廳旗幟 </label>
+                                            <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
                                             <input type="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_hall_flag_path" width="200px">
                                         </div>
                                         <div class="form-group">
-                                            <label for="advence_main_flow_flag_path">主動線旗幟廣告</label>
+                                            <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
                                             <input type="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_main_flow_flag_path" width="200px">
                                         </div>
@@ -243,16 +260,16 @@
                                 </div>
                                 <div class="card my-2" v-else-if="formData.advence.sponsor_type === 2">
                                     <div class="card-header" >
-                                        贊助商類型：Hacker以上
+                                        {{trans('sponsor.advance.sponsor_type')}}：{{trans('sponsor.advance.hacker')}}
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="advence_hall_flag_path"> 演講廳旗幟 </label>
+                                            <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
                                             <input type="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_hall_flag_path" width="200px">
                                         </div>
                                         <div class="form-group">
-                                            <label for="advence_main_flow_flag_path">主動線旗幟廣告</label>
+                                            <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
                                             <input type="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_main_flow_flag_path" width="200px">
                                         </div>
@@ -260,7 +277,7 @@
                                 </div>
                                 <div id="vali"></div>
                                 <input type="hidden" class="send" name="password" v-model="password">
-                                <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" :disabled="!reCaptchaStatus" @click.prevent="validationForm()">送出</button>
+                                <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" :disabled="!reCaptchaStatus" @click.prevent="validationForm()">{{trans('sponsor.submit')}}</button>
                         </form>
                     </div>
                 </div>
@@ -289,10 +306,10 @@
             },
             template: `<form id="accessform" class="clearfix" novalidate>
                 <div class="form-group">
-                    <label for="access_screct">密碼</label>
+                    <label for="access_screct">${'{{ trans('sponsor.password') }}'}</label>
                     <input type="password" class="form-control" id="access_screct" name="password" v-model="password" @key.enter="accesskey_method()">
                 </div>
-                <input id="access_send" type='submit' class="btn btn-primary float-right" value="提交" @click.prevent="accesskey_method()"/>
+                <input id="access_send" type='submit' class="btn btn-primary float-right" value="${'{{ trans('sponsor.submit') }}'}" @click.prevent="accesskey_method()"/>
             </form>`
         });
 
@@ -374,7 +391,7 @@
                         .then((response) => {
                             vm.alertShow = true;
                             vm.classColor = 'alert-success';
-                            vm.message = '資料上傳成功';
+                            vm.message = '{{ trans('sponsor.success_message') }}';
                         })
                         .catch((err) => {
                             vm.alertShow = true;
@@ -391,7 +408,7 @@
                         if (form.checkValidity() === false) {
                             vm.alertShow = true;
                             vm.classColor = 'alert-danger';
-                            vm.message = '請確認欄位正確填寫';
+                            vm.message = '{{ trans('sponsor.fail_message') }}';
                         } else {
                             vm.sendform();
                         }

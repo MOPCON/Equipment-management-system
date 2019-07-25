@@ -20,7 +20,8 @@ class SponsorController extends Controller
         'sponsor_file_text',
         'updated_by',
         'updated_by_name',
-        'access_secret'
+        'access_secret',
+        'note',
     ];
 
     private static $uploadFileList = [
@@ -69,6 +70,7 @@ class SponsorController extends Controller
         'remark'                        => '備註',
         'external_link'                 => '外部連結',
         'access_secret'                 => '密碼',
+        'note'                          => '後台備註',
         'updated_at'                    => '更新日期',
         'updated_by'                    => '最後更新者',
     ];
@@ -115,7 +117,10 @@ class SponsorController extends Controller
      */
     public function store(SponsorRequest $request)
     {
-        $data = $request->only(['name', 'sponsor_type']);
+        if (!$request->has('recipe_amount') || is_null($request->input('recipe_amount'))) {
+            return $this->return400Response('請填寫贊助金額');
+        }
+        $data = $request->only(['name', 'sponsor_type', 'recipe_amount']);
         $data['updated_by'] = auth()->user()->id;
         $sponsor = Sponsor::create($data);
 
@@ -271,7 +276,7 @@ class SponsorController extends Controller
         }
 
         $getFile = SponsorController::$uploadFileList;
-        $except = array_merge($getFile, ['Sponsor_status', 'Sponsor_type', 'updated_by', 'password']);
+        $except = array_merge($getFile, ['Sponsor_status', 'Sponsor_type', 'updated_by', 'password', 'recipe_amount']);
         $data = $request->except($except);
         $data['updated_by'] = 0;
         $data['sponsor_status'] = 1;

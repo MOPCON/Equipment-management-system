@@ -111,23 +111,27 @@ class SponsorControllerTest extends TestCase
         $sponsor = factory(Sponsor::class, 1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = $sponsor->access_secret;
+        $recipe_amount = $sponsor->recipe_amount;
 
-        $newCompanyName = $this->faker->company;
+        $new_company_name = $this->faker->company;
+        $new_recipe_amount = $recipe_amount + 10;
 
         $response = $this->json('PUT', '/sponsor/' . $access_key, [
             'password' => $password,
-            'name' => $newCompanyName,
-            'recipe_full_name' => $newCompanyName
+            'name' => $new_company_name,
+            'recipe_full_name' => $new_company_name,
+            'recipe_amount' => $new_recipe_amount
         ]);
 
         $response->assertStatus(200)
             ->assertJson([
                 'data' => [
                     'main' => [
-                        'name' => $newCompanyName,
+                        'name' => $new_company_name,
                     ],
                     'recipe' => [
-                        'recipe_full_name' => $newCompanyName,
+                        'recipe_full_name' => $new_company_name,
+                        'recipe_amount' => $recipe_amount,
                     ],
                     'advence' => [],
                 ]
@@ -204,12 +208,12 @@ class SponsorControllerTest extends TestCase
         $access_key = strrev($sponsor->access_key);
         $password = $sponsor->access_secret;
 
-        $newCompanyName = $this->faker->company;
+        $new_company_name = $this->faker->company;
 
         $response = $this->json('PUT', '/sponsor/' . $access_key, [
             'password' => $password,
-            'name' => $newCompanyName,
-            'recipe_full_name' => $newCompanyName
+            'name' => $new_company_name,
+            'recipe_full_name' => $new_company_name
         ]);
 
         $response->assertStatus(404)
@@ -224,12 +228,12 @@ class SponsorControllerTest extends TestCase
         $access_key = $sponsor->access_key;
         $password = strrev($sponsor->access_secret);
 
-        $newCompanyName = $this->faker->company;
+        $new_company_name = $this->faker->company;
 
         $response = $this->json('PUT', '/sponsor/' . $access_key, [
             'password' => $password,
-            'name' => $newCompanyName,
-            'recipe_full_name' => $newCompanyName
+            'name' => $new_company_name,
+            'recipe_full_name' => $new_company_name
         ]);
 
         $response->assertStatus(400)
@@ -244,8 +248,10 @@ class SponsorControllerTest extends TestCase
         $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem) - 1);
         $this->actingAs($user);
         $company = $this->faker->company;
+        $recipe_amount = $this->faker->numberBetween(88888, 8888888);
         $response = $this->json('POST', '/api/sponsor', [
             'name' => $company,
+            'recipe_amount' => $recipe_amount,
             'sponsor_type' => $sponsorType,
         ]);
 
@@ -254,6 +260,7 @@ class SponsorControllerTest extends TestCase
                 'data' => [
                     'name' => $company,
                     'sponsor_type' => $sponsorType,
+                    'recipe_amount' => $recipe_amount,
                     'sponsor_status' => 0,
                 ]
             ]);
@@ -264,13 +271,33 @@ class SponsorControllerTest extends TestCase
         $user = User::find(1);
         $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem) - 1);
         $this->actingAs($user);
+        $recipe_amount = $this->faker->numberBetween(88888, 8888888);
         $response = $this->json('POST', '/api/sponsor', [
             'sponsor_type' => $sponsorType,
+            'recipe_amount' => $recipe_amount,
         ]);
 
         $response->assertStatus(400)
             ->assertJson([
                 'message' => '【name】必填'
+            ]);
+    }
+
+    public function testApiCreateSponsorWithNoRecipeAmount()
+    {
+        $user = User::find(1);
+        $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem) - 1);
+        $this->actingAs($user);
+        $company = $this->faker->company;
+        $recipe_amount = $this->faker->numberBetween(88888, 8888888);
+        $response = $this->json('POST', '/api/sponsor', [
+            'name' => $company,
+            'sponsor_type' => $sponsorType,
+        ]);
+
+        $response->assertStatus(400)
+            ->assertJson([
+                'message' => '請填寫贊助金額',
             ]);
     }
 
@@ -427,10 +454,14 @@ class SponsorControllerTest extends TestCase
         $sponsor = factory(Sponsor::class, 1)->create()->first();
         $name= $this->faker->company;
         $contact = $this->faker->name;
+        $recipe_amount = $sponsor->recipe_amount;
+
+        $new_recipe_amount = $recipe_amount + 1000;
 
         $response = $this->json('PUT', '/api/sponsor/' . $sponsor->id, [
             'name' => $name,
             'recipe_contact_name' => $contact,
+            'recipe_amount' => $new_recipe_amount,
         ]);
 
         $response->assertStatus(200)
@@ -441,6 +472,7 @@ class SponsorControllerTest extends TestCase
                     ],
                     'recipe' => [
                         'recipe_contact_name' =>$contact,
+                        'recipe_amount' => $new_recipe_amount,
                     ]
                 ]
             ]);

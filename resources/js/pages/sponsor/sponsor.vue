@@ -85,6 +85,10 @@
                             <input type="text" class="form-control" id="sponsorName" placeholder="贊助商名稱" v-model="createSponsorData.name">
                         </div>
                         <div class="form-group">
+                            <label for="recipe_amount">贊助金額</label>
+                            <input type="number" class="form-control" id="recipe_amount" v-model="createSponsorData.recipe_amount" min="0">
+                        </div>
+                        <div class="form-group">
                             <label for="sponsorType">類型</label>
                             <select class="form-control" id="sponsorType"  v-model="createSponsorData.type">
                                 <option v-for="(type, index) in sponsorOption.sponsorTypeItem" :value="index">{{ type }}</option>
@@ -465,6 +469,7 @@
                 createSponsorData: {
                     name: '',
                     type: 0,
+                    recipe_amount: 0,
                     external_link: '',
                     access_secret: '',
                 },
@@ -588,7 +593,8 @@
                 const vm = this;
                 axios.post('api/sponsor', {
                     name: vm.createSponsorData.name,
-                    sponsor_type: vm.createSponsorData.type
+                    sponsor_type: vm.createSponsorData.type,
+                    recipe_amount: vm.createSponsorData.recipe_amount,
                 }).then(response => {
                     const res = response.data;
                     if (res.success) {

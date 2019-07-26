@@ -137,10 +137,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="sponsePrice">贊助金額*</label>
-                                <input type="number" class="form-control" id="sponsePrice" placeholder="1,000" v-model="formData.recipe.recipe_amount" required>
-                                <div class="invalid-feedback">
-                                    贊助金額為必填
-                                </div>
+                                <input type="number" class="form-control" id="sponsePrice" placeholder="1,000" v-model="formData.recipe.recipe_amount" disabled>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">

@@ -38,6 +38,7 @@ $factory->define(App\Sponsor::class, function () {
         'advence_keynote'              => $zhFaker->text(120),
         'advence_hall_flag_path'       => $enFaker->imageUrl(120, 120, 'cats'),
         'advence_main_flow_flag_path'  => $enFaker->imageUrl(120, 120, 'cats'),
+        'note'                         => $zhFaker->text(50),
         'updated_by'                   => 0,
     ];
 });

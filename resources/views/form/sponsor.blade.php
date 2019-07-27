@@ -1,3 +1,13 @@
+@php
+    $locale = Session::get('locale', 'tw');
+    if ($locale === 'tw') {
+        $tw = 'active';
+        $en = '';
+    } else {
+        $tw = '';
+        $en = 'active';
+    }
+@endphp
 <!DOCTYPE html>
     <head>
         <meta charset="utf-8">
@@ -8,6 +18,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
     <body class="bg-light">
+        <nav class="nav justify-content-end nav-pills">
+            <li class="nav-item">
+                <a class="nav-link {{ $tw }}" href="/lang/tw">中文</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ $en }}" href="/lang/en">English</a>
+            </li>
+        </nav>
         <div id="app">
             <div class="container">
                 <div class="alert sticky-top" :class="classColor" role="alert" style="top: 10px;" v-if="alertShow">

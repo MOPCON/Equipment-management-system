@@ -32,6 +32,7 @@ Route::get('/sponsor/get-options', 'SponsorController@getOptions');
 Route::get('/sponsor/form/{accessKey}', 'SponsorController@externalForm');
 Route::post('/sponsor/{accessKey}', 'SponsorController@externalShow');
 Route::put('/sponsor/{accessKey}', 'SponsorController@externalUpdate');
+Route::get('/lang/{locale}', 'LocalizationController@switchLang');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/whoami', function () {

@@ -34,7 +34,7 @@ class SponsorRequest extends BaseRequest
             'website'                      => 'nullable|url',
             'social_media'                 => 'nullable|url',
             'production'                   => 'nullable|string',
-            'logo_path'                    => 'nullable|image',
+            'logo_path'                    => 'nullable|mimes:jpeg,png,gif,bmp,svg,pdf,ai,eps,psd',
             'service_photo_path'           => 'nullable|image',
             'promote'                      => 'nullable|string',
             'slide_path'                   => 'nullable|image',

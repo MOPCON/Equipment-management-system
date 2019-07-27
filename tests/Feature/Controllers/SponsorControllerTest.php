@@ -186,7 +186,7 @@ class SponsorControllerTest extends TestCase
 
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $file = $file = UploadedFile::fake()->create('document.pdf', 100);
+        $file = $file = UploadedFile::fake()->create('document.doc', 100);
 
         $response = $this->post('/sponsor/' . $access_key, [
             '_method' => 'PUT',
@@ -198,7 +198,7 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                'message' => 'The logo path must be an image.',
+                'message' => 'The logo path must be a file of type: jpeg, png, gif, bmp, svg, pdf, ai, eps, psd.',
             ]);
     }
 
@@ -541,7 +541,7 @@ class SponsorControllerTest extends TestCase
         $sponsor = factory(Sponsor::class, 1)->create()->first();
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $file = UploadedFile::fake()->create('document.pdf', 100);
+        $file = UploadedFile::fake()->create('document.doc', 100);
 
         $response = $this->post('/api/sponsor/' . $sponsor->id, [
             '_method' => 'PUT',
@@ -552,7 +552,7 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                'message' => 'The logo path must be an image.',
+                'message' => 'The logo path must be a file of type: jpeg, png, gif, bmp, svg, pdf, ai, eps, psd.',
             ]);
     }
 }

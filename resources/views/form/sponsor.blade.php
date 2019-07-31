@@ -431,6 +431,12 @@
                             vm.sendform();
                         }
                         form.classList.add('was-validated');
+                        const errorInput = document.querySelector('.was-validated .form-control:invalid~.invalid-feedback')
+                        if (errorInput !== null) {
+                            const id = errorInput.previousElementSibling.id;
+                            const link = location.href.split('#')
+                            window.location = link[0] +`#${id}`;
+                        }
                     });
                 },
                 imagePreview(inputId) {

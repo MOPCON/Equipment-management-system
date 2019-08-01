@@ -72,7 +72,7 @@
                                     <label for="introduction">{{trans('sponsor.main.introduction')}}*</label>
                                     <span class="d-inline-block text-right"> @{{ introTextConunt }} / 250</span>
                                 </div>
-                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.main.en_introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.introduction)" required></textarea>
+                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.main.introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.introduction)" required></textarea>
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_introduction')}}
                                 </div>
@@ -81,7 +81,7 @@
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="englishIntroduction">{{trans('sponsor.main.en_introduction')}}</label>
                                 </div>
-                                <textarea class="form-control" id="englishIntroduction" rows="4" v-model="formData.main.introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.en_introduction)"></textarea>
+                                <textarea class="form-control" id="englishIntroduction" rows="4" v-model="formData.main.en_introduction"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="companyUrl">{{trans('sponsor.main.website')}}*</label>

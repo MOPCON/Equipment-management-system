@@ -236,6 +236,11 @@ class SponsorController extends Controller
     public function externalForm($accessKey)
     {
         $sponsor = Sponsor::where('access_key', '=', $accessKey)->firstOrFail();
+
+        if (! $sponsor->editable) {
+            return '目前表單已關閉';
+        }
+
         $data = [
             'main' => [
                 'access_key' => $accessKey,
@@ -251,6 +256,10 @@ class SponsorController extends Controller
     {
         $sponsor = Sponsor::where('access_key', '=', $accessKey)->firstOrFail();
 
+        if (! $sponsor->editable) {
+            return $this->return400Response();
+        }
+
         $password = $request->input('password', '');
         if ($sponsor->access_secret !== $password) {
             return $this->return400Response('密碼錯誤');
@@ -258,7 +267,7 @@ class SponsorController extends Controller
 
         $data = $sponsor->setHidden(SponsorController::$hiddenFieldsForExternal);
         $result = $this->arrangeSponsorData($data);
-        
+
         return $this->returnSuccess('Success.', $result);
     }
 
@@ -270,6 +279,10 @@ class SponsorController extends Controller
     public function externalUpdate(SponsorRequest $request, $accessKey)
     {
         $sponsor = Sponsor::where('access_key', '=', $accessKey)->firstOrFail();
+
+        if (! $sponsor->editable) {
+            return $this->return400Response();
+        }
 
         if ($sponsor->access_secret !== $request->input('password')) {
             return $this->return400Response('密碼錯誤');

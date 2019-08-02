@@ -231,6 +231,10 @@ class SpeakerController extends Controller
     {
         $speaker = Speaker::where('access_key', '=', $accessKey)->first() ?? abort(404);
 
+        if (! $speaker->editable) {
+            return '目前表單已關閉';
+        }
+
         $data = [
             'speaker' => $speaker->only(['access_key']),
         ];
@@ -251,6 +255,10 @@ class SpeakerController extends Controller
 
         $speaker = Speaker::where('access_key', '=', $accessKey)->firstOrFail();
 
+        if (! $speaker->editable) {
+            return $this->return400Response();
+        }
+
         if ($speaker->access_secret !== $request->input('password')) {
             return $this->return400Response();
         }
@@ -267,6 +275,10 @@ class SpeakerController extends Controller
     {
         $speaker = Speaker::where('access_key', '=', $accessKey)->firstOrFail();
         if ($speaker) {
+            if (! $speaker->editable) {
+                return $this->return400Response();
+            }
+
             if ($speaker->access_secret !== $request->input('password')) {
                 return $this->return400Response();
             }

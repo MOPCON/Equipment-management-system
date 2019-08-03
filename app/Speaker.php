@@ -168,6 +168,6 @@ class Speaker extends Model
 
     public function getEditableAttribute()
     {
-        return ($this->speaker_status == self::NotEditableStatus) ? false : true;
+        return $this->speaker_status !== self::NotEditableStatus;
     }
 }

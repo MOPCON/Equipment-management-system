@@ -140,6 +140,6 @@ class Sponsor extends Model
 
     public function getEditableAttribute()
     {
-        return ($this->sponsor_status == self::NotEditableStatus) ? false : true;
+        return $this->sponsor_status !== self::NotEditableStatus;
     }
 }

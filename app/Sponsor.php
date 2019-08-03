@@ -16,6 +16,7 @@ class Sponsor extends Model
     private const HACKER = 'Hacker';
     private const DEVELOP = 'Developer';
     private const OTHER = '其他';
+    private const NotEditableStatus = 3; // based on $sponsorStatusItem
 
     public static $sponsorTypeItem = [
         self::TONYSTARK,
@@ -40,7 +41,7 @@ class Sponsor extends Model
         self::DEVELOP    => [],
         self::OTHER      => [],
     ];
-    
+
     public static $sponsorStatusItem = [
         '待確認',
         '確認中',
@@ -88,6 +89,7 @@ class Sponsor extends Model
         'sponsor_file_text',
         'sponsor_status_text',
         'external_link',
+        'editable',
     ];
 
     public static function boot()
@@ -134,5 +136,10 @@ class Sponsor extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'updated_by');
+    }
+
+    public function getEditableAttribute()
+    {
+        return $this->sponsor_status !== self::NotEditableStatus;
     }
 }

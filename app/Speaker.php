@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class Speaker extends Model
 {
+    private const NotEditableStatus = 3; // based on $speakerStatusItem
+
     public static $photoPath = '/images/speaker';
     public static $tagItem = [
         'AI',
@@ -103,6 +105,7 @@ class Speaker extends Model
         'speaker_status_text',
         'speaker_type_text',
         'external_link',
+        'editable',
     ];
     protected $casts = ['tag' => 'array'];
 
@@ -161,5 +164,10 @@ class Speaker extends Model
     public function getExternalLinkAttribute()
     {
         return $this->access_key ? (url("/speaker/form/{$this->access_key}")) : '';
+    }
+
+    public function getEditableAttribute()
+    {
+        return $this->speaker_status !== self::NotEditableStatus;
     }
 }

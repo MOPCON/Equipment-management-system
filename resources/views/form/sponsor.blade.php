@@ -106,16 +106,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="logo_path">{{trans('sponsor.main.logo')}}*</label>
-                                <input type="file" class="form-control-file" id="logo_path" :required="formData.main.logo_path == null" @change="imagePreview('logo_path')">
+                                <label for="logo_path">{{trans('sponsor.main.logo')}}</label>
+                                <input type="file" class="form-control-file" id="logo_path" @change="imagePreview('logo_path')">
                                 <img :src="formData.main.logo_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_logo')}}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="service_photo_path">{{trans('sponsor.main.service_photo')}}*</label>
-                                <input type="file" class="form-control-file" id="service_photo_path" :required="formData.main.service_photo_path == null" @change="imagePreview('service_photo_path')">
+                                <label for="service_photo_path">{{trans('sponsor.main.service_photo')}}</label>
+                                <input type="file" class="form-control-file" id="service_photo_path" @change="imagePreview('service_photo_path')">
                                 <img :src="formData.main.service_photo_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_service_photo')}}
@@ -127,16 +127,16 @@
                                 </textarea>
                             </div>
                             <div class="form-group">
-                                <label for="slide_path">{{trans('sponsor.main.slide')}}*</label>
-                                <input type="file" class="form-control-file" id="slide_path" :required="formData.main.slide_path == null" @change="imagePreview('slide_path')">
+                                <label for="slide_path">{{trans('sponsor.main.slide')}}</label>
+                                <input type="file" class="form-control-file" id="slide_path" @change="imagePreview('slide_path')">
                                 <img :src="formData.main.slide_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_slide')}}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="board_path">{{trans('sponsor.main.board')}}*</label>
-                                <input type="file" class="form-control-file" id="board_path" :required="formData.main.board_path == null" @change="imagePreview('board_path')">
+                                <label for="board_path">{{trans('sponsor.main.board')}}</label>
+                                <input type="file" class="form-control-file" id="board_path" @change="imagePreview('board_path')">
                                 <img :src="formData.main.board_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_board')}}

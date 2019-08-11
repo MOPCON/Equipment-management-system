@@ -10,8 +10,18 @@ use Illuminate\Support\Facades\Auth;
 class StudentController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
 
     private $image_type = ['bmp', 'gif', 'jpeg', 'png', 'jpg'];
+
+    /**
+     * StudentController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+        $this->checkPermission('Student:Write', 'upload');
+    }
 
     public function store(Request $request)
     {

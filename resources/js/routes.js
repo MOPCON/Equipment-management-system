@@ -9,11 +9,18 @@ import raise from "./pages/equipments/raise";
 import telegram_message from './pages/telegram_bot/index';
 import telegram_channel from './pages/telegram_bot/channel';
 import student_verify from './pages/verify/student_verify';
-import setting_user from './pages/setting/user';
+import user from './pages/users/user';
+import user_role from './pages/users/role';
 import setting_print from './pages/setting/tool.print';
 import setting_imexport from './pages/setting/import_export.vue';
 import loan from "./pages/loan/loan";
 import action from "./pages/loan/action";
+import logs from "./pages/logs";
+import formSpeaker from "./pages/form/Speaker";
+import speaker from "./pages/speakers/speaker";
+import page_403 from "./pages/error/403";
+import sponsor_upload from "./pages/sponsor/sponsor_upload";
+import sponsor from "./pages/sponsor/sponsor";
 
 Vue.use(VueRouter);
 
@@ -46,7 +53,10 @@ const router = new VueRouter({
             component: action,
         }, {
             path: '/user',
-            component: setting_user,
+            component: user,
+        }, {
+            path: '/user/role',
+            component: user_role,
         }, {
             path: '/tool/print',
             component: setting_print,
@@ -62,6 +72,26 @@ const router = new VueRouter({
         }, {
             path: '/telegram-channel',
             component: telegram_channel,
+        }, {
+            path: '/logs',
+            component: logs,
+        }, {
+            path: '/form/speaker',
+            component: formSpeaker,
+        },{
+            path: '/speaker/speaker',
+            component: speaker,
+        }, {
+            path: '/403',
+            component: page_403,
+        },
+        {
+            path: '/sponsor/upload',
+            component: sponsor_upload,
+        },
+        {
+            path: '/sponsor/sponsor',
+            component: sponsor,
         },
         {
             path: '/*',

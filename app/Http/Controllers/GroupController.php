@@ -10,6 +10,15 @@ use App\Http\Requests\GroupRequest;
 class GroupController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * GroupController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * Display a listing of the resource.

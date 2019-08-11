@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 class EquipmentBarcodeController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * EquipmentBarcodeController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * @param Request $request

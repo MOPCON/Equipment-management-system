@@ -4,10 +4,26 @@ namespace App\Http\Controllers;
 
 use App\TelegramChannel;
 use App\Http\Requests\TelegramChannelRequest;
+use App\SystemLogType;
+use App\Services\SystemLogService;
 
 class TelegramChannelController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    private $SystemLog;
+    private $SystemLogTypeId;
+
+    /**
+     * TelegramChannelController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+        $this->SystemLog = new SystemLogService();
+        $this->SystemLogTypeId = SystemLogType::where('name', '頻道管理')->first()->id;
+    }
 
     /**
      * Display a listing of the resource.
@@ -25,7 +41,12 @@ class TelegramChannelController extends Controller
      */
     public function store(TelegramChannelRequest $request)
     {
-        return $this->returnSuccess('Success', TelegramChannel::create($request->only(['name', 'code'])));
+        $telegramChannel = TelegramChannel::create($request->only(['name', 'code']));
+
+        $content = '新增 -> ' . $telegramChannel->name . ' ( id:' . $telegramChannel->id . ' )';
+        $this->SystemLog->write($content, $this->SystemLogTypeId);
+
+        return $this->returnSuccess('Success', $telegramChannel);
     }
 
     /**
@@ -48,7 +69,12 @@ class TelegramChannelController extends Controller
      */
     public function update(TelegramChannelRequest $request, TelegramChannel $telegramChannel)
     {
-        return $this->returnSuccess('Success', $telegramChannel->update($request->only(['name', 'code'])));
+        $telegramChannel->update($request->only(['name', 'code']));
+
+        $content = '編輯 -> ' . $telegramChannel->name . ' ( id:' . $telegramChannel->id . ' )';
+        $this->SystemLog->write($content, $this->SystemLogTypeId);
+
+        return $this->returnSuccess('Success', $telegramChannel);
     }
 
     /**
@@ -60,6 +86,11 @@ class TelegramChannelController extends Controller
      */
     public function destroy(TelegramChannel $telegramChannel)
     {
-        return $this->returnSuccess('Success', $telegramChannel->delete());
+        $telegramChannel->delete();
+
+        $content = '刪除 -> ' . $telegramChannel->name . ' ( id:' . $telegramChannel->id . ' )';
+        $this->SystemLog->write($content, $this->SystemLogTypeId);
+
+        return $this->returnSuccess('Success', $telegramChannel);
     }
 }

@@ -4,6 +4,7 @@
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/s9801077/Equipment-management-system)
 ![Version develop](https://img.shields.io/badge/license-MIT-green.svg)
 ![Styleci status](https://github.styleci.io/repos/89154332/shield)
+![Travis-ci](https://travis-ci.org/MOPCON/Equipment-management-system.svg?branch=develop)
 
 ## Table of Contents
 - [Requirement](#requirement)
@@ -65,6 +66,11 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 
+可用以下指令建立操作類別(無建立假資料)
+```
+php artisan db:seed --class=SystemLogTypeTableSeeder
+```
+
 7. 編譯前端資源與執行內建的開發用伺服器
 ```
 yarn run watch
@@ -106,6 +112,23 @@ chmod 777 -R storage bootstrap/cache
 yarn run prod
 ```
 
+### Deploy with Envoy
+
+詳細使用方式可以參考 Laravel 官網[說明](https://laravel.com/docs/5.8/envoy)
+
+#### 設定
+
+請先至 `.env` 進行環境參數設定
+
+```
+Slack_HOOK_URL // 支援 slack 通知，可以在 deploy 完成傳送 slack web hook
+SLACK_CHANNEL // 設定通知的 slack channel
+SERVER_NAME // 設定要 deploy 的 server 格式可以是 xxx@xxx.xxx.com or xxx.xxx.com
+```
+
+- Deploy production: envoy run production-cms --branch=master
+- Deploy testing:  envoy run testing-cms --branch=develop
+
 ### Note:
 * 記得設定排程。
 * 記得執行 Queue 的處理指令。
@@ -130,7 +153,7 @@ screen -S ems php artisan queue:listen
 > screen 是一個管理背景執行的套件。
 
 ### Setting Telegram Bot
-1. 在 .env 設定 `PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 、`PHP_TELEGRAM_BOT_API_KEY` 與 `PHP_TELEGRAM_BOT_NAME` (`PHP_TELEGRAM_BOT_WEB_HOOK_KEY` 請自行設定隨機字串，此字串將用於給 Telegram 呼叫的 web hook)
+1. 在 .env 設定 `TELEGRAM_TOKEN` 與 `BOT_WEB_HOOK_HASH` (`BOT_WEB_HOOK_HASH` 請自行設定隨機字串，此字串將用於給 Telegram 呼叫的 web hook)
 2. 執行 `php artisan ems:set-telegram-hook` 將 web hook 設定到 Telegram
 
 #### Telegram Bot 指令清單

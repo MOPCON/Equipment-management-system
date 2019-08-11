@@ -22,7 +22,17 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/login', ['as' => 'login', 'uses' => 'AuthController@getLogin']);
 Route::post('/login', 'AuthController@postLogin');
 Route::get('/logout', 'AuthController@logout');
-Route::post('/telegram/web/hook/' . env('PHP_TELEGRAM_BOT_WEB_HOOK_KEY'), 'TelegramHookController@handle');
+Route::post('/telegram/web/hook/' . env('BOT_WEB_HOOK_HASH'), 'TelegramHookController@handle');
+Route::get('/speaker/get-options', 'SpeakerController@getOptions');
+Route::get('/speaker/form/{accessKey}', 'SpeakerController@externalForm');
+Route::get('/speaker/{accessKey}', 'SpeakerController@externalShow');
+Route::post('/speaker/{accessKey}', 'SpeakerController@externalShow');
+Route::put('/speaker/{accessKey}', 'SpeakerController@externalUpdate');
+Route::get('/sponsor/get-options', 'SponsorController@getOptions');
+Route::get('/sponsor/form/{accessKey}', 'SponsorController@externalForm');
+Route::post('/sponsor/{accessKey}', 'SponsorController@externalShow');
+Route::put('/sponsor/{accessKey}', 'SponsorController@externalUpdate');
+Route::get('/lang/{locale}', 'LocalizationController@switchLang');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/whoami', function () {
@@ -35,6 +45,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::apiResource('equipment', 'EquipmentController');
     Route::apiResource('group', 'GroupController');
     Route::apiResource('loan', 'LoanController');
+    Route::apiResource('permission', 'PermissionController');
+    Route::apiResource('role', 'RoleController');
     Route::apiResource('telegram-channel', 'TelegramChannelController');
     Route::apiResource('telegram-message', 'TelegramMessageController');
     Route::post('telegram-message/send-now/{telegramMessage}', 'TelegramMessageController@sendNow');
@@ -50,4 +62,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
         ->where(['model' => '[a-z]+', 'type' => '(csv|xls|xlsx)']);
     Route::post('import/{model}', 'ImportExportController@import')
         ->where(['model' => '[a-z]+']);
+    Route::apiResource('system-log', 'SystemLogController', ['only' => ['index']]);
+    Route::apiResource('system-log-type', 'SystemLogTypeController', ['only' => ['index']]);
+    Route::get('speaker/export', 'SpeakerController@exportTSV');
+    Route::apiResource('speaker', 'SpeakerController');
+    Route::get('sponsor/export', 'SponsorController@exportTSV');
+    Route::apiResource('sponsor', 'SponsorController');
 });

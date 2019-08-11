@@ -69,12 +69,14 @@
     .navbar-custom {
         background-color: #4980b5;
         height: $navbar-height;
+        position: fixed;
+        z-index: 1000;
+        width: 100%;
         img {
             width: 35px;
             height: 35px;
         }
     }
-    
     .dropdown-toggle {
         color: #FFF;
         text-decoration: none;

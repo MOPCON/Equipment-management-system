@@ -36,12 +36,14 @@
         min-height: $sidebar-height;
         height: auto;
         margin-left: $sidebar-width;
-        margin-top: 15px;
+        margin-top: $main-margin-top;
+        transition: 0.3s;
     }
 
     .main-extend {
         width: $main-extend-width;
         margin-left: $sidebar-extend-width;
+        transition: 0.3s;
     }
 
     .wrapper {

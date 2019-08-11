@@ -9,6 +9,15 @@ use App\Http\Requests\EquipmentRequest;
 class EquipmentController extends Controller
 {
     use ApiTrait;
+    use CheckPermissionTrait;
+
+    /**
+     * EquipmentController constructor.
+     */
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * @param Request $request

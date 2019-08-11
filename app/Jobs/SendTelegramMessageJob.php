@@ -4,8 +4,8 @@ namespace App\Jobs;
 
 use App\TelegramMessage;
 use Illuminate\Bus\Queueable;
+use App\Services\BotManService;
 use Illuminate\Queue\SerializesModels;
-use App\Services\TelegramMessageService;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,9 +30,10 @@ class SendTelegramMessageJob implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function handle()
     {
-        app()->make(TelegramMessageService::class)->send($this->telegramMessage);
+        app()->make(BotManService::class)->send($this->telegramMessage);
     }
 }

@@ -38,6 +38,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/whoami', function () {
         return Auth::user();
     });
+    Route::post('/auth/change-password', 'AuthController@changePassword');
     Route::post('user/password/{user}', 'UserController@changePassword');
     Route::apiResource('user', 'UserController');
     Route::apiResource('staff', 'StaffController');

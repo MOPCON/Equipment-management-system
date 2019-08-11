@@ -25,6 +25,7 @@
                         <span>{{ user.name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                        <a class="dropdown-item" href="#/auth/change-password">更改密碼</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                     </div>
                 </div>

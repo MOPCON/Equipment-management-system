@@ -12,7 +12,7 @@ class SystemLogTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        $types = ['頻道管理', '使用者管理', '匯入匯出'];
+        $types = ['頻道管理', '使用者管理', '匯入匯出', '個人帳號'];
 
         foreach ($types as $type_name) {
             SystemLogType::create([

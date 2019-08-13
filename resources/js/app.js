@@ -1,24 +1,28 @@
-import bootstrap from "./bootstrap";
+import bootstrap from './bootstrap';
 import Vue from 'vue';
 import router from './routes';
 import store from './store';
-import App from './App.vue'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import errorTextFormat from './filters/errorTextFormat'
-import timeFormat from './filters/timeFormat'
-import VeeValidate from 'vee-validate'
-import axios from 'axios'
+import App from './App.vue';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import errorTextFormat from './filters/errorTextFormat';
+import timeFormat from './filters/timeFormat';
+import VeeValidate from 'vee-validate';
+import axios from 'axios';
 
-Vue.filter('timeFormat', timeFormat)
-Vue.filter('errorTextFormat', errorTextFormat)
+Vue.filter('timeFormat', timeFormat);
+Vue.filter('errorTextFormat', errorTextFormat);
 
-Vue.use(VeeValidate)
-import zhTW_Validate from 'vee-validate/dist/locale/zh_TW'
-VeeValidate.Validator.localize('zh_TW', zhTW_Validate)
+// VeeValidate
+Vue.use(VeeValidate);
+import veeValidateErrorMessageZhTW from 'vee-validate/dist/locale/zh_TW';
+import veeValidateFieldNameZhTW from './i18n/zh_TW/attributes';
 
+VeeValidate.Validator.localize('zh_TW', {...veeValidateErrorMessageZhTW, ...veeValidateFieldNameZhTW});
+
+// Fa icon
 library.add(fas, fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
@@ -35,7 +39,7 @@ axios.interceptors.response.use(
         if (error.response.status === 403) {
             router.push('/403');
         } else {
-          return Promise.reject(error);
+            return Promise.reject(error);
         }
     }
 );

@@ -90,7 +90,7 @@ yarn run prod    # run deploy
 
 ```
 Account: admin@ems.ems
-Password: admin
+Password: admin12345
 ```
 
 ## Deployment

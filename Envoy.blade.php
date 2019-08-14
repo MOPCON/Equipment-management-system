@@ -12,7 +12,7 @@
     cd /home/ems/prod
     sudo -u www-data php artisan down
     sudo -u www-data git reset --hard
-    sudo -u www-data git pull
+    sudo -u www-data git pull origin {{ $branch }}
     sudo -u www-data composer install --no-plugins --no-scripts
     sudo -u www-data composer install --optimize-autoloader
     sudo -u www-data yarn install
@@ -29,7 +29,7 @@
     cd /home/ems/test
     sudo -u www-data php artisan down
     sudo -u www-data git reset --hard
-    sudo -u www-data git pull
+    sudo -u www-data git pull origin {{ $branch }}
     sudo -u www-data composer install --no-plugins --no-scripts
     sudo -u www-data composer install --optimize-autoloader
     sudo -u www-data yarn install

@@ -308,7 +308,7 @@
                     'tagItem': [],
                     'tshirtSizeItem': [],
                 },
-                promotionItem: ['{{ trans('speaker.yes') }}', '{{ trans('speaker.no') }}'],
+                promotionItem: ['{{ trans('speaker.no') }}', '{{ trans('speaker.yes') }}'],
                 introTextConunt: 120,
                 introTextConunt_e: 240,
                 topicTextConunt: 32,

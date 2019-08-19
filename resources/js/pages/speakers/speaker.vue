@@ -412,13 +412,25 @@
               </div>
             </div>
           </fieldset>
-          <fieldset class="form-group">
+          <fieldset class="form-group mb-0">
             <div class="row">
               <legend class="col-form-label col-sm-2 pt-0">修改類型</legend>
               <div class="col-sm-10">
                 <div class="form-check form-check-inline" v-for="(item, index) in types" :key="item">
                   <input class="form-check-input" type="radio" name="speakerType" :id="item" :value="index"
                     v-model="speakerDetailData.speaker_type">
+                  <label class="form-check-label" :for="item">{{ item }}</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">為 Keynote 講者</legend>
+              <div class="col-sm-10">
+                <div class="form-check form-check-inline" v-for="(item, index) in promotionItem" :key="item">
+                  <input class="form-check-input" type="radio" name="isKeynote" :id="item" :value="index"
+                    v-model="speakerDetailData.is_keynote">
                   <label class="form-check-label" :for="item">{{ item }}</label>
                 </div>
               </div>
@@ -492,7 +504,7 @@
         licenseItem: [],
         tshirtSizeItem: [],
         mealPreferenceItem: [],
-        promotionItem: ['是', '否'],
+        promotionItem: ['否', '是'],
         editStatusList: [],
         step: 1,
         fullData: [],

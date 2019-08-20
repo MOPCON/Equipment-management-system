@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class SponsorController extends Controller
 {
-    use ApiTrait;
+    use ApiTrait, CheckPermissionTrait;
 
     private static $hiddenFieldsForExternal = [
         'id',
@@ -74,6 +74,11 @@ class SponsorController extends Controller
         'updated_at'                    => '更新日期',
         'updated_by'                    => '最後更新者',
     ];
+
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * Display a listing of the resource.

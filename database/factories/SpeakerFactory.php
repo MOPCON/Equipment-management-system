@@ -37,6 +37,7 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'has_companion' => rand(0, 10),
         'speaker_status' => rand(0, count(Speaker::$speakerStatusItem) - 1),
         'speaker_type' => rand(0, count(Speaker::$speakerTypeItem) - 1),
+        'is_keynote' => $faker->boolean(33),
         'note' => $zhFaker->text(),
     ];
 });

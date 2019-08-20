@@ -91,6 +91,7 @@ class Speaker extends Model
         "has_companion",
         "speaker_status",
         "speaker_type",
+        "is_keynote",
         "note",
         "last_edited_by",
         "company_e",

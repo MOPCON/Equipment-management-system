@@ -51,6 +51,7 @@ class SpeakerRequest extends BaseRequest
             'has_companion' =>  'nullable|integer|min:0|max:10',
             'speaker_status' => 'nullable|integer|min:0|max:' . count(Speaker::$speakerStatusItem),
             'speaker_type' => 'nullable|integer|min:0|max:' . count(Speaker::$speakerTypeItem),
+            'is_keynote' => 'boolean',
             'note' => 'nullable|string',
             'last_edited_by' => 'nullable|string',
         ];

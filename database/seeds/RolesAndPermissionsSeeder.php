@@ -43,6 +43,10 @@ class RolesAndPermissionsSeeder extends Seeder
             ['name' => 'ImportExport:Write', 'description' => '匯入資料'],
             ['name' => 'Role:Read', 'description' => '檢視角色'],
             ['name' => 'Role:Write', 'description' => '管理角色'],
+            ['name' => 'Speaker:Read', 'description' => '檢視 Speaker'],
+            ['name' => 'Speaker:Write', 'description' => '管理 Speaker'],
+            ['name' => 'Sponsor:Read', 'description' => '檢視 Sponsor'],
+            ['name' => 'Sponsor:Write', 'description' => '管理 Sponsor'],
         ];
 
         foreach ($permissions as $permission) {

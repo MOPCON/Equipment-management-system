@@ -11,8 +11,7 @@ use Illuminate\Support\Collection;
 
 class SpeakerController extends Controller
 {
-    use ApiTrait;
-    // use CheckPermissionTrait;
+    use ApiTrait, CheckPermissionTrait;
 
     public static $hiddenFieldsForExternal = [
         'id',
@@ -62,6 +61,11 @@ class SpeakerController extends Controller
         'updated_at' => '更新日期',
         'last_edited_by' => '最後更新者',
     ];
+
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * @param Request $request

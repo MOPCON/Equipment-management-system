@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const state = {
     user: {
@@ -7,19 +7,32 @@ const state = {
         email: '',
         avatar: '',
     },
-}
+    requiredPermission: []
+};
 const actions = {
-    whoAmI: (context, payload) => {
+    whoAmI: (context) => {
         axios.get('/api/whoami').then(response => {
-            context.commit("setUser", response.data);
-        })
+            context.commit('setUser', response.data);
+        });
+    },
+    pushRequiredPermissions: (context, payload) => {
+        context.commit('pushRequiredPermissions', payload);
+    },
+    clearRequiredPermission: (context) => {
+        context.commit('clearRequiredPermission');
     }
-}
+};
 const mutations = {
     setUser: (state, payload) => {
         state.user = payload;
+    },
+    pushRequiredPermissions: (state, payload) => {
+        state.requiredPermission.push(...payload);
+    },
+    clearRequiredPermission: (state) => {
+        state.requiredPermission = [];
     }
-}
+};
 const getters = {};
 
 export default {
@@ -28,4 +41,4 @@ export default {
     actions,
     getters,
     mutations
-}
+};

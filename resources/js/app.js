@@ -20,7 +20,7 @@ Vue.use(VeeValidate);
 import veeValidateErrorMessageZhTW from 'vee-validate/dist/locale/zh_TW';
 import veeValidateFieldNameZhTW from './i18n/zh_TW/attributes';
 
-VeeValidate.Validator.localize('zh_TW', {...veeValidateErrorMessageZhTW, ...veeValidateFieldNameZhTW});
+VeeValidate.Validator.localize('zh_TW', { ...veeValidateErrorMessageZhTW, ...veeValidateFieldNameZhTW });
 
 // Fa icon
 library.add(fas, fab);
@@ -36,10 +36,14 @@ files.keys().forEach(key => {
 axios.interceptors.response.use(
     response => response,
     (error) => {
-        if (error.response.status === 403) {
-            router.push('/403');
-        } else {
-            return Promise.reject(error);
+        switch (error.response.status) {
+            case 403:
+                router.push('/403');
+                store.dispatch('auth/pushRequiredPermissions', error.response.data.data.required);
+                break;
+            default:
+                return Promise.reject(error);
+
         }
     }
 );

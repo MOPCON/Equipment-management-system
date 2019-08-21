@@ -69,13 +69,17 @@ class Handler extends ExceptionHandler
      * @param Exception $exception
      * @return \Illuminate\Http\Response
      */
-    private function unauthorized($request, Exception $exception)
+    private function unauthorized($request, UnauthorizedException $exception)
     {
         if ($request->expectsJson()) {
+            $requiredPermissions = implode(', ', $exception->getRequiredPermissions());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Forbidden',
-                'data'    => [],
+                'message' => "{$exception->getMessage()} ({$requiredPermissions})",
+                'data'    => [
+                    'required' => $exception->getRequiredPermissions()
+                ],
             ], 403);
         }
 

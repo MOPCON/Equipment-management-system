@@ -7,6 +7,10 @@
                 <span>
                     如果你認為不該出現這個訊息，請找管理員處理。
                 </span>
+                <br>
+                <span class="text-muted">
+                    缺少權限：{{requiredPermission.join(', ')}}
+                </span>
                 <div class="mt-3">
                     <button class="btn btn-outline-secondary" @click="back">返回</button>
                 </div>
@@ -16,20 +20,29 @@
 </template>
 
 <script>
+    import { mapActions, mapState } from 'vuex';
+
     export default {
-        data() {
-            return {};
-        },
         methods: {
+            ...mapActions('auth', [
+                'clearRequiredPermission'
+            ]),
             back() {
-                history.back()
+                this.$router.push('/');
             }
         },
-        computed: {},
-        watch: {},
-        components: {},
+        computed: {
+            ...mapState('auth', [
+                'requiredPermission'
+            ])
+        },
         mounted() {
-
+            if (!this.requiredPermission.length) {
+                this.back();
+            }
+        },
+        beforeDestroy() {
+            this.clearRequiredPermission();
         }
     };
 </script>

@@ -11,8 +11,7 @@ use Illuminate\Support\Collection;
 
 class SpeakerController extends Controller
 {
-    use ApiTrait;
-    // use CheckPermissionTrait;
+    use ApiTrait, CheckPermissionTrait;
 
     public static $hiddenFieldsForExternal = [
         'id',
@@ -20,6 +19,7 @@ class SpeakerController extends Controller
         'speaker_type',
         'speaker_status_text',
         'speaker_type_text',
+        'is_keynote',
         'last_edited_by',
         'access_secret',
     ];
@@ -54,12 +54,18 @@ class SpeakerController extends Controller
         'has_companion' => '晚宴攜伴人數',
         'speaker_status_text' => '修改狀態',
         'speaker_type_text' => '修改類型',
+        'is_keynote' => '是否為 keynote 講者',
         'note' => '備註',
         'external_link' => '表單連結',
         'access_secret' => 'Password',
         'updated_at' => '更新日期',
         'last_edited_by' => '最後更新者',
     ];
+
+    public function __construct()
+    {
+        $this->checkPermissionApiResource();
+    }
 
     /**
      * @param Request $request
@@ -165,6 +171,7 @@ class SpeakerController extends Controller
                     case 'promotion':
                     case 'need_parking_space':
                     case 'has_dinner':
+                    case 'is_keynote':
                         $row .= (($item[$key] == 1)?'是':'否') . "\t";
                         break;
                     default:
@@ -197,7 +204,6 @@ class SpeakerController extends Controller
         }
 
         $speakers = Speaker::WhereIn('id', $ids)->get();
-
         $callback = function () use ($speakers) {
             echo $this->transformToTSV($speakers);
         };

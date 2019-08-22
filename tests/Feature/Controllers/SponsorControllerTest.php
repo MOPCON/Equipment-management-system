@@ -89,7 +89,7 @@ class SponsorControllerTest extends TestCase
                 'message' => 'Not found'
             ]);
     }
-
+    
     public function testExternalGetSponsorWithWrongPassword()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
@@ -198,7 +198,7 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                "success" => false,
+                'message' => 'The logo path must be a file of type: jpeg, png, gif, bmp, svg, pdf, ai, eps, psd, zip, rar.',
             ]);
     }
 
@@ -279,7 +279,7 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                "success" => false,
+                'message' => '【name】必填'
             ]);
     }
 
@@ -315,7 +315,7 @@ class SponsorControllerTest extends TestCase
             'status' => $sponsor->sponsor_status,
             'type' => $sponsor->sponsor_type,
         ]);
-
+        
         $response = $this->get('/api/sponsor', [
             'filter' => $filter
         ]);
@@ -552,7 +552,7 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                "success" => false,
+                'message' => 'The logo path must be a file of type: jpeg, png, gif, bmp, svg, pdf, ai, eps, psd, zip, rar.',
             ]);
     }
 }

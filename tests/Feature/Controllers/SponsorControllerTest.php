@@ -198,7 +198,6 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                // 'message' => 'The logo path must be a file of type: jpeg, png, gif, bmp, svg, pdf, ai, eps, psd, zip, rar.',
                 "success" => false,
             ]);
     }
@@ -280,7 +279,6 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                // 'message' => '【name】必填'
                 "success" => false,
             ]);
     }
@@ -554,7 +552,6 @@ class SponsorControllerTest extends TestCase
 
         $response->assertStatus(400)
             ->assertJson([
-                // 'message' => 'The logo path must be a file of type: jpeg, png, gif, bmp, svg, pdf, ai, eps, psd, zip, rar.',
                 "success" => false,
             ]);
     }

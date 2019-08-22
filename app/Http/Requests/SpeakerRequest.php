@@ -28,9 +28,7 @@ class SpeakerRequest extends BaseRequest
             'name' => 'required|string',
             'name_e' => 'nullable|string|max:100',
             'company' => 'nullable|string|max:100',
-            'company_e' => 'nullable|string|max:100',
             'job_title' => 'nullable|string|max:100',
-            'job_title_e' => 'nullable|string|max:100',
             'bio' => 'nullable|string|max:120',
             'bio_e' => 'nullable|string|max:240',
             'file' => 'nullable|image',
@@ -56,47 +54,6 @@ class SpeakerRequest extends BaseRequest
             'is_keynote' => 'boolean',
             'note' => 'nullable|string',
             'last_edited_by' => 'nullable|string',
-        ];
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            'name' => __('speaker.name'),
-            'name_e' => __('speaker.name_e'),
-            'company' => __('speaker.company'),
-            'company_e' => __('speaker.company_e'),
-            'job_title' => __('speaker.job_title'),
-            'job_title_e' => __('speaker.job_title_e'),
-            'bio' => __('speaker.introduction'),
-            'bio_e' => __('speaker.introduction_e'),
-            'photo' => __('speaker.photo'),
-            'link_fb' => 'Facebook',
-            'link_github' => 'Github',
-            'link_twitter' => 'Twitter',
-            'link_other' => '其他(如Website/Blog)',
-            'topic' => __('speaker.topic'),
-            'topic_e' => __('speaker.topic_e'),
-            'summary' => __('speaker.summary'),
-            'summary_e' => __('speaker.summary_e'),
-            'tag' => __('speaker.tag'),
-            'level' => __('speaker.difficulty'),
-            'license' => __('speaker.license'),
-            'promotion' => __('speaker.promote'),
-            'tshirt_size' => __('speaker.tshirt_size'),
-            'need_parking_space' => __('speaker.need_parking_space'),
-            'has_dinner' => __('speaker.has_dinner'),
-            'meal_preference' => __('speaker.meal_preference'),
-            'has_companion' => __('speaker.has_companion'),
-            'speaker_status' => '狀態',
-            'speaker_type' => '類型',
-            'note' => '備註',
-            'last_edited_by' => '最後更新者',
         ];
     }
 }

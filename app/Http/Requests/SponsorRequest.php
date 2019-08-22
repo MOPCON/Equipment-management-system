@@ -60,4 +60,53 @@ class SponsorRequest extends BaseRequest
             'updated_by'                   => 'nullable|string',
         ];
     }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        $attrs = [
+            'sponsor_type'                 => __('sponsor.advance.sponsor_type'),
+            'sponsor_status'               => '狀態',
+            'name'                         => __('sponsor.main.name'),
+            'en_name'                      => __('sponsor.main.en_name'),
+            'introduction'                 => __('sponsor.main.introduction'),
+            'en_introduction'              => __('sponsor.main.en_introduction'),
+            'website'                      => __('sponsor.main.website'),
+            'social_media'                 => __('sponsor.main.social_media'),
+            'production'                   => __('sponsor.main.production'),
+            'logo_path'                    => __('sponsor.main.logo'),
+            'service_photo_path'           => __('sponsor.main.service_photo'),
+            'promote'                      => __('sponsor.main.promotion'),
+            'slide_path'                   => __('sponsor.main.slide'),
+            'board_path'                   => __('sponsor.main.board'),
+            'opening_remarks'              => __('sponsor.main.dinner_intro'),
+            'recipe_full_name'             => __('sponsor.recipe.company_full_name'),
+            'recipe_tax_id_number'         => __('sponsor.recipe.tax_id_number'),
+            'recipe_amount'                => __('sponsor.recipe.sponse_price'),
+            'recipe_contact_name'          => __('sponsor.recipe.contact_name'),
+            'recipe_contact_title'         => __('sponsor.recipe.contact_title'),
+            'recipe_contact_phone'         => __('sponsor.recipe.contact_phone_number'),
+            'recipe_contact_email'         => __('sponsor.recipe.contact_mail'),
+            'recipe_contact_address'       => __('sponsor.recipe.contact_address'),
+            'reason'                       => __('sponsor.main.sponse_reason'),
+            'purpose'                      => __('sponsor.main.sponse_aims'),
+            'remark'                       => __('sponsor.main.sponse_remarks'),
+            'advence_icck_ad_path'         => __('sponsor.advance.icck'),
+            'advence_registration_ad_path' => __('sponsor.advance.registration'),
+            'advence_keynote'              => __('sponsor.advance.keynote'),
+            'advence_hall_flag_path'       => __('sponsor.advance.hall_flag'),
+            'advence_main_flow_flag_path'  => __('sponsor.advance.main_flow_flag'),
+            'note'                         => '後台備註',
+            'updated_by'                   => '最後更新者',
+        ];
+
+        return collect($attrs)
+            ->map(function ($item) {
+                return preg_replace('!\s\(.*\)!', '', $item);
+            })->all();
+    }
 }

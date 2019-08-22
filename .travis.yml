@@ -3,9 +3,6 @@ php:
   - 7.1.3
 addons:
   ssh_known_hosts: gcp.puckwang.com
-cache:
-  directories:
-    - $HOME/.composer/cache
 install:
   - composer install
 script:

@@ -502,6 +502,14 @@
                     }
                 },
             },
+            watch: {
+                alertShow: function () {
+                    const vm = this;
+                    setTimeout(function() {
+                        vm.alertShow = false;
+                    },5000)
+                },
+            }
         })
     </script>
 </html>

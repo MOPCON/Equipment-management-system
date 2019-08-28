@@ -13,11 +13,11 @@ return [
     'main' => [
         'name'            => '公司名稱',
         'en_name'         => '公司英文名稱',
-        'introduction'    => '公司簡介',
+        'introduction'    => '官網/APP贊助商頁面-公司簡介',
         'en_introduction' => '英文公司簡介',
         'website'         => '公司網址',
         'social_media'    => '社群媒體 (如：FB)',
-        'production'      => '產品及服務介紹',
+        'production'      => '官網/APP贊助商頁面-產品及服務介紹',
         'logo'            => '企業 Logo',
         'service_photo'   => '社群粉絲貼文搭配圖片',
         'promotion'       => '社群粉絲貼文',

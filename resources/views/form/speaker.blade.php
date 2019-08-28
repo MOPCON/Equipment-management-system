@@ -40,6 +40,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                @if ($speaker['readonly'])
+                <div class="alert alert-primary" role="alert" style="top: 10px;" v-if="!show">
+                    您的資料已由Mopcon確認完畢，僅供檢視，若須修改請聯繫議程組工作人員。
+                </div>
+                @endif
                 <div class="row justify-content-center mt-5">
                     <div class="col-md-6" v-if="show">
                         <div class="card">
@@ -183,7 +188,7 @@
                                   v-for="(item, index) in optionItem.tagItem" :key="index">
                                   <input class="form-check-input" type="checkbox" :id="item"
                                   v-if="formData.tag !== null" :value="index" v-model="formData.tag">
-                                  <input class="form-check-input" type="checkbox" :id="item" :value="index" 
+                                  <input class="form-check-input" type="checkbox" :id="item" :value="index"
                                   v-else v-model="tags">
                                   <label class="form-check-label" :for="item">@{{ item }}</label>
                                 </div>
@@ -250,9 +255,11 @@
                                 <p class="mb-1">{{ trans('speaker.has_companion')}}</p>
                                 <input type="number" class="form-control" min="0" v-model="formData.has_companion">
                             </div>
+                            @if (! $speaker['readonly'])
                             <div id="vali"></div>
                             <input type="hidden" class="send" name="password" v-model="password">
                             <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" :disabled="!reCaptchaStatus" @click.prevent="validationForm()">{{ trans('speaker.submit') }}</button>
+                            @endif
                         </form>
                     </div>
                 </div>

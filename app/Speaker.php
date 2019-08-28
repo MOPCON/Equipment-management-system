@@ -7,7 +7,8 @@ use Illuminate\Support\Str;
 
 class Speaker extends Model
 {
-    private const NotEditableStatus = 3; // based on $speakerStatusItem
+    public const NotEditableStatus = 3; // based on $speakerStatusItem
+    public const ReadonlyStatus = 4; // based on $speakerStatusItem
 
     public static $photoPath = '/images/speaker';
     public static $tagItem = [
@@ -56,6 +57,7 @@ class Speaker extends Model
         '確認中',
         '已確認',
         '下架',
+        '關閉前台修改',
     ];
     public static $speakerTypeItem = [
         '贊助商',
@@ -107,6 +109,7 @@ class Speaker extends Model
         'speaker_type_text',
         'external_link',
         'editable',
+        'readonly',
     ];
     protected $casts = ['tag' => 'array'];
 
@@ -170,5 +173,10 @@ class Speaker extends Model
     public function getEditableAttribute()
     {
         return $this->speaker_status !== self::NotEditableStatus;
+    }
+
+    public function getReadonlyAttribute()
+    {
+        return $this->speaker_status === self::ReadonlyStatus;
     }
 }

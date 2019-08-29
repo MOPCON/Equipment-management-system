@@ -32,7 +32,7 @@ return [
     'need_parking_space'  => 'Do you need a parking space?',
     'has_dinner'          => 'We cordially invite you to speker\'s banquet',
     'meal_preference'     => 'Meal preference',
-    'has_companion'       => 'Number of companions',
+    'has_companion'       => 'Number of companions（NT.800 / person）',
     'yes'                 => 'yes',
     'no'                  => 'no',
     'success_message'     => 'Upload successful',

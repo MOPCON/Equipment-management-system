@@ -72,6 +72,9 @@
                                     <label for="introduction">{{trans('sponsor.main.introduction')}}*</label>
                                     <span class="d-inline-block text-right"> @{{ introTextConunt }} / 250</span>
                                 </div>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.introduction')}}
+                                @endcomponent
                                 <textarea class="form-control" id="introduction" rows="4" v-model="formData.main.introduction" maxlength="250" v-on:keyup="countText(250, 'introTextConunt', formData.main.introduction)" required></textarea>
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_introduction')}}
@@ -99,6 +102,9 @@
                                     <label for="production">{{trans('sponsor.main.production')}}*</label>
                                     <span class="d-inline-block text-right"> @{{ productionTextConunt }} / 250</span>
                                 </div>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.production')}}
+                                @endcomponent
                                 <textarea class="form-control" id="production" rows="4"
                                 v-model="formData.main.production" maxlength="250" v-on:keyup="countText(250, 'productionTextConunt', formData.main.production);" required></textarea>
                                 <div class="invalid-feedback">
@@ -107,6 +113,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="logo_path">{{trans('sponsor.main.logo')}}</label>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.logo')}}
+                                @endcomponent
                                 <input type="file" class="form-control-file" id="logo_path" @change="imagePreview('logo_path')">
                                 <img :src="formData.main.logo_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
@@ -115,6 +124,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="service_photo_path">{{trans('sponsor.main.service_photo')}}</label>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.service_photo')}}
+                                @endcomponent
                                 <input type="file" class="form-control-file" id="service_photo_path" @change="imagePreview('service_photo_path')">
                                 <img :src="formData.main.service_photo_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
@@ -123,11 +135,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="promotionalMaterial">{{trans('sponsor.main.promotion')}}</label>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.promotion')}}
+                                @endcomponent
                                 <textarea class="form-control" id="promotionalMaterial" rows="3" v-model="formData.main.promote">
                                 </textarea>
                             </div>
                             <div class="form-group">
                                 <label for="slide_path">{{trans('sponsor.main.slide')}}</label>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.slide')}}
+                                @endcomponent
                                 <input type="file" class="form-control-file" id="slide_path" @change="imagePreview('slide_path')">
                                 <img :src="formData.main.slide_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
@@ -136,6 +154,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="board_path">{{trans('sponsor.main.board')}}</label>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.board')}}
+                                @endcomponent
                                 <input type="file" class="form-control-file" id="board_path" @change="imagePreview('board_path')">
                                 <img :src="formData.main.board_path" class="mt-2" width="200px">
                                 <div class="invalid-feedback">
@@ -217,6 +238,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="sponseAims">{{trans('sponsor.main.sponse_aims')}}</label>
+                                @component('components.subtitle')
+                                    {{trans('sponsor.subtitle.sponse_aims')}}
+                                @endcomponent
                                 <textarea class="form-control" id="sponseAims" rows="2" v-model="formData.main.purpose"></textarea>
                             </div>
                             <div class="form-group">
@@ -231,25 +255,40 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="advence_icck_ad_path">{{trans('sponsor.advance.icck')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.icck')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_icck_ad_path"  @change="imagePreview('advence_icck_ad_path')">
                                             <img class="mt-2" :src="formData.advence.advence_icck_ad_path" width="200px">
                                         </div>
                                         <div class="form-group">
-                                        <label for="advence_registration_ad_path">{{trans('sponsor.advance.registration')}}</label>
+                                            <label for="advence_registration_ad_path">{{trans('sponsor.advance.registration')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.registration')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_registration_ad_path" @change="imagePreview('advence_registration_ad_path')">
                                             <img class="mt-2" :src="formData.advence.advence_registration_ad_path" width="200px">
                                         </div>
                                         <div class="form-group">
                                             <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.keynote')}}
+                                            @endcomponent
                                             <textarea class="form-control" id="keynoteIntroduction" rows="4" v-model="formData.advence.advence_keynote"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.hall_flag')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_hall_flag_path" width="200px">
                                         </div>
                                         <div class="form-group">
                                             <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.main_flow_flag')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_main_flow_flag_path" width="200px">
                                         </div>

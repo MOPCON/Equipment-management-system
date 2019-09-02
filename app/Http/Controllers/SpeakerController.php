@@ -242,7 +242,7 @@ class SpeakerController extends Controller
         }
 
         $data = [
-            'speaker' => $speaker->only(['access_key']),
+            'speaker' => $speaker->only(['access_key', 'readonly']),
         ];
 
         return view('form.speaker', $data);
@@ -281,7 +281,7 @@ class SpeakerController extends Controller
     {
         $speaker = Speaker::where('access_key', '=', $accessKey)->firstOrFail();
         if ($speaker) {
-            if (! $speaker->editable) {
+            if (! $speaker->editable || $speaker->readonly) {
                 return $this->return400Response();
             }
 

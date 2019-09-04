@@ -83,8 +83,8 @@ return [
         'recipe_contact_address'      => 'Recipient address is required',
     ],
     'cloud' => [
-        'link' => 'OR provide your own share link of files',
-        'description' => '(When file size is bigger than 20 MB or files are more then two)',
-        'error' => 'choose between file upload and share link,please.'
+        'link' => 'Or provide file sharing link.',
+        'description' => '(If file\'s size is more than 20MB or provide more than two files.)',
+        'error' => 'Either file or link.'
     ]
 ];

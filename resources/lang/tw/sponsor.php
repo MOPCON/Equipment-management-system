@@ -81,5 +81,8 @@ return [
         'recipe_contact_phone_number' => '聯絡人電話為必填',
         'recipe_contact_mail'         => '聯絡人 Email 為必填',
         'recipe_contact_address'      => '收件地址為必填',
+    ],
+    'cloud' => [
+        'error' => '檔案上傳、雲端連結請擇一提供。'
     ]
 ];

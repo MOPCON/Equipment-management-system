@@ -81,5 +81,8 @@ return [
         'recipe_contact_phone_number' => 'Contact person phone is required',
         'recipe_contact_mail'         => 'Contact person email is required',
         'recipe_contact_address'      => 'Recipient address is required',
+    ],
+    'cloud' => [
+        'error' => 'choose between file upload and share link,please.'
     ]
 ];

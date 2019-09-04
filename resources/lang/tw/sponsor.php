@@ -83,6 +83,8 @@ return [
         'recipe_contact_address'      => '收件地址為必填',
     ],
     'cloud' => [
+        'link' => '或提供雲端硬碟檔案連結',
+        'description' => '適用檔案超過20 MB 或兩個以上檔案',
         'error' => '檔案上傳、雲端連結請擇一提供。'
     ]
 ];

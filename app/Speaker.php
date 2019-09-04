@@ -26,6 +26,7 @@ class Speaker extends Model
         'Security',
         'Cross-platform',
         'Data Science',
+        'Agile',
     ];
     public static $levelItem = [
         'Basic-外行人可以藉此入門',

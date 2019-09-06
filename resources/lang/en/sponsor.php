@@ -81,5 +81,10 @@ return [
         'recipe_contact_phone_number' => 'Contact person phone is required',
         'recipe_contact_mail'         => 'Contact person email is required',
         'recipe_contact_address'      => 'Recipient address is required',
+    ],
+    'cloud' => [
+        'link' => 'Or provide file sharing link.',
+        'description' => '(If file\'s size is more than 20MB or provide more than two files.)',
+        'error' => 'Either file or link.'
     ]
 ];

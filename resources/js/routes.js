@@ -19,7 +19,6 @@ import logs from "./pages/logs";
 import formSpeaker from "./pages/form/Speaker";
 import speaker from "./pages/speakers/speaker";
 import page_403 from "./pages/error/403";
-import sponsor_upload from "./pages/sponsor/sponsor_upload";
 import sponsor from "./pages/sponsor/sponsor";
 import ChangePassword from './pages/auth/ChangePassword';
 
@@ -85,10 +84,6 @@ const router = new VueRouter({
         }, {
             path: '/403',
             component: page_403,
-        },
-        {
-            path: '/sponsor/upload',
-            component: sponsor_upload,
         },
         {
             path: '/sponsor/sponsor',

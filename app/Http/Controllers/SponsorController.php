@@ -237,7 +237,7 @@ class SponsorController extends Controller
         foreach ($sponsors as $sponsor) {
             $row = [];
             foreach ($fieldNameKeys as $key) {
-                $row[] = $sponsor[$key];
+                $row[] = str_replace(array("'",'"',"\n"), array('\x22','\x27','\\n'), $sponsor[$key]);
             }
             $output_rows[] = implode("\t", $row);
         }

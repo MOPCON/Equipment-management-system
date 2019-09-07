@@ -573,7 +573,7 @@
           vm.mealPreferenceItem = res.mealPreferenceItem;
           vm.editStatusList = res.speakerStatusItem;
         }).catch(error => {
-          console.log(error);
+          helper.alert(error.response.data.message, 'danger');
         });
       },
       getSpeakerData() {
@@ -590,7 +590,7 @@
           }
           vm.fullData = response.data.data.data;
         }).catch(error => {
-          console.log(error);
+          helper.alert(error.response.data.message, 'danger');
         });
       },
       postSpeakerUrlData() {
@@ -704,7 +704,7 @@
             };
           }
         }).catch(error => {
-          console.log(error);
+          helper.alert(error.response.data.message, 'danger');
         });
         $('#speakerModal').modal('show');
       },

@@ -587,7 +587,7 @@
                     const res = response.data.data;
                     vm.sponsorOption = res;
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             getSponsorData() {
@@ -604,7 +604,7 @@
                     }
                     vm.fullData = response.data.data.data;
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             getSponsorDetail(sponsor_id) {
@@ -625,7 +625,7 @@
                     };
                 }
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
                 $('#sponsorModal').modal('show');
             },

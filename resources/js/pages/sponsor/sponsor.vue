@@ -587,7 +587,7 @@
                     const res = response.data.data;
                     vm.sponsorOption = res;
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             getSponsorData() {
@@ -604,7 +604,7 @@
                     }
                     vm.fullData = response.data.data.data;
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             getSponsorDetail(sponsor_id) {
@@ -625,7 +625,7 @@
                     };
                 }
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
                 $('#sponsorModal').modal('show');
             },
@@ -767,15 +767,33 @@
                 })
                 vm.selectAll = !select;
             },
-            exportData() {
+      hasChecked() {
                 const checkedId = document.querySelectorAll('.sponsor-check');
                 let idArr = '';
                 checkedId.forEach((ele) => {
                     if (ele.checked) {
                         idArr += `${ele.id},`
                     }
-                })
-                window.location = `api/sponsor/export?ids=${idArr}`;
+        });
+        return idArr
+      },
+      exportData() {
+        const vm = this;
+        let data = vm.hasChecked();
+        if (data === '') {
+          const allIds = [];
+          axios.get(
+          'api/sponsor?&limit=' + vm.page_info.total
+          ).then(response => {
+            const sponsorAllData = response.data.data.data
+            sponsorAllData.map(sponsor => allIds.push(sponsor.id))
+            window.location = `api/sponsor/export?ids=${allIds}`;
+          }).catch(error => {
+            helper.alert(error.response.data.message, 'danger');
+          });
+        } else {
+          window.location = `api/sponsor/export?ids=${data}`;
+        }
             },
         },
         mounted() {

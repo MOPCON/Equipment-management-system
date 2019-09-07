@@ -490,6 +490,9 @@
             methods: {
                 getSponsorForm: function (password) {
                     const vm = this;
+                    if (vm.show) {
+                        vm.alertShow = false;
+                    }
                     vm.password = password;
                     axios.post('/sponsor/{{$main['access_key']}}', {
                         'password':  vm.password,
@@ -497,9 +500,6 @@
                         if (response.data.success) {
                             vm.formData = response.data.data;
                             vm.show = false;
-                            if (!vm.show) {
-                                vm.alertShow = false;
-                            }
                             vm.countText(250, 'introTextConunt', vm.formData.main.introduction);
                             vm.countText(250, 'productionTextConunt', vm.formData.main.production);
                             vm.countText(80, 'dinnerPartyIntroTextConunt', vm.formData.main.opening_remarks);

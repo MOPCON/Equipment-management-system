@@ -433,7 +433,7 @@
                                 </div>
                                 <div id="vali"></div>
                                 <input type="hidden" class="send" name="password" v-model="password">
-                                <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" @click.prevent="validationForm()">{{trans('sponsor.submit')}}</button>
+                                <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" @click.prevent="validationForm()" :disabled="!reCaptchaStatus">{{trans('sponsor.submit')}}</button>
                         </form>
                     </div>
                 </div>
@@ -497,7 +497,9 @@
                         if (response.data.success) {
                             vm.formData = response.data.data;
                             vm.show = false;
-                            vm.alertShow = false;
+                            if (!vm.show) {
+                                vm.alertShow = false;
+                            }
                             vm.countText(250, 'introTextConunt', vm.formData.main.introduction);
                             vm.countText(250, 'productionTextConunt', vm.formData.main.production);
                             vm.countText(80, 'dinnerPartyIntroTextConunt', vm.formData.main.opening_remarks);
@@ -613,7 +615,7 @@
                     document.getElementById(fileId).value = null;
                     const vm = this;
                     const advence = new RegExp('advence_');
-                    if (inputId.match(advence) !== null) {
+                    if (inputId.match(advence) !== null || inputId.match(advence) !== '') {
                         vm.formData.advenve[fileId] = null;
                     } else {
                         vm.formData.main[fileId] = null;

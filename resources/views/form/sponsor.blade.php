@@ -121,6 +121,13 @@
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_logo')}}
                                 </div>
+                                <input type="url" v-model="formData.main.cloud_logo_path" class="form-control my-2" id="cloud_logo_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_logo_path')">
+                                @component('components.subtitle')
+                                    {{trans('sponsor.cloud.error')}}
+                                @endcomponent
+                                <a v-if="formData.main.cloud_logo_path !== null" :href="formData.main.cloud_logo_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                    @{{ formData.main.cloud_logo_path }}
+                                </a>
                             </div>
                             <div class="form-group">
                                 <label for="service_photo_path">{{trans('sponsor.main.service_photo')}}</label>
@@ -132,6 +139,13 @@
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_service_photo')}}
                                 </div>
+                                <input type="url" v-model="formData.main.cloud_service_photo_path" class="form-control my-2" id="cloud_service_photo_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_service_photo_path')">
+                                @component('components.subtitle')
+                                    {{trans('sponsor.cloud.error')}}
+                                @endcomponent
+                                <a v-if="formData.main.cloud_service_photo_path !== null" :href="formData.main.cloud_service_photo_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                    @{{ formData.main.cloud_service_photo_path }}
+                                </a>
                             </div>
                             <div class="form-group">
                                 <label for="promotionalMaterial">{{trans('sponsor.main.promotion')}}</label>
@@ -151,6 +165,13 @@
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_slide')}}
                                 </div>
+                                <input type="url" v-model="formData.main.cloud_slide_path" class="form-control my-2" id="cloud_slide_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_slide_path')">
+                                @component('components.subtitle')
+                                    {{trans('sponsor.cloud.error')}}
+                                @endcomponent
+                                <a v-if="formData.main.cloud_slide_path !== null" :href="formData.main.cloud_slide_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                    @{{ formData.main.cloud_slide_path }}
+                                </a>
                             </div>
                             <div class="form-group">
                                 <label for="board_path">{{trans('sponsor.main.board')}}</label>
@@ -162,6 +183,13 @@
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.main_board')}}
                                 </div>
+                                <input type="url" v-model="formData.main.cloud_board_path" class="form-control my-2" id="cloud_board_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_board_path')">
+                                @component('components.subtitle')
+                                    {{trans('sponsor.cloud.error')}}
+                                @endcomponent
+                                <a v-if="formData.main.cloud_board_path !== null" :href="formData.main.cloud_board_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                    @{{ formData.main.cloud_board_path }}
+                                </a>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -260,6 +288,13 @@
                                             @endcomponent
                                             <input type="file" class="form-control-file" id="advence_icck_ad_path"  @change="imagePreview('advence_icck_ad_path')">
                                             <img class="mt-2" :src="formData.advence.advence_icck_ad_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_icck_ad_path" class="form-control my-2" id="cloud_advence_icck_ad_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_icck_ad_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_icck_ad_path !== null" :href="formData.advence.cloud_advence_icck_ad_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_icck_ad_path }}
+                                            </a>
                                         </div>
                                         <div class="form-group">
                                             <label for="advence_registration_ad_path">{{trans('sponsor.advance.registration')}}</label>
@@ -268,6 +303,13 @@
                                             @endcomponent
                                             <input type="file" class="form-control-file" id="advence_registration_ad_path" @change="imagePreview('advence_registration_ad_path')">
                                             <img class="mt-2" :src="formData.advence.advence_registration_ad_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_registration_ad_path" class="form-control my-2" id="cloud_advence_registration_ad_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_registration_ad_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_registration_ad_path !== null" :href="formData.advence.cloud_advence_registration_ad_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_registration_ad_path }}
+                                            </a>
                                         </div>
                                         <div class="form-group">
                                             <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
@@ -283,6 +325,13 @@
                                             @endcomponent
                                             <input type="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_hall_flag_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_hall_flag_path" class="form-control my-2" id="cloud_advence_hall_flag_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_hall_flag_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_hall_flag_path !== null" :href="formData.advence.cloud_advence_hall_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_hall_flag_path }}
+                                            </a>
                                         </div>
                                         <div class="form-group">
                                             <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
@@ -291,6 +340,13 @@
                                             @endcomponent
                                             <input type="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_main_flow_flag_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_main_flow_flag_path" class="form-control my-2" id="cloud_advence_main_flow_flag_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_main_flow_flag_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_main_flow_flag_path !== null" :href="formData.advence.cloud_advence_main_flow_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_main_flow_flag_path }}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -301,17 +357,40 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.keynote')}}
+                                            @endcomponent
                                             <textarea class="form-control" id="keynoteIntroduction" rows="4" v-model="formData.advence.advence_keynote"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.hall_flag')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_hall_flag_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_hall_flag_path" class="form-control my-2" id="cloud_advence_hall_flag_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_hall_flag_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_hall_flag_path !== null" :href="formData.advence.cloud_advence_hall_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_hall_flag_path }}
+                                            </a>
                                         </div>
                                         <div class="form-group">
                                             <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.main_flow_flag')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_main_flow_flag_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_main_flow_flag_path" class="form-control my-2" id="cloud_advence_main_flow_flag_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_main_flow_flag_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_main_flow_flag_path !== null" :href="formData.advence.cloud_advence_main_flow_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_main_flow_flag_path }}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -322,19 +401,39 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.hall_flag')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_hall_flag_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_hall_flag_path" class="form-control my-2" id="cloud_advence_hall_flag_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_hall_flag_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_hall_flag_path !== null" :href="formData.advence.cloud_advence_hall_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_hall_flag_path }}
+                                            </a>
                                         </div>
                                         <div class="form-group">
                                             <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.main_flow_flag')}}
+                                            @endcomponent
                                             <input type="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
                                             <img class="mt-2" :src="formData.advence.advence_main_flow_flag_path" width="200px">
+                                            <input type="url" v-model="formData.advence.cloud_advence_main_flow_flag_path" class="form-control my-2" id="cloud_advence_main_flow_flag_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_advence_main_flow_flag_path')">
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.error')}}
+                                            @endcomponent
+                                            <a v-if="formData.advence.cloud_advence_main_flow_flag_path !== null" :href="formData.advence.cloud_advence_main_flow_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.cloud_advence_main_flow_flag_path }}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="vali"></div>
                                 <input type="hidden" class="send" name="password" v-model="password">
-                                <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" :disabled="!reCaptchaStatus" @click.prevent="validationForm()">{{trans('sponsor.submit')}}</button>
+                                <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" @click.prevent="validationForm()" :disabled="!reCaptchaStatus">{{trans('sponsor.submit')}}</button>
                         </form>
                     </div>
                 </div>
@@ -391,6 +490,9 @@
             methods: {
                 getSponsorForm: function (password) {
                     const vm = this;
+                    if (vm.show) {
+                        vm.alertShow = false;
+                    }
                     vm.password = password;
                     axios.post('/sponsor/{{$main['access_key']}}', {
                         'password':  vm.password,
@@ -398,7 +500,6 @@
                         if (response.data.success) {
                             vm.formData = response.data.data;
                             vm.show = false;
-                            vm.alertShow = false;
                             vm.countText(250, 'introTextConunt', vm.formData.main.introduction);
                             vm.countText(250, 'productionTextConunt', vm.formData.main.production);
                             vm.countText(80, 'dinnerPartyIntroTextConunt', vm.formData.main.opening_remarks);
@@ -418,15 +519,22 @@
                     let sendFormData = vm.formData;
                     let postData = new FormData();
                     const reg = new RegExp('_path');
+                    const cloud_reg = new RegExp('cloud_');
                     Object.keys(sendFormData).forEach((category) => {
                         Object.keys(sendFormData[category]).forEach((ele, index) => {
                             if(sendFormData[category][ele] !== undefined || sendFormData[category][ele] !== null){
-                                if (ele.match(reg) !== null) {
+                                if (ele.match(reg) !== null && ele.match(cloud_reg) === null) {
                                     const fileInput = document.getElementById(ele);
                                     if (fileInput) {
                                         if (fileInput.files.length > 0){
                                             postData.set(ele, fileInput.files[0]);
                                         }
+                                    }
+                                } else if (ele.match(reg) !== null && ele.match(cloud_reg) !== null) {
+                                    if (sendFormData[category][ele] === null) {
+                                        delete sendFormData[category][ele];
+                                    } else {
+                                        postData.set(ele, sendFormData[category][ele]);
                                     }
                                 } else if (ele === 'social_media') {
                                     if (sendFormData[category][ele] === null) {
@@ -449,6 +557,7 @@
                             vm.alertShow = true;
                             vm.classColor = 'alert-success';
                             vm.message = '{{ trans('sponsor.success_message') }}';
+                            vm.getSponsorForm(vm.password);
                         })
                         .catch((err) => {
                             vm.alertShow = true;
@@ -481,13 +590,35 @@
                 imagePreview(inputId) {
                     const file = document.getElementById(inputId);
                     if (file.files && file.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const file = document.getElementById(inputId);
-                        const img = $(file).siblings("img")[0];
-                        img.src = e.target.result;
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const file = document.getElementById(inputId);
+                            const img = $(file).siblings("img")[0];
+                            img.src = e.target.result;
+                        }
+                        reader.readAsDataURL(file.files[0]);
                     }
-                    reader.readAsDataURL(file.files[0]);
+                    document.getElementById('cloud_' + inputId).value = null;
+                    const vm = this;
+                    const advence = new RegExp('advence_');
+                    if (inputId.match(advence) !== null) {
+                        vm.formData.advence['cloud_' + inputId] = null;
+                    } else {
+                        vm.formData.main['cloud_' + inputId] = null;
+                    }
+                },
+                linkDirect(inputId) {
+                    const link = $('#' + inputId);
+                    link.siblings('a').text(link.val()).attr('href', link.val());
+                    const reg = /(cloud_)/;
+                    const fileId = inputId.replace(reg, '');
+                    document.getElementById(fileId).value = null;
+                    const vm = this;
+                    const advence = new RegExp('advence_');
+                    if (inputId.match(advence) !== null || inputId.match(advence) !== '') {
+                        vm.formData.advenve[fileId] = null;
+                    } else {
+                        vm.formData.main[fileId] = null;
                     }
                 },
                 reCaptchaInit() {

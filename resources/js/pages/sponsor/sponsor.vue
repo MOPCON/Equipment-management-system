@@ -197,18 +197,28 @@
                             <tr>
                                 <td>公司 LOGO (ai 向量圖檔佳)</td>
                                 <td>
-                                  <a v-if="sponsorDetailData.main.logo_path !== null" download :href="sponsorDetailData.main.logo_path"
-                                    target="_blank">下載檔案</a>
-                                  <input type="file" name="file" class="form-control-file" id="logo_path">
+                                    <a v-if="sponsorDetailData.main.logo_path !== null" download :href="sponsorDetailData.main.logo_path"
+                                        target="_blank">下載檔案</a>
+                                    <input type="file" name="file" class="form-control-file" id="logo_path" @change="imagePreview('logo_path')">
+                                    <label for="cloud_logo_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_logo_path" v-model="sponsorDetailData.main.cloud_logo_path" @change="linkDirect('logo_path')">
+                                    <a v-if="sponsorDetailData.main.cloud_logo_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_logo_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>產品或服務照片</td>
                                 <td>
-                                  <img :src="sponsorDetailData.main.service_photo_path" alt="" srcset="" width="120px"><br>
-                                  <a v-if="sponsorDetailData.main.service_photo_path !== null" download :href="sponsorDetailData.main.service_photo_path"
-                                    target="_blank">下載檔案</a>
-                                  <input type="file" name="file" class="form-control-file" id="service_photo_path" @change="imagePreview('service_photo_path')">
+                                    <img :src="sponsorDetailData.main.service_photo_path" alt="" srcset="" width="120px"><br>
+                                    <a v-if="sponsorDetailData.main.service_photo_path !== null" download :href="sponsorDetailData.main.service_photo_path"
+                                        target="_blank">下載檔案</a>
+                                    <input type="file" name="file" class="form-control-file" id="service_photo_path" @change="imagePreview('service_photo_path')">
+                                    <label for="cloud_service_photo_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_service_photo_path" v-model="sponsorDetailData.main.cloud_service_photo_path" @change="linkDirect('cloud_service_photo_path')">
+                                    <a v-if="sponsorDetailData.main.cloud_service_photo_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_service_photo_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -226,6 +236,11 @@
                                     <a v-if="sponsorDetailData.main.slide_path !== null" download :href="sponsorDetailData.main.slide_path"
                                         target="_blank">下載檔案</a>
                                     <input type="file" name="file" class="form-control-file" id="slide_path" @change="imagePreview('slide_path')">
+                                    <label for="cloud_slide_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_slide_path" v-model="sponsorDetailData.main.cloud_slide_path" @change="linkDirect('cloud_slide_path')">
+                                    <a v-if="sponsorDetailData.main.cloud_slide_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_slide_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -235,6 +250,11 @@
                                     <a v-if="sponsorDetailData.main.board_path !== null" download :href="sponsorDetailData.main.board_path"
                                       target="_blank">下載檔案</a>
                                     <input type="file" name="file" class="form-control-file" id="board_path" @change="imagePreview('board_path')">
+                                    <label for="cloud_board_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_board_path" v-model="sponsorDetailData.main.cloud_board_path" @change="linkDirect('cloud_board_path')">
+                                    <a v-if="sponsorDetailData.main.cloud_board_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_board_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -338,6 +358,11 @@
                                     <a v-if="sponsorDetailData.advence.advence_icck_ad_path !== null" download :href="sponsorDetailData.advence.advence_icck_ad_path"
                                         target="_blank">下載檔案</a>
                                     <input type="file" name="file" class="form-control-file" id="advence_icck_ad_path" @change="imagePreview('advence_icck_ad_path')">
+                                    <label for="cloud_advence_icck_ad_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_advence_icck_ad_path" v-model="sponsorDetailData.advence.cloud_advence_icck_ad_path" @change="linkDirect('cloud_advence_icck_ad_path')">
+                                    <a v-if="sponsorDetailData.advence.cloud_advence_icck_ad_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.cloud_advence_icck_ad_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr v-if="sponsorDetailData.advence.sponsor_type === 0">
@@ -347,6 +372,11 @@
                                     <a v-if="sponsorDetailData.advence.advence_registration_ad_path !== null" download :href="sponsorDetailData.advence.advence_registration_ad_path"
                                         target="_blank">下載檔案</a>
                                     <input type="file" name="file" class="form-control-file" id="advence_registration_ad_path" @change="imagePreview('advence_registration_ad_path')">
+                                    <label for="cloud_advence_registration_ad_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_advence_registration_ad_path" v-model="sponsorDetailData.advence.cloud_advence_registration_ad_path" @change="linkDirect('cloud_advence_registration_ad_path')">
+                                    <a v-if="sponsorDetailData.advence.cloud_advence_registration_ad_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.cloud_advence_registration_ad_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr v-if="sponsorDetailData.advence.sponsor_type === 0 || sponsorDetailData.advence.sponsor_type === 1">
@@ -366,6 +396,11 @@
                                     <a v-if="sponsorDetailData.advence.advence_hall_flag_path !== null" download :href="sponsorDetailData.advence.advence_hall_flag_path"
                                         target="_blank">下載檔案</a>
                                     <input type="file" name="file" class="form-control-file" id="advence_hall_flag_path" @change="imagePreview('advence_hall_flag_path')">
+                                    <label for="cloud_advence_hall_flag_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_advence_hall_flag_path" v-model="sponsorDetailData.advence.cloud_advence_hall_flag_path" @change="linkDirect('cloud_advence_hall_flag_path')">
+                                    <a v-if="sponsorDetailData.advence.cloud_advence_hall_flag_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.cloud_advence_hall_flag_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr v-if="sponsorDetailData.advence.sponsor_type === 0 || sponsorDetailData.advence.sponsor_type === 1 || sponsorDetailData.advence.sponsor_type === 2">
@@ -374,6 +409,11 @@
                                     <img :src="sponsorDetailData.advence.advence_main_flow_flag_path" alt="" srcset="" width="120px"><br>
                                     <a v-if="sponsorDetailData.advence.advence_main_flow_flag_path !== null" download :href="sponsorDetailData.advence.advence_main_flow_flag_path" target="_blank">下載檔案</a>
                                     <input type="file" name="file" class="form-control-file" id="advence_main_flow_flag_path" @change="imagePreview('advence_main_flow_flag_path')">
+                                    <label for="cloud_advence_main_flow_flag_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_advence_main_flow_flag_path" v-model="sponsorDetailData.advence.cloud_advence_main_flow_flag_path" @change="linkDirect('cloud_advence_main_flow_flag_path')">
+                                    <a v-if="sponsorDetailData.advence.cloud_advence_main_flow_flag_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.cloud_advence_main_flow_flag_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
@@ -547,7 +587,7 @@
                     const res = response.data.data;
                     vm.sponsorOption = res;
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             getSponsorData() {
@@ -564,7 +604,7 @@
                     }
                     vm.fullData = response.data.data.data;
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
             },
             getSponsorDetail(sponsor_id) {
@@ -585,7 +625,7 @@
                     };
                 }
                 }).catch(error => {
-                    console.log(error);
+                    helper.alert(error.response.data.message, 'danger');
                 });
                 $('#sponsorModal').modal('show');
             },
@@ -613,15 +653,20 @@
                 let updateData = [];
                 const bodyFormData = new FormData();
                 const reg = new RegExp('_path');
+                const cloud_reg = new RegExp('cloud_');
                 Object.keys(vm.sponsorDetailData).forEach((category) => {
-                        Object.keys(vm.sponsorDetailData[category]).forEach((ele, index) => {
+                    Object.keys(vm.sponsorDetailData[category]).forEach((ele, index) => {
                         const value = vm.sponsorDetailData[category][ele];
-                        if (ele.match(reg) !== null) {
+                        if (ele.match(reg) !== null && ele.match(cloud_reg) === null){
                             const fileInput = document.getElementById(ele);
                             if (fileInput) {
                                 if (fileInput.files.length > 0) {
                                     bodyFormData.set(ele, fileInput.files[0]);
                                 }
+                            }
+                        } else if(ele.match(reg) !== null && ele.match(cloud_reg) !== null) {
+                            if (value !== null && value !== '') {
+                                bodyFormData.set(ele, value);
                             }
                         } else {
                             if (value !== null && value !== '') {
@@ -659,13 +704,35 @@
             imagePreview(inputId) {
                 const file = document.getElementById(inputId);
                 if (file.files && file.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const file = document.getElementById(inputId);
-                    const img = $(file).siblings("img")[0];
-                    img.src = e.target.result;
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const file = document.getElementById(inputId);
+                        const img = $(file).siblings("img")[0];
+                        img.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file.files[0]);
                 }
-                reader.readAsDataURL(file.files[0]);
+                document.getElementById('cloud_' + inputId).value = null;
+                const vm = this;
+                const advence = new RegExp('advence_');
+                if (inputId.match(advence) !== null) {
+                    vm.sponsorDetailData.advence['cloud_' + inputId] = null;
+                } else {
+                    vm.sponsorDetailData.main['cloud_' + inputId] = null;
+                }
+            },
+            linkDirect(inputId) {
+                const link = $('#' + inputId);
+                link.siblings('a').attr('href', link.val());
+                const reg = /(cloud_)/;
+                const fileId = inputId.replace(reg, '');
+                document.getElementById(fileId).value = null;
+                const vm = this;
+                const advence = new RegExp('advence_');
+                if (inputId.match(advence) !== null) {
+                    vm.sponsorDetailData.advenve[fileId] = null;
+                } else {
+                    vm.sponsorDetailData.main[fileId] = null;
                 }
             },
             openAddSponsor() {
@@ -700,15 +767,33 @@
                 })
                 vm.selectAll = !select;
             },
-            exportData() {
+      hasChecked() {
                 const checkedId = document.querySelectorAll('.sponsor-check');
                 let idArr = '';
                 checkedId.forEach((ele) => {
                     if (ele.checked) {
                         idArr += `${ele.id},`
                     }
-                })
-                window.location = `api/sponsor/export?ids=${idArr}`;
+        });
+        return idArr
+      },
+      exportData() {
+        const vm = this;
+        let data = vm.hasChecked();
+        if (data === '') {
+          const allIds = [];
+          axios.get(
+          'api/sponsor?&limit=' + vm.page_info.total
+          ).then(response => {
+            const sponsorAllData = response.data.data.data
+            sponsorAllData.map(sponsor => allIds.push(sponsor.id))
+            window.location = `api/sponsor/export?ids=${allIds}`;
+          }).catch(error => {
+            helper.alert(error.response.data.message, 'danger');
+          });
+        } else {
+          window.location = `api/sponsor/export?ids=${data}`;
+        }
             },
         },
         mounted() {

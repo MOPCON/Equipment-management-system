@@ -35,6 +35,17 @@ class SponsorController extends Controller
         'advence_main_flow_flag_path',
     ];
 
+    private static $cloudPaths = [
+        'cloud_logo_path',
+        'cloud_service_photo_path',
+        'cloud_service_photo_path',
+        'cloud_board_path',
+        'cloud_advence_icck_ad_path',
+        'cloud_advence_registration_ad_path',
+        'cloud_advance_hall_flag_path',
+        'cloud_advence_main_flow_flag_path',
+    ];
+
     private static $FieldsForTSV = [
         'id'                            => 'id',
         'sponsor_status_text'           => '贊助商狀態',
@@ -156,16 +167,25 @@ class SponsorController extends Controller
     {
         $sponsor = Sponsor::findOrFail($id);
         $getFile = SponsorController::$uploadFileList;
-        $except = array_merge($getFile, []);
+        $cloudPaths = SponsorController::$cloudPaths;
+        $except = array_merge($getFile, $cloudPaths);
         $data = $request->except($except);
         $data['updated_by'] = auth()->user()->id;
 
         //檔案上傳
         foreach ($getFile as $value) {
-            if ($request->hasFile($value)) {
-                $filename = $this->saveFile($request->file($value), $sponsor);
-                $data[$value] = url(Sponsor::$filePath . '/' . $filename);
+            $check = $this->fileCheck($value, $request);
+            if (!$check) {
+                $trans = preg_replace('/advence_|_ad|_path/', '', $value);
+                $middle = preg_match('/advence_/', $value) ? 'advance' : 'main';
+                $msg = __('sponsor.' . $middle . '.' . $trans) . ' ' . __('sponsor.cloud.error');
+                return $this->return400Response($msg);
             }
+            $path = $this->fileProcess($value, $request, $sponsor);
+            if ($path === '') {
+                continue;
+            }
+            $data[$value] = $path;
         }
 
         $sponsor->update($data);
@@ -217,7 +237,7 @@ class SponsorController extends Controller
         foreach ($sponsors as $sponsor) {
             $row = [];
             foreach ($fieldNameKeys as $key) {
-                $row[] = $sponsor[$key];
+                $row[] = str_replace(array("'",'"',"\n"), array('\x22','\x27','\\n'), $sponsor[$key]);
             }
             $output_rows[] = implode("\t", $row);
         }
@@ -294,17 +314,26 @@ class SponsorController extends Controller
         }
 
         $getFile = SponsorController::$uploadFileList;
-        $except = array_merge($getFile, ['Sponsor_status', 'Sponsor_type', 'updated_by', 'password', 'recipe_amount']);
+        $cloudPaths = SponsorController::$cloudPaths;
+        $except = array_merge($getFile, $cloudPaths, ['Sponsor_status', 'Sponsor_type', 'updated_by', 'password', 'recipe_amount']);
         $data = $request->except($except);
         $data['updated_by'] = 0;
         $data['sponsor_status'] = 1;
 
         //檔案上傳
         foreach ($getFile as $value) {
-            if ($request->hasFile($value)) {
-                $filename = $this->saveFile($request->file($value), $sponsor);
-                $data[$value] = url(Sponsor::$filePath . '/' . $filename);
+            $check = $this->fileCheck($value, $request);
+            if (!$check) {
+                $trans = preg_replace('/(advence_)|(_ad)|(_path)/', '', $value);
+                $middle = preg_match('/(advence_)/', $value) ? 'advance' : 'main';
+                $msg = __('sponsor.' . $middle . '.' . $trans) . ' ' . __('sponsor.cloud.error');
+                return $this->return400Response($msg);
             }
+            $path = $this->fileProcess($value, $request, $sponsor);
+            if ($path === '') {
+                continue;
+            }
+            $data[$value] = $path;
         }
 
         $sponsor->update($data);
@@ -330,6 +359,26 @@ class SponsorController extends Controller
         return $newFileName;
     }
 
+    private function fileCheck($field, SponsorRequest $request)
+    {
+        $cloudpath = $request->input('cloud_' . $field, '');
+        if ($request->hasFile($field) && $cloudpath !== '') {
+            return false;
+        }
+        return true;
+    }
+
+    private function fileProcess($field, SponsorRequest $request, Sponsor $sponsor)
+    {
+        if ($request->hasFile($field)) {
+            $filename = $this->saveFile($request->file($field), $sponsor);
+            return url(Sponsor::$filePath . '/' . $filename);
+        }
+            
+        $cloudpath = $request->input('cloud_' . $field, '');
+        return $cloudpath;
+    }
+
     /**
      * 整理 sponsor 資料為 main, recipe, advance
      *
@@ -339,9 +388,21 @@ class SponsorController extends Controller
     private function arrangeSponsorData(Sponsor $sponsor)
     {
         $data = [];
+        $preg_path = url(Sponsor::$filePath);
+        $preg_path = preg_replace('/\//', '\/', $preg_path);
         foreach ($sponsor->toArray() as $key => $item) {
             if (preg_match('/(advence_)|(sponsor_type)|(sponsor_file_text)/', $key)) {
+                if (!preg_match('/(_path)/', $key)) {
+                    $data['advence'][$key] = $item;
+                    continue;
+                }
+                if (!preg_match("/($preg_path)/", $item)) {
+                    $data['advence']['cloud_' . $key] = $item;
+                    $data['advence'][$key] = null;
+                    continue;
+                }
                 $data['advence'][$key] = $item;
+                $data['advence']['cloud_' . $key] = null;
                 continue;
             }
 
@@ -354,8 +415,19 @@ class SponsorController extends Controller
                 $data['main'][$key] = $item ? $sponsor->user->name : $sponsor->name;
                 continue;
             }
+            if (!preg_match('/(_path)/', $key)) {
+                $data['main'][$key] = $item;
+                continue;
+            }
+            if (!preg_match("/($preg_path)/", $item)) {
+                $data['main']['cloud_' . $key] = $item;
+                $data['main'][$key] = null;
+                continue;
+            }
 
             $data['main'][$key] = $item;
+            $data['main']['cloud_' . $key] = null;
+            continue;
         }
 
         return $data;

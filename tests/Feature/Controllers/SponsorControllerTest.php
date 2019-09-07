@@ -159,23 +159,94 @@ class SponsorControllerTest extends TestCase
             'logo_path' => $file,
         ]);
 
-        $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
-        $new_path_info = explode('/', $new_path);
-        $new_file_name = end($new_path_info);
-        $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
+        
         $response->assertStatus(200)
             ->assertJson([
                 'message' => 'Update success.',
                 'data' => [
                     'main' => [
                         'name' => $name,
+                        'cloud_logo_path' => null,
                     ],
                     'recipe' => [
                         'recipe_contact_name' =>$contact,
                     ]
                 ]
             ]);
+        $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
+        $new_path_info = explode('/', $new_path);
+        $new_file_name = end($new_path_info);
+        $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
+
         @unlink(public_path() . '/' .$new_path);
+        if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
+            @unlink('/tmp/' . $logo_path);
+        }
+    }
+
+    public function testExternalUpdateSponsorUploadImageWithCloudLink()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $access_key = $sponsor->access_key;
+        $password = $sponsor->access_secret;
+
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+
+        $response = $this->post('/sponsor/' . $access_key, [
+            '_method' => 'PUT',
+            'password' => $password,
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'cloud_logo_path' => 'https://google.com',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Update success.',
+                'data' => [
+                    'main' => [
+                        'name' => $name,
+                        'logo_path' => null,
+                        'cloud_logo_path' => 'https://google.com',
+                    ],
+                    'recipe' => [
+                        'recipe_contact_name' =>$contact,
+                    ]
+                ]
+            ]);
+    }
+
+    public function testExternalUpdateSponsorUploadImageWithFileAndCloudLink()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $access_key = $sponsor->access_key;
+        $password = $sponsor->access_secret;
+
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo_path = pathinfo($logo, PATHINFO_BASENAME);
+        $ext = mime_content_type($logo);
+        $file = new UploadedFile($logo, $logo_path, $ext, null, true);
+
+        $response = $this->post('/sponsor/' . $access_key, [
+            '_method' => 'PUT',
+            'password' => $password,
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'logo_path' => $file,
+            'cloud_logo_path' => "https://google.com",
+        ]);
+
+        $response->assertStatus(400)
+            ->assertJson([
+                'message' => '企業 Logo 檔案上傳、雲端連結請擇一提供。',
+            ]);
+
+        if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
+            @unlink('/tmp/' . $logo_path);
+        }
     }
 
     public function testExternalUpdateSponsorUploadIllegalFile()
@@ -517,23 +588,86 @@ class SponsorControllerTest extends TestCase
             'logo_path' => $file,
         ]);
 
-        $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
-        $new_path_info = explode('/', $new_path);
-        $new_file_name = end($new_path_info);
-        $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
         $response->assertStatus(200)
             ->assertJson([
                 'message' => 'Update success.',
                 'data' => [
                     'main' => [
                         'name' => $name,
+                        'cloud_logo_path' => null,
                     ],
                     'recipe' => [
                         'recipe_contact_name' =>$contact,
                     ]
                 ]
             ]);
+
+        $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
+        $new_path_info = explode('/', $new_path);
+        $new_file_name = end($new_path_info);
+        $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
+
         @unlink(public_path() . '/' .$new_path);
+        if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
+            @unlink('/tmp/' . $logo_path);
+        }
+    }
+
+    public function testUpdateSponsorUploadImageWithCloudLink()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+
+        $response = $this->post('/api/sponsor/' . $sponsor->id, [
+            '_method' => 'PUT',
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'cloud_logo_path' => 'https://google.com',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Update success.',
+                'data' => [
+                    'main' => [
+                        'name' => $name,
+                        'logo_path' => null,
+                        'cloud_logo_path' => 'https://google.com',
+                    ],
+                    'recipe' => [
+                        'recipe_contact_name' =>$contact,
+                    ]
+                ]
+            ]);
+    }
+
+    public function testUpdateSponsorUploadImageWithFileAndCloudLink()
+    {
+        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $name = $this->faker->company;
+        $contact = $this->faker->name;
+        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo_path = pathinfo($logo, PATHINFO_BASENAME);
+        $ext = mime_content_type($logo);
+        $file = new UploadedFile($logo, $logo_path, $ext, null, true);
+
+        $response = $this->post('/api/sponsor/' . $sponsor->id, [
+            '_method' => 'PUT',
+            'name' => $name,
+            'recipe_contact_name' => $contact,
+            'logo_path' => $file,
+            'cloud_logo_path' => 'https://google.com',
+        ]);
+
+        $response->assertStatus(400)
+            ->assertJson([
+                'message' => '企業 Logo 檔案上傳、雲端連結請擇一提供。',
+            ]);
+
+        if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
+            @unlink('/tmp/' . $logo_path);
+        }
     }
 
     public function testUpdateSponsorUploadIllegalFile()

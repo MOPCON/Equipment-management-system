@@ -573,7 +573,7 @@
           vm.mealPreferenceItem = res.mealPreferenceItem;
           vm.editStatusList = res.speakerStatusItem;
         }).catch(error => {
-          console.log(error);
+          helper.alert(error.response.data.message, 'danger');
         });
       },
       getSpeakerData() {
@@ -590,7 +590,7 @@
           }
           vm.fullData = response.data.data.data;
         }).catch(error => {
-          console.log(error);
+          helper.alert(error.response.data.message, 'danger');
         });
       },
       postSpeakerUrlData() {
@@ -704,7 +704,7 @@
             };
           }
         }).catch(error => {
-          console.log(error);
+          helper.alert(error.response.data.message, 'danger');
         });
         $('#speakerModal').modal('show');
       },
@@ -728,15 +728,33 @@
       columnContainLink(key) {
         return key.includes('link_');
       },
-      exportData() {
+      hasChecked() {
         const checkedId = document.querySelectorAll('.speaker-check');
         let idArr = '';
         checkedId.forEach((ele) => {
           if (ele.checked) {
             idArr += `${ele.id},`
           }
-        })
-        window.location = `api/speaker/export?ids=${idArr}`;
+        });
+        return idArr
+      },
+      exportData() {
+        const vm = this;
+        let data = vm.hasChecked();
+        if (data === '') {
+          const allIds = [];
+          axios.get(
+          'api/speaker?&limit=' + vm.page_info.total
+          ).then(response => {
+            const speakerAllData = response.data.data.data
+            speakerAllData.map(speaker => allIds.push(speaker.id))
+            window.location = `api/speaker/export?ids=${allIds}`;
+          }).catch(error => {
+            helper.alert(error.response.data.message, 'danger');
+          });
+        } else {
+          window.location = `api/speaker/export?ids=${data}`;
+        }
       },
     },
     mounted() {

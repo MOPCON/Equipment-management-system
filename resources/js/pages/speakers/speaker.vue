@@ -741,16 +741,16 @@
       exportData() {
         const vm = this;
         let data = vm.hasChecked();
-        if (data == '') {
-          const allId = [];
+        if (data === '') {
+          const allIds = [];
           axios.get(
           'api/speaker?&limit=' + vm.page_info.total
           ).then(response => {
             const speakerAllData = response.data.data.data
-            speakerAllData.map(speaker => allId.push(speaker.id))
-            window.location = `api/speaker/export?ids=${allId}`;
+            speakerAllData.map(speaker => allIds.push(speaker.id))
+            window.location = `api/speaker/export?ids=${allIds}`;
           }).catch(error => {
-            console.log(error);
+            helper.alert(error.response.data.message, 'danger');
           });
         } else {
           window.location = `api/speaker/export?ids=${data}`;

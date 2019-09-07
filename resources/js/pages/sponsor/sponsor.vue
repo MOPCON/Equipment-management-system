@@ -780,16 +780,16 @@
       exportData() {
         const vm = this;
         let data = vm.hasChecked();
-        if (data == '') {
-          const allId = [];
+        if (data === '') {
+          const allIds = [];
           axios.get(
           'api/sponsor?&limit=' + vm.page_info.total
           ).then(response => {
             const sponsorAllData = response.data.data.data
-            sponsorAllData.map(sponsor => allId.push(sponsor.id))
-            window.location = `api/sponsor/export?ids=${allId}`;
+            sponsorAllData.map(sponsor => allIds.push(sponsor.id))
+            window.location = `api/sponsor/export?ids=${allIds}`;
           }).catch(error => {
-            console.log(error);
+            helper.alert(error.response.data.message, 'danger');
           });
         } else {
           window.location = `api/sponsor/export?ids=${data}`;

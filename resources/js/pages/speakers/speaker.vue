@@ -728,15 +728,33 @@
       columnContainLink(key) {
         return key.includes('link_');
       },
-      exportData() {
+      hasChecked() {
         const checkedId = document.querySelectorAll('.speaker-check');
         let idArr = '';
         checkedId.forEach((ele) => {
           if (ele.checked) {
             idArr += `${ele.id},`
           }
-        })
-        window.location = `api/speaker/export?ids=${idArr}`;
+        });
+        return idArr
+      },
+      exportData() {
+        const vm = this;
+        let data = vm.hasChecked();
+        if (data == '') {
+          const allId = [];
+          axios.get(
+          'api/speaker?&limit=' + vm.page_info.total
+          ).then(response => {
+            const speakerAllData = response.data.data.data
+            speakerAllData.map(speaker => allId.push(speaker.id))
+            window.location = `api/speaker/export?ids=${allId}`;
+          }).catch(error => {
+            console.log(error);
+          });
+        } else {
+          window.location = `api/speaker/export?ids=${data}`;
+        }
       },
     },
     mounted() {

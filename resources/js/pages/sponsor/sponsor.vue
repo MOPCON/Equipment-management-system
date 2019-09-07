@@ -767,15 +767,33 @@
                 })
                 vm.selectAll = !select;
             },
-            exportData() {
+      hasChecked() {
                 const checkedId = document.querySelectorAll('.sponsor-check');
                 let idArr = '';
                 checkedId.forEach((ele) => {
                     if (ele.checked) {
                         idArr += `${ele.id},`
                     }
-                })
-                window.location = `api/sponsor/export?ids=${idArr}`;
+        });
+        return idArr
+      },
+      exportData() {
+        const vm = this;
+        let data = vm.hasChecked();
+        if (data == '') {
+          const allId = [];
+          axios.get(
+          'api/sponsor?&limit=' + vm.page_info.total
+          ).then(response => {
+            const sponsorAllData = response.data.data.data
+            sponsorAllData.map(sponsor => allId.push(sponsor.id))
+            window.location = `api/sponsor/export?ids=${allId}`;
+          }).catch(error => {
+            console.log(error);
+          });
+        } else {
+          window.location = `api/sponsor/export?ids=${data}`;
+        }
             },
         },
         mounted() {

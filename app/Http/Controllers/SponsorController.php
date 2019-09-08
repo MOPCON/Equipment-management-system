@@ -237,7 +237,7 @@ class SponsorController extends Controller
         foreach ($sponsors as $sponsor) {
             $row = [];
             foreach ($fieldNameKeys as $key) {
-                $row[] = str_replace(array("'",'"',"\n"), array('\x22','\x27','\\n'), $sponsor[$key]);
+                $row[] = str_replace(array("\n", "\r\n", "\r"), '', $sponsor[$key]);
             }
             $output_rows[] = implode("\t", $row);
         }
@@ -374,7 +374,7 @@ class SponsorController extends Controller
             $filename = $this->saveFile($request->file($field), $sponsor);
             return url(Sponsor::$filePath . '/' . $filename);
         }
-            
+
         $cloudpath = $request->input('cloud_' . $field, '');
         return $cloudpath;
     }

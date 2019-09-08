@@ -164,7 +164,7 @@ class SpeakerController extends Controller
             $row = '';
 
             foreach (array_keys(SpeakerController::$FieldsForTSV) as $key) {
-                $item[$key] = str_replace(array("'",'"',"\n"), array('\x22','\x27','\\n'), $item[$key]);
+                $item[$key] = str_replace(array("\n", "\r\n", "\r"), '', $item[$key]);
                 switch ($key) {
                     case 'tag_text':
                         $row .= implode(',', $item[$key]) . "\t";

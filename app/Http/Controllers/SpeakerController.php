@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use App\Services\AutoCorrectService;
 
 class SpeakerController extends Controller
 {
@@ -164,7 +165,6 @@ class SpeakerController extends Controller
             $row = '';
 
             foreach (array_keys(SpeakerController::$FieldsForTSV) as $key) {
-                $item[$key] = str_replace(array("\n", "\r\n", "\r"), '', $item[$key]);
                 switch ($key) {
                     case 'tag_text':
                         $row .= implode(',', $item[$key]) . "\t";
@@ -176,6 +176,7 @@ class SpeakerController extends Controller
                         $row .= (($item[$key] == 1)?'是':'否') . "\t";
                         break;
                     default:
+                        $item[$key] = AutoCorrectService::autoSpace(str_replace(["\n", "\r\n", "\r"], '', $item[$key]));
                         $row .= "{$item[$key]}\t";
                 }
             }

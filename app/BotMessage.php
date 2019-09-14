@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TelegramMessage extends Model
+class BotMessage extends Model
 {
-    protected $table = 'telegram_messages';
     protected $fillable = ['user_id', 'es_time', 'channel_id', 'display_name', 'content', 'status'];
     protected $appends = ['full_message'];
 
@@ -22,7 +21,7 @@ class TelegramMessage extends Model
 
     public function channel()
     {
-        return $this->hasOne('App\TelegramChannel', 'id', 'channel_id');
+        return $this->hasOne('App\BotChannel', 'id', 'channel_id');
     }
 
     public function getFullMessageAttribute()

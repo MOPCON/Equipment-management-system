@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\TelegramMessage;
+use App\BotMessage;
 use Illuminate\Console\Command;
 use App\Jobs\SendTelegramMessageJob;
 
@@ -39,9 +39,9 @@ class SendTelegramMessage extends Command
      */
     public function handle()
     {
-        $messages = TelegramMessage::waitSend()->where('es_time', '<', date('Y-m-d H:i'))->get();
+        $messages = BotMessage::waitSend()->where('es_time', '<', date('Y-m-d H:i'))->get();
 
-        /** @var TelegramMessage $message */
+        /** @var BotMessage $message */
         foreach ($messages as $message) {
             $message->changeStatusToSending();
             SendTelegramMessageJob::dispatch($message);

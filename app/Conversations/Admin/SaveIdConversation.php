@@ -2,7 +2,7 @@
 
 namespace App\Conversations\Commands;
 
-use App\TelegramChannel;
+use App\BotChannel;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 
 class SaveIdConversation extends Conversation
@@ -19,7 +19,7 @@ class SaveIdConversation extends Conversation
         $name = $this->bot->getMessage()->getPayload()['chat']['title']
             ?? $this->bot->getUser()->getUsername() ?? '(未命名)';
 
-        TelegramChannel::updateOrCreate([
+        BotChannel::updateOrCreate([
             'code' => $code,
         ], [
             'name' => $name,

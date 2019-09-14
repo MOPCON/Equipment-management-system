@@ -2,7 +2,7 @@
     <div>
         <h1>
             發送訊息
-            <small>Telegram Message</small>
+            <small>Bot Message</small>
         </h1>
         <div class="row mb-3">
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">

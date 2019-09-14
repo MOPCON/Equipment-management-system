@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\TelegramMessage;
+use App\BotMessage;
 use Illuminate\Support\Facades\Log;
 use BotMan\Drivers\Telegram\TelegramDriver;
 
@@ -17,9 +17,9 @@ class BotManService
 
     /**
      * 發送訊息至 Telegram.
-     * @param TelegramMessage $telegramMessage
+     * @param BotMessage $telegramMessage
      */
-    public function send(TelegramMessage $telegramMessage): void
+    public function send(BotMessage $telegramMessage): void
     {
         try {
             if (! $telegramMessage->channel) {

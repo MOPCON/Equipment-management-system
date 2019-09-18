@@ -7,6 +7,7 @@ use App\Http\Requests\SponsorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use App\Services\AutoCorrectService;
 
 class SponsorController extends Controller
 {
@@ -237,7 +238,8 @@ class SponsorController extends Controller
         foreach ($sponsors as $sponsor) {
             $row = [];
             foreach ($fieldNameKeys as $key) {
-                $row[] = str_replace(array("\n", "\r\n", "\r"), '', $sponsor[$key]);
+                $sponsor[$key] = str_replace(array("'",'"'), array('\x22','\x27'), $sponsor[$key]);
+                $row[] = AutoCorrectService::autoSpace(str_replace(["\n", "\r\n", "\r", "&#8232;"], "\\n", $sponsor[$key]));
             }
             $output_rows[] = implode("\t", $row);
         }

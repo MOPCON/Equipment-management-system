@@ -176,7 +176,8 @@ class SpeakerController extends Controller
                         $row .= (($item[$key] == 1)?'是':'否') . "\t";
                         break;
                     default:
-                        $item[$key] = AutoCorrectService::autoSpace(str_replace(["\n", "\r\n", "\r"], '', $item[$key]));
+                        $item[$key] = str_replace(array("'",'"'), array('\x22','\x27'), $item[$key]);
+                        $item[$key] = AutoCorrectService::autoSpace(str_replace(["\n", "\r\n", "\r", "&#8232;"], "\\n", $item[$key]));
                         $row .= "{$item[$key]}\t";
                 }
             }

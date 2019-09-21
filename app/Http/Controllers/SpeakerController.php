@@ -206,7 +206,9 @@ class SpeakerController extends Controller
             return $this->return400Response();
         }
 
-        $speakers = Speaker::WhereIn('id', $ids)->get();
+        $speakers = Speaker::WhereIn('id', $ids)
+            ->where('speaker_status', '!=', Speaker::NotEditableStatus)
+            ->get();
         $callback = function () use ($speakers) {
             echo $this->transformToTSV($speakers);
         };

@@ -216,7 +216,9 @@ class SponsorController extends Controller
             return $this->return400Response('沒有選擇贊助商');
         }
         $find_ids = explode(',', $ids);
-        $sponsors = Sponsor::WhereIn('id', $find_ids)->get()->toArray();
+        $sponsors = Sponsor::WhereIn('id', $find_ids)
+            ->where('sponsor_status', '!=', Sponsor::NotEditableStatus)
+            ->get()->toArray();
         $callback = function () use ($sponsors) {
             echo $this->transformToTSV($sponsors);
         };

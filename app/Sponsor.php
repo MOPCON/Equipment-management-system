@@ -16,7 +16,11 @@ class Sponsor extends Model
     private const HACKER = 'Hacker';
     private const DEVELOP = 'Developer';
     private const OTHER = '其他';
-    private const NotEditableStatus = 3; // based on $sponsorStatusItem
+    
+    public const ReadyToConfirmStatus = 0;
+    public const OnCheckStatus = 1;
+    public const ConfirmedStatus = 2;
+    public const NotEditableStatus = 3; // based on $sponsorStatusItem
 
     public static $sponsorTypeItem = [
         self::TONYSTARK,
@@ -43,10 +47,10 @@ class Sponsor extends Model
     ];
 
     public static $sponsorStatusItem = [
-        '待確認',
-        '確認中',
-        '已確認',
-        '下架',
+        self::ReadyToConfirmStatus => '待確認',
+        self::OnCheckStatus => '確認中',
+        self::ConfirmedStatus => '已確認',
+        self::NotEditableStatus => '下架',
     ];
 
     protected $fillable = [

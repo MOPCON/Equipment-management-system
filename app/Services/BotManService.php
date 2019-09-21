@@ -5,6 +5,7 @@ namespace App\Services;
 use App\BotMessage;
 use Illuminate\Support\Facades\Log;
 use BotMan\Drivers\Telegram\TelegramDriver;
+use mysql_xdevapi\Exception;
 
 class BotManService
 {
@@ -22,17 +23,24 @@ class BotManService
     public function send(BotMessage $telegramMessage): void
     {
         try {
-            if (! $telegramMessage->channel) {
+            if (!$telegramMessage->channels->count()) {
                 $telegramMessage->changeStatusToFail();
 
                 return;
             }
-
-            $chatID = $telegramMessage->channel->code;
+            $telegramMessage->as_time = date('Y-m-d H:i:s');
             $message = $telegramMessage->full_message;
 
-            $this->botman->say($message, $chatID, TelegramDriver::class);
-            $telegramMessage->as_time = date('Y-m-d H:i:s');
+            foreach ($telegramMessage->channels as $channel) {
+                $chatID = $channel->code;
+                $result = $this->botman->say($message, $chatID, TelegramDriver::class);
+
+                if (!$result->isOk()) {
+                    throw new \Exception('Request error: ' . $result->getContent());
+                }
+                Log::info("[TelegramMessageService] Send message to {$channel->name}({$channel->code})");
+            }
+
             $telegramMessage->changeStatusToSend();
             Log::info("[TelegramMessageService] Send message success {$telegramMessage->id}");
         } catch (\Exception $e) {

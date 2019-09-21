@@ -45,7 +45,7 @@ class TelegramMessageController extends Controller
                     ->orWhere('content', 'LIKE', '%' . $search . '%');
             }
         })
-            ->with(['channel', 'user'])
+            ->with(['channels', 'user'])
             ->orderBy($order_field, $order_method)
             ->paginate($limit);
 
@@ -60,15 +60,14 @@ class TelegramMessageController extends Controller
      */
     public function store(TelegramMessageRequest $request)
     {
-        $data = $request->only(['es_time', 'channel_id', 'display_name', 'content']);
+        $data = $request->only(['es_time', 'display_name', 'content']);
         $data['user_id'] = auth()->id();
+        $message = BotMessage::create($data);
+        $message->channels()->attach($request->input('channel_ids'));
 
         if ($request->input('now_send')) {
             $data['status'] = BotMessage::SENDING;
-            $message = BotMessage::create($data);
             SendTelegramMessageJob::dispatch($message);
-        } else {
-            $message = BotMessage::create($data);
         }
 
         return $this->returnSuccess('Success', $message);
@@ -82,7 +81,7 @@ class TelegramMessageController extends Controller
      */
     public function show(BotMessage $telegramMessage)
     {
-        $telegramMessage->channel;
+        $telegramMessage->channels;
         $telegramMessage->user;
 
         return $this->returnSuccess('Success', $telegramMessage);
@@ -100,10 +99,12 @@ class TelegramMessageController extends Controller
         if ($telegramMessage->isSend()) {
             return $this->return400Response('訊息已發送，無法變更。');
         }
+        $telegramMessage->update($request->only(['sending_time', 'display_name', 'content']));
+        $telegramMessage->channels()->sync($request->input('channel_ids'));
 
         return $this->returnSuccess(
             'Success',
-            $telegramMessage->update($request->only(['sending_time', 'channel_id', 'display_name', 'content']))
+            $telegramMessage
         );
     }
 

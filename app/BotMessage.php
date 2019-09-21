@@ -19,9 +19,17 @@ class BotMessage extends Model
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * @deprecated
+     */
     public function channel()
     {
         return $this->hasOne('App\BotChannel', 'id', 'channel_id');
+    }
+
+    public function channels()
+    {
+        return $this->belongsToMany('App\BotChannel', 'bot_message_channels', '', '')->withTrashed();
     }
 
     public function getFullMessageAttribute()

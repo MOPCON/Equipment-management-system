@@ -31,8 +31,7 @@
                     <tbody>
                     <tr v-for="item in list">
                         <td>{{ item.id }}</td>
-                        <td v-if="item.channel">{{ item.channel.name}}</td>
-                        <td v-if="!item.channel">(已刪除)</td>
+                        <td><span v-for="channel in item.channels" class="badge badge-secondary mr-1">{{ channel.name }}</span></td>
                         <td>{{ item.display_name }}</td>
                         <td>{{ item.full_message }}</td>
                         <td v-if="item.user">{{ item.user.name }}</td>
@@ -117,11 +116,7 @@
                     </div>
                     <div class="form-group">
                         <strong>頻道</strong>
-                        <select class="form-control" v-model="add_message.channel_id">
-                            <option v-for="channel in channel_list" v-bind:value="channel.id">{{ channel.name
-                                }} ({{ channel.id }})
-                            </option>
-                        </select>
+                        <multiselect v-model="add_message.channels" :options="channel_list" :multiple="true" :searchable="false" :hideSelected="true" :clear-on-select="false" label="name" track-by="id"></multiselect>
                     </div>
                     <div class="form-group">
                         <strong>顯示名稱</strong>
@@ -156,7 +151,8 @@
                     id: '',
                     now_send: 1,
                     es_time: '',
-                    channel_id: 0,
+                    channel_ids: [],
+                    channels: [],
                     display_name: '',
                     content: '',
                     user_id: 0
@@ -213,7 +209,11 @@
             addMessage() {
                 let self = this;
                 axios.post(
-                    '/api/telegram-message', self.add_message
+                    '/api/telegram-message',
+                    {
+                        ...this.add_message,
+                        channel_ids: this.add_message.channels.map(item => item.id)
+                    }
                 ).then(response => {
                     $('#addMessage').modal('hide');
                     self.getAllMessage();
@@ -238,9 +238,12 @@
             },
             editMessage() {
                 let self = this;
-                self.add_message.es_time = $("#es_time input").val();
+                this.add_message.es_time = $("#es_time input").val();
                 axios.put(
-                    '/api/telegram-message/' + self.add_message.id, self.add_message
+                    '/api/telegram-message/' + this.add_message.id, {
+                        ...this.add_message,
+                        channel_ids: this.add_message.channels.map(item => item.id)
+                    }
                 ).then(response => {
                     $('#addMessage').modal('hide');
                     self.getAllMessage();
@@ -279,7 +282,7 @@
                     id: '',
                     now_send: 1,
                     es_time: "",
-                    channel_id: (this.channel_list.length > 0) ? this.channel_list[0].id : 0,
+                    channel_ids: [],
                     display_name: '',
                     content: '',
                     user_id: 0

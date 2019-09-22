@@ -11,9 +11,13 @@ import errorTextFormat from './filters/errorTextFormat';
 import timeFormat from './filters/timeFormat';
 import VeeValidate from 'vee-validate';
 import axios from 'axios';
+import Multiselect from 'vue-multiselect'
 
 Vue.filter('timeFormat', timeFormat);
 Vue.filter('errorTextFormat', errorTextFormat);
+
+// register globally
+Vue.component('multiselect', Multiselect);
 
 // VeeValidate
 Vue.use(VeeValidate);

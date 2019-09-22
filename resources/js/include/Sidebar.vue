@@ -58,15 +58,15 @@
                             }
                         ]
                     }, {
-                        title: 'Telegram Bot',
-                        icon: 'fab fa-telegram',
+                        title: 'Bot',
+                        icon: 'fas fa-robot',
                         child: [
                             {
-                                href: '/telegram-message',
+                                href: '/bot-message',
                                 title: '訊息發送',
                                 icon: 'fas fa-comment'
                             }, {
-                                href: '/telegram-channel',
+                                href: '/bot-channel',
                                 title: '頻道管理',
                                 icon: 'fas fa-users'
                             }

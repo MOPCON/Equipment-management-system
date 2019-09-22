@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\TelegramMessage;
+use App\BotMessage;
 use Illuminate\Bus\Queueable;
 use App\Services\BotManService;
 use Illuminate\Queue\SerializesModels;
@@ -19,9 +19,9 @@ class SendTelegramMessageJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param TelegramMessage $telegramMessage
+     * @param BotMessage $telegramMessage
      */
-    public function __construct(TelegramMessage $telegramMessage)
+    public function __construct(BotMessage $telegramMessage)
     {
         $this->telegramMessage = $telegramMessage;
     }

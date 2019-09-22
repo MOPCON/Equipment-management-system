@@ -7,6 +7,9 @@ use Illuminate\Support\Str;
 
 class Speaker extends Model
 {
+    public const ReadyToConfirmStatus = 0;
+    public const OnCheckStatus = 1;
+    public const ConfirmedStatus = 2;
     public const NotEditableStatus = 3; // based on $speakerStatusItem
     public const ReadonlyStatus = 4; // based on $speakerStatusItem
 
@@ -56,11 +59,11 @@ class Speaker extends Model
         '奶蛋素',
     ];
     public static $speakerStatusItem = [
-        '待確認',
-        '確認中',
-        '已確認',
-        '下架',
-        '關閉前台修改',
+        self::ReadyToConfirmStatus => '待確認',
+        self::OnCheckStatus => '確認中',
+        self::ConfirmedStatus => '已確認',
+        self::NotEditableStatus => '下架',
+        self::ReadonlyStatus => '關閉前台修改',
     ];
     public static $speakerTypeItem = [
         '贊助商',

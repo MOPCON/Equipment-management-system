@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\TelegramMessage;
+use App\BotMessage;
 use Illuminate\Http\Request;
 use App\Jobs\SendTelegramMessageJob;
 use App\Http\Requests\TelegramMessageRequest;
@@ -35,7 +35,7 @@ class TelegramMessageController extends Controller
         $order_method = $request->input('orderby_method', 'desc');
         $limit = $request->input('limit', 25);
 
-        $telegramMessages = TelegramMessage::where(function ($query) use ($search, $channel_id) {
+        $telegramMessages = BotMessage::where(function ($query) use ($search, $channel_id) {
             if ($channel_id) {
                 $query->where('channel_id', $channel_id);
             }
@@ -45,7 +45,7 @@ class TelegramMessageController extends Controller
                     ->orWhere('content', 'LIKE', '%' . $search . '%');
             }
         })
-            ->with(['channel', 'user'])
+            ->with(['channels', 'user'])
             ->orderBy($order_field, $order_method)
             ->paginate($limit);
 
@@ -60,15 +60,14 @@ class TelegramMessageController extends Controller
      */
     public function store(TelegramMessageRequest $request)
     {
-        $data = $request->only(['es_time', 'channel_id', 'display_name', 'content']);
+        $data = $request->only(['es_time', 'display_name', 'content']);
         $data['user_id'] = auth()->id();
+        $message = BotMessage::create($data);
+        $message->channels()->attach($request->input('channel_ids'));
 
         if ($request->input('now_send')) {
-            $data['status'] = TelegramMessage::SENDING;
-            $message = TelegramMessage::create($data);
+            $data['status'] = BotMessage::SENDING;
             SendTelegramMessageJob::dispatch($message);
-        } else {
-            $message = TelegramMessage::create($data);
         }
 
         return $this->returnSuccess('Success', $message);
@@ -77,12 +76,12 @@ class TelegramMessageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TelegramMessage $telegramMessage
+     * @param  \App\BotMessage $telegramMessage
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(TelegramMessage $telegramMessage)
+    public function show(BotMessage $telegramMessage)
     {
-        $telegramMessage->channel;
+        $telegramMessage->channels;
         $telegramMessage->user;
 
         return $this->returnSuccess('Success', $telegramMessage);
@@ -92,29 +91,31 @@ class TelegramMessageController extends Controller
      * Update the specified resource in storage.
      *
      * @param TelegramMessageRequest $request
-     * @param  \App\TelegramMessage  $telegramMessage
+     * @param  \App\BotMessage       $telegramMessage
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(TelegramMessageRequest $request, TelegramMessage $telegramMessage)
+    public function update(TelegramMessageRequest $request, BotMessage $telegramMessage)
     {
         if ($telegramMessage->isSend()) {
             return $this->return400Response('訊息已發送，無法變更。');
         }
+        $telegramMessage->update($request->only(['sending_time', 'display_name', 'content']));
+        $telegramMessage->channels()->sync($request->input('channel_ids'));
 
         return $this->returnSuccess(
             'Success',
-            $telegramMessage->update($request->only(['sending_time', 'channel_id', 'display_name', 'content']))
+            $telegramMessage
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TelegramMessage $telegramMessage
+     * @param  \App\BotMessage $telegramMessage
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(TelegramMessage $telegramMessage)
+    public function destroy(BotMessage $telegramMessage)
     {
         if ($telegramMessage->isSend()) {
             return $this->return400Response('訊息已發送，無法刪除。');
@@ -123,7 +124,7 @@ class TelegramMessageController extends Controller
         return $this->returnSuccess('Success', $telegramMessage->delete());
     }
 
-    public function sendNow(TelegramMessage $telegramMessage)
+    public function sendNow(BotMessage $telegramMessage)
     {
         if ($telegramMessage->isSend()) {
             return $this->return400Response('訊息已發送，無法再發送。');

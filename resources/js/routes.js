@@ -6,8 +6,8 @@ import group from './pages/staffs/group';
 import equipment from "./pages/equipments/equipment";
 import equbarcode from "./pages/equipments/equbarcode";
 import raise from "./pages/equipments/raise";
-import telegram_message from './pages/telegram_bot/index';
-import telegram_channel from './pages/telegram_bot/channel';
+import bot_message from './pages/bot/Messages';
+import bot_channel from './pages/bot/Channels';
 import student_verify from './pages/verify/student_verify';
 import user from './pages/users/user';
 import user_role from './pages/users/role';
@@ -67,11 +67,11 @@ const router = new VueRouter({
             path: '/student-verify',
             component: student_verify,
         }, {
-            path: '/telegram-message',
-            component: telegram_message,
+            path: '/bot-message',
+            component: bot_message,
         }, {
-            path: '/telegram-channel',
-            component: telegram_channel,
+            path: '/bot-channel',
+            component: bot_channel,
         }, {
             path: '/logs',
             component: logs,

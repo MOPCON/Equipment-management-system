@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\TelegramChannel;
+use App\BotChannel;
 use App\Http\Requests\TelegramChannelRequest;
 use App\SystemLogType;
 use App\Services\SystemLogService;
@@ -32,7 +32,7 @@ class TelegramChannelController extends Controller
      */
     public function index()
     {
-        return $this->returnSuccess('Success', TelegramChannel::all());
+        return $this->returnSuccess('Success', BotChannel::all());
     }
 
     /**
@@ -41,7 +41,7 @@ class TelegramChannelController extends Controller
      */
     public function store(TelegramChannelRequest $request)
     {
-        $telegramChannel = TelegramChannel::create($request->only(['name', 'code']));
+        $telegramChannel = BotChannel::create($request->only(['name', 'code']));
 
         $content = '新增 -> ' . $telegramChannel->name . ' ( id:' . $telegramChannel->id . ' )';
         $this->SystemLog->write($content, $this->SystemLogTypeId);
@@ -52,10 +52,10 @@ class TelegramChannelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TelegramChannel  $telegramChannel
+     * @param  \App\BotChannel $telegramChannel
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(TelegramChannel $telegramChannel)
+    public function show(BotChannel $telegramChannel)
     {
         return $this->returnSuccess('Success', $telegramChannel);
     }
@@ -64,10 +64,10 @@ class TelegramChannelController extends Controller
      * Update the specified resource in storage.
      *
      * @param TelegramChannelRequest $request
-     * @param  \App\TelegramChannel  $telegramChannel
+     * @param  \App\BotChannel       $telegramChannel
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(TelegramChannelRequest $request, TelegramChannel $telegramChannel)
+    public function update(TelegramChannelRequest $request, BotChannel $telegramChannel)
     {
         $telegramChannel->update($request->only(['name', 'code']));
 
@@ -80,11 +80,11 @@ class TelegramChannelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TelegramChannel $telegramChannel
+     * @param  \App\BotChannel $telegramChannel
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function destroy(TelegramChannel $telegramChannel)
+    public function destroy(BotChannel $telegramChannel)
     {
         $telegramChannel->delete();
 

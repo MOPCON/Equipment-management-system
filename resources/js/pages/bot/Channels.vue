@@ -2,7 +2,7 @@
     <div>
         <h1>
             頻道
-            <small>Telegram Channel</small>
+            <small>Bot Channel</small>
         </h1>
         <div class="row mb-3">
             <div class="col-12 col-sm-2 col-md-2 col-lg-1">

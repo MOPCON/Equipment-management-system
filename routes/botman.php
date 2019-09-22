@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Botman\CommandClearMiddleware;
 use BotMan\BotMan\BotMan;
 use App\Conversations\WhoAmIConversation;
 use App\Http\Middleware\Botman\AdminMiddleware;
@@ -8,6 +9,8 @@ use App\Http\Middleware\Botman\PrivateChatMiddleware;
 
 /** @var BotMan $botman */
 $botman = resolve('botman');
+
+$botman->middleware->received(new CommandClearMiddleware());
 
 /* 私人頻道限定 */
 $botman->group(['middleware' => new PrivateChatMiddleware()], function (BotMan $botman) {

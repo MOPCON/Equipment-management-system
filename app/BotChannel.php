@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TelegramChannel extends Model
+class BotChannel extends Model
 {
-    protected $table = 'telegram_channels';
+    use SoftDeletes;
+
     protected $fillable = ['name', 'code'];
 }

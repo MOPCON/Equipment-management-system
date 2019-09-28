@@ -32,6 +32,7 @@ class Speaker extends Model
         'Agile',
         'Panel',
         'FinTech',
+        'QA',
     ];
     public static $levelItem = [
         'Basic-外行人可以藉此入門',

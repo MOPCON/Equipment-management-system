@@ -99,7 +99,7 @@ class TelegramMessageController extends Controller
         if ($telegramMessage->isSend()) {
             return $this->return400Response('訊息已發送，無法變更。');
         }
-        $telegramMessage->update($request->only(['sending_time', 'display_name', 'content']));
+        $telegramMessage->update($request->only(['es_time', 'display_name', 'content']));
         $telegramMessage->channels()->sync($request->input('channel_ids'));
 
         return $this->returnSuccess(

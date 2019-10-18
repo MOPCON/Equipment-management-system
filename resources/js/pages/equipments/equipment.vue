@@ -138,7 +138,7 @@
                             </label>
                         </div>
                     </div>
-                    <div v-if="add_equipment.hasBarcode == '1'" class="form-group">
+                    <div v-if="add_equipment.hasBarcode === 1" class="form-group">
                         <strong>Prefix</strong>
                         <input type="text" v-model="add_equipment.prefix" name="prefix"
                                class="form-control" placeholder="Prefix" required>
@@ -264,7 +264,7 @@
                         memo: self.add_equipment.memo,
                         amount: self.add_equipment.amount,
                         hasBarcode: self.add_equipment.hasBarcode,
-                        prefix: self.add_equipment.hasBarcode === '1' ? self.add_equipment.prefix : ''
+                        prefix: self.add_equipment.hasBarcode === 1 ? self.add_equipment.prefix : ''
                     };
                     axios.post(
                         '/api/equipment', data
@@ -286,7 +286,7 @@
                         memo: self.add_equipment.memo,
                         amount: self.add_equipment.amount,
                         hasBarcode: self.add_equipment.hasBarcode,
-                        prefix: self.add_equipment.hasBarcode === '1' ? self.add_equipment.prefix : '',
+                        prefix: self.add_equipment.hasBarcode === 1 ? self.add_equipment.prefix : '',
                         _method: 'PUT'
                     };
 

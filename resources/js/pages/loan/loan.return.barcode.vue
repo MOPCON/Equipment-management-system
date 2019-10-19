@@ -217,7 +217,12 @@
                     $("#equrbar").focus();
                 }).catch(error => {
                     console.log(error.response);
-                    self.top_info.message = error.response.data.message;
+                    switch(error.response.status) {
+                        case 419:
+                           self.top_info.message = "The access token has expired, please refresh this page.";
+                        default:
+                            self.top_info.message = error.response.data.message;
+                    }
                     self.top_info.success = 2;
                     $("#equrbar").select();
                 });

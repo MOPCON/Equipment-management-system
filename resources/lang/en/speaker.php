@@ -26,6 +26,7 @@ return [
     'tag_helper'          => 'If there\'s no related tags for your topic, please feel free to contact us.',
     'difficulty'          => 'Difficulty',
     'license'             => 'License',
+    'link_slide'          => 'Slide Link',
     'promote'             => 'Do you agree to publicity?',
     'other_info'          => 'Other information',
     'tshirt_size'         => 'T-shirt size',

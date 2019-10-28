@@ -260,7 +260,7 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="8" scope="row" width="120px">議程資料</th>
+                <th rowspan="10" scope="row" width="120px">議程資料</th>
                 <td>演講主題</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic"
@@ -326,6 +326,32 @@
                     <label class="form-check-label" :for="'license' + index">
                       {{ name }}
                     </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>投影片連結</td>
+                <td class="p-0 v-align-middle">
+                  <div class="input-group">
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_slide"
+                      id="link_slide" @blur="checkUrl('link_slide')">
+                    <div class="input-group-append" v-if="speakerDetailData.link_slide !== null">
+                      <a :href="speakerDetailData.link_slide" target="_blank"
+                        class="btn btn-primary rounded-0">link</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>錄影檔影片連結</td>
+                <td class="p-0 v-align-middle">
+                  <div class="input-group">
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_video"
+                      id="link_video" @blur="checkUrl('link_video')">
+                    <div class="input-group-append" v-if="speakerDetailData.link_video !== null">
+                      <a :href="speakerDetailData.link_video" target="_blank"
+                        class="btn btn-primary rounded-0">link</a>
+                    </div>
                   </div>
                 </td>
               </tr>

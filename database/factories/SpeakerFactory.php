@@ -22,6 +22,8 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'link_github' => $faker->url,
         'link_twitter' => $faker->url,
         'link_other' => $faker->url,
+        'link_slide' => $faker->url,
+        'link_video' => $faker->url,
         'topic' => $zhFaker->text(16),
         'topic_e' => $faker->text(32),
         'summary' => $zhFaker->text(240),

@@ -85,6 +85,8 @@ class Speaker extends Model
         "link_github",
         "link_twitter",
         "link_other",
+        "link_slide",
+        "link_video",
         "topic",
         "topic_e",
         "summary",

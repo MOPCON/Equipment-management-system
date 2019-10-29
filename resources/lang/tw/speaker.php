@@ -26,6 +26,7 @@ return [
     'tag_helper'          => '若無適用的標籤，請告知我們工作人員。',
     'difficulty'          => '難易度',
     'license'             => '授權方式',
+    'link_slide'          => '投影片連結',
     'promote'             => '是否同意公開宣傳?',
     'other_info'          => '行政資訊',
     'tshirt_size'         => 'T-shirt 尺寸',

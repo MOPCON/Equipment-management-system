@@ -211,6 +211,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="d-flex justify-content-between flex-column flex-md-row">
+                                    <label for="link_slide">{{ trans('speaker.link_slide') }}</label>
+                                </div>
+                                <input type="url" class="form-control" id="link_slide" v-model="formData.link_slide" placeholder="slide url" @blur="checkUrl('link_slide')">
+                            </div>
+                            <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.promote')}}</p>
                                 <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
                                     <input class="form-check-input" type="radio" :id="name" :value="index" v-model="formData.promotion">

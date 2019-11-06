@@ -20,6 +20,7 @@ class SpeakerController extends Controller
         'speaker_type',
         'speaker_status_text',
         'speaker_type_text',
+        'link_video',
         'is_keynote',
         'last_edited_by',
         'access_secret',
@@ -40,6 +41,8 @@ class SpeakerController extends Controller
         'link_github' => 'Github',
         'link_twitter' => 'Twitter',
         'link_other' => '其他(如Website/Blog)',
+        'link_slide' => '投影片連結',
+        'link_video' => '錄影檔影片連結',
         'topic' => '演講主題',
         'topic_e' => '演講主題(英文)',
         'summary' => '演講摘要',
@@ -286,17 +289,21 @@ class SpeakerController extends Controller
     {
         $speaker = Speaker::where('access_key', '=', $accessKey)->firstOrFail();
         if ($speaker) {
-            if (! $speaker->editable || $speaker->readonly) {
+            if (! $speaker->editable) {
                 return $this->return400Response();
             }
 
             if ($speaker->access_secret !== $request->input('password')) {
                 return $this->return400Response();
             }
-
-            $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password']);
-            $data['last_edited_by'] = $speaker->name;
-            $data['speaker_status'] = 1;
+            if ($speaker->readonly) {
+                $data = $request->only(['link_slide', 'last_edited_by', 'password']);
+                $data['last_edited_by'] = $speaker->name;
+            } else {
+                $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password']);
+                $data['last_edited_by'] = $speaker->name;
+                $data['speaker_status'] = 1;
+            }
             $speaker->update($data);
 
             if ($request->hasFile('file')) {

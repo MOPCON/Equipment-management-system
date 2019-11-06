@@ -289,17 +289,21 @@ class SpeakerController extends Controller
     {
         $speaker = Speaker::where('access_key', '=', $accessKey)->firstOrFail();
         if ($speaker) {
-            if (! $speaker->editable || $speaker->readonly) {
+            if (! $speaker->editable) {
                 return $this->return400Response();
             }
 
             if ($speaker->access_secret !== $request->input('password')) {
                 return $this->return400Response();
             }
-
-            $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password']);
-            $data['last_edited_by'] = $speaker->name;
-            $data['speaker_status'] = 1;
+            if ($speaker->readonly) {
+                $data = $request->only(['link_slide', 'last_edited_by', 'password']);
+                $data['last_edited_by'] = $speaker->name;
+            } else {
+                $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password']);
+                $data['last_edited_by'] = $speaker->name;
+                $data['speaker_status'] = 1;
+            }
             $speaker->update($data);
 
             if ($request->hasFile('file')) {

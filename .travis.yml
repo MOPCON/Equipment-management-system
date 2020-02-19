@@ -2,7 +2,7 @@ language: php
 php:
   - 7.2
 addons:
-  ssh_known_hosts: gcp.puckwang.com
+  ssh_known_hosts: $SERVER_NAME
 cache:
   directories:
     - $HOME/.composer/cache

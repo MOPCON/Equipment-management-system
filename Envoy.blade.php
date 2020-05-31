@@ -14,10 +14,13 @@
     sudo -u www-data git pull origin {{ $branch }}
     sudo -u www-data composer install --no-plugins --no-scripts
     sudo -u www-data composer install --optimize-autoloader
-    sudo -u www-data yarn install
-    sudo -u www-data yarn run prod
     sudo -u www-data php artisan migrate --force
     sudo -u www-data php artisan queue:restart
+    sudo cp /home/github/prod/app.css /home/ems/prod/public/css/app.css
+    sudo cp /home/github/prod/app.js /home/ems/prod/public/js/app.js
+    sudo cp /home/github/prod/manifest.js /home/ems/prod/public/js/manifest.js
+    sudo cp /home/github/prod/vendor.js /home/ems/prod/public/js/vendor.js
+    sudo chown www-data:www-data /home/ems/prod/public/js/app.js /home/ems/prod/public/js/manifest.js /home/ems/prod/public/js/vendor.js /home/ems/prod/public/css/app.css
 @endtask
 
 @task('testing-cms', ['on' => 'web'])
@@ -29,10 +32,13 @@
     sudo -u www-data git pull origin {{ $branch }}
     sudo -u www-data composer install --no-plugins --no-scripts
     sudo -u www-data composer install --optimize-autoloader
-    sudo -u www-data yarn install
-    sudo -u www-data yarn run prod
     sudo -u www-data php artisan migrate
     sudo -u www-data php artisan queue:restart
+    sudo cp /home/github/test/app.css /home/ems/test/public/css/app.css
+    sudo cp /home/github/test/app.js /home/ems/test/public/js/app.js
+    sudo cp /home/github/test/manifest.js /home/ems/test/public/js/manifest.js
+    sudo cp /home/github/test/vendor.js /home/ems/test/public/js/vendor.js
+    sudo chown www-data:www-data /home/ems/test/public/js/app.js /home/ems/test/public/js/manifest.js /home/ems/test/public/js/vendor.js /home/ems/test/public/css/app.css
 @endtask
 
 @after

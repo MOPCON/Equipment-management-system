@@ -28,6 +28,7 @@ return [
     'license'             => '授權方式',
     'link_slide'          => '投影片連結',
     'promote'             => '是否同意公開宣傳?',
+    'promote_info'        => '您所提供的資訊將用於本活動公開宣傳，若不希望公開宣傳，請與我們工作人員聯繫',
     'other_info'          => '行政資訊',
     'tshirt_size'         => 'T-shirt 尺寸',
     'need_parking_space'  => '您是否需有停車需求？',

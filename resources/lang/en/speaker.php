@@ -28,6 +28,7 @@ return [
     'license'             => 'License',
     'link_slide'          => 'Slide Link',
     'promote'             => 'Do you agree to publicity?',
+    'promote_info'        => 'The information you provide will be used for marketing this event. If you want to keep it private, please contact us. Thank you.',
     'other_info'          => 'Other information',
     'tshirt_size'         => 'T-shirt size',
     'need_parking_space'  => 'Do you need a parking space?',

@@ -217,13 +217,7 @@
                                 <input type="url" class="form-control" id="link_slide" v-model="formData.link_slide" placeholder="slide url" @blur="checkUrl('link_slide')">
                             </div>
                             <div class="form-group">
-                                <p class="mb-1">{{ trans('speaker.promote')}}</p>
-                                <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
-                                    <input class="form-check-input" type="radio" :id="name" :value="index" v-model="formData.promotion" :disabled="formData.readonly">
-                                    <label class="form-check-label" :for="name">
-                                        @{{ name }}
-                                    </label>
-                                </div>
+                                <p class="mb-1"><strong>{{ trans('speaker.promote_info')}}</strong></p>
                             </div>
                             <h4 class="text-primary mt-4">{{ trans('speaker.other_info')}}</h4>
                             <hr>

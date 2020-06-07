@@ -138,8 +138,7 @@ class SponsorControllerTest extends TestCase
             ]);
     }
 
-    // TODO: 這個測試會無法結束
-    private function testExternalUpdateSponsorUploadImage()
+    public function testExternalUpdateSponsorUploadImage()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
         $access_key = $sponsor->access_key;
@@ -147,7 +146,7 @@ class SponsorControllerTest extends TestCase
 
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
@@ -174,11 +173,12 @@ class SponsorControllerTest extends TestCase
                     ]
                 ]
             ]);
+        
         $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
         $new_path_info = explode('/', $new_path);
         $new_file_name = end($new_path_info);
         $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
-
+        @unlink($logo);
         @unlink(public_path() . '/' .$new_path);
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
@@ -218,8 +218,7 @@ class SponsorControllerTest extends TestCase
             ]);
     }
 
-    // TODO: 這個測試會無法結束
-    private function testExternalUpdateSponsorUploadImageWithFileAndCloudLink()
+    public function testExternalUpdateSponsorUploadImageWithFileAndCloudLink()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
         $access_key = $sponsor->access_key;
@@ -227,7 +226,7 @@ class SponsorControllerTest extends TestCase
 
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
@@ -245,7 +244,7 @@ class SponsorControllerTest extends TestCase
             ->assertJson([
                 'message' => '企業 Logo 檔案上傳、雲端連結請擇一提供。',
             ]);
-
+        @unlink($logo);    
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
         }
@@ -573,13 +572,12 @@ class SponsorControllerTest extends TestCase
             ->assertHeader('Content-Type', 'text/tab-separated-values; charset=UTF-8');
     }
 
-    // TODO: 這個測試會無法結束
-    private function testUpdateSponsorUploadImage()
+    public function testUpdateSponsorUploadImage()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
@@ -604,12 +602,12 @@ class SponsorControllerTest extends TestCase
                     ]
                 ]
             ]);
-
+        
         $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
         $new_path_info = explode('/', $new_path);
         $new_file_name = end($new_path_info);
         $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
-
+        @unlink($logo);
         @unlink(public_path() . '/' .$new_path);
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
@@ -645,13 +643,12 @@ class SponsorControllerTest extends TestCase
             ]);
     }
 
-    // TODO: 這個測試會無法結束
-    private function testUpdateSponsorUploadImageWithFileAndCloudLink()
+    public function testUpdateSponsorUploadImageWithFileAndCloudLink()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
@@ -668,7 +665,7 @@ class SponsorControllerTest extends TestCase
             ->assertJson([
                 'message' => '企業 Logo 檔案上傳、雲端連結請擇一提供。',
             ]);
-
+        @unlink($logo);
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
         }
@@ -692,5 +689,28 @@ class SponsorControllerTest extends TestCase
             ->assertJson([
                 "success" => false,
             ]);
+    }
+    public function saveRandomImage($dir = null, $width = 640, $height = 480)
+    {   
+        // Create a blank image:
+        $im = imagecreatetruecolor($width, $height);
+        // Add light background color:
+        $bgColor = imagecolorallocate($im, rand(100, 255), rand(100, 255), rand(100, 255));
+        imagefill($im, 0, 0, $bgColor);
+
+        $name = md5(uniqid(empty($_SERVER['SERVER_ADDR']) ? '' : $_SERVER['SERVER_ADDR'], true));
+        $filename = $name .'.jpg';
+        $filepath = $dir . DIRECTORY_SEPARATOR . $filename;
+
+        // Save the image:
+        $isGenerated = imagejpeg($im, $filepath);
+
+        if (!$isGenerated) {
+            throw new Exception('No access in'.$filepath);
+        }
+        // Free up memory:
+        imagedestroy($im);
+
+        return $filepath;
     }
 }

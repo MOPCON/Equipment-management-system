@@ -49,6 +49,7 @@ class SponsorController extends Controller
 
     private static $FieldsForTSV = [
         'id'                            => 'id',
+        'year'                          => '年份',
         'sponsor_status_text'           => '贊助商狀態',
         'sponsor_type_text'             => '贊助商類型',
         'name'                          => '公司名稱',

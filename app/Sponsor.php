@@ -54,6 +54,7 @@ class Sponsor extends Model
     ];
 
     protected $fillable = [
+        'year',
         'sponsor_type',
         'sponsor_status',
         'name',

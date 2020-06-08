@@ -7,6 +7,7 @@ $factory->define(App\Sponsor::class, function () {
     $zhFaker = Faker\Factory::create('zh_TW');
 
     return [
+        'year'                         => $zhFaker->year(),
         'sponsor_type'                 => rand(0, count(Sponsor::$sponsorTypeItem) - 1),
         'sponsor_status'               => rand(0, count(Sponsor::$sponsorStatusItem) - 1),
         'name'                         => $zhFaker->company,

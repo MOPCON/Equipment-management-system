@@ -25,6 +25,7 @@ class SponsorRequest extends BaseRequest
     public function rules()
     {
         return [
+            'year'                         => 'required|date_format:Y',
             'sponsor_type'                 => 'nullable|integer|min:0|max:' . count(Sponsor::$sponsorTypeItem),
             'sponsor_status'               => 'nullable|integer|min:0|max:' . count(Sponsor::$sponsorStatusItem),
             'name'                         => 'required|string',

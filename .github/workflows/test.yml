@@ -16,6 +16,6 @@ jobs:
         with:
           args: install
       - name: PHPUnit testing
-        uses: docker://php:7.2
+        uses: docker://hashman/php:7.2
         with:
           args: php vendor/bin/phpunit

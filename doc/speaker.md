@@ -67,6 +67,7 @@
       "promotion": 1,
       "tshirt_size": 3,
       "need_parking_space": 0,
+      "year":2019,
       "has_dinner": 1,
       "meal_preference": 1,
       "has_companion": 0,

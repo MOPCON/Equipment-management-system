@@ -31,6 +31,7 @@ return [
     'other_info'          => '行政資訊',
     'tshirt_size'         => 'T-shirt 尺寸',
     'need_parking_space'  => '您是否需有停車需求？',
+    'year'                => '年份',
     'has_dinner'          => '敬邀參加講者晚宴',
     'meal_preference'     => '葷素食偏好',
     'has_companion'       => '晚宴攜伴人數（NT.800 / 人）',

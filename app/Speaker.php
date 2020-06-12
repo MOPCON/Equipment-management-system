@@ -97,6 +97,7 @@ class Speaker extends Model
         "promotion",
         "tshirt_size",
         "need_parking_space",
+        "year",
         "has_dinner",
         "meal_preference",
         "has_companion",
@@ -129,6 +130,7 @@ class Speaker extends Model
             $model->speaker_status = 0;
             $model->access_key = Str::uuid();
             $model->access_secret = Str::random(20);
+            $model->year = (int)date('Y');
         });
     }
 

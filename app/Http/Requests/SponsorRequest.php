@@ -78,6 +78,7 @@ class SponsorRequest extends BaseRequest
     public function attributes()
     {
         $attrs = [
+            'year'                         => __('sponsor.year'),
             'sponsor_type'                 => __('sponsor.advance.sponsor_type'),
             'sponsor_status'               => '狀態',
             'name'                         => __('sponsor.main.name'),

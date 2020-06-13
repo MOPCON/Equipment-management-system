@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'year'                => '年份',
     'sponsor_form'        => '贊助商表單',
     'sponsor_form_c'      => 'Sponsor form',
     'sponsor_upload_form' => '贊助商資料上傳表單',

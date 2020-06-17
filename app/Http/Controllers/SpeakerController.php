@@ -313,7 +313,7 @@ class SpeakerController extends Controller
                 $data = $request->only(['link_slide', 'last_edited_by', 'password']);
                 $data['last_edited_by'] = $speaker->name;
             } else {
-                $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password','year']);
+                $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password', 'year']);
                 $data['last_edited_by'] = $speaker->name;
                 $data['speaker_status'] = 1;
             }

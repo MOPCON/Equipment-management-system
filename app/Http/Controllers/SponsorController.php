@@ -49,6 +49,7 @@ class SponsorController extends Controller
 
     private static $FieldsForTSV = [
         'id'                            => 'id',
+        'year'                          => '年份',
         'sponsor_status_text'           => '贊助商狀態',
         'sponsor_type_text'             => '贊助商類型',
         'name'                          => '公司名稱',
@@ -100,12 +101,16 @@ class SponsorController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search', '');
-        $filter = json_decode($request->input('filter', '{}'), true); //status, type
+        $filter = json_decode($request->input('filter', '{}'), true); //year, status, type
         $order_field = $request->input('sort', 'id');
         $order_method = $request->input('order', 'desc');
         $limit = $request->input('limit', 25);
 
         $sponsor = Sponsor::where(function ($query) use ($filter) {
+            if (isset($filter['year'])) {
+                $query->where('year', $filter['year']);
+            }
+            
             if (isset($filter['status'])) {
                 $query->where('sponsor_status', $filter['status']);
             }
@@ -166,6 +171,10 @@ class SponsorController extends Controller
      */
     public function update(SponsorRequest $request, $id)
     {
+        if (!$request->has('year')) {
+            return $this->return400Response();
+        }
+
         $sponsor = Sponsor::findOrFail($id);
         $getFile = SponsorController::$uploadFileList;
         $cloudPaths = SponsorController::$cloudPaths;
@@ -319,7 +328,7 @@ class SponsorController extends Controller
 
         $getFile = SponsorController::$uploadFileList;
         $cloudPaths = SponsorController::$cloudPaths;
-        $except = array_merge($getFile, $cloudPaths, ['Sponsor_status', 'Sponsor_type', 'updated_by', 'password', 'recipe_amount']);
+        $except = array_merge($getFile, $cloudPaths, ['year', 'Sponsor_status', 'Sponsor_type', 'updated_by', 'password', 'recipe_amount']);
         $data = $request->except($except);
         $data['updated_by'] = 0;
         $data['sponsor_status'] = 1;

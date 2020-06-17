@@ -577,6 +577,7 @@ class SponsorControllerTest extends TestCase
     public function testUpdateSponsorUploadImage()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
         $logo = $this->saveRandomImage('/tmp', 100, 100);
@@ -586,6 +587,7 @@ class SponsorControllerTest extends TestCase
 
         $response = $this->post('/api/sponsor/' . $sponsor->id, [
             '_method' => 'PUT',
+            'year' => $year,
             'name' => $name,
             'recipe_contact_name' => $contact,
             'logo_path' => $file,
@@ -650,6 +652,7 @@ class SponsorControllerTest extends TestCase
     public function testUpdateSponsorUploadImageWithFileAndCloudLink()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
         $logo = $this->saveRandomImage('/tmp', 100, 100);
@@ -659,6 +662,7 @@ class SponsorControllerTest extends TestCase
 
         $response = $this->post('/api/sponsor/' . $sponsor->id, [
             '_method' => 'PUT',
+            'year' => $year,
             'name' => $name,
             'recipe_contact_name' => $contact,
             'logo_path' => $file,

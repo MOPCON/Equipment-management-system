@@ -57,6 +57,7 @@
         "message": "Success.",
         "data": {
             "main": {
+                "year": 2019,
                 "name": "相信數位有限公司",
                 "en_name": "Russel Group",
                 "introduction": "Placeat id rerum ut enim ut suscipit. Rerum beatae qui quam. Sed tenetur dolor quos deserunt qui rerum ea.",
@@ -155,6 +156,7 @@
         "message": "Update success.",
         "data": {
             "main": {
+                "year": 2020,
                 "name": "濮陽冠",
                 "en_name": "Emelia Strosin",
                 "introduction": "Placeat id rerum ut enim ut suscipit. Rerum beatae qui quam. Sed tenetur dolor quos deserunt qui rerum ea.",
@@ -209,7 +211,7 @@
 + **Parameters**
 
   + **search :** 研華百貨有限公司 [string] 搜尋公司名稱/聯絡人
-  + **filter :** `{'status': 0, 'type: 3'}` [json] 篩選:贊助商狀態/等級 **註:須用 `JSON.stringify()` 轉換**
+  + **filter :** `{'year': 2020, 'status': 0, 'type: 3'}` [json] 篩選:年份、贊助商狀態/等級 **註:須用 `JSON.stringify()` 轉換**
   + **sort :** updated_at [string] 欄位名稱 eg: name, sponsor_type, updated_at, ...
   + **order :** ASC [string] ASC/DESC
     
@@ -226,6 +228,7 @@
             data: [
                 {
                     id: 51,
+                    year: 2019,
                     sponsor_type: 4,
                     sponsor_status: 0,
                     name: "廖傑",
@@ -311,7 +314,7 @@
         + name [string] 公司名稱 ***(required)***
         + sponsor_type [int] 贊助商類型 ***(required)***
 
-## 取得講師資料
+## 取得贊助商資料
 
 + **URL :** 
  
@@ -336,6 +339,7 @@
         "data": {
             "main": {
                 "id": 15,
+                "year": 2020,
                 "sponsor_status": 0,
                 "name": "遊戲橘子機械公司",
                 "en_name": "Pouros PLC",
@@ -406,6 +410,7 @@
     + **_method :** PUT
     
     + **data**
+        + year [int] 年份 ***(required)***
         + name [string] 公司名稱 ***(required)***
         + en_name [string] 	公司英文名稱
         + introduction [string] 公司簡介
@@ -448,6 +453,7 @@
         "data": {
             "main": {
                 "id": 3,
+                "year": 2020,
                 "sponsor_status": 0,
                 "name": "遊戲西瓜",
                 "en_name": "Smith-Schultz",

@@ -4,7 +4,7 @@ name: Test
 
 on:
   push:
-    branches-ignore: []
+    branches-ignore: [ master, develop ]
   pull_request:
     branches: [ master, develop ]
 

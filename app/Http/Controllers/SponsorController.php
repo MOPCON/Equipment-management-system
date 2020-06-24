@@ -328,7 +328,7 @@ class SponsorController extends Controller
 
         $getFile = SponsorController::$uploadFileList;
         $cloudPaths = SponsorController::$cloudPaths;
-        $except = array_merge($getFile, $cloudPaths, ['year', 'Sponsor_status', 'Sponsor_type', 'updated_by', 'password', 'recipe_amount']);
+        $except = array_merge($getFile, $cloudPaths, ['year', 'sponsor_status', 'sponsor_type', 'updated_by', 'password', 'recipe_amount']);
         $data = $request->except($except);
         $data['updated_by'] = 0;
         $data['sponsor_status'] = 1;

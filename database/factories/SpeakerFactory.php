@@ -34,6 +34,7 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'promotion' => rand(0, 1),
         'tshirt_size' => rand(0, count(Speaker::$tshirtSizeItem) - 1),
         'need_parking_space' => rand(0, 1),
+        'year' => $faker->year,
         'has_dinner' => rand(0, 1),
         'meal_preference' => rand(0, count(Speaker::$mealPreferenceItem) - 1),
         'has_companion' => rand(0, 10),

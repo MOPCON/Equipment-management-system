@@ -31,6 +31,7 @@ return [
     'other_info'          => 'Other information',
     'tshirt_size'         => 'T-shirt size',
     'need_parking_space'  => 'Do you need a parking space?',
+    'year'                => 'year',
     'has_dinner'          => 'We cordially invite you to speker\'s banquet',
     'meal_preference'     => 'Meal preference',
     'has_companion'       => 'Number of companions（NT.800 / person）',

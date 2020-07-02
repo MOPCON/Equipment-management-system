@@ -7,14 +7,18 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
 
     $tags = $faker->randomElements(array_keys(Speaker::$tagItem), $faker->numberBetween(0, count(Speaker::$tagItem) - 1));
     sort($tags);
+    $agree_record = rand(0, 1);
 
     return [
         'name' => $zhFaker->name,
         'name_e' => $faker->name,
+        'real_name' => $faker->name,
         'company' => $zhFaker->company,
         'company_e' => $faker->company,
         'job_title' => $zhFaker->jobTitle,
         'job_title_e' => $faker->jobTitle,
+        'contact_phone' => $zhFaker->phoneNumber,
+        'contact_email' => $zhFaker->email,
         'bio' => $zhFaker->text(120),
         'bio_e' => $faker->text(240),
         'photo' => 'https://picsum.photos/500',
@@ -30,7 +34,8 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'summary_e' => $faker->text(480),
         'tag' => $tags,
         'level' => rand(0, count(Speaker::$levelItem) - 1),
-        'license' => rand(0, count(Speaker::$licenseItem) - 1),
+        'agree_record' => $agree_record,
+        'license' => $agree_record == 1 ? rand(0, count(Speaker::$licenseItem) - 1) : null,
         'promotion' => rand(0, 1),
         'tshirt_size' => rand(0, count(Speaker::$tshirtSizeItem) - 1),
         'need_parking_space' => rand(0, 1),

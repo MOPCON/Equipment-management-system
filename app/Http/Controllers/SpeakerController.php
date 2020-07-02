@@ -90,6 +90,10 @@ class SpeakerController extends Controller
                 if (isset($filter['year'])) {
                     $query->where('year', $filter['year']);
                 }
+
+                if (isset($filter['status'])) {
+                    $query->where('speaker_status', $filter['status']);
+                }
             })
             ->where(function ($query) use ($search) {
                 $query->orWhere('name', 'LIKE', '%' . $search . '%')

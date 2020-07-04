@@ -545,31 +545,29 @@
     + **data**
     ```json
     {
-      {
-          "success": true,
-          "message": "Store success.",
-          "data": {
-              "name": "家佳123",
-              "last_edited_by": "admin",
-              "speaker_status": 0,
-              "access_key": "51f99b80-d993-4a4a-bb9e-f9420326f021",
-              "access_secret": "0iHrRu3Dzj5rq3teF8mk",
-              "year": 2020,
-              "updated_at": "2020-06-28 22:55:40",
-              "created_at": "2020-06-28 22:55:40",
-              "id": 11,
-              "tag_text": [],
-              "level_text": "",
-              "license_text": "",
-              "tshirt_size_text": "",
-              "meal_preference_text": "",
-              "speaker_status_text": "待確認",
-              "speaker_type_text": "",
-              "external_link": "http://127.0.0.1:8000/speaker/form/51f99b80-d993-4a4a-bb9e-f9420326f021",
-              "editable": true,
-              "readonly": false
-          }
-      }
+      "success": true,
+      "message": "Store success.",
+      "data": {
+          "name": "家佳123",
+          "last_edited_by": "admin",
+          "speaker_status": 0,
+          "access_key": "51f99b80-d993-4a4a-bb9e-f9420326f021",
+          "access_secret": "0iHrRu3Dzj5rq3teF8mk",
+          "year": 2020,
+          "updated_at": "2020-06-28 22:55:40",
+          "created_at": "2020-06-28 22:55:40",
+          "id": 11,
+          "tag_text": [],
+          "level_text": "",
+          "license_text": "",
+          "tshirt_size_text": "",
+          "meal_preference_text": "",
+          "speaker_status_text": "待確認",
+          "speaker_type_text": "",
+          "external_link": "http://127.0.0.1:8000/speaker/form/51f99b80-d993-4a4a-bb9e-f9420326f021",
+          "editable": true,
+          "readonly": false
+        }
     }
     ```
 

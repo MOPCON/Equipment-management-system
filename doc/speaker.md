@@ -325,7 +325,7 @@
 
 + **Parameters**
 
-  + **filter :** `{'year': 1911-2020}` [json] 篩選:年份
+  + **filter :** `{'year': 1911-2020, 'status': 0}` [json] 篩選:年份及講者狀態
   + **search :** 大國集團公司 [string] 搜尋演講主題/講者姓名/公司名
   + **orderby_field  :** id [string]
   + **orderby_method :** ASC [string] ASC/DESC
@@ -347,8 +347,11 @@
               "id": 10,
               "name": "扈惠雅",
               "name_e": "Dr. Buster Schuster Jr.",
+              "real_name": "Dr. Buster Schuster Jr.",
               "company": "巨室酒店",
               "company_e": "Schinner PLC",
+              "contact_email": "josefa.larkin@durgan.info",
+              "contact_phone": "(088)043092",
               "job_title": "fuga",
               "job_title_e": "Civil Engineering Technician",
               "bio": "Velit ab et eius et ipsa ex. Consequatur est reprehenderit eum qui. Ut corporis deserunt assumenda alias repudiandae.",
@@ -397,6 +400,7 @@
               "last_edited_by": "",
               "access_key": "6ffbe188-204b-4f9d-a9b9-7191fcb453e9",
               "access_secret": "Ibc4WEPfeqmeQyQSAiDp",
+              "agree_record": 1,
               "year": 1974,
               "created_at": "2020-06-10 22:58:27",
               "updated_at": "2020-06-10 22:58:27",
@@ -432,8 +436,11 @@
               "id": 9,
               "name": "蓬穎伶",
               "name_e": "Alessia Bauch",
+              "real_name": "Alessia Bauch",
               "company": "茂為工業",
               "company_e": "Casper-Kessler",
+              "contact_email": "josefa.larkin@durgan.info",
+              "contact_phone": "(088)043092",
               "job_title": "sit",
               "job_title_e": "Tax Preparer",
               "bio": "Officia qui ut et nemo perspiciatis. Asperiores consequatur et explicabo. Porro voluptatem aut repudiandae.",
@@ -477,6 +484,7 @@
               "last_edited_by": "",
               "access_key": "d5a953fa-86d1-4f4a-aeda-9a94c15c4b1d",
               "access_secret": "AHvI7ERciVbVBVFM21Zc",
+              "agree_record": 1,
               "year": 1984,
               "created_at": "2020-06-10 22:58:27",
               "updated_at": "2020-06-10 22:58:27",
@@ -554,6 +562,7 @@
           "access_key": "51f99b80-d993-4a4a-bb9e-f9420326f021",
           "access_secret": "0iHrRu3Dzj5rq3teF8mk",
           "year": 2020,
+          "agree_record": 0,
           "updated_at": "2020-06-28 22:55:40",
           "created_at": "2020-06-28 22:55:40",
           "id": 11,
@@ -593,8 +602,11 @@
               "id": 1,
               "name": "席萍",
               "name_e": "Dr. Jaylon O'Keefe IV",
+              "real_name": "Dr. Jaylon O'Keefe IV",
               "company": "松崗電腦公司",
               "company_e": "Rau-Koss",
+              "contact_email": "josefa.larkin@durgan.info",
+              "contact_phone": "(088)043092",
               "job_title": "consectetur",
               "job_title_e": "Psychiatric Aide",
               "bio": "Aliquam voluptatem rerum tenetur inventore. Molestiae et quis occaecati quibusdam.",
@@ -640,6 +652,7 @@
               "last_edited_by": "",
               "access_key": "4553f671-347f-4270-ae1e-74317c7d0b7f",
               "access_secret": "CdFdh3ePqzURQ5P2uUOW",
+              "agree_record": 1,
               "year": 2007,
               "created_at": "2020-06-10 22:58:27",
               "updated_at": "2020-06-10 22:58:27",
@@ -691,10 +704,13 @@
         + year [int] 年份 ***(required)***
         + name [string] 姓名
         + name_e [string] 英文名稱
+        + real_name [string] 真實姓名
         + company [string] 公司/組織
         + company_e [string] 公司/組織(英文)
         + job_title [string] 職稱
         + job_title_e [string] 職稱(英文)
+        + contact_phone [string] 聯絡電話
+        + contact_email [string] 聯絡
         + bio [string] 個人介紹
         + bio_e [string] 個人介紹(英文)
         + photo [string] 照片
@@ -710,6 +726,7 @@
         + summary_e [string] 演講摘要(英文)
         + tag [string] 標籤
         + level [int] 難易度
+        + agree_record [int] 授與錄影
         + license [int] 授權方式
         + promotion [int] 是否同意公開宣傳
         + tshirt_size_text [int] T-shirt 尺寸
@@ -732,8 +749,11 @@
             "id": 2,
             "name": "上官詩123",
             "name_e": "Dr. Lenore Leannon IV",
+            "real_name": "Dr. Lenore Leannon IV",
             "company": "大宇有限公司",
             "company_e": "Hagenes, Beier and Hirthe",
+            "contact_email": "josefa.larkin@durgan.info",
+            "contact_phone": "(088)043092",
             "job_title": "ipsum",
             "job_title_e": "Self-Enrichment Education Teacher",
             "bio": "Voluptas quia ut ipsam molestiae explicabo et consequuntur vero. Vitae sit iusto laudantium repellat vitae occaecati.",
@@ -772,6 +792,7 @@
             "last_edited_by": "admin",
             "access_key": "b2b29fb5-7187-494b-9085-8ac8e0338747",
             "access_secret": "Q3p0O33FgNHWDsRhg6eD",
+            "agree_record": 1,
             "year": "2017",
             "created_at": "2020-06-10 22:58:27",
             "updated_at": "2020-06-29 21:03:10",

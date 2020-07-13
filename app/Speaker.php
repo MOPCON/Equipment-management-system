@@ -77,6 +77,7 @@ class Speaker extends Model
     protected $fillable = [
         "name",
         "name_e",
+        "real_name",
         "company",
         "job_title",
         "bio",
@@ -93,6 +94,7 @@ class Speaker extends Model
         "summary_e",
         "tag",
         "level",
+        "agree_record",
         "license",
         "promotion",
         "tshirt_size",
@@ -108,6 +110,8 @@ class Speaker extends Model
         "last_edited_by",
         "company_e",
         "job_title_e",
+        "contact_phone",
+        "contact_email"
     ];
     protected $appends = [
         'tag_text',

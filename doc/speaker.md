@@ -544,7 +544,6 @@
     + **data**
 
         + name [string] 講師名稱 ***(required)***
-        + year [int] 年份 ***(required)***
         + speaker_status [int] 修改狀態 ***(required)***
 
 + **Response**

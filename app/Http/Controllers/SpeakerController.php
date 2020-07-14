@@ -122,9 +122,6 @@ class SpeakerController extends Controller
      */
     public function store(SpeakerRequest $request)
     {
-        if (! $request->has('year')) {
-            return $this->return400Response();
-        }
         $data = $request->only(['name', 'speaker_type']);
         $data['last_edited_by'] = auth()->user()->name;
         $speaker = Speaker::create($data);

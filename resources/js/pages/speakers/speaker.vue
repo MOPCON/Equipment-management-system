@@ -20,9 +20,19 @@
           v-model="searchText" @keyup.enter="searchKeyword($event)" />
       </div>
     </div>
-    <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
-      <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+    <div class="row mb-3 d-flex justify-content-between px-3">
+      <div class="col-md-6 form-check align-self-center">
+        <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
+        <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+      </div>
+      <div class="form-check form-inline">
+        <label class="form-check-label mr-2" for="filterYear">篩選年份 : </label>
+        <select name="filterYear" id="filterYear" class="form-control" v-model="filter.year" @change="getSpeakerData()">
+            <option :value="year" v-for="(year,index) in year">
+                {{ year }}
+            </option>
+        </select>
+      </div>
     </div>
     <div class="row">
       <div class="col">
@@ -462,6 +472,18 @@
               </div>
             </div>
           </fieldset>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">參與年份</legend>
+              <div class="col-sm-10">
+                <div class="form-check form-check-inline" v-for="(item, index) in year" :key="item">
+                  <input class="form-check-input" type="radio" name="attendYear" :id="item" :value="item"
+                    v-model="speakerDetailData.year">
+                  <label class="form-check-label" :for="item">{{ item }}</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
           <div class="form-group">
             <label for="remark">備註</label>
             <textarea class="form-control" id="remark" rows="3"
@@ -531,6 +553,7 @@
         tshirtSizeItem: [],
         mealPreferenceItem: [],
         promotionItem: ['否', '是'],
+        year:[2019,2020],
         editStatusList: [],
         step: 1,
         fullData: [],
@@ -546,6 +569,9 @@
         },
         action: 'new',
         searchText: '',
+        filter:{
+          year:2020,
+        },
       }
     },
     computed: {},
@@ -605,7 +631,7 @@
       getSpeakerData() {
         const vm = this;
         axios.get(
-          'api/speaker?&page=' + vm.page_info.current_page + '&search=' + vm.searchText
+          'api/speaker?&page=' + vm.page_info.current_page + '&search=' + vm.searchText + '&filter={"year":' + vm.filter.year + '}'
         ).then(response => {
           const res = response.data.data
           vm.page_info = {
@@ -685,7 +711,6 @@
             bodyFormData.append('tag[]', vm.tags[i]);
           }
         }
-
         axios.post(`api/speaker/${id}`, bodyFormData).then(response => {
           const res = response.data;
           $('#speakerModal').modal('hide');

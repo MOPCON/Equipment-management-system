@@ -20,18 +20,31 @@
           v-model="searchText" @keyup.enter="searchKeyword($event)" />
       </div>
     </div>
-    <div class="row mb-3 d-flex justify-content-between px-3">
-      <div class="col-md-6 form-check align-self-center">
-        <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
-        <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+    <div class="row mb-3 justify-content-between align-items-center">
+      <div class="col-md-6 align-self-center">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
+          <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+        </div>
       </div>
-      <div class="form-check form-inline">
-        <label class="form-check-label mr-2" for="filterYear">篩選年份 : </label>
-        <select name="filterYear" id="filterYear" class="form-control" v-model="filter.year" @change="getSpeakerData()">
-            <option :value="year" v-for="(year,index) in year">
-                {{ year }}
+      <div class="col-md-6 d-flex justify-content-end">
+        <div class="form-check form-inline">
+          <label class="form-check-label mr-2" for="filterYear">篩選年份 : </label>
+          <select name="filterYear" id="filterYear" class="form-control" v-model="filter.year" @change="getSpeakerData()">
+              <option :value="year" v-for="year in year" :key="year">
+                  {{ year }}
+              </option>
+          </select>
+        </div>
+        <div class="form-check form-inline">
+          <label class="form-check-label mr-2" for="filterStatus">狀態 : </label>
+          <select name="filterStatus" id="filterStatus" class="form-control" v-model="filter.status" @change="getSpeakerData()">
+            <option value="all">請選擇</option>
+            <option v-for="(status, index) in editStatusList" :value="index" :key="`filter-status-${index}`">
+              {{ status }}
             </option>
-        </select>
+          </select>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -40,13 +53,13 @@
           <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="staff_info">
             <thead>
               <tr role="row">
-                <th v-for="row in col" class="sortfield" tabindex="0">
+                <th v-for="row in col" class="sortfield" tabindex="0" :key="row.key">
                   {{ row.name }}
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in fullData">
+              <tr v-for="item in fullData" :key="item.id">
                 <td><input type="checkbox" class="speaker-check" v-model="item.checkbox" :id="item.id"></td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.company }}</td>
@@ -100,7 +113,7 @@
             <div class="form-group">
               <label for="speakerType">類型</label>
               <select class="form-control" id="speakerType" v-model="createSpeakerData.type">
-                <option v-for="(type, index) in types" :value="index">{{ type }}</option>
+                <option v-for="(type, index) in types" :value="index" :key="'speakerType' + index">{{ type }}</option>
               </select>
             </div>
           </div>
@@ -553,7 +566,7 @@
         tshirtSizeItem: [],
         mealPreferenceItem: [],
         promotionItem: ['否', '是'],
-        year:[2019,2020],
+        year: [2019, 2020],
         editStatusList: [],
         step: 1,
         fullData: [],
@@ -570,11 +583,18 @@
         action: 'new',
         searchText: '',
         filter:{
-          year:2020,
+          year: 2020,
+          status: 'all'
         },
       }
     },
-    computed: {},
+    computed: {
+      filterData() {
+        const data = JSON.parse(JSON.stringify(this.filter));
+        if (data.status == 'all') delete data.status
+        return data
+      }
+    },
     methods:
     {
       initCol() {
@@ -631,7 +651,7 @@
       getSpeakerData() {
         const vm = this;
         axios.get(
-          'api/speaker?&page=' + vm.page_info.current_page + '&search=' + vm.searchText + '&filter={"year":' + vm.filter.year + '}'
+          'api/speaker?&page=' + vm.page_info.current_page + '&search=' + vm.searchText + '&filter=' + JSON.stringify(vm.filterData)
         ).then(response => {
           const res = response.data.data
           vm.page_info = {

@@ -341,7 +341,26 @@
                 </td>
               </tr>
               <tr>
-                <td>授權方式</td>
+                <td>授權方式 (1)</td>
+                <td>
+                  <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" id="license_0"
+                      v-model="speakerDetailData.agree_record" value="1">
+                    <label class="form-check-label" for="license_0">
+                      授予 MOPCON 演講時錄影，後製與上傳至公開線上影音平台之權利。
+                    </label>
+                  </div>
+                   <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" id="license_4"
+                      v-model="speakerDetailData.agree_record" value="0">
+                    <label class="form-check-label" for="license_4">
+                      謝絕所有錄音錄影，但接受 MOPCON 工作人員文字紀錄。
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr v-if="speakerDetailData.agree_record == 1">
+                <td>授權方式 (2)</td>
                 <td>
                   <div class="form-check-inline" v-for="(name, index) in licenseItem" :key="name">
                     <input class="form-check-input" type="radio" :id="'license' + index" :value="index"
@@ -391,7 +410,25 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="5" scope="row">行政資訊</th>
+                <th rowspan="8" scope="row">行政資訊</th>
+                <td>真實姓名</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.real_name">
+                </td>
+              </tr>
+              <tr>
+                <td>聯絡 Email</td>
+                <td class="p-0 v-align-middle">
+                  <input type="email" class="form-control border-0 rounded-0" v-model="speakerDetailData.contact_email">
+                </td>
+              </tr>
+              <tr>
+                <td>聯絡電話</td>
+                <td class="p-0 v-align-middle">
+                  <input type="tel" class="form-control border-0 rounded-0" v-model="speakerDetailData.contact_phone">
+                </td>
+              </tr>
+              <tr>
                 <td>T-shirt 尺寸</td>
                 <td>
                   <div class="form-check-inline" v-for="(name, index) in tshirtSizeItem" :key="name">
@@ -765,15 +802,10 @@
         axios.get(     
           'api/speaker/'+ speaker_id
         ).then(response => {
-          const res = response.data.data
-          if (res.speaker_status !== null) {
-            vm.speakerDetailData = res
-          } else {
-            vm.speakerDetailData = {
-              ...res,
-              speaker_status: 0,
-            };
-          }
+          const res = response.data.data;
+          vm.speakerDetailData = res;
+          if (vm.speakerDetailData['speaker_status'] == null) vm.speakerDetailData['speaker_status'] = 0;
+          if (vm.speakerDetailData['agree_record'] == null) vm.speakerDetailData['agree_record'] = 1;  
         }).catch(error => {
           helper.alert(error.response.data.message, 'danger');
         });

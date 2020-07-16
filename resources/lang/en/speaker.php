@@ -32,6 +32,7 @@ return [
     'difficulty'          => 'Difficulty',
     'agree_record'        => 'Accept Video Record',
     'license'             => 'License',
+    'license_detail'      => 'Learn more about License',
     'link_slide'          => 'Slide Link',
     'promote'             => 'Do you agree to publicity?',
     'promote_info'        => 'The information you provide will be used for marketing this event. If you want to keep it private, please contact us. Thank you.',

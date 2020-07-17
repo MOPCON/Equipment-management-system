@@ -628,7 +628,9 @@
     computed: {
       filterData() {
         const data = JSON.parse(JSON.stringify(this.filter));
-        if (data.status == 'all') delete data.status
+        if (data.status == 'all') {
+          delete data.status
+        }
         return data
       }
     },
@@ -804,8 +806,12 @@
         ).then(response => {
           const res = response.data.data;
           vm.speakerDetailData = res;
-          if (vm.speakerDetailData['speaker_status'] == null) vm.speakerDetailData['speaker_status'] = 0;
-          if (vm.speakerDetailData['agree_record'] == null) vm.speakerDetailData['agree_record'] = 1;  
+          if (vm.speakerDetailData['speaker_status'] == null) {
+            vm.speakerDetailData['speaker_status'] = 0;
+          }
+          if (vm.speakerDetailData['agree_record'] == null) {
+            vm.speakerDetailData['agree_record'] = 1;
+          }
         }).catch(error => {
           helper.alert(error.response.data.message, 'danger');
         });

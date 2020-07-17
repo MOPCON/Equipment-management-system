@@ -364,7 +364,9 @@
                                 }
                             });
                             vm.defaultIsFirst.forEach(element => {
-                                if (vm.formData[element] === null) vm.formData[element] = 1;
+                                if (vm.formData[element] === null) {
+                                    vm.formData[element] = 1;
+                                }
                             });
                             vm.show = false;
                             vm.alertShow = false;

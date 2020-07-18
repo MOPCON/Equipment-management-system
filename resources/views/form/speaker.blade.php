@@ -202,9 +202,20 @@
                             </div>
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.license')}}</p>
-                                <div class="form-check" v-for="(license, index) in optionItem.licenseItem" :key="license">
-                                  <input class="form-check-input" type="radio" :id="license" v-model="formData.license" :value="index" :disabled="formData.readonly">
-                                  <label class=" form-check-label" :for="license">@{{ license }}</label>
+                                <p class="mb-0">(1) {{ trans('speaker.license_0') }}</p>
+                                <div class="d-flex flex-column-reverse mb-2">
+                                    <div class="form-check" v-for="(agree, index) in optionItem.licenseAgree" :key="'licenseAgree' + index">
+                                        <input class="form-check-input" type="radio" :id="'licenseAgree' + index" :value="index"
+                                        v-model="formData.agree_record" :disabled="formData.readonly">
+                                        <label class="form-check-label" :for="'licenseAgree' + index">@{{ agree }}</label>
+                                    </div>
+                                </div>
+                                <div v-if="formData.agree_record == 1">
+                                    <p class="mb-0">(2) {{ trans('speaker.license') }} ( {{ trans('speaker.license_detail') }} <a href="https://cc.ocf.tw/">https://cc.ocf.tw/</a>)</p>
+                                    <div class="form-check" v-for="(license, index) in optionItem.licenseItem" :key="license">
+                                        <input class="form-check-input" type="radio" :id="license" v-model="formData.license" :value="index + 1" :disabled="formData.readonly">
+                                        <label class=" form-check-label" :for="license">@{{ license }}</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -217,10 +228,24 @@
                                 <p class="mb-1"><strong>{{ trans('speaker.promote_info')}}</strong></p>
                             </div>
                             <h4 class="text-primary mt-4">
-                                {{ trans('speaker.other_info')}}
+                                {{ trans('speaker.other_info') }}
                                 <span class="h5 text-danger ml-2">{{ trans('speaker.other_info_public') }}</span>
                             </h4>
                             <hr>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="real_name">{{ trans('speaker.real_name') }}</label>
+                                    <input type="text" class="form-control" id="real_name" placeholder="{{ trans('speaker.real_name') }}" v-model="formData.real_name" :disabled="formData.readonly">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="contact_email">{{ trans('speaker.contact_email') }}</label>
+                                    <input type="email" class="form-control" id="contact_email" placeholder="{{ trans('speaker.contact_email') }}" v-model="formData.contact_email" :disabled="formData.readonly">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="contact_phone">{{ trans('speaker.contact_phone') }}</label>
+                                    <input type="tel" class="form-control" id="contact_phone" placeholder="{{ trans('speaker.contact_phone') }}" v-model="formData.contact_phone" :disabled="formData.readonly">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.tshirt_size')}}</p>
                                 <div class="form-check-inline" v-for="(size, index) in optionItem.tshirtSizeItem" :key="size">
@@ -306,7 +331,8 @@
                 tags: [0],
                 optionItem: {
                     'levelItem': ['{{ trans('speaker.level_0') }}','{{ trans('speaker.level_1') }}','{{ trans('speaker.level_2') }}'],
-                    'licenseItem': ['{{ trans('speaker.license_0') }}', '{{ trans('speaker.license_1') }}', '{{ trans('speaker.license_2') }}', '{{ trans('speaker.license_3') }}', '{{ trans('speaker.license_4') }}'],
+                    'licenseAgree': ['{{ trans('speaker.license_4') }}', '{{ trans('speaker.yes') }}'],
+                    'licenseItem': ['{{ trans('speaker.license_1') }}', '{{ trans('speaker.license_2') }}', '{{ trans('speaker.license_3') }}'],
                     'mealPreferenceItem': ['{{ trans('speaker.meal_0') }}', '{{ trans('speaker.meal_1') }}', '{{ trans('speaker.meal_2') }}'],
                     'speakerStatusItem': [],
                     'speakerTypeItem': [],
@@ -321,6 +347,7 @@
                 summaryTextConunt: 240,
                 summaryETextConunt: 480,
                 checkData: ['level', 'license', 'promotion', 'tshirt_size', 'need_parking_space', 'has_dinner', 'meal_preference', 'has_companion'],
+                defaultIsFirst: ['agree_record', 'licenseItem'],
             },
             methods: {
                 getSponsorForm: function (password) {
@@ -334,6 +361,11 @@
                             vm.checkData.forEach(element => {
                                 if (vm.formData[element] === null) {
                                     vm.formData[element] = 0;
+                                }
+                            });
+                            vm.defaultIsFirst.forEach(element => {
+                                if (vm.formData[element] === null) {
+                                    vm.formData[element] = 1;
                                 }
                             });
                             vm.show = false;

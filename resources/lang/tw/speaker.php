@@ -32,6 +32,7 @@ return [
     'difficulty'          => '難易度',
     'agree_record'        => '接受錄影',
     'license'             => '授權方式',
+    'license_detail'      => '各授權說明詳見',
     'link_slide'          => '投影片連結',
     'promote'             => '是否同意公開宣傳?',
     'promote_info'        => '您所提供的資訊將用於本活動公開宣傳，若不希望公開宣傳，請與我們工作人員聯繫',

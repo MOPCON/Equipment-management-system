@@ -20,18 +20,31 @@
           v-model="searchText" @keyup.enter="searchKeyword($event)" />
       </div>
     </div>
-    <div class="row mb-3 d-flex justify-content-between px-3">
-      <div class="col-md-6 form-check align-self-center">
-        <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
-        <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+    <div class="row mb-3 justify-content-between align-items-center">
+      <div class="col-md-6 align-self-center">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
+          <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+        </div>
       </div>
-      <div class="form-check form-inline">
-        <label class="form-check-label mr-2" for="filterYear">篩選年份 : </label>
-        <select name="filterYear" id="filterYear" class="form-control" v-model="filter.year" @change="getSpeakerData()">
-            <option :value="year" v-for="(year,index) in year">
-                {{ year }}
+      <div class="col-md-6 d-flex justify-content-end">
+        <div class="form-check form-inline">
+          <label class="form-check-label mr-2" for="filterYear">篩選年份 : </label>
+          <select name="filterYear" id="filterYear" class="form-control" v-model="filter.year" @change="getSpeakerData()">
+              <option :value="year" v-for="year in year" :key="year">
+                  {{ year }}
+              </option>
+          </select>
+        </div>
+        <div class="form-check form-inline">
+          <label class="form-check-label mr-2" for="filterStatus">狀態 : </label>
+          <select name="filterStatus" id="filterStatus" class="form-control" v-model="filter.status" @change="getSpeakerData()">
+            <option value="all">請選擇</option>
+            <option v-for="(status, index) in editStatusList" :value="index" :key="`filter-status-${index}`">
+              {{ status }}
             </option>
-        </select>
+          </select>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -40,13 +53,13 @@
           <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="staff_info">
             <thead>
               <tr role="row">
-                <th v-for="row in col" class="sortfield" tabindex="0">
+                <th v-for="row in col" class="sortfield" tabindex="0" :key="row.key">
                   {{ row.name }}
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in fullData">
+              <tr v-for="item in fullData" :key="item.id">
                 <td><input type="checkbox" class="speaker-check" v-model="item.checkbox" :id="item.id"></td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.company }}</td>
@@ -100,7 +113,7 @@
             <div class="form-group">
               <label for="speakerType">類型</label>
               <select class="form-control" id="speakerType" v-model="createSpeakerData.type">
-                <option v-for="(type, index) in types" :value="index">{{ type }}</option>
+                <option v-for="(type, index) in types" :value="index" :key="'speakerType' + index">{{ type }}</option>
               </select>
             </div>
           </div>
@@ -328,7 +341,26 @@
                 </td>
               </tr>
               <tr>
-                <td>授權方式</td>
+                <td>授權方式 (1)</td>
+                <td>
+                  <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" id="license_0"
+                      v-model="speakerDetailData.agree_record" value="1">
+                    <label class="form-check-label" for="license_0">
+                      授予 MOPCON 演講時錄影，後製與上傳至公開線上影音平台之權利。
+                    </label>
+                  </div>
+                   <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" id="license_4"
+                      v-model="speakerDetailData.agree_record" value="0">
+                    <label class="form-check-label" for="license_4">
+                      謝絕所有錄音錄影，但接受 MOPCON 工作人員文字紀錄。
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr v-if="speakerDetailData.agree_record == 1">
+                <td>授權方式 (2)</td>
                 <td>
                   <div class="form-check-inline" v-for="(name, index) in licenseItem" :key="name">
                     <input class="form-check-input" type="radio" :id="'license' + index" :value="index"
@@ -378,7 +410,25 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="5" scope="row">行政資訊</th>
+                <th rowspan="8" scope="row">行政資訊</th>
+                <td>真實姓名</td>
+                <td class="p-0 v-align-middle">
+                  <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.real_name">
+                </td>
+              </tr>
+              <tr>
+                <td>聯絡 Email</td>
+                <td class="p-0 v-align-middle">
+                  <input type="email" class="form-control border-0 rounded-0" v-model="speakerDetailData.contact_email">
+                </td>
+              </tr>
+              <tr>
+                <td>聯絡電話</td>
+                <td class="p-0 v-align-middle">
+                  <input type="tel" class="form-control border-0 rounded-0" v-model="speakerDetailData.contact_phone">
+                </td>
+              </tr>
+              <tr>
                 <td>T-shirt 尺寸</td>
                 <td>
                   <div class="form-check-inline" v-for="(name, index) in tshirtSizeItem" :key="name">
@@ -553,7 +603,7 @@
         tshirtSizeItem: [],
         mealPreferenceItem: [],
         promotionItem: ['否', '是'],
-        year:[2019,2020],
+        year: [2019, 2020],
         editStatusList: [],
         step: 1,
         fullData: [],
@@ -570,11 +620,20 @@
         action: 'new',
         searchText: '',
         filter:{
-          year:2020,
+          year: 2020,
+          status: 'all'
         },
       }
     },
-    computed: {},
+    computed: {
+      filterData() {
+        const data = JSON.parse(JSON.stringify(this.filter));
+        if (data.status == 'all') {
+          delete data.status
+        }
+        return data
+      }
+    },
     methods:
     {
       initCol() {
@@ -631,7 +690,7 @@
       getSpeakerData() {
         const vm = this;
         axios.get(
-          'api/speaker?&page=' + vm.page_info.current_page + '&search=' + vm.searchText + '&filter={"year":' + vm.filter.year + '}'
+          'api/speaker?&page=' + vm.page_info.current_page + '&search=' + vm.searchText + '&filter=' + JSON.stringify(vm.filterData)
         ).then(response => {
           const res = response.data.data
           vm.page_info = {
@@ -745,14 +804,13 @@
         axios.get(     
           'api/speaker/'+ speaker_id
         ).then(response => {
-          const res = response.data.data
-          if (res.speaker_status !== null) {
-            vm.speakerDetailData = res
-          } else {
-            vm.speakerDetailData = {
-              ...res,
-              speaker_status: 0,
-            };
+          const res = response.data.data;
+          vm.speakerDetailData = res;
+          if (vm.speakerDetailData['speaker_status'] == null) {
+            vm.speakerDetailData['speaker_status'] = 0;
+          }
+          if (vm.speakerDetailData['agree_record'] == null) {
+            vm.speakerDetailData['agree_record'] = 1;
           }
         }).catch(error => {
           helper.alert(error.response.data.message, 'danger');

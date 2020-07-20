@@ -146,7 +146,7 @@ class SponsorControllerTest extends TestCase
 
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
@@ -159,7 +159,7 @@ class SponsorControllerTest extends TestCase
             'logo_path' => $file,
         ]);
 
-        
+
         $response->assertStatus(200)
             ->assertJson([
                 'message' => 'Update success.',
@@ -173,11 +173,12 @@ class SponsorControllerTest extends TestCase
                     ]
                 ]
             ]);
+
         $new_path = json_decode($response->getContent(), true)['data']['main']['logo_path'];
         $new_path_info = explode('/', $new_path);
         $new_file_name = end($new_path_info);
         $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
-
+        @unlink($logo);
         @unlink(public_path() . '/' .$new_path);
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
@@ -225,7 +226,7 @@ class SponsorControllerTest extends TestCase
 
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
@@ -243,7 +244,7 @@ class SponsorControllerTest extends TestCase
             ->assertJson([
                 'message' => '企業 Logo 檔案上傳、雲端連結請擇一提供。',
             ]);
-
+        @unlink($logo);
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
         }
@@ -523,13 +524,15 @@ class SponsorControllerTest extends TestCase
     public function testUpdateSponsor()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
-        $name= $this->faker->company;
+        $year = $this->faker->year; 
+        $name = $this->faker->company;
         $contact = $this->faker->name;
         $recipe_amount = $sponsor->recipe_amount;
 
         $new_recipe_amount = $recipe_amount + 1000;
 
         $response = $this->json('PUT', '/api/sponsor/' . $sponsor->id, [
+            'year' => $year,
             'name' => $name,
             'recipe_contact_name' => $contact,
             'recipe_amount' => $new_recipe_amount,
@@ -574,15 +577,17 @@ class SponsorControllerTest extends TestCase
     public function testUpdateSponsorUploadImage()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
 
         $response = $this->post('/api/sponsor/' . $sponsor->id, [
             '_method' => 'PUT',
+            'year' => $year,
             'name' => $name,
             'recipe_contact_name' => $contact,
             'logo_path' => $file,
@@ -606,7 +611,7 @@ class SponsorControllerTest extends TestCase
         $new_path_info = explode('/', $new_path);
         $new_file_name = end($new_path_info);
         $this->assertFileExists(public_path(Sponsor::$filePath) . '/' .$new_file_name);
-
+        @unlink($logo);
         @unlink(public_path() . '/' .$new_path);
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
@@ -616,11 +621,13 @@ class SponsorControllerTest extends TestCase
     public function testUpdateSponsorUploadImageWithCloudLink()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
 
         $response = $this->post('/api/sponsor/' . $sponsor->id, [
             '_method' => 'PUT',
+            'year' => $year,
             'name' => $name,
             'recipe_contact_name' => $contact,
             'cloud_logo_path' => 'https://google.com',
@@ -645,15 +652,17 @@ class SponsorControllerTest extends TestCase
     public function testUpdateSponsorUploadImageWithFileAndCloudLink()
     {
         $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
-        $logo = $this->faker->image('/tmp', 100, 100);
+        $logo = $this->saveRandomImage('/tmp', 100, 100);
         $logo_path = pathinfo($logo, PATHINFO_BASENAME);
         $ext = mime_content_type($logo);
         $file = new UploadedFile($logo, $logo_path, $ext, null, true);
 
         $response = $this->post('/api/sponsor/' . $sponsor->id, [
             '_method' => 'PUT',
+            'year' => $year,
             'name' => $name,
             'recipe_contact_name' => $contact,
             'logo_path' => $file,
@@ -664,7 +673,7 @@ class SponsorControllerTest extends TestCase
             ->assertJson([
                 'message' => '企業 Logo 檔案上傳、雲端連結請擇一提供。',
             ]);
-
+        @unlink($logo);
         if ($logo_path !== '' && file_exists('/tmp/' . $logo_path)) {
             @unlink('/tmp/' . $logo_path);
         }
@@ -688,5 +697,24 @@ class SponsorControllerTest extends TestCase
             ->assertJson([
                 "success" => false,
             ]);
+    }
+    private function saveRandomImage($dir = null, $width = 640, $height = 480)
+    {
+        // Create a blank image:
+        $im = imagecreatetruecolor($width, $height);
+        // Add light background color:
+        $bgColor = imagecolorallocate($im, rand(100, 255), rand(100, 255), rand(100, 255));
+        imagefill($im, 0, 0, $bgColor);
+        $name = md5(uniqid(empty($_SERVER['SERVER_ADDR']) ? '' : $_SERVER['SERVER_ADDR'], true));
+        $filename = $name .'.jpg';
+        $filepath = $dir . DIRECTORY_SEPARATOR . $filename;
+        // Save the image:
+        $isGenerated = imagejpeg($im, $filepath);
+        if (!$isGenerated) {
+            throw new Exception('No access in'.$filepath);
+        }
+        // Free up memory:
+        imagedestroy($im);
+        return $filepath;
     }
 }

@@ -77,6 +77,7 @@ class Speaker extends Model
     protected $fillable = [
         "name",
         "name_e",
+        "real_name",
         "company",
         "job_title",
         "bio",
@@ -93,10 +94,12 @@ class Speaker extends Model
         "summary_e",
         "tag",
         "level",
+        "agree_record",
         "license",
         "promotion",
         "tshirt_size",
         "need_parking_space",
+        "year",
         "has_dinner",
         "meal_preference",
         "has_companion",
@@ -107,6 +110,8 @@ class Speaker extends Model
         "last_edited_by",
         "company_e",
         "job_title_e",
+        "contact_phone",
+        "contact_email"
     ];
     protected $appends = [
         'tag_text',
@@ -129,6 +134,8 @@ class Speaker extends Model
             $model->speaker_status = 0;
             $model->access_key = Str::uuid();
             $model->access_secret = Str::random(20);
+            $model->year = (int) date('Y');
+            $model->agree_record = 0;
         });
     }
 

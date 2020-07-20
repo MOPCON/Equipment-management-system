@@ -1,0 +1,23 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test
+
+on:
+  push:
+    branches-ignore: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Composer install
+        uses: docker://composer:1.9.1
+        with:
+          args: install
+      - name: PHPUnit testing
+        uses: docker://mopcon/php:7.2-latest
+        with:
+          args: php vendor/bin/phpunit

@@ -60,12 +60,15 @@
                         <h2 class="d-inline-block my-3">{{ trans('speaker.speaker_form') }}</h2>
                         <h4 class="d-inline-block mx-2">{{ trans('speaker.speaker_form_c') }}</h4>
                         <form id="sendform" class="needs-validation" novalidate>
-                            <h4 class="text-primary mt-2">{{ trans('speaker.personal_info') }}</h4>
+                            <h4 class="text-primary mt-2">
+                                {{ trans('speaker.personal_info') }}
+                                <span class="h5 text-danger ml-2">{{ trans('speaker.personal_info_public') }}</span>
+                            </h4>
                             <hr>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="name">{{ trans('speaker.name') }}*</label>
-                                    <input type="text" class="form-control" id="name" placeholder="姓名" v-model="formData.name" required :disabled="formData.readonly">
+                                    <input type="text" class="form-control" id="name" v-model="formData.name" required :disabled="formData.readonly">
                                     <div class="invalid-feedback">
                                         {{ trans('speaker.required.name') }}
                                     </div>
@@ -146,7 +149,10 @@
                                 </div>
                               <input type="url"  class="form-control" id="link_other" v-model="formData.link_other" placeholder="其他(如 Website / Blog) url" @blur="checkUrl('link_other')" :disabled="formData.readonly">
                             </div>
-                            <h4 class="text-primary mt-4">{{ trans('speaker.agenda_info') }}</h4>
+                            <h4 class="text-primary mt-4">
+                                {{ trans('speaker.agenda_info') }}
+                                <span class="h5 text-danger ml-2">{{ trans('speaker.agenda_info_public') }}</span>
+                            </h4>
                             <hr>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -195,19 +201,21 @@
                                 <br><small class="form-group-check__text mt-5">{{ trans('speaker.tag_helper') }}</small>
                             </div>
                             <div class="form-group">
-                                <p class="mb-1">{{ trans('speaker.difficulty')}}</p>
-                                <div class="form-check" v-for="(level, index) in optionItem.levelItem"
-                                  :key="level">
-                                  <input class="form-check-input" type="radio" :id="level" v-model="formData.level" :value="index" :disabled="formData.readonly">
-                                  <label class="form-check-label" :for="level">@{{ level }}
-                                  </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.license')}}</p>
-                                <div class="form-check" v-for="(license, index) in optionItem.licenseItem" :key="license">
-                                  <input class="form-check-input" type="radio" :id="license" v-model="formData.license" :value="index" :disabled="formData.readonly">
-                                  <label class=" form-check-label" :for="license">@{{ license }}</label>
+                                <p class="mb-0">(1) {{ trans('speaker.license_0') }}</p>
+                                <div class="d-flex flex-column-reverse mb-2">
+                                    <div class="form-check" v-for="(agree, index) in optionItem.licenseAgree" :key="'licenseAgree' + index">
+                                        <input class="form-check-input" type="radio" :id="'licenseAgree' + index" :value="index"
+                                        v-model="formData.agree_record" :disabled="formData.readonly">
+                                        <label class="form-check-label" :for="'licenseAgree' + index">@{{ agree }}</label>
+                                    </div>
+                                </div>
+                                <div v-if="formData.agree_record == 1">
+                                    <p class="mb-0">(2) {{ trans('speaker.license') }} ( {{ trans('speaker.license_detail') }} <a href="https://cc.ocf.tw/">https://cc.ocf.tw/</a>)</p>
+                                    <div class="form-check" v-for="(license, index) in optionItem.licenseItem" :key="license">
+                                        <input class="form-check-input" type="radio" :id="license" v-model="formData.license" :value="index + 1" :disabled="formData.readonly">
+                                        <label class=" form-check-label" :for="license">@{{ license }}</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -217,16 +225,27 @@
                                 <input type="url" class="form-control" id="link_slide" v-model="formData.link_slide" placeholder="slide url" @blur="checkUrl('link_slide')">
                             </div>
                             <div class="form-group">
-                                <p class="mb-1">{{ trans('speaker.promote')}}</p>
-                                <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
-                                    <input class="form-check-input" type="radio" :id="name" :value="index" v-model="formData.promotion" :disabled="formData.readonly">
-                                    <label class="form-check-label" :for="name">
-                                        @{{ name }}
-                                    </label>
+                                <p class="mb-1"><strong>{{ trans('speaker.promote_info')}}</strong></p>
+                            </div>
+                            <h4 class="text-primary mt-4">
+                                {{ trans('speaker.other_info') }}
+                                <span class="h5 text-danger ml-2">{{ trans('speaker.other_info_public') }}</span>
+                            </h4>
+                            <hr>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="real_name">{{ trans('speaker.real_name') }}</label>
+                                    <input type="text" class="form-control" id="real_name" placeholder="{{ trans('speaker.real_name') }}" v-model="formData.real_name" :disabled="formData.readonly">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="contact_email">{{ trans('speaker.contact_email') }}</label>
+                                    <input type="email" class="form-control" id="contact_email" placeholder="{{ trans('speaker.contact_email') }}" v-model="formData.contact_email" :disabled="formData.readonly">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="contact_phone">{{ trans('speaker.contact_phone') }}</label>
+                                    <input type="tel" class="form-control" id="contact_phone" placeholder="{{ trans('speaker.contact_phone') }}" v-model="formData.contact_phone" :disabled="formData.readonly">
                                 </div>
                             </div>
-                            <h4 class="text-primary mt-4">{{ trans('speaker.other_info')}}</h4>
-                            <hr>
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.tshirt_size')}}</p>
                                 <div class="form-check-inline" v-for="(size, index) in optionItem.tshirtSizeItem" :key="size">
@@ -312,7 +331,8 @@
                 tags: [0],
                 optionItem: {
                     'levelItem': ['{{ trans('speaker.level_0') }}','{{ trans('speaker.level_1') }}','{{ trans('speaker.level_2') }}'],
-                    'licenseItem': ['{{ trans('speaker.license_0') }}', '{{ trans('speaker.license_1') }}', '{{ trans('speaker.license_2') }}', '{{ trans('speaker.license_3') }}', '{{ trans('speaker.license_4') }}'],
+                    'licenseAgree': ['{{ trans('speaker.license_4') }}', '{{ trans('speaker.yes') }}'],
+                    'licenseItem': ['{{ trans('speaker.license_1') }}', '{{ trans('speaker.license_2') }}', '{{ trans('speaker.license_3') }}'],
                     'mealPreferenceItem': ['{{ trans('speaker.meal_0') }}', '{{ trans('speaker.meal_1') }}', '{{ trans('speaker.meal_2') }}'],
                     'speakerStatusItem': [],
                     'speakerTypeItem': [],
@@ -327,6 +347,7 @@
                 summaryTextConunt: 240,
                 summaryETextConunt: 480,
                 checkData: ['level', 'license', 'promotion', 'tshirt_size', 'need_parking_space', 'has_dinner', 'meal_preference', 'has_companion'],
+                defaultIsFirst: ['agree_record', 'licenseItem'],
             },
             methods: {
                 getSponsorForm: function (password) {
@@ -340,6 +361,11 @@
                             vm.checkData.forEach(element => {
                                 if (vm.formData[element] === null) {
                                     vm.formData[element] = 0;
+                                }
+                            });
+                            vm.defaultIsFirst.forEach(element => {
+                                if (vm.formData[element] === null) {
+                                    vm.formData[element] = 1;
                                 }
                             });
                             vm.show = false;

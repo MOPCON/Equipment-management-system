@@ -1,0 +1,63 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy Master
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Composer install
+        uses: docker://composer:1.9.1
+        with:
+          args: install
+      - name: PHPUnit testing
+        uses: docker://mopcon/php:7.2-latest
+        with:
+          args: php vendor/bin/phpunit
+
+  deploy:
+    runs-on: ubuntu-18.04
+    needs: test
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup SSH
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-host: ${{ secrets.SERVER_NAME }}
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '9'
+      - name: Yarn install
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+      - name: Build Node
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: run prod
+      - name: Deploy Node
+        run: |
+          scp public/css/app.css github@${{ secrets.SERVER_NAME }}:/home/github/prod/app.css
+          scp public/js/app.js github@${{ secrets.SERVER_NAME }}:/home/github/prod/app.js
+          scp public/js/manifest.js github@${{ secrets.SERVER_NAME }}:/home/github/prod/manifest.js
+          scp public/js/vendor.js github@${{ secrets.SERVER_NAME }}:/home/github/prod/vendor.js
+      - name: Composer install
+        uses: docker://composer:1.9.1
+        with:
+          args: install
+      - name: Install Envoy
+        run: composer global require laravel/envoy ^1.6
+      - name: Setup Env
+        run: |
+          echo "SERVER_NAME=github@${{ secrets.SERVER_NAME }}" >> .env
+          echo "SLACK_CHANNEL=${{ secrets.SLACK_CHANNEL }}" >> .env
+          echo "SLACK_HOOK_URL=${{ secrets.SLACK_HOOK_URL }}" >> .env
+      - name: Run Envoy
+        run: ~/.composer/vendor/bin/envoy run testing-cms --branch=master

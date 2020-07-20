@@ -40,10 +40,14 @@ class SpeakerControllerTest extends TestCase
     public function testApiCreateSpeaker()
     {
         $name = $this->faker->name;
+        $speaker = factory(Speaker::class, 1)->create()->first();
         $response = $this->json(
             'POST',
             '/api/speaker',
-            ['name' => $name]
+            [
+                'name' => $name,
+                'year' => $speaker->year,
+            ]
         );
 
         $response->assertJson([
@@ -63,9 +67,9 @@ class SpeakerControllerTest extends TestCase
             [
                 'name' => $speaker->name,
                 'name_e' => $name_e,
+                'year' => $speaker->year,
             ]
         );
-
 
 
         $response->assertJson([

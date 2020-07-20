@@ -54,6 +54,7 @@ class Sponsor extends Model
     ];
 
     protected $fillable = [
+        'year',
         'sponsor_type',
         'sponsor_status',
         'name',
@@ -101,6 +102,7 @@ class Sponsor extends Model
         parent::boot();
 
         self::creating(function ($model) {
+            $model->year           = now()->year;
             $model->sponsor_status = 0;
             $model->access_key     = Str::uuid();
             $model->access_secret  = Str::random(20);

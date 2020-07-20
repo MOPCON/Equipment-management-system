@@ -20,9 +20,38 @@
                 v-model="searchText" @keyup.enter="searchKeyword($event)" />
             </div>
         </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
-            <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+        <div class="row mb-3 form-inline px-3">
+            <div class="col-md-6 form-check justify-content-start">
+                <input type="checkbox" class="form-check-input" id="chooseAll" @change="toggleSelect">
+                <label class="form-check-label" for="chooseAll">全選 / 取消全選</label>
+            </div>
+            <label class="form-check-label ml-auto mr-4">篩選：</label>
+            <div class="form-check justify-content-end">
+                <label class="form-check-label mr-2" for="filterYear">年份</label>
+                <select name="filterYear" id="filterYear" class="form-control" v-model="filter.year">
+                    <option :value="year" v-for="year in participateYear" :key="`filter-year-${year}`">
+                        {{ year }}
+                    </option>
+                </select>
+            </div>
+            <div class="mx-4 form-check justify-content-end">
+                <label class="form-check-label mr-2" for="filterStatus">狀態</label>
+                <select name="filterStatus" id="filterStatus" class="form-control" v-model="filter.status">
+                    <option :value="undefined">請選擇</option>
+                    <option :value="index" v-for="(status, index) in sponsorOption.sponsorStatusItem" :key="`filter-status-${index}`">
+                        {{ status }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-check justify-content-end">
+                <label class="form-check-label mr-2" for="filterType">等級</label>
+                <select name="filterType" id="filterType" class="form-control" v-model="filter.type">
+                    <option :value="undefined">請選擇</option>
+                    <option :value="index" v-for="(type, index) in sponsorOption.sponsorTypeItem" :key="`filter-type-${index}`">
+                        {{ type }}
+                    </option>
+                </select>
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -30,13 +59,14 @@
                     <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="staff_info">
                         <thead>
                             <tr role="row">
-                                <th v-for="row in col" class="sortfield" tabindex="0" :class="{ 'th-width-custom-500': (row.key == 'intro')}">
+                                <th v-for="row in col" class="sortfield" tabindex="0"
+                                    :class="{ 'th-width-custom-500': (row.key == 'intro')}" :key="`table-title-${row.key}`">
                                     {{ row.name }}
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in fullData">
+                            <tr v-for="item in fullData" :key="item.access_key">
                                 <td><input type="checkbox" class="sponsor-check" v-model="item.checkbox" :id="item.id"></td>
                                 <td>{{ item.name }}</td>
                                 <td v-if="item.introduction !== null">{{ item.introduction.substring(0,50) + '...' }}</td>
@@ -91,7 +121,8 @@
                         <div class="form-group">
                             <label for="sponsorType">類型</label>
                             <select class="form-control" id="sponsorType"  v-model="createSponsorData.type">
-                                <option v-for="(type, index) in sponsorOption.sponsorTypeItem" :value="index">{{ type }}</option>
+                                <option v-for="(type, index) in sponsorOption.sponsorTypeItem"
+                                :key="`addsponsor-type-${index}`" :value="index">{{ type }}</option>
                             </select>
                         </div>
                     </div>
@@ -125,7 +156,8 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th v-for="row in sponsorDetailcol" class="sortfield" tabindex="0" :class="{ 'th-width-custom-500': (row.key == 'intro')}">
+                                <th v-for="row in sponsorDetailcol" :key="`form-title-${row.key}`"
+                                class="sortfield" tabindex="0" :class="{ 'th-width-custom-500': (row.key == 'intro')}">
                                     {{ row.name }}
                                 </th>
                             </tr>
@@ -151,17 +183,13 @@
                             <tr>
                                 <td>公司簡介 (專業背景與沿革)</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.introduction" maxlength="250">
-                                        {{ sponsorDetailData.main.introduction }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.introduction" maxlength="250" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>公司英文簡介</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.en_introduction">
-                                        {{ sponsorDetailData.main.en_introduction }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.en_introduction" />
                                 </td>
                             </tr>
                             <tr>
@@ -189,9 +217,7 @@
                             <tr>
                                 <td>產品及服務介紹 (主要商品、服務、核心能力、技術)</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.production" maxlength="250">
-                                        {{ sponsorDetailData.main.production }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.production" maxlength="250" />
                                 </td>
                             </tr>
                             <tr>
@@ -224,9 +250,7 @@
                             <tr>
                                 <td>希望 MOPCON 宣傳的內容，我們將於 FB 等社群分享。</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.promote">
-                                        {{ sponsorDetailData.main.promote }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.promote" />
                                 </td>
                             </tr>
                             <tr>
@@ -260,9 +284,7 @@
                             <tr>
                                 <td>晚宴簡介 (於晚宴中將由主持人介紹貴公司)</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.opening_remarks" maxlength="80">
-                                        {{ sponsorDetailData.main.opening_remarks }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.opening_remarks" maxlength="80" />
                                 </td>
                             </tr>
                             <tr>
@@ -318,25 +340,19 @@
                                 <td rowspan="3"></td>
                                 <td>為什麼本次選擇贊助 MOPCON？</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.reason">
-                                        {{ sponsorDetailData.main.reason }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.reason" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>希望能在本次大會達成的目標</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.purpose">
-                                        {{ sponsorDetailData.main.purpose }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.purpose" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>備註</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.remark">
-                                        {{ sponsorDetailData.main.remark }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.remark" />
                                 </td>
                             </tr>
                         </tbody>
@@ -344,7 +360,7 @@
                     <table class="table table-bordered" v-if="sponsorDetailData.advence.sponsor_type !== 3 && sponsorDetailData.advence.sponsor_type !== 4">
                         <thead>
                             <tr>
-                                <th v-for="row in sponsorAdvancedDetailcol" class="sortfield" tabindex="0">
+                                <th v-for="row in sponsorAdvancedDetailcol" :key="`form-subtitle-${row.key}`" class="sortfield" tabindex="0">
                                     {{ row.name }}
                                 </th>
                             </tr>
@@ -383,9 +399,7 @@
                                 <td rowspan="3" v-if="sponsorDetailData.advence.sponsor_type === 1">{{ sponsorDetailData.advence.sponsor_type_text }}</td>
                                 <td>Keynote 引言</td>
                                 <td class="p-0 v-align-middle">
-                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.advence_keynote">
-                                        {{ sponsorDetailData.advence.advence_keynote }}
-                                    </textarea>
+                                    <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.advence_keynote" />
                                 </td>
                             </tr>
                             <tr v-if="sponsorDetailData.advence.sponsor_type === 0 || sponsorDetailData.advence.sponsor_type === 1 || sponsorDetailData.advence.sponsor_type === 2">
@@ -423,8 +437,19 @@
                       <div class="row">
                         <legend class="col-form-label col-sm-2 pt-0">修改狀態</legend>
                         <div class="col-sm-10">
-                          <div class="form-check form-check-inline" v-for="(item, index) in sponsorOption.sponsorStatusItem" :key="item">
+                          <div class="form-check form-check-inline" v-for="(item, index) in sponsorOption.sponsorStatusItem" :key="`sponsorstatus-${item}`">
                             <input class="form-check-input" type="radio" name="editStatus" :id="item" :value="index" v-model="sponsorDetailData.main.sponsor_status">
+                            <label class="form-check-label" :for="item">{{ item }}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="form-group mb-0">
+                      <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">修改類型</legend>
+                        <div class="col-sm-10">
+                          <div class="form-check form-check-inline" v-for="(item, index) in sponsorOption.sponsorTypeItem" :key="`sponsortype-${item}`">
+                            <input class="form-check-input" type="radio" name="sponsorType" :id="item" :value="index" v-model="sponsorDetailData.advence.sponsor_type">
                             <label class="form-check-label" :for="item">{{ item }}</label>
                           </div>
                         </div>
@@ -432,10 +457,11 @@
                     </fieldset>
                     <fieldset class="form-group">
                       <div class="row">
-                        <legend class="col-form-label col-sm-2 pt-0">修改類型</legend>
+                        <legend class="col-form-label col-sm-2 pt-0">參與年份</legend>
                         <div class="col-sm-10">
-                          <div class="form-check form-check-inline" v-for="(item, index) in sponsorOption.sponsorTypeItem" :key="item">
-                            <input class="form-check-input" type="radio" name="sponsorType" :id="item" :value="index" v-model="sponsorDetailData.advence.sponsor_type">
+                          <div class="form-check form-check-inline" v-for="item in participateYear" :key="`participateYear-${item}`">
+                            <input class="form-check-input" type="radio" name="participateYear"
+                                :id="item" :value="item" v-model="sponsorDetailData.main.year">
                             <label class="form-check-label" :for="item">{{ item }}</label>
                           </div>
                         </div>
@@ -443,9 +469,7 @@
                     </fieldset>
                     <div class="form-group">
                       <label for="remark">備註</label>
-                      <textarea class="form-control" id="remark" rows="3" v-model="sponsorDetailData.main.note">
-                          {{ sponsorDetailData.main.note }}
-                        </textarea>
+                      <textarea class="form-control" id="remark" rows="3" v-model="sponsorDetailData.main.note" />
                     </div>
                     <h5>資訊</h5>
                     <div class="form-group">
@@ -520,17 +544,33 @@
                 sponsorDetailcol: [],
                 sponsorAdvancedDetailcol: [],
                 sponsorOption: [],
+                participateYear: ['2020', '2019'], 
                 sponsorDetailData: {
                     main: {},
                     recipe: {},
                     advence: {},
                 },
                 searchText: '',
+                filter: {
+                    year: '2020',
+                },
             }
         },
-        computed: {},
-        methods:
-        {
+        watch: {
+            filter: {
+                handler(val) {
+                    const filterConfig = Object.entries(val).reduce((acc, [key, val]) => {
+                        if(val || (typeof val === 'number' && !isNaN(val))) {
+                            acc[key] = val
+                        }
+                        return acc
+                    }, {})
+                    this.getSponsorData(filterConfig)
+                },
+                deep: true
+            }
+        },
+        methods: {
             initCol() {
                 const vm = this;
                 vm.col = [{
@@ -590,10 +630,12 @@
                     helper.alert(error.response.data.message, 'danger');
                 });
             },
-            getSponsorData() {
+            getSponsorData(filter = this.filter) {
                 const vm = this;
                 axios.get(
-                    'api/sponsor?&page=' + vm.page_info.current_page + '&search=' + vm.searchText
+                    `api/sponsor?&page=${vm.page_info.current_page}${vm.searchText ?
+                    `&search=${vm.searchText}` : ''}${Object.keys(filter).length ?
+                    `&filter=${JSON.stringify(filter)}` : ''}`
                 ).then(response => {
                     const res = response.data.data;
                     vm.page_info = {
@@ -767,33 +809,33 @@
                 })
                 vm.selectAll = !select;
             },
-      hasChecked() {
+            hasChecked() {
                 const checkedId = document.querySelectorAll('.sponsor-check');
                 let idArr = '';
                 checkedId.forEach((ele) => {
                     if (ele.checked) {
                         idArr += `${ele.id},`
                     }
-        });
-        return idArr
-      },
-      exportData() {
-        const vm = this;
-        let data = vm.hasChecked();
-        if (data === '') {
-          const allIds = [];
-          axios.get(
-          'api/sponsor?&limit=' + vm.page_info.total
-          ).then(response => {
-            const sponsorAllData = response.data.data.data
-            sponsorAllData.map(sponsor => allIds.push(sponsor.id))
-            window.location = `api/sponsor/export?ids=${allIds}`;
-          }).catch(error => {
-            helper.alert(error.response.data.message, 'danger');
-          });
-        } else {
-          window.location = `api/sponsor/export?ids=${data}`;
-        }
+                });
+                return idArr
+            },
+            exportData() {
+                const vm = this;
+                let data = vm.hasChecked();
+                if (data === '') {
+                    const allIds = [];
+                    axios.get(
+                    'api/sponsor?&limit=' + vm.page_info.total
+                    ).then(response => {
+                        const sponsorAllData = response.data.data.data
+                        sponsorAllData.map(sponsor => allIds.push(sponsor.id))
+                        window.location = `api/sponsor/export?ids=${allIds}`;
+                    }).catch(error => {
+                        helper.alert(error.response.data.message, 'danger');
+                    });
+                } else {
+                    window.location = `api/sponsor/export?ids=${data}`;
+                }
             },
         },
         mounted() {

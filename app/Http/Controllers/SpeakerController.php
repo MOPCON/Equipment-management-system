@@ -30,10 +30,13 @@ class SpeakerController extends Controller
         'id' => 'id',
         'name' => '姓名',
         'name_e' => '英文名稱',
+        'real_name' => '真實姓名',
         'company' => '公司/組織',
         'company_e' => '公司/組織(英文)',
         'job_title' => '職稱',
         'job_title_e' => '職稱(英文)',
+        'contact_email' => '聯絡 Email',
+        'contact_phone' => '聯絡電話',
         'bio' => '個人介紹',
         'bio_e' => '個人介紹(英文)',
         'photo' => '照片',
@@ -49,10 +52,12 @@ class SpeakerController extends Controller
         'summary_e' => '演講摘要(英文)',
         'tag_text' => '標籤',
         'level_text' => '難易度',
+        'agree_record' => '同意錄影',
         'license_text' => '授權方式',
         'promotion' => '是否同意公開宣傳',
         'tshirt_size_text' => 'T-shirt 尺寸',
         'need_parking_space' => '您是否需有停車需求',
+        'year' => '年份',
         'has_dinner' => '敬邀參加講者晚宴',
         'meal_preference_text' => '葷素食偏好',
         'has_companion' => '晚宴攜伴人數',
@@ -78,13 +83,23 @@ class SpeakerController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search', '');
+        $filter = json_decode($request->input('filter', '{}'), true);
         $order_field = $request->input('orderby_field', 'id');
         $order_method = $request->input('orderby_method', 'desc');
         if ($request->input('all', false)) {
             $speaker = Speaker::orderBy($order_field, $order_method)->get();
         } else {
             $limit = $request->input('limit', 15);
-            $speaker = Speaker::Where(function ($query) use ($search) {
+            $speaker = Speaker::where(function ($query) use ($filter) {
+                if (isset($filter['year'])) {
+                    $query->where('year', $filter['year']);
+                }
+
+                if (isset($filter['status'])) {
+                    $query->where('speaker_status', $filter['status']);
+                }
+            })
+            ->where(function ($query) use ($search) {
                 $query->orWhere('name', 'LIKE', '%' . $search . '%')
                         ->orWhere('name_e', 'LIKE', '%' . $search . '%')
                         ->orWhere('company', 'LIKE', '%' . $search . '%')
@@ -133,6 +148,9 @@ class SpeakerController extends Controller
      */
     public function update(SpeakerRequest $request, $id)
     {
+        if (! $request->has('year')) {
+            return $this->return400Response();
+        }
         $speaker = Speaker::findOrFail($id);
         $data = $request->except(['file', 'last_edited_by']);
         $data['last_edited_by'] = auth()->user()->name;
@@ -176,6 +194,7 @@ class SpeakerController extends Controller
                     case 'need_parking_space':
                     case 'has_dinner':
                     case 'is_keynote':
+                    case 'agree_record':
                         $row .= (($item[$key] == 1)?'是':'否') . "\t";
                         break;
                     default:
@@ -300,7 +319,7 @@ class SpeakerController extends Controller
                 $data = $request->only(['link_slide', 'last_edited_by', 'password']);
                 $data['last_edited_by'] = $speaker->name;
             } else {
-                $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password']);
+                $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password', 'year']);
                 $data['last_edited_by'] = $speaker->name;
                 $data['speaker_status'] = 1;
             }

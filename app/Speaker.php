@@ -152,7 +152,7 @@ class Speaker extends Model
             $model->access_key = Str::uuid();
             $model->access_secret = Str::random(20);
             $model->year = (int) date('Y');
-            $model->agree_record = 0;
+            $model->agree_record = 1;
         });
     }
 

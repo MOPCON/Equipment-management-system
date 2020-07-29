@@ -60,4 +60,4 @@ jobs:
           echo "SLACK_CHANNEL=${{ secrets.SLACK_CHANNEL }}" >> .env
           echo "SLACK_HOOK_URL=${{ secrets.SLACK_HOOK_URL }}" >> .env
       - name: Run Envoy
-        run: ~/.composer/vendor/bin/envoy run testing-cms --branch=master
+        run: ~/.composer/vendor/bin/envoy run production-cms --branch=master

@@ -14,6 +14,16 @@ class Speaker extends Model
     public const ReadonlyStatus = 4; // based on $speakerStatusItem
 
     public static $photoPath = '/images/speaker';
+    public static $hideTag = [
+        'AR/VR',
+        'Blockchain',
+        'Quant',
+        'Security',
+        'Data Science',
+        'Panel',
+        'FinTech',
+        'QA',
+    ];
     public static $tagItem = [
         'AI',
         'AR/VR',
@@ -33,6 +43,13 @@ class Speaker extends Model
         'Panel',
         'FinTech',
         'QA',
+        'Data Analyzing',
+        '5G / 6G',
+        'Business Thinking',
+        '社會參與',
+        '職涯發展',
+        '數位轉型',
+        '遠距',
     ];
     public static $levelItem = [
         'Basic-外行人可以藉此入門',
@@ -135,7 +152,7 @@ class Speaker extends Model
             $model->access_key = Str::uuid();
             $model->access_secret = Str::random(20);
             $model->year = (int) date('Y');
-            $model->agree_record = 0;
+            $model->agree_record = 1;
         });
     }
 

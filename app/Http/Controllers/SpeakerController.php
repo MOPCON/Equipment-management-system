@@ -243,8 +243,11 @@ class SpeakerController extends Controller
      */
     public function getOptions()
     {
+        $tagItem = array_filter(Speaker::$tagItem, function ($item) {
+            return !in_array($item, Speaker::$hideTag);
+        });
         $options = [
-            'tagItem' => Speaker::$tagItem,
+            'tagItem' => $tagItem,
             'levelItem' => Speaker::$levelItem,
             'licenseItem' => Speaker::$licenseItem,
             'tshirtSizeItem' => Speaker::$tshirtSizeItem,

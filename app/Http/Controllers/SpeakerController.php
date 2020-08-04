@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Speaker;
 use App\Http\Requests\SpeakerRequest;
+use App\Http\Requests\ImportRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use App\Services\AutoCorrectService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use InvalidArgumentException;
 
 class SpeakerController extends Controller
 {
@@ -213,6 +220,89 @@ class SpeakerController extends Controller
     }
 
     /**
+     * 匯入 kktix CSV
+     * csv example
+     * Id,訂單編號,報名序號,檢查碼,票種,票券付款狀態,標籤,QR Code 序號,售出日期,票面價格,聯絡人 姓名,聯絡人 Email,聯絡人 手機,聯絡人 居住城市,聯絡人 公司／組織名稱,聯絡人 職稱,聯絡人 以下填寫講者及議題資訊,聯絡人 如果有Blog、Github、報導等連結可以填寫，以利委員會審核。此欄位非最後議程手冊上定稿之文案。,聯絡人 講者簡介,聯絡人 講題,聯絡人 講題簡介,聯絡人 請選擇與講題高度相關的標籤，若選取過多，大會將斟酌調整以利委員會審核。,聯絡人 建議的分類標籤,聯絡人 如果有投影片可以提供，以利議程委員審核。,聯絡人 投影片連結,聯絡人 請選擇能否實況或錄影，為促進知識分享交流，MOPCON 竭誠歡迎願意與人們分享的講題。,聯絡人 演講錄影,聯絡人 你從哪裡知道這項活動,聯絡人 備註,Attendance Book
+     *
+     * @param ImportRequest $request
+     * @return JsonResponse
+     */
+    public function importKKTIX(ImportRequest $request)
+    {
+        if (!$request->hasFile('upload')) {
+            return $this->return400Response();
+        }
+        $file = $request->file('upload');
+        if ($file->getClientOriginalExtension() !== 'csv') {
+            return $this->return400Response('僅接受 csv 檔');
+        };
+        $handle = fopen($file->getRealPath(), "r");
+        $content = [];
+        $year = (int) date('Y');
+        $count = 0;
+        $now = now();
+        while (($line = fgetcsv($handle, 1000, ',')) !== false) {
+            if ($count == 0) {
+                $count++;
+                continue;
+            }
+            if (!isset($line[10]) || !is_string($line[10]) || trim($line[10]) === '') {
+                continue;
+            }
+            $tagStr = '[]';
+            if (isset($line[22]) && is_string($line[22]) && trim($line[22]) !== '') {
+                $tags = array_map('trim', explode(',', $line[22]));
+                $chosenTag = array_intersect(Speaker::$tagItem, $tags);
+                $tagStr = json_encode(array_keys($chosenTag));
+            }
+            $agree_record = $license = 1;
+            if (isset($line[26]) && is_string($line[26]) && preg_match('/謝絕/', $line[26])) {
+                $agree_record = 0;
+                $license = null;
+            }
+            $bio = $line[18] ?? null;
+            $summary = $line[20] ?? null;
+            $topic = $line[19] ?? null;
+            $content[] = [
+                'speaker_status' => 0,
+                'name'           => $line[10] ?? null,
+                'real_name'      => $line[10] ?? null,
+                'company'        => $line[14] ?? null,
+                'job_title'      => $line[15] ?? null,
+                'contact_email'  => $line[11] ?? null,
+                'contact_phone'  => $line[12] ?? null,
+                'bio'            => $bio !== null ? $this->cutImportDataString($bio, 120) : null,
+                'link_slide'     => $line[24] ?? null,
+                'topic'          => $topic !== null ? $this->cutImportDataString($topic, 32) : null,
+                'summary'        => $summary !== null ? $this->cutImportDataString($summary, 240) : null,
+                'tag'            => $tagStr,
+                'agree_record'   => $agree_record,
+                'license'        => $license,
+                'year'           => $year,
+                'speaker_type'   => 1,
+                'last_edited_by' => auth()->user()->name,
+                'access_key'     => Str::uuid(),
+                'access_secret'  => Str::random(20),
+                'updated_at'     => $now,
+                'created_at'     => $now,
+            ];
+        }
+        if (empty($content)) {
+            return $this->return400Response('請檢查檔案內容');
+        }
+
+        DB::beginTransaction();
+        try {
+            $speaker = Speaker::insert($content);
+            DB::commit();
+            return $this->returnSuccess('Success.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->return400Response('發生不明錯誤');
+        }
+    }
+
+    /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
@@ -352,5 +442,16 @@ class SpeakerController extends Controller
         $speaker->save();
 
         return $speaker;
+    }
+
+    /**
+     * 將過長字串刪減
+     * @param string $string 原始字串
+     * @param int    $length db 限制欄位長度
+     * @return string
+     */
+    private function cutImportDataString(string $string, int $length)
+    {
+        return mb_substr(trim($string), 0, $length, 'utf-8');
     }
 }

@@ -242,6 +242,13 @@ class SpeakerController extends Controller
         $count = 0;
         $now = now();
         while (($line = fgetcsv($handle, 1000, ',')) !== false) {
+            foreach ($line as &$l) {
+                $detect = mb_detect_encoding($l, ['UTF-8', "big5"]);
+                if ($detect === 'UTF-8') {
+                    continue;
+                }
+                $l = mb_convert_encoding($l, 'UTF-8', $detect);
+            }
             if ($count == 0) {
                 $count++;
                 continue;

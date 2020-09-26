@@ -70,6 +70,8 @@ class Speaker extends Model
         'L',
         'XL',
         '2XL',
+        '3XL',
+        '4XL',
     ];
     public static $mealPreferenceItem = [
         '葷',

@@ -280,7 +280,6 @@
                                 <p class="mb-1">{{ trans('speaker.has_companion')}}</p>
                                 <input type="number" class="form-control" min="0" v-model="formData.has_companion" :disabled="formData.readonly">
                             </div>
-                            <div id="vali"></div>
                             <input type="hidden" class="send" name="password" v-model="password">
                             <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" @click.prevent="validationForm()">{{ trans('speaker.submit') }}</button>
                         </form>
@@ -307,14 +306,36 @@
                 accesskey_method: function () {
                     const vm = this;
                     vm.$emit('accesskey_method', vm.password);
-                }
+                },
+                reCaptchaInit() {
+                    setTimeout(function() {
+                        if (document.getElementById('vali')) {
+                            const vm = this;
+                            grecaptcha.render('vali', {
+                            'sitekey' : '{{ env('RECAPTCHA_KEY') }}',
+                                'callback': function () {
+                                    return new Promise(function(resolve, reject) {
+                                        var response = grecaptcha.getResponse();
+                                        if (response.length > 0) {
+                                            document.getElementById('access_send').disabled = false;
+                                        }
+                                    })
+                                }
+                            });
+                        }
+                    }, 1000)
+                },
+            },
+            mounted() {
+                this.reCaptchaInit();
             },
             template: `<form id="accessform" class="clearfix" novalidate>
                 <div class="form-group">
                     <label for="access_screct">${'{{ trans('speaker.password') }}'}</label>
                     <input type="password" class="form-control" id="access_screct" name="password" v-model="password" @key.enter="accesskey_method()">
                 </div>
-                <input id="access_send" type='submit' class="btn btn-primary float-right" value="${'{{ trans('speaker.submit') }}'}" @click.prevent="accesskey_method()"/>
+                <div id="vali" class="my-2"></div>
+                <input id="access_send" type='submit' class="btn btn-primary float-right" value="${'{{ trans('speaker.submit') }}'}" disabled="true" @click.prevent="accesskey_method()"/>
             </form>`
         });
 
@@ -326,7 +347,6 @@
                 password: '',
                 message: '',
                 classColor: 'alert-danger',
-                reCaptchaStatus: false,
                 formData: {},
                 tags: [0],
                 optionItem: {
@@ -377,7 +397,6 @@
                             vm.countText(64, 'topicETextConunt', vm.formData.topic_e);
                             vm.countText(240, 'summaryTextConunt', vm.formData.summary);
                             vm.countText(480, 'summaryETextConunt', vm.formData.summary_e);
-                            vm.reCaptchaInit();
                         } else {
                             vm.alertShow = true;
                             vm.message = response.data.message
@@ -511,24 +530,6 @@
                     }
                         reader.readAsDataURL(file.files[0]);
                     }
-                },
-                reCaptchaInit() {
-                    setTimeout(function() {
-                        if (document.getElementById('vali')) {
-                            const vm = this;
-                            grecaptcha.render('vali', {
-                            'sitekey' : '{{ env('RECAPTCHA_KEY') }}',
-                                'callback': function () {
-                                    return new Promise(function(resolve, reject) {
-                                        var response = grecaptcha.getResponse();
-                                        if (response.length > 0) {
-                                            document.getElementById('formSubmit').disabled = false;
-                                        }
-                                    })
-                                }
-                            });
-                        }
-                    }, 1000)
                 },
                 countText(num, data, content) {
                     const vm = this;

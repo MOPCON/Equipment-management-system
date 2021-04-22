@@ -1,0 +1,43 @@
+version: "3.3"
+
+services:
+  php:
+    build: ./
+    restart: always
+    volumes:
+      - "../:/var/www/html"
+    depends_on:
+      - mysql 
+    environment:
+      DB_ROOT_PW: ${MYSQL_ROOT_PASSWORD}
+
+  node:
+    image: node:12
+    working_dir: "/usr/src/app"
+    volumes:
+      - "../:/usr/src/app"
+    command: bash -c "yarn install && yarn run dev" # use bash or ash
+    
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./log/mysql:/var/log/mysql
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - 81:80
+    volumes:
+      - "../:/var/www/html"
+      - "./log/nginx:/var/log/nginx"
+      - "./files/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf"
+    depends_on:
+      - node
+      - php

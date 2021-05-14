@@ -1,6 +1,7 @@
 FROM php:7.3-fpm
 
 RUN apt-get update && apt-get install -y \
+        cron \
         # For php gd ext
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -45,6 +46,11 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+COPY ./init.sh /init.sh
+
 #timeZone
 ENV TZ=Asia/Taipei
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
+
+RUN chmod 755 /init.sh 
+CMD /init.sh && php-fpm

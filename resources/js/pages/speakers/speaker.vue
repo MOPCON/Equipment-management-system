@@ -15,6 +15,12 @@
           <font-awesome-icon icon="file-export" />&nbsp;匯出
         </button>
       </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-sm btn-primary btn-block" @click="openFileSelect">
+            <font-awesome-icon icon="file-import" />&nbsp;匯入
+        </button>
+        <input type="file" style="display:none" id="importFile" @change="importData">
+      </div>
       <div class="col-md-3">
         <input type="text" class="form-control form-control-sm" placeholder="Search" aria-controls="speaker"
           v-model="searchText" @keyup.enter="searchKeyword($event)" />
@@ -865,6 +871,27 @@
           window.location = `api/speaker/export?ids=${data}`;
         }
       },
+      openFileSelect() {
+        $('#importFile').click()
+      },
+      importData() {
+        const vm = this;
+        const formData = new FormData();
+        const importFile = document.querySelector('#importFile');
+        formData.append("upload", importFile.files[0]);
+        axios.post('/api/speaker/import', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(response => {
+          $("#importFile").val('');
+          helper.alert(response.data.message)
+          vm.getSpeakerData();
+        }).catch(error => {
+          $("#importFile").val('');
+          helper.alert(error.response.data.message, 'danger')
+        })
+      }
     },
     mounted() {
       this.initCol();

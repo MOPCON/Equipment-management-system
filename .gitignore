@@ -20,3 +20,5 @@ yarn-error.log
 /public/mix-manifest.json
 .phpunit.result.cache
 .vscode
+log/
+mysql/

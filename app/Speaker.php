@@ -50,6 +50,7 @@ class Speaker extends Model
         '職涯發展',
         '數位轉型',
         '遠距',
+        'Community',
     ];
     public static $levelItem = [
         'Basic-外行人可以藉此入門',

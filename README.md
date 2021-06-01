@@ -197,12 +197,12 @@ cp .env.example .env
 
 2. 啟用 docker-compose
 ```bash
-docker-compose down
+docker-compose up
 ```
 
 3. 結束 docker-compose
 ```bash
-docker-compose logs -f
+docker-compose down
 ```
 
 

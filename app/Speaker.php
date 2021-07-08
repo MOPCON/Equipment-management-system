@@ -51,6 +51,7 @@ class Speaker extends Model
         '數位轉型',
         '遠距',
         'Community',
+        'Open Source',
     ];
     public static $levelItem = [
         'Basic-外行人可以藉此入門',

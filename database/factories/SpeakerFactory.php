@@ -39,8 +39,6 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'target_audience' => $zhFaker->text(64),
         'prerequisites' => $zhFaker->text(120),
         'agree_record' => $agree_record,
-        'agree_record_qa' => rand(0, 1),
-        'agree_pre_video_public' => rand(0, 1),
         'agree_act_change' => rand(0, 1),
         'license' => $agree_record == 1 ? rand(0, count(Speaker::$licenseItem) - 1) : null,
         'promotion' => rand(0, 1),

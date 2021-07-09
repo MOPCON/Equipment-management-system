@@ -64,6 +64,8 @@ class Speaker extends Model
         '以 CC BY-SA 3.0 姓名標示-相同方式授權。',
         '以 CC BY-NC 3.0 姓名標示-非商業性方式授權。',
         '謝絕所有錄音錄影，但接受 MOPCON 工作人員文字紀錄。',
+        '同意授予後製及上傳預錄影片及 Q&A 影片',
+        '同意授予後製及上傳預錄影片'
     ];
     public static $tshirtSizeItem = [
         'XS',
@@ -119,8 +121,6 @@ class Speaker extends Model
         "target_audience",
         "prerequisites",
         "agree_record",
-        "agree_record_qa",
-        "agree_pre_video_public",
         "agree_act_change",
         "license",
         "promotion",

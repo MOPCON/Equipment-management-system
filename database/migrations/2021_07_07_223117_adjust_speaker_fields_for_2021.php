@@ -20,11 +20,7 @@ class AdjustSpeakerFieldsFor2021 extends Migration
             $table->string('prerequisites', 120)->nullable()->after('target_audience')->comment="先備知識";
             $table->string('contact_address')->nullable()->after('contact_phone')->comment="寄送地址";
             $table->string('link_pre_video')->nullable()->after('link_slide')->comment="預錄影片連結";
-            $table->boolean('agree_pre_video_public')->nullable()->after('link_pre_video')->comment="同意預錄影片公開於YouTube上";
-            $table->boolean('agree_act_change')->nullable()->after('agree_pre_video_public')->comment="知悉活動可能變更";
-            $table->boolean('agree_record_qa')->nullable()->after('agree_record')->comment="同意Q&A階段錄影";
-
-             
+            $table->boolean('agree_act_change')->nullable()->after('has_companion')->comment="知悉活動可能變更";
         });
     }
 
@@ -36,15 +32,12 @@ class AdjustSpeakerFieldsFor2021 extends Migration
     public function down()
     {
         Schema::table('speakers', function (Blueprint $table) {
-            $table->string('summary', 240)->change();
             $table->dropColumn('will_forward_posts');
             $table->dropColumn('target_audience');
             $table->dropColumn('prerequisites');
             $table->dropColumn('contact_address');
             $table->dropColumn('link_pre_video');
-            $table->dropColumn('agree_pre_video_public');
             $table->dropColumn('agree_act_change');
-            $table->dropColumn('agree_record_qa');
         });
     }
 }

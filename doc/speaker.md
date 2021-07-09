@@ -48,7 +48,6 @@
           "link_other": "http://www.sporer.com/quis-eveniet-incidunt-quibusdam-illo-commodi-et-eaque",
           "link_slide": "",
           "link_pre_video": "http://www.runte.net/",
-          "agree_pre_video_public": 0,
           "agree_act_change": 0,
           "topic": "Maxime nesciunt.",
           "topic_e": "Est aliquid sed eum quae in.",
@@ -71,7 +70,6 @@
           "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
           "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
           "agree_record": 1,
-          "agree_record_qa": 1,
           "license": 0,
           "promotion": 1,
           "will_forward_posts": 0,
@@ -178,6 +176,8 @@
             "以 CC BY-SA 3.0 姓名標示-相同方式授權。",
             "以 CC BY-NC 3.0 姓名標示-非商業性方式授權。",
             "謝絕所有錄音錄影，但接受 MOPCON 工作人員文字紀錄。",
+            "同意授予後製及上傳預錄影片及 Q&A 影片",
+            "同意授予後製及上傳預錄影片",
         ],
         "tshirtSizeItem": [
             "XS",
@@ -246,7 +246,6 @@
         + link_slide [string] 投影片連結
         + link_video [string] 錄影檔影片連結
         + link_pre_video [string] 預錄影片連結
-        + agree_pre_video_public [int] 知悉預錄影片會放在 YouTube 供會眾觀看
         + agree_act_change [int] 知悉活動會因狀況調整
         + topic [string] 演講主題
         + topic_e [string] 演講主題(英文)
@@ -257,7 +256,6 @@
         + target_audience [string] 目標會眾
         + prerequisites [string] 先備知識
         + agree_record [int] 授與錄影
-        + agree_record_qa [int] 授與 Q&A 階段錄影
         + license [int] 授權方式
         + promotion [int] 是否同意公開宣傳
         + will_forward_posts [int] 是否願意轉發大會文章
@@ -296,7 +294,6 @@
         "link_other": "http://schumm.com/saepe-expedita-quidem-blanditiis-et-voluptatum-sed.html",
         "link_slide": "https://jakubowski.biz/officiis-minus-sint-ea-maxime-blanditiis-iste.html",
         "link_pre_video": "http://www.runte.net/",
-        "agree_pre_video_public": 0,
         "agree_act_change": 0,
         "topic": "Reprehenderit.",
         "topic_e": "Ut est nemo voluptatem cum.",
@@ -314,7 +311,6 @@
         "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
         "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
         "agree_record": 1,
-        "agree_record_qa": 1,
         "license": 1,
         "promotion": 0,
         "will_forward_posts": 0,
@@ -401,7 +397,6 @@
               "link_video": "http://durgan.org/ipsum-rerum-quod-quisquam-cumque-error-exercitationem-illum",
               "link_slide": "http://ryan.com/soluta-ab-et-perspiciatis-distinctio.html",
               "link_pre_video": "http://www.runte.net/",
-              "agree_pre_video_public": 0,
               "agree_act_change": 0,
               "topic": "Et aut.",
               "topic_e": "Quos distinctio sint illo.",
@@ -429,7 +424,6 @@
               "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
               "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
               "agree_record": 1,
-              "agree_record_qa": 1,
               "license": 1,
               "promotion": 0,
               "will_forward_posts": 0,
@@ -498,7 +492,6 @@
               "link_video": "http://keeling.com/",
               "link_slide": "http://www.heaney.net/nihil-doloribus-facilis-sit-ab-dolores-veniam",
               "link_pre_video": "http://www.beatty.com/qui-fugit-est-suscipit",
-              "agree_pre_video_public": 0,
               "agree_act_change": 1,
               "topic": "Doloribus.",
               "topic_e": "Error non dolores voluptate.",
@@ -521,7 +514,6 @@
               "target_audience": "Voluptatem quae sunt est dicta.",
               "prerequisites": "Ducimus assumenda dolores iusto vitae. Accusantium atque quia dolorem.",
               "agree_record": 1,
-              "agree_record_qa": 1,
               "license": 3,
               "promotion": 1,
               "will_forward_posts": 1,
@@ -671,7 +663,6 @@
               "link_video": "http://www.witting.org/voluptatem-et-ratione-est-voluptatibus-qui-aliquam-ut",
               "link_slide": "http://turcotte.info/neque-ut-sit-ipsum-labore-placeat-debitis-asperiores-est",
               "link_pre_video": "http://www.feil.com/reiciendis-maiores-consequatur-quaerat-cupiditate-magni",
-              "agree_pre_video_public": 1,
               "agree_act_change": 0,
               "topic": "Aut est rem et.",
               "topic_e": "Totam est aliquid qui non non.",
@@ -696,7 +687,6 @@
               "target_audience": "Sint voluptate qui veniam dolorem.",
               "prerequisites": "A velit voluptatibus quo enim odio sint ratione. Omnis tempora consequatur neque iure necessitatibus itaque aut quae.",
               "agree_record": 1,
-              "agree_record_qa": 1,
               "license": 3,
               "promotion": 0,
               "will_forward_posts": 1,
@@ -781,7 +771,6 @@
         + link_slide [string] 投影片連結
         + link_video [string] 錄影檔影片連結
         + link_pre_video [string] 預錄影片連結
-        + agree_pre_video_public [int] 知悉預錄影片會放在 YouTube 供會眾觀看
         + agree_act_change [int] 知悉活動會因狀況調整
         + topic [string] 演講主題
         + topic_e [string] 演講主題(英文)
@@ -792,7 +781,6 @@
         + target_audience [string] 目標會眾
         + prerequisites [string] 先備知識
         + agree_record [int] 授與錄影
-        + agree_record_qa [int] 授與 Q&A 階段錄影
         + license [int] 授權方式
         + promotion [int] 是否同意公開宣傳
         + will_forward_posts [int] 是否願意轉發大會文章
@@ -834,7 +822,6 @@
             "link_video": "http://kiehn.com/fuga-eos-voluptatibus-et-eveniet-ut-est.html",
             "link_slide": "https://jakubowski.biz/officiis-minus-sint-ea-maxime-blanditiis-iste.html",
             "link_pre_video": "http://morar.com/sit-sed-saepe-beatae-veritatis-unde-aut-possimus-maxime",
-            "agree_pre_video_public": 0,
             "agree_act_change": 1,
             "topic": "Reprehenderit.",
             "topic_e": "Ut est nemo voluptatem cum.",
@@ -852,7 +839,6 @@
             "target_audience": "Ex reiciendis magni eum repellendus perferendis voluptatum.",
             "prerequisites": "Nisi adipisci temporibus sed. Porro vel quasi quia. Earum reiciendis voluptatem est qui iusto voluptatem cum.",
             "agree_record": 1,
-            "agree_record_qa": 0,
             "license": 1,
             "promotion": 0,
             "will_forward_posts": 1,

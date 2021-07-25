@@ -226,14 +226,14 @@ class SpeakerController extends Controller
     }
 
     /**
-     * 匯入 kktix CSV
+     * 匯入講者資料 CSV
      * csv example
-     * Id,訂單編號,報名序號,檢查碼,票種,票券付款狀態,標籤,QR Code 序號,售出日期,票面價格,聯絡人 姓名,聯絡人 Email,聯絡人 手機,聯絡人 居住城市,聯絡人 公司／組織名稱,聯絡人 職稱,聯絡人 以下填寫講者及議題資訊,聯絡人 如果有Blog、Github、報導等連結可以填寫，以利委員會審核。此欄位非最後議程手冊上定稿之文案。,聯絡人 講者簡介,聯絡人 講題,聯絡人 講題簡介,聯絡人 請選擇與講題高度相關的標籤，若選取過多，大會將斟酌調整以利委員會審核。,聯絡人 建議的分類標籤,聯絡人 如果有投影片可以提供，以利議程委員審核。,聯絡人 投影片連結,聯絡人 請選擇能否實況或錄影，為促進知識分享交流，MOPCON 竭誠歡迎願意與人們分享的講題。,聯絡人 演講錄影,聯絡人 你從哪裡知道這項活動,聯絡人 備註,Attendance Book
+     * 訂單編號,票號,狀態,訂購人姓名,訂購人Email,訂購人電話,參加人姓名,參加人Email,參加人電話,報名時間(GTM+8),有效時間(GTM+8),票種分組,票券名稱,票券細節,票價(NT),付款時間(GTM+8),付款方式,信用卡末四碼,首次驗票時間(GTM+8),首次驗票備註,最後驗票時間(GTM+8),最後驗票備註,驗票次數,驗票通知,備註,取消原因,公司 / 組織名稱,職稱,講者簡介,講題,主題分類標籤,其他,語言,摘要,備註,投影片連結,錄影授權,從哪裡知道這項報名活動
      *
      * @param ImportRequest $request
      * @return JsonResponse
      */
-    public function importKKTIX(ImportRequest $request)
+    public function importCSV(ImportRequest $request)
     {
         if (!$request->hasFile('upload')) {
             return $this->return400Response();
@@ -255,42 +255,43 @@ class SpeakerController extends Controller
                 }
                 $l = mb_convert_encoding($l, 'UTF-8', $detect);
             }
-            if ($count == 0) {
+            // 標題及空白列，忽略不處理
+            if ($count <= 1) {
                 $count++;
                 continue;
             }
-            if (!isset($line[10]) || !is_string($line[10]) || trim($line[10]) === '') {
+            // 狀態非已付款，忽略不處理
+            if (!isset($line[2]) || !is_string($line[2]) || trim($line[2]) !== '已付款') {
+                continue;
+            }
+            // 參與者姓名為空，忽略不處理
+            if (!isset($line[3]) || !is_string($line[3]) || trim($line[3]) === '') {
                 continue;
             }
             $tagStr = '[]';
-            if (isset($line[22]) && is_string($line[22]) && trim($line[22]) !== '') {
-                $tags = array_map('trim', explode(',', $line[22]));
+            if (isset($line[30]) && is_string($line[30]) && trim($line[30]) !== '') {
+                $tags = array_map('trim', explode(' ', $line[30]));
                 $chosenTag = array_intersect(Speaker::$tagItem, $tags);
                 $tagStr = json_encode(array_keys($chosenTag));
             }
-            $agree_record = $license = 1;
-            if (isset($line[26]) && is_string($line[26]) && preg_match('/謝絕/', $line[26])) {
-                $agree_record = 0;
-                $license = null;
-            }
-            $bio = $line[18] ?? null;
-            $summary = $line[20] ?? null;
-            $topic = $line[19] ?? null;
+            $bio = $line[28] ?? null;
+            $summary = $line[33] ?? null;
+            $topic = $line[29] ?? null;
             $content[] = [
                 'speaker_status' => 0,
-                'name'           => $line[10] ?? null,
-                'real_name'      => $line[10] ?? null,
-                'company'        => $line[14] ?? null,
-                'job_title'      => $line[15] ?? null,
-                'contact_email'  => $line[11] ?? null,
-                'contact_phone'  => $line[12] ?? null,
+                'name'           => $line[3] ?? null,
+                'real_name'      => $line[3] ?? null,
+                'company'        => $line[26] ?? null,
+                'job_title'      => $line[27] ?? null,
+                'contact_email'  => $line[4] ?? null,
+                'contact_phone'  => $line[5] ?? null,
                 'bio'            => $bio !== null ? $this->cutImportDataString($bio, 120) : null,
-                'link_slide'     => $line[24] ?? null,
+                'link_slide'     => $line[35] ?? null,
                 'topic'          => $topic !== null ? $this->cutImportDataString($topic, 32) : null,
-                'summary'        => $summary !== null ? $this->cutImportDataString($summary, 240) : null,
+                'summary'        => $summary !== null ? $this->cutImportDataString($summary, 480) : null,
                 'tag'            => $tagStr,
-                'agree_record'   => $agree_record,
-                'license'        => $license,
+                'agree_record'   => 1,
+                'license'        => 5,
                 'year'           => $year,
                 'speaker_type'   => 1,
                 'last_edited_by' => auth()->user()->name,

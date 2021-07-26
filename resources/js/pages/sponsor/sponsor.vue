@@ -544,7 +544,7 @@
                 sponsorDetailcol: [],
                 sponsorAdvancedDetailcol: [],
                 sponsorOption: [],
-                participateYear: ['2020', '2019'], 
+                participateYear: ['2021','2020', '2019'], 
                 sponsorDetailData: {
                     main: {},
                     recipe: {},
@@ -552,7 +552,7 @@
                 },
                 searchText: '',
                 filter: {
-                    year: '2020',
+                    year: '2021',
                 },
             }
         },

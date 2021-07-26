@@ -609,7 +609,7 @@
         tshirtSizeItem: [],
         mealPreferenceItem: [],
         promotionItem: ['否', '是'],
-        year: [2019, 2020],
+        year: [2019, 2020,2021],
         editStatusList: [],
         step: 1,
         fullData: [],
@@ -626,7 +626,7 @@
         action: 'new',
         searchText: '',
         filter:{
-          year: 2020,
+          year: 2021,
           status: 'all'
         },
       }

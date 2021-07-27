@@ -9,27 +9,40 @@ services:
     depends_on:
       - mysql 
     environment:
-      DB_ROOT_PW: ${MYSQL_ROOT_PASSWORD}
+      APP_ENV: local
+      APP_KEY: base64:q88n99GBruM6uinDPZo1KEKVPt1/CCMqU9cP91cZTsc=
+      APP_DEBUG: 'true'
+      APP_URL: http://localhost
+      APP_TIMEZONE: 'Asia/Taipei'
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: mopcon
+      DB_USERNAME: mopcon
+      DB_PASSWORD: password
+      DB_ROOT_PW: password
 
   node:
     image: node:12
     working_dir: "/usr/src/app"
     volumes:
       - "./:/usr/src/app"
+    entrypoint: bash -c "sleep infinity"
     command: bash -c "yarn install && yarn run dev" # use bash or ash
     
   mysql:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: mopcon
+      MYSQL_USER: mopcon
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
     ports:
       - 3306:3306
     volumes:
       - ./mysql:/var/lib/mysql
       - ./log/mysql:/var/log/mysql
-    env_file:
-      - .env
 
   nginx:
     image: nginx:latest

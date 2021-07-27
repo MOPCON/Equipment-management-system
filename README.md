@@ -180,31 +180,100 @@ screen -S ems php artisan queue:listen
 3. 路由名稱與頁面資料夾名稱相同。
 4. 為於 `components` 資料夾內的組件會自動註冊，各別頁面所切出來的請自行於各別的根組件註冊。
 
+
+### 使用 Makefile 建立整個專案 (使用 docker)
+- 建立環境:
+```bash
+make run-dev
+```
+
+- watch mode:
+```bash
+make run-watch
+```
+
+- build dev:
+```bash
+make run-build-dev
+```
+
+- install js packages:
+```bash
+make run-yarn-install
+```
+or just run `yarn install`
+
+- 建立資料庫 table
+```bash
+make run-migrate
+```
+
+- 建立假資料
+```bash
+make run-seed
+```
+
+- 清除 docker
+```bash
+make stop-dev
+```
+
 ### 使用 Docker 建立整個專案
 
 #### 說明
 
 - docker-compose 用於建立整個專案的前後端環境、資料庫、網頁伺服器
 - Dockerfile 用於後端 PHP 部署
-- init.sh 為初始化專案時必要的指令，包含建立專案資料庫、相依套件、資料初始化等...
+
+- url: http:localhost:81
 
 #### 步驟
 
-1. 複製環境變數
+1. 安裝 php composer 相關套件
 ```bash
-cp .env.example .env
+composer install
 ```
 
 2. 啟用 docker-compose
 ```bash
-docker-compose up
+docker-compose up -d --build
 ```
 
-3. 結束 docker-compose
+3. 建立資料庫 table
+```bash
+docker-compose exec php sh -c "php artisan migrate"
+```
+
+4. 建立假資料
+```bash
+docker-compose exec php sh -c "php artisan db:seed"
+```
+
+5. 結束 docker-compose
 ```bash
 docker-compose down
 ```
 
+6. 完整清除 docker
+```bash
+docker-compose down -v
+```
+
+#### 前端:
+- install packages:
+```bash
+docker-compose exec node sh -c "yarn install"
+```
+or just run `yarn install`
+
+- watch mode:
+```bash
+docker-compose exec node sh -c "yarn run watch"
+```
+- build dev:
+```bash
+docker-compose exec node sh -c "yarn run dev"
+```
 
 ## License
 The MIT License (MIT). Please see License File for more information.

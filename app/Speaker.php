@@ -139,7 +139,8 @@ class Speaker extends Model
         "company_e",
         "job_title_e",
         "contact_phone",
-        "contact_email"
+        "contact_email",
+        "contact_address",
     ];
     protected $appends = [
         'tag_text',

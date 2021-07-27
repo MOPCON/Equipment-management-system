@@ -435,6 +435,12 @@
                 </td>
               </tr>
               <tr>
+                <td>聯絡地址</td>
+                <td class="p-0 v-align-middle">
+                  <input type="tel" class="form-control border-0 rounded-0" v-model="speakerDetailData.contact_address">
+                </td>
+              </tr>
+              <tr>
                 <td>T-shirt 尺寸</td>
                 <td>
                   <div class="form-check-inline" v-for="(name, index) in tshirtSizeItem" :key="name">

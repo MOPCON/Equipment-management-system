@@ -64,6 +64,8 @@ class Speaker extends Model
         '以 CC BY-SA 3.0 姓名標示-相同方式授權。',
         '以 CC BY-NC 3.0 姓名標示-非商業性方式授權。',
         '謝絕所有錄音錄影，但接受 MOPCON 工作人員文字紀錄。',
+    ];
+    public static $agreePolicyItem = [
         '同意授予後製及上傳預錄影片及 Q&A 影片',
         '同意授予後製及上傳預錄影片'
     ];
@@ -120,8 +122,11 @@ class Speaker extends Model
         "level",
         "target_audience",
         "prerequisites",
+        "expected_harvest",
         "agree_record",
         "agree_act_change",
+        "agree_pre_video_public",
+        "agree_record_qa",
         "license",
         "promotion",
         "will_forward_posts",
@@ -146,6 +151,7 @@ class Speaker extends Model
         'tag_text',
         'level_text',
         'license_text',
+        'agree_policy_text',
         'tshirt_size_text',
         'meal_preference_text',
         'speaker_status_text',
@@ -164,7 +170,8 @@ class Speaker extends Model
             $model->access_key = Str::uuid();
             $model->access_secret = Str::random(20);
             $model->year = (int) date('Y');
-            $model->agree_record = 1;
+            $model->agree_record = 0;
+            $model->license = 1;
         });
     }
 
@@ -188,6 +195,11 @@ class Speaker extends Model
     public function getLicenseTextAttribute()
     {
         return self::$licenseItem[$this->license] ?? '';
+    }
+
+    public function getAgreePolicyTextAttribute()
+    {
+        return self::$agreePolicyItem[$this->agree_record] ?? '';
     }
 
     public function getTshirtSizeTextAttribute()

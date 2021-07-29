@@ -289,7 +289,7 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="10" scope="row" width="120px">議程資料</th>
+                <th rowspan="14" scope="row" width="120px">議程資料</th>
                 <td>演講主題</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic"
@@ -347,7 +347,34 @@
                 </td>
               </tr>
               <tr>
-                <td>授權方式 (1)</td>
+                <td>目標會眾</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.target_audience"
+                    maxlength="64">
+                    {{ speakerDetailData.target_audience }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>先備知識</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.prerequisites"
+                    maxlength="120">
+                    {{ speakerDetailData.prerequisites }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>預期收穫</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.expected_harvest"
+                    maxlength="120">
+                    {{ speakerDetailData.expected_harvest }}
+                  </textarea>
+                </td>
+              </tr>
+              <!-- <tr>
+                <td>授權方式 (2019)</td>
                 <td>
                   <div class="form-check-inline">
                     <input class="form-check-input" type="radio" id="license_0"
@@ -356,7 +383,7 @@
                       授予 MOPCON 演講時錄影，後製與上傳至公開線上影音平台之權利。
                     </label>
                   </div>
-                   <div class="form-check-inline">
+                  <div class="form-check-inline">
                     <input class="form-check-input" type="radio" id="license_4"
                       v-model="speakerDetailData.agree_record" value="0">
                     <label class="form-check-label" for="license_4">
@@ -364,8 +391,21 @@
                     </label>
                   </div>
                 </td>
+              </tr> -->
+              <!-- 2021 -->
+              <tr>
+                <td>授權方式 (1)</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in agreePolicyItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'license' + index" :value="index"
+                      v-model="speakerDetailData.agree_record">
+                    <label class="form-check-label" :for="'agreed_policy_' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
               </tr>
-              <tr v-if="speakerDetailData.agree_record == 1">
+              <tr>
                 <td>授權方式 (2)</td>
                 <td>
                   <div class="form-check-inline" v-for="(name, index) in licenseItem" :key="name">
@@ -692,6 +732,7 @@
           vm.tagsItem = res.tagItem;
           vm.levelItem = res.levelItem;
           vm.licenseItem = res.licenseItem;
+          vm.agreePolicyItem = res.agreePolicyItem;
           vm.tshirtSizeItem = res.tshirtSizeItem;
           vm.mealPreferenceItem = res.mealPreferenceItem;
           vm.editStatusList = res.speakerStatusItem;

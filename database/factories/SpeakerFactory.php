@@ -38,6 +38,7 @@ $factory->define(Speaker::class, function (Faker\Generator $faker) {
         'level' => rand(0, count(Speaker::$levelItem) - 1),
         'target_audience' => $zhFaker->text(64),
         'prerequisites' => $zhFaker->text(120),
+        'expected_harvest' => $zhFaker->text(120),
         'agree_record' => $agree_record,
         'agree_act_change' => rand(0, 1),
         'license' => $agree_record == 1 ? rand(0, count(Speaker::$licenseItem) - 1) : null,

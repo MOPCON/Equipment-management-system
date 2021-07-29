@@ -214,6 +214,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="d-flex justify-content-between flex-column flex-md-row">
+                                    <label for="expected_harvest">{{ trans('speaker.expected_harvest') }}*</label>
+                                    <span class="d-inline-block text-right"> @{{ expectedHarvestTextCount }} / 120</span>
+                                </div>
+                                <textarea class="form-control" id="expected_harvest" rows="4" v-model="formData.expected_harvest" maxlength="120" v-on:keyup="countText(120, 'expectedHarvestTextCount', formData.expected_harvest)" required :disabled="formData.readonly"></textarea>
+                                <div class="invalid-feedback">
+                                    {{ trans('speaker.required.expected_harvest') }}
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.tag') }}</p>
                                 <div class="form-check-inline"
                                   v-for="(item, index) in optionItem.tagItem" :key="index">
@@ -228,11 +238,11 @@
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.license')}}</p>
                                 <p class="mb-0">(1) {{ trans('speaker.license_0') }}</p>
-                                <div class="d-flex flex-column-reverse mb-2">
-                                    <div class="form-check" v-for="(agree, index) in optionItem.licenseAgree" :key="'licenseAgree' + index">
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="form-check" v-for="(agree, index) in optionItem.agreePolicyItem" :key="'licenseAgree' + index">
                                         <input class="form-check-input" type="radio" :id="'licenseAgree' + index" :value="index"
                                         v-model="formData.agree_record" :disabled="formData.readonly">
-                                        <label class="form-check-label" :for="'licenseAgree' + index">@{{ agree }}</label>
+                                        <label class="form-check-label" :for="'licenseAgree' + index" v-html="agree"></label>
                                     </div>
                                 </div>
                                 <div>
@@ -242,6 +252,7 @@
                                         <label class=" form-check-label" :for="license">@{{ license }}</label>
                                     </div>
                                 </div>
+                                <p class="form-group-check__text mt-1">{{ trans('speaker.license_helper') }}</p>
                             </div>
                             <div class="form-group">
                                 <p class="mb-1"><strong>{{ trans('speaker.promote_info')}}</strong></p>
@@ -332,7 +343,7 @@
                             <div class="form-group">
                                 <div class="form-check-inline">
                                     <input class="form-check-input" type="radio" id="agree_act_change" value="1"
-                                    v-model="formData.agree_act_change" :disabled="formData.readonly">
+                                    v-model="formData.agree_act_change" :disabled="formData.readonly" name="agree_act_change" required>
                                     <label class="form-check-label" for="agree_act_change">{{ trans('speaker.agree_act_change')}}*</label>
                                 </div>
                             </div>
@@ -435,7 +446,7 @@
                 tags: [0],
                 optionItem: {
                     'levelItem': ['{{ trans('speaker.level_0') }}','{{ trans('speaker.level_1') }}','{{ trans('speaker.level_2') }}'],
-                    'licenseAgree': ['{{ trans('speaker.license_5') }}', '{{ trans('speaker.license_6') }}'],
+                    'agreePolicyItem': ['{{ trans('speaker.agreed_policy_0') }}', '{{ trans('speaker.agreed_policy_1') }}'],
                     'licenseItem': ['{{ trans('speaker.license_1') }}', '{{ trans('speaker.license_2') }}', '{{ trans('speaker.license_3') }}'],
                     'mealPreferenceItem': ['{{ trans('speaker.meal_0') }}', '{{ trans('speaker.meal_1') }}', '{{ trans('speaker.meal_2') }}'],
                     'speakerStatusItem': [],
@@ -452,8 +463,9 @@
                 summaryETextConunt: 480,
                 target_audienceTextCount: 64,
                 prerequisitesTextCount: 120,
+                expectedHarvestTextCount: 120,
                 checkData: ['level', 'license', 'tshirt_size', 'need_parking_space', 'has_dinner', 'meal_preference', 'has_companion'],
-                defaultIsFirst: ['agree_record', 'licenseItem','will_forward_posts','agree_act_change','promotion'],
+                defaultIsFirst: ['agree_record', 'licenseItem','will_forward_posts','promotion'],
             },
             methods: {
                 getSponsorForm: function (password) {
@@ -485,6 +497,7 @@
                             vm.countText(480, 'summaryETextConunt', vm.formData.summary_e);
                             vm.countText(64, 'target_audienceTextCount', vm.formData.target_audience);
                             vm.countText(120, 'prerequisitesTextCount', vm.formData.prerequisites);
+                            vm.countText(120, 'expectedHarvestTextCount', vm.formData.expected_harvest);
                         } else {
                             vm.alertShow = true;
                             vm.message = response.data.message
@@ -501,7 +514,7 @@
                     .then(response => {
                         const res = response.data.data;
                         const keys = Object.keys(res);
-                        const filter = ['levelItem', 'licenseItem', 'mealPreferenceItem'];
+                        const filter = ['levelItem', 'licenseItem', 'mealPreferenceItem', 'agreePolicyItem'];
                         keys.forEach(key => {
                             if (filter.indexOf(key) !== -1) {
                                 return;

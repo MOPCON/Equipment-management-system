@@ -69,6 +69,7 @@
           "level": 1,
           "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
           "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+          "expected_harvest": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
           "agree_record": 1,
           "license": 0,
           "promotion": 1,
@@ -255,6 +256,7 @@
         + level [int] 難易度
         + target_audience [string] 目標會眾
         + prerequisites [string] 先備知識
+        + expected_harvest [string] 預期收穫
         + agree_record [int] 授與錄影
         + license [int] 授權方式
         + promotion [int] 是否同意公開宣傳
@@ -310,6 +312,7 @@
         "level": 2,
         "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
         "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+        "expected_harvest": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
         "agree_record": 1,
         "license": 1,
         "promotion": 0,
@@ -423,6 +426,7 @@
               "level": 1,
               "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
               "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+              "expected_harvest": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
               "agree_record": 1,
               "license": 1,
               "promotion": 0,
@@ -513,6 +517,7 @@
               "level": 0,
               "target_audience": "Voluptatem quae sunt est dicta.",
               "prerequisites": "Ducimus assumenda dolores iusto vitae. Accusantium atque quia dolorem.",
+              "expected_harvest": "Ducimus assumenda dolores iusto vitae. Accusantium atque quia dolorem.",
               "agree_record": 1,
               "license": 3,
               "promotion": 1,
@@ -686,6 +691,7 @@
               "level": 1,
               "target_audience": "Sint voluptate qui veniam dolorem.",
               "prerequisites": "A velit voluptatibus quo enim odio sint ratione. Omnis tempora consequatur neque iure necessitatibus itaque aut quae.",
+              "expected_harvest": "A velit voluptatibus quo enim odio sint ratione. Omnis tempora consequatur neque iure necessitatibus itaque aut quae.",
               "agree_record": 1,
               "license": 3,
               "promotion": 0,
@@ -780,6 +786,7 @@
         + level [int] 難易度
         + target_audience [string] 目標會眾
         + prerequisites [string] 先備知識
+        + expected_harvest [string] 預期收穫
         + agree_record [int] 授與錄影
         + license [int] 授權方式
         + promotion [int] 是否同意公開宣傳
@@ -838,6 +845,7 @@
             "level": 2,
             "target_audience": "Ex reiciendis magni eum repellendus perferendis voluptatum.",
             "prerequisites": "Nisi adipisci temporibus sed. Porro vel quasi quia. Earum reiciendis voluptatem est qui iusto voluptatem cum.",
+            "expected_harvest": "Nisi adipisci temporibus sed. Porro vel quasi quia. Earum reiciendis voluptatem est qui iusto voluptatem cum.",
             "agree_record": 1,
             "license": 1,
             "promotion": 0,

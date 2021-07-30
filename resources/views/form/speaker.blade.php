@@ -19,7 +19,6 @@
         <title>講者上傳表單</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
     </head>
@@ -66,40 +65,43 @@
                             </h4>
                             <hr>
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <label for="name">{{ trans('speaker.name') }}*</label>
                                     <input type="text" class="form-control" id="name" v-model="formData.name" required :disabled="formData.readonly">
                                     <div class="invalid-feedback">
                                         {{ trans('speaker.required.name') }}
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <!--此欄位隱藏
+                                <div class="col-md-6 mb-3" style="display:none">
                                     <label for="name_e">{{ trans('speaker.name_e') }}</label>
                                     <input type="text" class="form-control" id="name_e" placeholder="英文名稱" v-model="formData.name_e" :disabled="formData.readonly">
-                                </div>
+                                </div>-->
                             </div>
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <label for="company">{{ trans('speaker.company') }}</label>
                                     <input type="text" class="form-control" id="company" placeholder="公司 / 組織" v-model="formData.company" :disabled="formData.readonly">
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <!--此欄位隱藏
+                                <div class="col-md-6 mb-3" style="display:none">
                                     <label for="company_e">{{ trans('speaker.company_e') }}</label>
                                     <input type="text" class="form-control" id="company_e" placeholder="英文公司/組織" v-model="formData.company_e" :disabled="formData.readonly">
-                                </div>
+                                </div>-->
                             </div>
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <label for="job_title">{{ trans('speaker.job_title') }}*</label>
                                     <input type="text" class="form-control" id="job_title" placeholder="職稱" v-model="formData.job_title" required :disabled="formData.readonly">
                                     <div class="invalid-feedback">
                                         {{ trans('speaker.required.job_title') }}
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <!--此欄位隱藏
+                                <div class="col-md-6 mb-3" style="display:none">
                                     <label for="job_title_e">{{ trans('speaker.job_title_e') }}</label>
                                     <input type="text" class="form-control" id="job_title_e" placeholder="英文職稱" v-model="formData.job_title_e" :disabled="formData.readonly">
-                                </div>
+                                </div>-->
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -111,13 +113,14 @@
                                     {{ trans('speaker.required.introduction') }}
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--此欄位隱藏
+                            <div class="form-group" style="display:none">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="introduction_e">{{ trans('speaker.introduction_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ introTextConunt_e }} / 240</span>
                                 </div>
                                 <textarea class="form-control" id="introduction_e" rows="4" v-model="formData.bio_e" maxlength="240" v-on:keyup="countText(240, 'introTextConunt_e', formData.bio_e)" :disabled="formData.readonly"></textarea>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <label for="photo">{{ trans('speaker.photo') }}*</label>
                                 <input type="file" class="form-control-file" id="photo" :required="formData.photo == null" @change="valideFile($event)" :disabled="formData.readonly">
@@ -164,29 +167,61 @@
                                     {{ trans('speaker.required.topic') }}
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--此欄位隱藏
+                            <div class="form-group" style="display:none">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="topic_e">{{ trans('speaker.topic_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ topicETextConunt }} / 64</span>
                                 </div>
                                 <textarea class="form-control" id="topic_e" rows="4" v-model="formData.topic_e" maxlength="64" v-on:keyup="countText(64, 'topicETextConunt', formData.topic_e)" :disabled="formData.readonly"></textarea>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="summary">{{ trans('speaker.summary') }}*</label>
-                                    <span class="d-inline-block text-right"> @{{ summaryTextConunt }} / 240</span>
+                                    <span class="d-inline-block text-right"> @{{ summaryTextConunt }} / 480</span>
                                 </div>
-                                <textarea class="form-control" id="summary" rows="4" v-model="formData.summary" maxlength="240" v-on:keyup="countText(240, 'summaryTextConunt', formData.summary)" required :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="summary" rows="4" v-model="formData.summary" maxlength="480" v-on:keyup="countText(480, 'summaryTextConunt', formData.summary)" required :disabled="formData.readonly"></textarea>
                                 <div class="invalid-feedback">
                                     {{ trans('speaker.required.summary') }}
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--此欄位隱藏
+                            <div class="form-group" style="display:none">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="summary_e">{{ trans('speaker.summary_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ summaryETextConunt }} / 480</span>
                                 </div>
                                 <textarea class="form-control" id="summary_e" rows="4" v-model="formData.summary_e" maxlength="480" v-on:keyup="countText(480, 'summaryETextConunt', formData.summary_e)" :disabled="formData.readonly"></textarea>
+                            </div>-->
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between flex-column flex-md-row">
+                                    <label for="target_audience">{{ trans('speaker.target_audience') }}*</label>
+                                    <span class="d-inline-block text-right"> @{{ target_audienceTextCount }} / 64</span>
+                                </div>
+                                <textarea class="form-control" id="target_audience" rows="4" v-model="formData.target_audience" maxlength="64" v-on:keyup="countText(64, 'target_audienceTextCount', formData.target_audience)" required :disabled="formData.readonly"></textarea>
+                                <div class="invalid-feedback">
+                                    {{ trans('speaker.required.target_audience') }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between flex-column flex-md-row">
+                                    <label for="prerequisites">{{ trans('speaker.prerequisites') }}*</label>
+                                    <span class="d-inline-block text-right"> @{{ prerequisitesTextCount }} / 120</span>
+                                </div>
+                                <textarea class="form-control" id="prerequisites" rows="4" v-model="formData.prerequisites" maxlength="120" v-on:keyup="countText(120, 'prerequisitesTextCount', formData.prerequisites)" required :disabled="formData.readonly"></textarea>
+                                <div class="invalid-feedback">
+                                    {{ trans('speaker.required.prerequisites') }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex justify-content-between flex-column flex-md-row">
+                                    <label for="expected_harvest">{{ trans('speaker.expected_harvest') }}*</label>
+                                    <span class="d-inline-block text-right"> @{{ expectedHarvestTextCount }} / 120</span>
+                                </div>
+                                <textarea class="form-control" id="expected_harvest" rows="4" v-model="formData.expected_harvest" maxlength="120" v-on:keyup="countText(120, 'expectedHarvestTextCount', formData.expected_harvest)" required :disabled="formData.readonly"></textarea>
+                                <div class="invalid-feedback">
+                                    {{ trans('speaker.required.expected_harvest') }}
+                                </div>
                             </div>
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.tag') }}</p>
@@ -203,20 +238,24 @@
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.license')}}</p>
                                 <p class="mb-0">(1) {{ trans('speaker.license_0') }}</p>
-                                <div class="d-flex flex-column-reverse mb-2">
-                                    <div class="form-check" v-for="(agree, index) in optionItem.licenseAgree" :key="'licenseAgree' + index">
+                                <div class="d-flex flex-column mb-2">
+                                    <div class="form-check" v-for="(agree, index) in optionItem.agreePolicyItem" :key="'licenseAgree' + index">
                                         <input class="form-check-input" type="radio" :id="'licenseAgree' + index" :value="index"
                                         v-model="formData.agree_record" :disabled="formData.readonly">
-                                        <label class="form-check-label" :for="'licenseAgree' + index">@{{ agree }}</label>
+                                        <label class="form-check-label" :for="'licenseAgree' + index" v-html="agree"></label>
                                     </div>
                                 </div>
-                                <div v-if="formData.agree_record == 1">
+                                <div>
                                     <p class="mb-0">(2) {{ trans('speaker.license') }} ( {{ trans('speaker.license_detail') }} <a href="https://cc.ocf.tw/">https://cc.ocf.tw/</a>)</p>
                                     <div class="form-check" v-for="(license, index) in optionItem.licenseItem" :key="license">
                                         <input class="form-check-input" type="radio" :id="license" v-model="formData.license" :value="index + 1" :disabled="formData.readonly">
                                         <label class=" form-check-label" :for="license">@{{ license }}</label>
                                     </div>
                                 </div>
+                                <p class="form-group-check__text mt-1">{{ trans('speaker.license_helper') }}</p>
+                            </div>
+                            <div class="form-group">
+                                <p class="mb-1"><strong>{{ trans('speaker.promote_info')}}</strong></p>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -225,7 +264,39 @@
                                 <input type="url" class="form-control" id="link_slide" v-model="formData.link_slide" placeholder="slide url" @blur="checkUrl('link_slide')">
                             </div>
                             <div class="form-group">
-                                <p class="mb-1"><strong>{{ trans('speaker.promote_info')}}</strong></p>
+                                <div class="d-flex justify-content-between flex-column flex-md-row">
+                                    <label for="link_pre_video">{{ trans('speaker.link_pre_video') }}</label>
+                                </div>
+                                <input type="url" class="form-control" id="link_pre_video" v-model="formData.link_pre_video" placeholder="video url" @blur="checkUrl('link_pre_video')">
+                            </div>
+                            <div class="form-group">
+                                <p class="mb-1">{{ trans('speaker.promote')}}</p>
+                                <p class="mb-0">(1) {{ trans('speaker.promote_by_mopcon') }}</p>
+                                <div class="form-check-inline" v-for="(promotion, index) in promotionItem" :key="'promotion' + index">
+                                    <input class="form-check-input" type="radio" :id="'promotion' + index" :value="index"
+                                    v-model="formData.promotion" :disabled="formData.readonly">
+                                    <label class="form-check-label" :for="'promotion' + index">@{{ promotion }}</label>
+                                </div>
+                                <p class="mb-0">(2) {{ trans('speaker.will_forward_posts') }}</p>
+                                <div class="form-check-inline" v-for="(promotion, index) in promotionItem" :key="'will_forward_posts' + index">
+                                    <input class="form-check-input" type="radio" :id="'will_forward_posts' + index" :value="index"
+                                    v-model="formData.will_forward_posts" :disabled="formData.readonly">
+                                    <label class="form-check-label" :for="'will_forward_posts' + index">@{{ promotion }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" id="agree_pre_video_public" value="1"
+                                    v-model="formData.agree_pre_video_public" :disabled="formData.readonly" name="agree_pre_video_public" required>
+                                    <label class="form-check-label" for="agree_pre_video_public">{{ trans('speaker.agree_pre_video_public')}}*</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" id="agree_record_qa" value="1"
+                                    v-model="formData.agree_record_qa" :disabled="formData.readonly" name="agree_record_qa" required>
+                                    <label class="form-check-label" for="agree_record_qa">{{ trans('speaker.agree_record_qa')}}*</label>
+                                </div>
                             </div>
                             <h4 class="text-primary mt-4">
                                 {{ trans('speaker.other_info') }}
@@ -234,16 +305,32 @@
                             <hr>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="real_name">{{ trans('speaker.real_name') }}</label>
-                                    <input type="text" class="form-control" id="real_name" placeholder="{{ trans('speaker.real_name') }}" v-model="formData.real_name" :disabled="formData.readonly">
+                                    <label for="real_name">{{ trans('speaker.real_name') }}*</label>
+                                    <input type="text" class="form-control" id="real_name" placeholder="{{ trans('speaker.real_name') }}" v-model="formData.real_name" :disabled="formData.readonly" required>
+                                    <div class="invalid-feedback">
+                                        {{ trans('speaker.required.real_name') }}
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="contact_email">{{ trans('speaker.contact_email') }}</label>
-                                    <input type="email" class="form-control" id="contact_email" placeholder="{{ trans('speaker.contact_email') }}" v-model="formData.contact_email" :disabled="formData.readonly">
+                                    <label for="contact_email">{{ trans('speaker.contact_email') }}*</label>
+                                    <input type="email" class="form-control" id="contact_email" placeholder="{{ trans('speaker.contact_email') }}" v-model="formData.contact_email" :disabled="formData.readonly" required>
+                                    <div class="invalid-feedback">
+                                        {{ trans('speaker.required.contact_email') }}
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="contact_phone">{{ trans('speaker.contact_phone') }}</label>
-                                    <input type="tel" class="form-control" id="contact_phone" placeholder="{{ trans('speaker.contact_phone') }}" v-model="formData.contact_phone" :disabled="formData.readonly">
+                                    <label for="contact_phone">{{ trans('speaker.contact_phone') }}*</label>
+                                    <input type="tel" class="form-control" id="contact_phone" placeholder="{{ trans('speaker.contact_phone') }}" v-model="formData.contact_phone" :disabled="formData.readonly" required>
+                                    <div class="invalid-feedback">
+                                        {{ trans('speaker.required.contact_phone') }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="contact_address">{{ trans('speaker.contact_address') }}*</label>
+                                    <input type="text" class="form-control" id="contact_address" placeholder="{{ trans('speaker.contact_address') }}" v-model="formData.contact_address" :disabled="formData.readonly" required>
+                                    <div class="invalid-feedback">
+                                        {{ trans('speaker.required.contact_address') }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -254,6 +341,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" id="agree_act_change" value="1"
+                                    v-model="formData.agree_act_change" :disabled="formData.readonly" name="agree_act_change" required>
+                                    <label class="form-check-label" for="agree_act_change">{{ trans('speaker.agree_act_change')}}*</label>
+                                </div>
+                            </div>
+                            <!--2021年改為線上活動，故以下實體活動問題暫時隱藏
+                            <div class="form-group" style="display:none">
                                 <p class="mb-1">{{ trans('speaker.need_parking_space')}}</p>
                                 <div class="form-check-inline" v-for="(promotion, index) in promotionItem" :key="'parking' + index">
                                     <input class="form-check-input" type="radio" :id="'parking' + index" :value="index"
@@ -261,7 +356,7 @@
                                     <label class="form-check-label" :for="'parking' + index">@{{ promotion }}</label>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display:none">
                                 <p class="mb-1">{{ trans('speaker.has_dinner')}}</p>
                                 <div class="form-check-inline" v-for="(promotion, index) in promotionItem" :key="'has_dinner' + index">
                                     <input class="form-check-input" type="radio" :id="'has_dinner' + index" :value="index"
@@ -269,17 +364,17 @@
                                     <label class="form-check-label" :for="'has_dinner' + index">@{{ promotion }}</label>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display:none">
                                 <p class="mb-1">{{ trans('speaker.meal_preference')}}</p>
                                 <div class="form-check-inline" v-for="(meal, index) in optionItem.mealPreferenceItem" :key="meal">
                                     <input class="form-check-input" type="radio" :id="meal" :value="index" v-model="formData.meal_preference" :disabled="formData.readonly">
                                     <label class="form-check-label" :for="meal">@{{ meal }}</label>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display:none">
                                 <p class="mb-1">{{ trans('speaker.has_companion')}}</p>
                                 <input type="number" class="form-control" min="0" v-model="formData.has_companion" :disabled="formData.readonly">
-                            </div>
+                            </div>-->
                             <input type="hidden" class="send" name="password" v-model="password">
                             <button id="formSubmit" class="btn btn-primary btn-block my-4" type="submit" @click.prevent="validationForm()">{{ trans('speaker.submit') }}</button>
                         </form>
@@ -351,7 +446,7 @@
                 tags: [0],
                 optionItem: {
                     'levelItem': ['{{ trans('speaker.level_0') }}','{{ trans('speaker.level_1') }}','{{ trans('speaker.level_2') }}'],
-                    'licenseAgree': ['{{ trans('speaker.license_4') }}', '{{ trans('speaker.yes') }}'],
+                    'agreePolicyItem': ['{{ trans('speaker.agreed_policy_0') }}', '{{ trans('speaker.agreed_policy_1') }}'],
                     'licenseItem': ['{{ trans('speaker.license_1') }}', '{{ trans('speaker.license_2') }}', '{{ trans('speaker.license_3') }}'],
                     'mealPreferenceItem': ['{{ trans('speaker.meal_0') }}', '{{ trans('speaker.meal_1') }}', '{{ trans('speaker.meal_2') }}'],
                     'speakerStatusItem': [],
@@ -364,10 +459,13 @@
                 introTextConunt_e: 240,
                 topicTextConunt: 32,
                 topicETextConunt: 64,
-                summaryTextConunt: 240,
+                summaryTextConunt: 480,
                 summaryETextConunt: 480,
-                checkData: ['level', 'license', 'promotion', 'tshirt_size', 'need_parking_space', 'has_dinner', 'meal_preference', 'has_companion'],
-                defaultIsFirst: ['agree_record', 'licenseItem'],
+                target_audienceTextCount: 64,
+                prerequisitesTextCount: 120,
+                expectedHarvestTextCount: 120,
+                checkData: ['level', 'license', 'tshirt_size', 'need_parking_space', 'has_dinner', 'meal_preference', 'has_companion'],
+                defaultIsFirst: ['agree_record', 'licenseItem','will_forward_posts','promotion'],
             },
             methods: {
                 getSponsorForm: function (password) {
@@ -395,8 +493,11 @@
                             vm.countText(240, 'introTextConunt_e', vm.formData.bio_e);
                             vm.countText(32, 'topicTextConunt', vm.formData.topic);
                             vm.countText(64, 'topicETextConunt', vm.formData.topic_e);
-                            vm.countText(240, 'summaryTextConunt', vm.formData.summary);
+                            vm.countText(480, 'summaryTextConunt', vm.formData.summary);
                             vm.countText(480, 'summaryETextConunt', vm.formData.summary_e);
+                            vm.countText(64, 'target_audienceTextCount', vm.formData.target_audience);
+                            vm.countText(120, 'prerequisitesTextCount', vm.formData.prerequisites);
+                            vm.countText(120, 'expectedHarvestTextCount', vm.formData.expected_harvest);
                         } else {
                             vm.alertShow = true;
                             vm.message = response.data.message
@@ -413,7 +514,7 @@
                     .then(response => {
                         const res = response.data.data;
                         const keys = Object.keys(res);
-                        const filter = ['levelItem', 'licenseItem', 'mealPreferenceItem'];
+                        const filter = ['levelItem', 'licenseItem', 'mealPreferenceItem', 'agreePolicyItem'];
                         keys.forEach(key => {
                             if (filter.indexOf(key) !== -1) {
                                 return;
@@ -536,7 +637,7 @@
                     if (content) {
                         vm[data] = num - content.length;
                     } else {
-                        return num
+                        vm[data] = num;
                     }
                 },
             },

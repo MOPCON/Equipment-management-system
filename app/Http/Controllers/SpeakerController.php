@@ -44,6 +44,7 @@ class SpeakerController extends Controller
         'job_title_e' => '職稱(英文)',
         'contact_email' => '聯絡 Email',
         'contact_phone' => '聯絡電話',
+        'contact_address' => '聯絡地址',
         'bio' => '個人介紹',
         'bio_e' => '個人介紹(英文)',
         'photo' => '照片',
@@ -53,15 +54,23 @@ class SpeakerController extends Controller
         'link_other' => '其他(如Website/Blog)',
         'link_slide' => '投影片連結',
         'link_video' => '錄影檔影片連結',
+        'link_pre_video' => '預錄影片連結',
+        'agree_act_change ' => '知悉活動會因狀況調整',
+        'agree_record_qa'     => '我同意 Q&A 階段進行錄影',
+        'agree_pre_video_public' => '我同意且知悉活動結束後七天內，預錄影片會放在 Youtube 供會眾觀看',
         'topic' => '演講主題',
         'topic_e' => '演講主題(英文)',
         'summary' => '演講摘要',
         'summary_e' => '演講摘要(英文)',
         'tag_text' => '標籤',
         'level_text' => '難易度',
+        'target_audience' => '目標會眾',
+        'prerequisites' => '先備知識',
+        'expected_harvest' => '預期收穫',
         'agree_record' => '同意錄影',
         'license_text' => '授權方式',
         'promotion' => '是否同意公開宣傳',
+        'will_forward_posts' => '是否願意轉發大會文章',
         'tshirt_size_text' => 'T-shirt 尺寸',
         'need_parking_space' => '您是否需有停車需求',
         'year' => '年份',
@@ -220,14 +229,14 @@ class SpeakerController extends Controller
     }
 
     /**
-     * 匯入 kktix CSV
+     * 匯入講者資料 CSV
      * csv example
-     * Id,訂單編號,報名序號,檢查碼,票種,票券付款狀態,標籤,QR Code 序號,售出日期,票面價格,聯絡人 姓名,聯絡人 Email,聯絡人 手機,聯絡人 居住城市,聯絡人 公司／組織名稱,聯絡人 職稱,聯絡人 以下填寫講者及議題資訊,聯絡人 如果有Blog、Github、報導等連結可以填寫，以利委員會審核。此欄位非最後議程手冊上定稿之文案。,聯絡人 講者簡介,聯絡人 講題,聯絡人 講題簡介,聯絡人 請選擇與講題高度相關的標籤，若選取過多，大會將斟酌調整以利委員會審核。,聯絡人 建議的分類標籤,聯絡人 如果有投影片可以提供，以利議程委員審核。,聯絡人 投影片連結,聯絡人 請選擇能否實況或錄影，為促進知識分享交流，MOPCON 竭誠歡迎願意與人們分享的講題。,聯絡人 演講錄影,聯絡人 你從哪裡知道這項活動,聯絡人 備註,Attendance Book
+     * 訂單編號,票號,狀態,訂購人姓名,訂購人Email,訂購人電話,參加人姓名,參加人Email,參加人電話,報名時間(GTM+8),有效時間(GTM+8),票種分組,票券名稱,票券細節,票價(NT),付款時間(GTM+8),付款方式,信用卡末四碼,首次驗票時間(GTM+8),首次驗票備註,最後驗票時間(GTM+8),最後驗票備註,驗票次數,驗票通知,備註,取消原因,公司 / 組織名稱,職稱,講者簡介,講題,主題分類標籤,其他,語言,摘要,備註,投影片連結,錄影授權,從哪裡知道這項報名活動
      *
      * @param ImportRequest $request
      * @return JsonResponse
      */
-    public function importKKTIX(ImportRequest $request)
+    public function importCSV(ImportRequest $request)
     {
         if (!$request->hasFile('upload')) {
             return $this->return400Response();
@@ -249,42 +258,43 @@ class SpeakerController extends Controller
                 }
                 $l = mb_convert_encoding($l, 'UTF-8', $detect);
             }
-            if ($count == 0) {
+            // 標題及空白列，忽略不處理
+            if ($count <= 1) {
                 $count++;
                 continue;
             }
-            if (!isset($line[10]) || !is_string($line[10]) || trim($line[10]) === '') {
+            // 狀態非已付款，忽略不處理
+            if (!isset($line[2]) || !is_string($line[2]) || trim($line[2]) !== '已付款') {
+                continue;
+            }
+            // 參與者姓名為空，忽略不處理
+            if (!isset($line[3]) || !is_string($line[3]) || trim($line[3]) === '') {
                 continue;
             }
             $tagStr = '[]';
-            if (isset($line[22]) && is_string($line[22]) && trim($line[22]) !== '') {
-                $tags = array_map('trim', explode(',', $line[22]));
+            if (isset($line[30]) && is_string($line[30]) && trim($line[30]) !== '') {
+                $tags = array_map('trim', explode(' ', $line[30]));
                 $chosenTag = array_intersect(Speaker::$tagItem, $tags);
                 $tagStr = json_encode(array_keys($chosenTag));
             }
-            $agree_record = $license = 1;
-            if (isset($line[26]) && is_string($line[26]) && preg_match('/謝絕/', $line[26])) {
-                $agree_record = 0;
-                $license = null;
-            }
-            $bio = $line[18] ?? null;
-            $summary = $line[20] ?? null;
-            $topic = $line[19] ?? null;
+            $bio = $line[28] ?? null;
+            $summary = $line[33] ?? null;
+            $topic = $line[29] ?? null;
             $content[] = [
                 'speaker_status' => 0,
-                'name'           => $line[10] ?? null,
-                'real_name'      => $line[10] ?? null,
-                'company'        => $line[14] ?? null,
-                'job_title'      => $line[15] ?? null,
-                'contact_email'  => $line[11] ?? null,
-                'contact_phone'  => $line[12] ?? null,
+                'name'           => $line[3] ?? null,
+                'real_name'      => $line[3] ?? null,
+                'company'        => $line[26] ?? null,
+                'job_title'      => $line[27] ?? null,
+                'contact_email'  => $line[4] ?? null,
+                'contact_phone'  => $line[5] ?? null,
                 'bio'            => $bio !== null ? $this->cutImportDataString($bio, 120) : null,
-                'link_slide'     => $line[24] ?? null,
+                'link_slide'     => $line[35] ?? null,
                 'topic'          => $topic !== null ? $this->cutImportDataString($topic, 32) : null,
-                'summary'        => $summary !== null ? $this->cutImportDataString($summary, 240) : null,
+                'summary'        => $summary !== null ? $this->cutImportDataString($summary, 480) : null,
                 'tag'            => $tagStr,
-                'agree_record'   => $agree_record,
-                'license'        => $license,
+                'agree_record'   => 1,
+                'license'        => 5,
                 'year'           => $year,
                 'speaker_type'   => 1,
                 'last_edited_by' => auth()->user()->name,
@@ -347,6 +357,7 @@ class SpeakerController extends Controller
             'tagItem' => $tagItem,
             'levelItem' => Speaker::$levelItem,
             'licenseItem' => Speaker::$licenseItem,
+            'agreePolicyItem' => Speaker::$agreePolicyItem,
             'tshirtSizeItem' => Speaker::$tshirtSizeItem,
             'mealPreferenceItem' => Speaker::$mealPreferenceItem,
             'speakerStatusItem' => Speaker::$speakerStatusItem,

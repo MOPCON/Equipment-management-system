@@ -443,7 +443,7 @@
                 message: '',
                 classColor: 'alert-danger',
                 formData: {},
-                tags: [0],
+                tags: [],
                 optionItem: {
                     'levelItem': ['{{ trans('speaker.level_0') }}','{{ trans('speaker.level_1') }}','{{ trans('speaker.level_2') }}'],
                     'agreePolicyItem': ['{{ trans('speaker.agreed_policy_0') }}', '{{ trans('speaker.agreed_policy_1') }}'],

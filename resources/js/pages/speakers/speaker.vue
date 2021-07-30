@@ -289,7 +289,7 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="14" scope="row" width="120px">議程資料</th>
+                <th rowspan="15" scope="row" width="120px">議程資料</th>
                 <td>演講主題</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic"
@@ -444,12 +444,24 @@
                 </td>
               </tr>
               <tr>
-                <td>是否同意公開宣傳？ (是/否)</td>
+                <td>是否願意被 MOPCON 的粉專提及或標註？(是/否)</td>
                 <td>
                   <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
                     <input class="form-check-input" type="radio" :id="'open' + index" :value="index"
                       v-model="speakerDetailData.promotion">
                     <label class="form-check-label" :for="'open' + index">
+                      {{ name }}
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>是否願意轉發 MOPCON 的講者宣傳文和大會其他文章？ (是/否)</td>
+                <td>
+                  <div class="form-check-inline" v-for="(name, index) in promotionItem" :key="name">
+                    <input class="form-check-input" type="radio" :id="'will' + index" :value="index"
+                      v-model="speakerDetailData.will_forward_posts">
+                    <label class="form-check-label" :for="'will' + index">
                       {{ name }}
                     </label>
                   </div>

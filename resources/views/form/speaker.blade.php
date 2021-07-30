@@ -430,7 +430,7 @@
                     <input type="password" class="form-control" id="access_screct" name="password" v-model="password" @key.enter="accesskey_method()">
                 </div>
                 <div id="vali" class="my-2"></div>
-                <input id="access_send" type='submit' class="btn btn-primary float-right" value="${'{{ trans('speaker.submit') }}'}" disabled="true" @click.prevent="accesskey_method()"/>
+                <input id="access_send" type='submit' class="btn btn-primary float-right" value="${'{{ trans('speaker.submit') }}'}" @click.prevent="accesskey_method()"/>
             </form>`
         });
 
@@ -443,7 +443,7 @@
                 message: '',
                 classColor: 'alert-danger',
                 formData: {},
-                tags: [0],
+                tags: [],
                 optionItem: {
                     'levelItem': ['{{ trans('speaker.level_0') }}','{{ trans('speaker.level_1') }}','{{ trans('speaker.level_2') }}'],
                     'agreePolicyItem': ['{{ trans('speaker.agreed_policy_0') }}', '{{ trans('speaker.agreed_policy_1') }}'],

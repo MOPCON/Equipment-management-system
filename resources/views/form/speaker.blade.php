@@ -333,13 +333,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.tshirt_size')}}</p>
                                 <div class="form-check-inline" v-for="(size, index) in optionItem.tshirtSizeItem" :key="size">
                                     <input class="form-check-input" type="radio" :id="size" :value="index" v-model="formData.tshirt_size" :disabled="formData.readonly">
                                     <label class="form-check-label" :for="size"> @{{ size }} </label>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <div class="form-check-inline">
                                     <input class="form-check-input" type="radio" id="agree_act_change" value="1"

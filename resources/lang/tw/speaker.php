@@ -17,7 +17,7 @@ return [
     'job_title_e'         => '英文職稱',
     'contact_email'       => '聯絡 Email',
     'contact_phone'       => '聯絡電話',
-    'contact_address'     => '聯絡地址（寄送 MOPCON T-Shirt 及紀念品）',
+    'contact_address'     => '聯絡地址（寄送 MOPCON 及紀念品）',
     'introduction'        => '個人介紹',
     'introduction_e'      => '個人介紹 (英文)',
     'photo'               => '照片',

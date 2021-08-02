@@ -293,14 +293,14 @@
                 <td>演講主題</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic"
-                    maxlength="32">
+                    maxlength="150">
                 </td>
               </tr>
               <tr>
                 <td>演講主題 (英文)</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic_e"
-                    maxlength="64">
+                    maxlength="150">
                 </td>
               </tr>
               <tr>

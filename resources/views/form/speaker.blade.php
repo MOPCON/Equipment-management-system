@@ -144,13 +144,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-white"><i class="fab fa-twitter"></i></span>
                                 </div>
-                              <input type="url" class="form-control" id="link_twitter" v-model="formData.link_twitter" placeholder="Twitter url" @blur="checkUrl('link_twitter')" :disabled="formData.readonly">
+                                <input type="url" class="form-control" id="link_twitter" v-model="formData.link_twitter" placeholder="Twitter url" @blur="checkUrl('link_twitter')" :disabled="formData.readonly">
                             </div>
                             <div class="input-group mt-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-white"><i class="fas fa-globe"></i></span>
                                 </div>
-                              <input type="url"  class="form-control" id="link_other" v-model="formData.link_other" placeholder="其他(如 Website / Blog) url" @blur="checkUrl('link_other')" :disabled="formData.readonly">
+                                <input type="url"  class="form-control" id="link_other" v-model="formData.link_other" placeholder="其他(如 Website / Blog) url" @blur="checkUrl('link_other')" :disabled="formData.readonly">
                             </div>
                             <h4 class="text-primary mt-4">
                                 {{ trans('speaker.agenda_info') }}
@@ -160,9 +160,9 @@
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="topic">{{ trans('speaker.topic') }}*</label>
-                                    <span class="d-inline-block text-right"> @{{ topicTextConunt }} / 32</span>
+                                    <span class="d-inline-block text-right"> @{{ topicTextConunt }} / 150</span>
                                 </div>
-                                <textarea class="form-control" id="topic" rows="4" v-model="formData.topic" maxlength="32" v-on:keyup="countText(32, 'topicTextConunt', formData.topic)" required :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="topic" rows="4" v-model="formData.topic" maxlength="150" v-on:keyup="countText(150, 'topicTextConunt', formData.topic)" required :disabled="formData.readonly"></textarea>
                                 <div class="invalid-feedback">
                                     {{ trans('speaker.required.topic') }}
                                 </div>
@@ -171,9 +171,9 @@
                             <div class="form-group" style="display:none">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="topic_e">{{ trans('speaker.topic_e') }}</label>
-                                    <span class="d-inline-block text-right"> @{{ topicETextConunt }} / 64</span>
+                                    <span class="d-inline-block text-right"> @{{ topicETextConunt }} / 150</span>
                                 </div>
-                                <textarea class="form-control" id="topic_e" rows="4" v-model="formData.topic_e" maxlength="64" v-on:keyup="countText(64, 'topicETextConunt', formData.topic_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="topic_e" rows="4" v-model="formData.topic_e" maxlength="150" v-on:keyup="countText(150, 'topicETextConunt', formData.topic_e)" :disabled="formData.readonly"></textarea>
                             </div>-->
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -457,8 +457,8 @@
                 promotionItem: ['{{ trans('speaker.no') }}', '{{ trans('speaker.yes') }}'],
                 introTextConunt: 120,
                 introTextConunt_e: 240,
-                topicTextConunt: 32,
-                topicETextConunt: 64,
+                topicTextConunt: 150,
+                topicETextConunt: 150,
                 summaryTextConunt: 480,
                 summaryETextConunt: 480,
                 target_audienceTextCount: 64,

@@ -491,7 +491,7 @@
                             vm.getSpeakerOption();
                             vm.countText(120, 'introTextConunt', vm.formData.bio);
                             vm.countText(240, 'introTextConunt_e', vm.formData.bio_e);
-                            vm.countText(32, 'topicTextConunt', vm.formData.topic);
+                            vm.countText(150, 'topicTextConunt', vm.formData.topic);
                             vm.countText(64, 'topicETextConunt', vm.formData.topic_e);
                             vm.countText(480, 'summaryTextConunt', vm.formData.summary);
                             vm.countText(480, 'summaryETextConunt', vm.formData.summary_e);

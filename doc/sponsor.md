@@ -94,7 +94,12 @@
                 "advence_registration_ad_path": "https://lorempixel.com/120/120/cats/?87591",
                 "advence_keynote": "Voluptatem repellendus tempore et est dolores velit. Sed voluptate sunt officiis ipsa consectetur ut consequatur.",
                 "advence_hall_flag_path": "https://lorempixel.com/120/120/cats/?28690",
-                "advence_main_flow_flag_path": "https://lorempixel.com/120/120/cats/?90455"
+                "advence_main_flow_flag_path": "https://lorempixel.com/120/120/cats/?90455",
+                "promotion_ad_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_warm_up_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
             }
         }
     }
@@ -140,6 +145,11 @@
 		+ reason [string] 為什麼本次選擇贊助 MOPCON？
 		+ purpose [string] 希望能在本次大會達成的目標
 		+ remark [string] 備註
+		+ promotion_ad_media_link [string] 廣告播放連結,
+        + promotion_warm_up_media_link [string] 暖場動畫連結,
+        + promotion_discord_intro [string] Discord 攤位宣傳簡介,
+        + promotion_email_short [string] [Email 行前通知信宣傳]公司或活動簡短介紹文,
+        + promotion_email_url [string] [Email 行前通知信宣傳]可為官網或宣傳內容相關連結,
 		+ advence_icck_ad_path [image] ICCK 大門兩側廣告圖檔
 		+ advence_registration_ad_path [image] 報到處全版廣告空間圖檔
 		+ advence_keynote [string] Keynote 引言
@@ -193,7 +203,12 @@
                 "advence_registration_ad_path": "https://lorempixel.com/120/120/cats/?87591",
                 "advence_keynote": "Voluptatem repellendus tempore et est dolores velit. Sed voluptate sunt officiis ipsa consectetur ut consequatur.",
                 "advence_hall_flag_path": "https://lorempixel.com/120/120/cats/?28690",
-                "advence_main_flow_flag_path": "https://lorempixel.com/120/120/cats/?90455"
+                "advence_main_flow_flag_path": "https://lorempixel.com/120/120/cats/?90455",
+                "promotion_ad_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_warm_up_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
             }
         }
     }
@@ -260,6 +275,11 @@
                     advence_keynote: null,
                     advence_hall_flag_path: null,
                     advence_main_flow_flag_path: null,
+                    promotion_ad_media_link: "https://lorempixel.com/120/120/cats/?28690",
+                    promotion_warm_up_media_link: "https://lorempixel.com/120/120/cats/?28690",
+                    promotion_discord_intro: "https://lorempixel.com/120/120/cats/?28690",
+                    promotion_email_short: "https://lorempixel.com/120/120/cats/?28690",
+                    promotion_email_url: "https://lorempixel.com/120/120/cats/?28690",
                     access_key: "80404beb-edec-418b-8aba-0ee6091de6aa",
                     access_secret: "4tvioK6Qzi0VHVsCXJ3S",
                     updated_by: 0,
@@ -372,6 +392,11 @@
                 "advence_keynote": "Quis eos ut velit et enim dicta labore explicabo. Et placeat ut sequi ipsam eum. Ipsa quisquam quas aut debitis.",
                 "advence_hall_flag_path": "https://lorempixel.com/120/120/cats/?51183",
                 "advence_main_flow_flag_path": "https://lorempixel.com/120/120/cats/?94116",
+                "promotion_ad_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_warm_up_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
                 "sponsor_type_text": "Bruce Wayne",
                 "sponsor_file_text": [
                     "Keynote 引言",
@@ -435,6 +460,11 @@
 		+ reason [string] 為什麼本次選擇贊助 MOPCON？
 		+ purpose [string] 希望能在本次大會達成的目標
 		+ remark [string] 備註
+        + promotion_ad_media_link [string] 廣告播放連結,
+        + promotion_warm_up_media_link [string] 暖場動畫連結,
+        + promotion_discord_intro [string] Discord 攤位宣傳簡介,
+        + promotion_email_short [string] [Email 行前通知信宣傳]公司或活動簡短介紹文,
+        + promotion_email_url [string] [Email 行前通知信宣傳]可為官網或宣傳內容相關連結,
 		+ advence_icck_ad_path [image] ICCK大門兩側廣告圖檔
 		+ advence_registration_ad_path [image] 報到處全版廣告空間圖檔
 		+ advence_keynote Keynote [string] 引言圖檔
@@ -486,6 +516,11 @@
                 "advence_keynote": "Occaecati veniam et corrupti eos. A et tempore veniam est. Tenetur aut reiciendis aut placeat ut.",
                 "advence_hall_flag_path": "https://lorempixel.com/120/120/cats/?18177",
                 "advence_main_flow_flag_path": "https://lorempixel.com/120/120/cats/?79501",
+                "promotion_ad_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_warm_up_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
                 "sponsor_type_text": "Developer",
                 "sponsor_file_text": []
             },

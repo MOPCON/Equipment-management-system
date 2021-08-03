@@ -5,6 +5,7 @@ return [
     'sponsor_form'        => 'Sponsor form',
     'sponsor_form_c'      => '贊助商表單',
     'sponsor_upload_form' => 'Sponsor Upload Data Form',
+    'second'              => 'second',
     'password'            => 'password',
     'submit'              => 'Submit',
     'promote_data'        => 'Promotional Data',
@@ -41,6 +42,7 @@ return [
     ],
     'advance' => [
         'sponsor_type'   => 'Sponsor type',
+        'email_before_start' => 'Publicize in pre-departure notice mail',
         'icck'           => 'ICCK entrance full frame Ad',
         'registration'   => 'MOPCON entrance full frame Ad',
         'keynote'        => 'Introduction in keynote session',
@@ -48,7 +50,14 @@ return [
         'main_flow_flag' => 'Flag banners at the main aisle',
         'tony_stark'     => 'Tony Stark',
         'bruce_wayne'    => 'Bruce Wayne',
-        'hacker'         => 'Hacker'
+        'hacker'         => 'Hacker',
+        'hacker'         => 'Hacker',
+        'developer'      => 'Developer',
+        'promotion_ad_media_link'         => 'Ad play',
+        'promotion_warm_up_media_link' => 'Warm-up Animation',
+        'promotion_discord_intro' => 'Introduction of Discord stall',
+        'promotion_email_short' => 'Introduction of company or event',
+        'promotion_email_url' => 'Publicize url',
     ],
     'subtitle' => [
         'introduction'    => '提供專業背景與沿革(250字內)',
@@ -64,6 +73,11 @@ return [
         'keynote'         => '將由主持人進行介紹(150字以內)',
         'hall_flag'       => '寬55cmx高200cm+出血0.5cm 解析度150-200dpi (AI/PSD/JPG/PNG)',
         'main_flow_flag'  => '寬55cmx高200cm+出血0.5cm 解析度150-200dpi (AI/PSD/JPG/PNG)',
+        'promotion_ad_media_link' => 'It can be image or video',
+        'promotion_warm_up_media_link' => 'It can be image or video',
+        'promotion_discord_intro' => 'Please provide company\'s introduction for stall',
+        'promotion_email_short' => 'about 100 characters',
+        'promotion_email_url' => 'It can be official website or publicize url',
     ],
     'required' => [
         'main_name'                   => 'Company name (CH) is required',
@@ -86,6 +100,7 @@ return [
     'cloud' => [
         'link' => 'Or provide file sharing link.',
         'description' => '(If file\'s size is more than 20MB or provide more than two files.)',
-        'error' => 'Either file or link.'
+        'error' => 'Either file or link.',
+        'only_url' => 'Please provide sharing link.'
     ]
 ];

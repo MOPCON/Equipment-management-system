@@ -11,7 +11,8 @@ use App\Services\AutoCorrectService;
 
 class SponsorController extends Controller
 {
-    use ApiTrait, CheckPermissionTrait;
+    use ApiTrait;
+    use CheckPermissionTrait;
 
     private static $hiddenFieldsForExternal = [
         'id',
@@ -73,6 +74,11 @@ class SponsorController extends Controller
         'recipe_contact_phone'          => '聯絡人電話',
         'recipe_contact_email'          => '聯絡人Email',
         'recipe_contact_address'        => '收件地址',
+        'promotion_ad_media_link'       => '廣告播放連結',
+        'promotion_warm_up_media_link'  => '暖場動畫連結',
+        'promotion_discord_intro'       => 'Discord 攤位宣傳簡介',
+        'promotion_email_short'         => '公司或活動簡短介紹文',
+        'promotion_email_url'           => '可為官網或宣傳內容相關連結',
         'advence_icck_ad_path'          => 'ICCK大門兩側廣告',
         'advence_registration_ad_path'  => '報到處全版廣告空間',
         'advence_keynote'               => 'Keynote 引言',
@@ -403,8 +409,9 @@ class SponsorController extends Controller
         $data = [];
         $preg_path = url(Sponsor::$filePath);
         $preg_path = preg_replace('/\//', '\/', $preg_path);
+        // dd($sponsor->toArray());
         foreach ($sponsor->toArray() as $key => $item) {
-            if (preg_match('/(advence_)|(sponsor_type)|(sponsor_file_text)/', $key)) {
+            if (preg_match('/(advence_)|(sponsor_type)|(sponsor_file_text)|(promotion_)/', $key)) {
                 if (!preg_match('/(_path)/', $key)) {
                     $data['advence'][$key] = $item;
                     continue;

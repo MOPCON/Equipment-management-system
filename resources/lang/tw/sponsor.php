@@ -5,6 +5,7 @@ return [
     'sponsor_form'        => '贊助商表單',
     'sponsor_form_c'      => 'Sponsor form',
     'sponsor_upload_form' => '贊助商資料上傳表單',
+    'addition_title'      => '進階贊助商資料',
     'second'              => '秒',
     'password'            => '密碼',
     'submit'              => '送出',
@@ -39,6 +40,7 @@ return [
         'contact_phone_number' => '聯絡人電話',
         'contact_mail'         => '聯絡人 Email',
         'contact_address'      => '收件地址',
+        'contact_address_placeholder' => '請填寫完整收件地址',
     ],
     'advance' => [
         'sponsor_type'   => '贊助商類型',
@@ -57,6 +59,7 @@ return [
         'promotion_discord_intro' => 'Discord 攤位宣傳簡介',
         'promotion_email_short' => '公司或活動簡短介紹文',
         'promotion_email_url' => '相關連結',
+        'promotion_email_image' => '宣傳圖片',
 
     ],
     'subtitle' => [

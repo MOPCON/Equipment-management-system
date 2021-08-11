@@ -5,6 +5,8 @@ return [
     'sponsor_form'        => '贊助商表單',
     'sponsor_form_c'      => 'Sponsor form',
     'sponsor_upload_form' => '贊助商資料上傳表單',
+    'addition_title'      => '進階贊助商資料',
+    'second'              => '秒',
     'password'            => '密碼',
     'submit'              => '送出',
     'promote_data'        => '公開宣傳資料',
@@ -38,9 +40,11 @@ return [
         'contact_phone_number' => '聯絡人電話',
         'contact_mail'         => '聯絡人 Email',
         'contact_address'      => '收件地址',
+        'contact_address_placeholder' => '請填寫完整收件地址',
     ],
     'advance' => [
         'sponsor_type'   => '贊助商類型',
+        'email_before_start' => 'Email 行前通知信宣傳',
         'icck'           => 'ICCK 大門口兩側廣告柱',
         'registration'   => '報到處全版廣告空間 ( Truss 架廣告)',
         'keynote'        => 'Keynote 引言',
@@ -48,7 +52,15 @@ return [
         'main_flow_flag' => '主動線旗幟廣告',
         'tony_stark'     => 'Tony Stark',
         'bruce_wayne'    => 'Bruce Wayne',
-        'hacker'         => 'Hacker'
+        'hacker'         => 'Hacker',
+        'developer'         => 'Developer',
+        'promotion_ad_media_link'         => '廣告播放',
+        'promotion_warm_up_media_link' => '暖場動畫',
+        'promotion_discord_intro' => 'Discord 攤位宣傳簡介',
+        'promotion_email_short' => '公司或活動簡短介紹文',
+        'promotion_email_url' => '相關連結',
+        'promotion_email_image' => '宣傳圖片',
+
     ],
     'subtitle' => [
         'introduction'    => '提供專業背景與沿革(250字內)',
@@ -64,6 +76,11 @@ return [
         'keynote'         => '將由主持人進行介紹(150字以內)',
         'hall_flag'       => '寬55cmx高200cm+出血0.5cm 解析度150-200dpi (AI/PSD/JPG/PNG)',
         'main_flow_flag'  => '寬55cmx高200cm+出血0.5cm 解析度150-200dpi (AI/PSD/JPG/PNG)',
+        'promotion_ad_media_link' => '可為圖片或影片',
+        'promotion_warm_up_media_link' => '可為圖片或影片',
+        'promotion_discord_intro' => '提供贊助商攤位簡介',
+        'promotion_email_short' => '約 100 字',
+        'promotion_email_url' => '可為官網或宣傳內容相關連結',
     ],
     'required' => [
         'main_name'                   => '公司名稱為必填',
@@ -86,6 +103,7 @@ return [
     'cloud' => [
         'link' => '或提供雲端硬碟檔案連結',
         'description' => '適用檔案超過 20MB 或兩個以上的檔案',
-        'error' => '檔案上傳、雲端連結請擇一提供。'
+        'error' => '檔案上傳、雲端連結請擇一提供。',
+        'only_url' => '請提供雲端連結。'
     ]
 ];

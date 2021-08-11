@@ -54,14 +54,14 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="companyName">{{trans('sponsor.main.name')}}*</label>
-                                    <input type="text" class="form-control" id="companyName" placeholder="公司名稱" v-model="formData.main.name" required>
+                                    <input type="text" class="form-control" id="companyName" placeholder="{{trans('sponsor.main.name')}}" v-model="formData.main.name" required>
                                     <div class="invalid-feedback">
                                         {{trans('sponsor.required.main_name')}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="companyEnglishName">{{trans('sponsor.main.en_name')}}*</label>
-                                    <input type="text" class="form-control" id="companyEnglishName" placeholder="公司英文名稱" v-model="formData.main.en_name" required>
+                                    <input type="text" class="form-control" id="companyEnglishName" placeholder="{{trans('sponsor.main.en_name')}}" v-model="formData.main.en_name" required>
                                     <div class="invalid-feedback">
                                         {{trans('sponsor.required.main_en_name')}}
                                     </div>
@@ -155,7 +155,7 @@
                                 <textarea class="form-control" id="promotionalMaterial" rows="3" v-model="formData.main.promote">
                                 </textarea>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="slide_path">{{trans('sponsor.main.slide')}}</label>
                                 @component('components.subtitle')
                                     {{trans('sponsor.subtitle.slide')}}
@@ -172,8 +172,8 @@
                                 <a v-if="formData.main.cloud_slide_path !== null" :href="formData.main.cloud_slide_path" class="badge badge-info mb-2 p-2" target="_blank">
                                     @{{ formData.main.cloud_slide_path }}
                                 </a>
-                            </div>
-                            <div class="form-group">
+                            </div> -->
+                            <!-- <div class="form-group">
                                 <label for="board_path">{{trans('sponsor.main.board')}}</label>
                                 @component('components.subtitle')
                                     {{trans('sponsor.subtitle.board')}}
@@ -190,27 +190,27 @@
                                 <a v-if="formData.main.cloud_board_path !== null" :href="formData.main.cloud_board_path" class="badge badge-info mb-2 p-2" target="_blank">
                                     @{{ formData.main.cloud_board_path }}
                                 </a>
-                            </div>
-                            <div class="form-group">
+                            </div> -->
+                            <!-- <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="dinnerPartyIntro">{{trans('sponsor.main.dinner_intro')}}</label>
                                     <span class="d-inline-block text-right"> @{{ dinnerPartyIntroTextConunt }} / 80</span>
                                 </div>
                                 <textarea class="form-control" id="dinnerPartyIntro" rows="2" v-model="formData.main.opening_remarks" maxlength="80" v-on:keyup="countText(80, 'dinnerPartyIntroTextConunt', formData.main.opening_remarks);"></textarea>
-                            </div>
+                            </div> -->
                             <h4 class="text-primary mt-2">{{trans('sponsor.recipe_data')}}</h4>
                             <hr>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="companyFullName">{{trans('sponsor.recipe.company_full_name')}}*</label>
-                                    <input type="text" class="form-control" id="companyFullName" placeholder="公司 / 組織全銜" v-model="formData.recipe.recipe_full_name" required>
+                                    <input type="text" class="form-control" id="companyFullName" placeholder="{{trans('sponsor.recipe.company_full_name')}}" v-model="formData.recipe.recipe_full_name" required>
                                     <div class="invalid-feedback">
                                         {{trans('sponsor.required.recipe_company_full_name')}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="taxIDNumber">{{trans('sponsor.recipe.tax_id_number')}}*</label>
-                                    <input type="number" class="form-control" id="taxIDNumber" placeholder="統一編號" v-model="formData.recipe.recipe_tax_id_number" oninput="if(value.length>8)value=value.slice(0,8)" required>
+                                    <input type="number" class="form-control" id="taxIDNumber" placeholder="{{trans('sponsor.recipe.tax_id_number')}}" v-model="formData.recipe.recipe_tax_id_number" oninput="if(value.length>8)value=value.slice(0,8)" required>
                                     <div class="invalid-feedback">
                                         {{trans('sponsor.required.recipe_tax_id_number')}}
                                     </div>
@@ -226,27 +226,27 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                 <label for="contactName">{{trans('sponsor.recipe.contact_name')}}*</label>
-                                <input type="text" class="form-control" id="contactName" placeholder="聯絡人姓名" v-model="formData.recipe.recipe_contact_name" required>
+                                <input type="text" class="form-control" id="contactName" placeholder="{{trans('sponsor.recipe.contact_name')}}" v-model="formData.recipe.recipe_contact_name" required>
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.recipe_contact_name')}}
                                 </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                 <label for="contactTitle">{{trans('sponsor.recipe.contact_title')}}</label>
-                                <input type="text" class="form-control" id="contactTitle" v-model="formData.recipe.recipe_contact_title" placeholder="聯絡人職稱">
+                                <input type="text" class="form-control" id="contactTitle" v-model="formData.recipe.recipe_contact_title" placeholder="{{trans('sponsor.recipe.contact_title')}}">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="contactPhoneNumber">{{trans('sponsor.recipe.contact_phone_number')}}*</label>
-                                    <input type="text" class="form-control" id="contactPhoneNumber" v-model="formData.recipe.recipe_contact_phone" placeholder="聯絡人電話" required>
+                                    <input type="text" class="form-control" id="contactPhoneNumber" v-model="formData.recipe.recipe_contact_phone" placeholder="{{trans('sponsor.recipe.contact_phone_number')}}" required>
                                     <div class="invalid-feedback">
                                         {{trans('sponsor.required.recipe_contact_phone_number')}}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="contactMail">{{trans('sponsor.recipe.contact_mail')}}*</label>
-                                    <input type="email" class="form-control" id="contactMail" v-model="formData.recipe.recipe_contact_email" placeholder="聯絡人 Email" required>
+                                    <input type="email" class="form-control" id="contactMail" v-model="formData.recipe.recipe_contact_email" placeholder="{{trans('sponsor.recipe.contact_mail')}}" required>
                                     <div class="invalid-feedback">
                                         {{trans('sponsor.required.recipe_contact_mail')}}
                                     </div>
@@ -254,7 +254,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="contactAddress">{{trans('sponsor.recipe.contact_address')}}*</label>
-                                <input type="" class="form-control" id="contactAddress" placeholder="請填寫完整收件地址" v-model="formData.recipe.recipe_contact_address" required>
+                                <input type="" class="form-control" id="contactAddress" placeholder="{{trans('sponsor.recipe.contact_address_placeholder')}}" v-model="formData.recipe.recipe_contact_address" required>
                                 <div class="invalid-feedback">
                                     {{trans('sponsor.required.recipe_contact_address')}}
                                 </div>
@@ -275,13 +275,13 @@
                                 <label for="sponseRemarks">{{trans('sponsor.main.sponse_remarks')}}</label>
                                 <textarea class="form-control" id="sponseRemarks" v-model="formData.main.remark"></textarea>
                             </div>
-                            <h4 class="text-primary mt-4" v-if="formData.advence.sponsor_type !== 3 && formData.advence.sponsor_type !== 4">進階贊助商資料</h4>
+                            <h4 class="text-primary mt-4" v-if="formData.advence.sponsor_type !== 4">{{trans('sponsor.addition_title')}}</h4>
                                 <div class="card my-2" v-if="formData.advence.sponsor_type === 0">
                                     <div class="card-header">
                                         {{trans('sponsor.advance.sponsor_type')}}：{{trans('sponsor.advance.tony_stark')}}
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="advence_icck_ad_path">{{trans('sponsor.advance.icck')}}</label>
                                             @component('components.subtitle')
                                                 {{trans('sponsor.subtitle.icck')}}
@@ -295,8 +295,8 @@
                                             <a v-if="formData.advence.cloud_advence_icck_ad_path !== null" :href="formData.advence.cloud_advence_icck_ad_path" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.cloud_advence_icck_ad_path }}
                                             </a>
-                                        </div>
-                                        <div class="form-group">
+                                        </div> -->
+                                        <!-- <div class="form-group">
                                             <label for="advence_registration_ad_path">{{trans('sponsor.advance.registration')}}</label>
                                             @component('components.subtitle')
                                                 {{trans('sponsor.subtitle.registration')}}
@@ -310,7 +310,7 @@
                                             <a v-if="formData.advence.cloud_advence_registration_ad_path !== null" :href="formData.advence.cloud_advence_registration_ad_path" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.cloud_advence_registration_ad_path }}
                                             </a>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
                                             @component('components.subtitle')
@@ -319,6 +319,62 @@
                                             <textarea class="form-control" id="keynoteIntroduction" rows="4" v-model="formData.advence.advence_keynote"></textarea>
                                         </div>
                                         <div class="form-group">
+                                            <label for="promotion_ad_media_link">{{trans('sponsor.advance.promotion_ad_media_link')}} 60 {{trans('sponsor.second')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_ad_media_link')}} 60 {{trans('sponsor.second')}}  ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_ad_media_link" class="form-control my-2" id="promotion_ad_media_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_ad_media_link" :href="formData.advence.promotion_ad_media_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_ad_media_link }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_warm_up_media_link">{{trans('sponsor.advance.promotion_warm_up_media_link')}} 60 {{trans('sponsor.second')}} </label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_warm_up_media_link')}} 60 {{trans('sponsor.second')}}  ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_warm_up_media_link" class="form-control my-2" id="promotion_warm_up_media_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_warm_up_media_link" :href="formData.advence.promotion_warm_up_media_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_warm_up_media_link }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_discord_intro">{{trans('sponsor.advance.promotion_discord_intro')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_discord_intro')}}
+                                            @endcomponent
+                                            <textarea class="form-control" id="promotion_discord_intro" rows="4" v-model="formData.advence.promotion_discord_intro"></textarea>
+                                        </div>
+                                        <h5>{{trans('sponsor.advance.email_before_start')}}</h5>
+                                        <div class="form-group">
+                                            <label for="promotion_email_short">{{trans('sponsor.advance.promotion_email_short')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_email_short')}}
+                                            @endcomponent
+                                            <textarea class="form-control" id="promotion_email_short" rows="4" v-model="formData.advence.promotion_email_short"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_email_url">{{trans('sponsor.advance.promotion_email_url')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_email_url')}} ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_email_url" class="form-control my-2" id="promotion_email_url" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_email_url" :href="formData.advence.promotion_email_url" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_email_url }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_email_image">{{trans('sponsor.advance.promotion_email_image')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_email_image" class="form-control my-2" id="promotion_email_image" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_email_image" :href="formData.advence.promotion_email_image" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_email_image }}
+                                            </a>
+                                        </div>
+                                        
+                                        <!-- <div class="form-group">
                                             <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
                                             @component('components.subtitle')
                                                 {{trans('sponsor.subtitle.hall_flag')}}
@@ -332,8 +388,8 @@
                                             <a v-if="formData.advence.cloud_advence_hall_flag_path !== null" :href="formData.advence.cloud_advence_hall_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.cloud_advence_hall_flag_path }}
                                             </a>
-                                        </div>
-                                        <div class="form-group">
+                                        </div> -->
+                                        <!-- <div class="form-group">
                                             <label for="advence_main_flow_flag_path">{{trans('sponsor.advance.main_flow_flag')}}</label>
                                             @component('components.subtitle')
                                                 {{trans('sponsor.subtitle.main_flow_flag')}}
@@ -347,7 +403,7 @@
                                             <a v-if="formData.advence.cloud_advence_main_flow_flag_path !== null" :href="formData.advence.cloud_advence_main_flow_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.cloud_advence_main_flow_flag_path }}
                                             </a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="card my-2" v-else-if="formData.advence.sponsor_type === 1">
@@ -356,6 +412,45 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
+                                            <label for="promotion_ad_media_link">{{trans('sponsor.advance.promotion_ad_media_link')}} 30 {{trans('sponsor.second')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_ad_media_link')}} 30 {{trans('sponsor.second')}}   ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_ad_media_link" class="form-control my-2" id="promotion_ad_media_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_ad_media_link" :href="formData.advence.promotion_ad_media_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_ad_media_link }}
+                                            </a>
+                                        </div>
+                                        <h5>{{trans('sponsor.advance.email_before_start')}}</h5>
+                                        <div class="form-group">
+                                            <label for="promotion_email_short">{{trans('sponsor.advance.promotion_email_short')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_email_short')}}
+                                            @endcomponent
+                                            <textarea class="form-control" id="promotion_email_short" rows="4" v-model="formData.advence.promotion_email_short"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_email_url">{{trans('sponsor.advance.promotion_email_url')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_email_url')}} ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_email_url" class="form-control my-2" id="promotion_email_url" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_email_url" :href="formData.advence.promotion_email_url" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_email_url }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_email_image">{{trans('sponsor.advance.promotion_email_image')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_email_image" class="form-control my-2" id="promotion_email_image" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_email_image" :href="formData.advence.promotion_email_image" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_email_image }}
+                                            </a>
+                                        </div>
+                                        
+                                        <!-- <div class="form-group">
                                             <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
                                             @component('components.subtitle')
                                                 {{trans('sponsor.subtitle.keynote')}}
@@ -373,7 +468,7 @@
                                             @component('components.subtitle')
                                                 {{trans('sponsor.cloud.error')}}
                                             @endcomponent
-                                            <a v-if="formData.advence.cloud_advence_hall_flag_path !== null" :href="formData.advence.cloud_advence_hall_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                            <a v-if="formData.advence.cloud_advence_hall_flag_path" :href="formData.advence.cloud_advence_hall_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.cloud_advence_hall_flag_path }}
                                             </a>
                                         </div>
@@ -388,10 +483,10 @@
                                             @component('components.subtitle')
                                                 {{trans('sponsor.cloud.error')}}
                                             @endcomponent
-                                            <a v-if="formData.advence.cloud_advence_main_flow_flag_path !== null" :href="formData.advence.cloud_advence_main_flow_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
+                                            <a v-if="formData.advence.cloud_advence_main_flow_flag_path" :href="formData.advence.cloud_advence_main_flow_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.cloud_advence_main_flow_flag_path }}
                                             </a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="card my-2" v-else-if="formData.advence.sponsor_type === 2">
@@ -400,6 +495,44 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
+                                            <label for="promotion_ad_media_link">{{trans('sponsor.advance.promotion_ad_media_link')}} 15 {{trans('sponsor.second')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_ad_media_link')}} 15 {{trans('sponsor.second')}}   ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_ad_media_link" class="form-control my-2" id="promotion_ad_media_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_ad_media_link" :href="formData.advence.promotion_ad_media_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_ad_media_link }}
+                                            </a>
+                                        </div>
+                                        <h5>{{trans('sponsor.advance.email_before_start')}}</h5>
+                                        <div class="form-group">
+                                            <label for="promotion_email_short">{{trans('sponsor.advance.promotion_email_short')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_email_short')}}
+                                            @endcomponent
+                                            <textarea class="form-control" id="promotion_email_short" rows="4" v-model="formData.advence.promotion_email_short"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_email_url">{{trans('sponsor.advance.promotion_email_url')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_email_url')}} ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_email_url" class="form-control my-2" id="promotion_email_url" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_email_url" :href="formData.advence.promotion_email_url" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_email_url }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_email_image">{{trans('sponsor.advance.promotion_email_image')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_email_image" class="form-control my-2" id="promotion_email_image" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_email_image" :href="formData.advence.promotion_email_image" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_email_image }}
+                                            </a>
+                                        </div>
+                                        <!-- <div class="form-group">
                                             <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
                                             @component('components.subtitle')
                                                 {{trans('sponsor.subtitle.hall_flag')}}
@@ -427,6 +560,23 @@
                                             @endcomponent
                                             <a v-if="formData.advence.cloud_advence_main_flow_flag_path !== null" :href="formData.advence.cloud_advence_main_flow_flag_path" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.cloud_advence_main_flow_flag_path }}
+                                            </a>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="card my-2" v-else-if="formData.advence.sponsor_type === 3">
+                                    <div class="card-header" >
+                                        {{trans('sponsor.advance.sponsor_type')}}：{{trans('sponsor.advance.developer')}}
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="promotion_ad_media_link">{{trans('sponsor.advance.promotion_ad_media_link')}} 5 {{trans('sponsor.second')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_ad_media_link')}} 5 {{trans('sponsor.second')}}   ｜ {{trans('sponsor.cloud.only_url')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_ad_media_link" class="form-control my-2" id="promotion_ad_media_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_ad_media_link" :href="formData.advence.promotion_ad_media_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_ad_media_link }}
                                             </a>
                                         </div>
                                     </div>
@@ -631,11 +781,11 @@
                     link.siblings('a').text(link.val()).attr('href', link.val());
                     const reg = /(cloud_)/;
                     const fileId = inputId.replace(reg, '');
-                    document.getElementById(fileId).value = null;
+                    document.getElementById(fileId).value = null; // 清掉 input file
                     const vm = this;
                     const advence = new RegExp('advence_');
                     if (inputId.match(advence) !== null || inputId.match(advence) !== '') {
-                        vm.formData.advenve[fileId] = null;
+                        vm.formData.advence[fileId] = null;
                     } else {
                         vm.formData.main[fileId] = null;
                     }
@@ -645,7 +795,7 @@
                     if (content) {
                         vm[data] = num - content.length;
                     } else {
-                        return num
+                        vm[data] = num;
                     }
                 },
             },

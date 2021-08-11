@@ -16,7 +16,7 @@ class Sponsor extends Model
     private const HACKER = 'Hacker';
     private const DEVELOP = 'Developer';
     private const OTHER = '其他';
-    
+
     public const ReadyToConfirmStatus = 0;
     public const OnCheckStatus = 1;
     public const ConfirmedStatus = 2;
@@ -36,13 +36,25 @@ class Sponsor extends Model
         'Keynote 引言',
         '演講廳旗幟',
         '主動線旗幟廣告',
+        '廣告播放',
+        'Email 行前通知信宣傳',
+        'Discord 攤位宣傳簡介',
+        '暖場動畫'
+    ];
+
+    public static $promotionTimeLimit = [
+        self::TONYSTARK => '60',
+        self::BRUCEWAYNE => '30',
+        self::HACKER => '15',
+        self::DEVELOP => '5',
+        self::OTHER => '0',
     ];
 
     public static $sponsorHasItem = [
-        self::TONYSTARK  => [0, 1, 2, 3, 4],
-        self::BRUCEWAYNE => [2, 3, 4],
-        self::HACKER     => [3, 4],
-        self::DEVELOP    => [],
+        self::TONYSTARK  => [2,5,6,7,8],
+        self::BRUCEWAYNE => [5,6,7],
+        self::HACKER     => [5,6],
+        self::DEVELOP    => [5],
         self::OTHER      => [],
     ];
 
@@ -86,6 +98,12 @@ class Sponsor extends Model
         'advence_keynote',
         'advence_hall_flag_path',
         'advence_main_flow_flag_path',
+        'promotion_ad_media_link',
+        'promotion_warm_up_media_link',
+        'promotion_discord_intro',
+        'promotion_email_short',
+        'promotion_email_url',
+        'promotion_email_image',
         'updated_by'
     ];
 
@@ -118,6 +136,7 @@ class Sponsor extends Model
     {
         $sponsorFileKey = self::$sponsorTypeItem[$this->sponsor_type];
         $sponsorFileFieldKeys = collect(self::$sponsorHasItem[$sponsorFileKey]);
+
         if (empty($sponsorFileFieldKeys)) {
             $sponsorFields = collect([]);
         } else {

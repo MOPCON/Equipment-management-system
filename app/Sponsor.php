@@ -103,6 +103,7 @@ class Sponsor extends Model
         'promotion_discord_intro',
         'promotion_email_short',
         'promotion_email_url',
+        'promotion_email_image',
         'updated_by'
     ];
 

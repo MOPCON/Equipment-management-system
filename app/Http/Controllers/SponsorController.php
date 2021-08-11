@@ -79,6 +79,7 @@ class SponsorController extends Controller
         'promotion_discord_intro'       => 'Discord 攤位宣傳簡介',
         'promotion_email_short'         => '公司或活動簡短介紹文',
         'promotion_email_url'           => '可為官網或宣傳內容相關連結',
+        'promotion_email_image'         => '宣傳圖片',
         'advence_icck_ad_path'          => 'ICCK大門兩側廣告',
         'advence_registration_ad_path'  => '報到處全版廣告空間',
         'advence_keynote'               => 'Keynote 引言',

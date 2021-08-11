@@ -398,9 +398,15 @@
                                 <td class="">
                                     <label for="promotion_email_short">公司或活動簡短介紹文</label>
                                     <textarea class="form-control" id="promotion_email_short" v-model="sponsorDetailData.advence.promotion_email_short" />
-                                    <label for="promotion_email_url mt-3">相關連結</label>
+                                    <label for="promotion_email_url" class="mt-3">相關連結</label>
                                     <input type="url" name="file" class="form-control" id="promotion_email_url" v-model="sponsorDetailData.advence.promotion_email_url">
                                     <a v-if="sponsorDetailData.advence.promotion_email_url" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_email_url" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                    <br>
+                                    <label for="promotion_email_image" class="mt-3">宣傳圖片</label>
+                                    <input type="url" name="promotion_email_image" class="form-control" id="promotion_email_image" v-model="sponsorDetailData.advence.promotion_email_image">
+                                    <a v-if="sponsorDetailData.advence.promotion_email_image" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_email_image" target="_blank">
                                         前往雲端連結
                                     </a>
                                 </td>

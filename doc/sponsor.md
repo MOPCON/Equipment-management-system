@@ -100,6 +100,7 @@
                 "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
             }
         }
     }
@@ -148,8 +149,9 @@
 		+ promotion_ad_media_link [string] 廣告播放連結,
         + promotion_warm_up_media_link [string] 暖場動畫連結,
         + promotion_discord_intro [string] Discord 攤位宣傳簡介,
-        + promotion_email_short [string] [Email 行前通知信宣傳]公司或活動簡短介紹文,
-        + promotion_email_url [string] [Email 行前通知信宣傳]可為官網或宣傳內容相關連結,
+        + promotion_email_short [string] [Email 行前通知信宣傳] 公司或活動簡短介紹文,
+        + promotion_email_url [string] [Email 行前通知信宣傳] 可為官網或宣傳內容相關連結,
+        + promotion_email_image: [string] [Email 行前通知信宣傳] 宣傳圖片,
 		+ advence_icck_ad_path [image] ICCK 大門兩側廣告圖檔
 		+ advence_registration_ad_path [image] 報到處全版廣告空間圖檔
 		+ advence_keynote [string] Keynote 引言
@@ -209,6 +211,7 @@
                 "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
             }
         }
     }
@@ -236,72 +239,73 @@
   + **data**
     ```json
     {
-        success: true,
-        message: "Success.",
-        data: {
-            current_page: 1,
-            data: [
+        "success": true,
+        "message": "Success.",
+        "data": {
+            "current_page": 1,
+            "data": [
                 {
-                    id: 51,
-                    year: 2019,
-                    sponsor_type: 4,
-                    sponsor_status: 0,
-                    name: "廖傑",
-                    en_name: null,
-                    introduction: null,
-                    en_introduction: null,
-                    website: null,
-                    social_media: null,
-                    production: null,
-                    logo_path: null,
-                    service_photo_path: null,
-                    promote: null,
-                    slide_path: null,
-                    board_path: null,
-                    opening_remarks: null,
-                    recipe_full_name: null,
-                    recipe_tax_id_number: null,
-                    recipe_amount: null,
-                    recipe_contact_name: null,
-                    recipe_contact_title: null,
-                    recipe_contact_phone: null,
-                    recipe_contact_email: null,
-                    recipe_contact_address: null,
-                    reason: null,
-                    purpose: null,
-                    remark: null,
-                    advence_icck_ad_path: null,
-                    advence_registration_ad_path: null,
-                    advence_keynote: null,
-                    advence_hall_flag_path: null,
-                    advence_main_flow_flag_path: null,
-                    promotion_ad_media_link: "https://lorempixel.com/120/120/cats/?28690",
-                    promotion_warm_up_media_link: "https://lorempixel.com/120/120/cats/?28690",
-                    promotion_discord_intro: "https://lorempixel.com/120/120/cats/?28690",
-                    promotion_email_short: "https://lorempixel.com/120/120/cats/?28690",
-                    promotion_email_url: "https://lorempixel.com/120/120/cats/?28690",
-                    access_key: "80404beb-edec-418b-8aba-0ee6091de6aa",
-                    access_secret: "4tvioK6Qzi0VHVsCXJ3S",
-                    updated_by: 0,
-                    created_at: "2019-07-13 17:05:43",
-                    updated_at: "2019-07-13 17:05:43",
-                    sponsor_type_text: "其他",
-                    sponsor_file_text: [ ],
-                    sponsor_status_text: "待確認",
-                    external_link: "http://192.168.1.32:8000/sponsor/form/80404beb-edec-418b-8aba-0ee6091de6aa"
+                    "id": 51,
+                    "year": 2019,
+                    "sponsor_type": 4,
+                    "sponsor_status": 0,
+                    "name": "廖傑",
+                    "en_name": null,
+                    "introduction": null,
+                    "en_introduction": null,
+                    "website": null,
+                    "social_media": null,
+                    "production": null,
+                    "logo_path": null,
+                    "service_photo_path": null,
+                    "promote": null,
+                    "slide_path": null,
+                    "board_path": null,
+                    "opening_remarks": null,
+                    "recipe_full_name": null,
+                    "recipe_tax_id_number": null,
+                    "recipe_amount": null,
+                    "recipe_contact_name": null,
+                    "recipe_contact_title": null,
+                    "recipe_contact_phone": null,
+                    "recipe_contact_email": null,
+                    "recipe_contact_address": null,
+                    "reason": null,
+                    "purpose": null,
+                    "remark": null,
+                    "advence_icck_ad_path": null,
+                    "advence_registration_ad_path": null,
+                    "advence_keynote": null,
+                    "advence_hall_flag_path": null,
+                    "advence_main_flow_flag_path": null,
+                    "promotion_ad_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                    "promotion_warm_up_media_link": "https://lorempixel.com/120/120/cats/?28690",
+                    "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
+                    "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
+                    "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
+                    "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
+                    "access_key": "80404beb-edec-418b-8aba-0ee6091de6aa",
+                    "access_secret": "4tvioK6Qzi0VHVsCXJ3S",
+                    "updated_by": 0,
+                    "created_at": "2019-07-13 17:05:43",
+                    "updated_at": "2019-07-13 17:05:43",
+                    "sponsor_type_text": "其他",
+                    "sponsor_file_text": [ ],
+                    "sponsor_status_text": "待確認",
+                    "external_link": "http://192.168.1.32:8000/sponsor/form/80404beb-edec-418b-8aba-0ee6091de6aa"
                 },
                 {...}
             ],
-            first_page_url: "http://192.168.1.32:8000/api/sponsor?page=1",
-            from: 1,
-            last_page: 3,
-            last_page_url: "http://192.168.1.32:8000/api/sponsor?page=3",
-            next_page_url: "http://192.168.1.32:8000/api/sponsor?page=2",
-            path: "http://192.168.1.32:8000/api/sponsor",
-            per_page: "25",
-            prev_page_url: null,
-            to: 25,
-            total: 51
+            "first_page_url": "http://192.168.1.32:8000/api/sponsor?page=1",
+            "from": 1,
+            "last_page": 3,
+            "last_page_url": "http://192.168.1.32:8000/api/sponsor?page=3",
+            "next_page_url": "http://192.168.1.32:8000/api/sponsor?page=2",
+            "path": "http://192.168.1.32:8000/api/sponsor",
+            "per_page": "25",
+            "prev_page_url": null,
+            "to": 25,
+            "total": 51
         }
     }
     ```
@@ -397,6 +401,7 @@
                 "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
                 "sponsor_type_text": "Bruce Wayne",
                 "sponsor_file_text": [
                     "Keynote 引言",
@@ -465,6 +470,7 @@
         + promotion_discord_intro [string] Discord 攤位宣傳簡介,
         + promotion_email_short [string] [Email 行前通知信宣傳]公司或活動簡短介紹文,
         + promotion_email_url [string] [Email 行前通知信宣傳]可為官網或宣傳內容相關連結,
+        + promotion_email_image: [string] [Email 行前通知信宣傳] 宣傳圖片,
 		+ advence_icck_ad_path [image] ICCK大門兩側廣告圖檔
 		+ advence_registration_ad_path [image] 報到處全版廣告空間圖檔
 		+ advence_keynote Keynote [string] 引言圖檔
@@ -521,6 +527,7 @@
                 "promotion_discord_intro": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
                 "sponsor_type_text": "Developer",
                 "sponsor_file_text": []
             },

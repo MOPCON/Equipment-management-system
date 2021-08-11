@@ -71,6 +71,7 @@ class SponsorRequest extends BaseRequest
             'promotion_discord_intro'            => 'nullable|string',
             'promotion_email_short'              => 'nullable|string',
             'promotion_email_url'                => 'nullable|url',
+            'promotion_email_image'              => 'nullable|url',
             'updated_by'                         => 'nullable|string',
         ];
     }

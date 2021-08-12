@@ -265,7 +265,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
-                                    <label for="link_pre_video">{{ trans('speaker.link_pre_video') }}</label>
+                                    <label for="link_pre_video">
+                                        {{ trans('speaker.link_pre_video') }}
+                                        <span class="text-danger d-inline-block">{{trans('speaker.link_pre_video_remind')}}</span>
+                                    </label>
                                 </div>
                                 <input type="url" class="form-control" id="link_pre_video" v-model="formData.link_pre_video" placeholder="video url" @blur="checkUrl('link_pre_video')">
                             </div>

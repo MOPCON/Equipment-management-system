@@ -289,7 +289,7 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="15" scope="row" width="120px">議程資料</th>
+                <th rowspan="16" scope="row" width="120px">議程資料</th>
                 <td>演講主題</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic"
@@ -425,6 +425,19 @@
                       id="link_slide" @blur="checkUrl('link_slide')">
                     <div class="input-group-append" v-if="speakerDetailData.link_slide !== null">
                       <a :href="speakerDetailData.link_slide" target="_blank"
+                        class="btn btn-primary rounded-0">link</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>預錄影片連結</td>
+                <td class="p-0 v-align-middle">
+                  <div class="input-group">
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_video"
+                      id="link_pre_video" @blur="checkUrl('link_pre_video')">
+                    <div class="input-group-append" v-if="speakerDetailData.link_pre_video !== null">
+                      <a :href="speakerDetailData.link_pre_video" target="_blank"
                         class="btn btn-primary rounded-0">link</a>
                     </div>
                   </div>

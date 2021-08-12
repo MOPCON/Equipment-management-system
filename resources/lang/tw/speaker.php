@@ -42,6 +42,7 @@ return [
     'license_helper'      => '備註：若不希望公開，可另外與 MOPCON 議程組志工聯繫',
     'link_slide'          => '投影片連結',
     'link_pre_video'      => '預錄影片連結',
+    'link_pre_video_remind' => '( 預錄影片連結只收到 10 / 5 )',
     'agree_act_change'    => '我同意且知悉未來可能會因為疫情變化，活動會有所調整',
     'promote'             => '公開宣傳',
     'promote_by_mopcon'   => '是否願意被 MOPCON 的粉專提及或標註',

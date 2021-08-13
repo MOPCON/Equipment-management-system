@@ -434,7 +434,7 @@
                 <td>預錄影片連結</td>
                 <td class="p-0 v-align-middle">
                   <div class="input-group">
-                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_video"
+                    <input type="url" class="form-control border-0 rounded-0" v-model="speakerDetailData.link_pre_video"
                       id="link_pre_video" @blur="checkUrl('link_pre_video')">
                     <div class="input-group-append" v-if="speakerDetailData.link_pre_video !== null">
                       <a :href="speakerDetailData.link_pre_video" target="_blank"

@@ -427,7 +427,7 @@ class SpeakerController extends Controller
                 return $this->return400Response();
             }
             if ($speaker->readonly) {
-                $data = $request->only(['link_slide', 'last_edited_by', 'password']);
+                $data = $request->only(['link_slide', 'link_pre_video', 'last_edited_by', 'password']);
                 $data['last_edited_by'] = $speaker->name;
             } else {
                 $data = $request->except(['file', 'speaker_status', 'speaker_type', 'last_edited_by', 'password', 'year']);

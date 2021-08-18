@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Equipment;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +18,7 @@ class EquipmentTableSeeder extends Seeder
             'prefix'     => 'EQ',
         ]);
         for ($i = 0; $i < 20; $i++) {
-            $faker = Faker\Factory::create('zh_TW');
+            $faker = \Faker\Factory::create('zh_TW');
             Equipment::create([
                 'name'       => $faker->company,
                 'source'     => '',

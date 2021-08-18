@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Speaker extends Model
 {
+    use HasFactory;
+    
     public const ReadyToConfirmStatus = 0;
     public const OnCheckStatus = 1;
     public const ConfirmedStatus = 2;

@@ -1,5 +1,8 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Sponsor;
 use Illuminate\Database\Seeder;
 
 class SponsorsTableSeeder extends Seeder
@@ -11,6 +14,6 @@ class SponsorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Sponsor::class, 10)->create();
+        Sponsor::factory()->times(10)->create();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\SystemLogType;
 use Illuminate\Database\Seeder;
 

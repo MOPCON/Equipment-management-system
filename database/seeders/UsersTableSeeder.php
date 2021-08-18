@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +15,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         for ($i = 0; $i < 5; $i++) {
-            $faker = Faker\Factory::create();
+            $faker = \Faker\Factory::create();
             User::create([
                 'name'     => $faker->name,
                 'email'    => $faker->email,

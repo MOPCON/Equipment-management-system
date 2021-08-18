@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Group;
 use App\Staff;
 use Illuminate\Database\Seeder;
@@ -23,7 +25,7 @@ class StaffTableSeeder extends Seeder
             'name' => '議程組',
         ]);
         for ($i = 0; $i < 40; $i++) {
-            $faker = Faker\Factory::create('zh_TW');
+            $faker = \Faker\Factory::create('zh_TW');
             Staff::create([
                 'name' => $faker->name,
                 'email' => $faker->email,

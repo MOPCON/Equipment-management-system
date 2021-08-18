@@ -1,5 +1,8 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Speaker;
 use Illuminate\Database\Seeder;
 
 class SpeakersTableSeeder extends Seeder
@@ -11,6 +14,6 @@ class SpeakersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Speaker::class, 10)->create();
+        Speaker::factory()->times(10)->create();
     }
 }

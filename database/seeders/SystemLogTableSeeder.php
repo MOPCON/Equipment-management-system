@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\SystemLog;
 use App\SystemLogType;
 use Illuminate\Database\Seeder;
@@ -17,7 +19,7 @@ class SystemLogTableSeeder extends Seeder
         $browsers = ['ie', 'chrome', 'safari'];
 
         for ($i = 0; $i < 5; $i++) {
-            $faker = Faker\Factory::create('zh_TW');
+            $faker = \Faker\Factory::create('zh_TW');
             SystemLog::create([
                 'user_id' => rand(1, 6),
                 'type_id' => rand(1, 3),

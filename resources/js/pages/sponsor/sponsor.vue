@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control form-control-sm" placeholder="Search" aria-controls="sponsor" 
+                <input type="text" class="form-control form-control-sm" placeholder="Search" aria-controls="sponsor"
                 v-model="searchText" @keyup.enter="searchKeyword($event)" />
             </div>
         </div>
@@ -540,8 +540,9 @@
                     </div>
                 </div>
                 <div v-if="action == 'detail'">
-                    <button type="button" class="btn btn-primary" @click="updateSpeakerData(sponsorDetailData.main.id)">更新</button>
-                    <button type="reset" class="btn btn-light" data-dismiss="modal">返回</button>
+                  <button type="button" class="btn btn-primary" @click="updateSpeakerData(sponsorDetailData.main.id)">更新</button>
+                  <button type="copy" class="btn btn-secondary" @click="copySponsor(sponsorDetailData.main.id)">複製</button>
+                  <button type="reset" class="btn btn-light" data-dismiss="modal">返回</button>
                 </div>
             </template>
         </Modal>
@@ -572,7 +573,7 @@
                 sponsorDetailcol: [],
                 sponsorAdvancedDetailcol: [],
                 sponsorOption: [],
-                participateYear: ['2021','2020', '2019'], 
+                participateYear: ['2021','2020', '2019'],
                 sponsorDetailData: {
                     main: {},
                     recipe: {},
@@ -680,7 +681,7 @@
             getSponsorDetail(sponsor_id) {
                 const vm = this;
                 vm.action = 'detail';
-                axios.get(     
+                axios.get(
                     'api/sponsor/'+ sponsor_id
                 ).then(response => {
                 const res = response.data.data
@@ -717,6 +718,22 @@
                     $('#sponsorModal').modal('hide');
                     helper.alert(error.response.data.message, 'danger');
                 });
+            },
+            copySponsor(id) {
+              const vm = this;
+              axios.get(`api/sponsor/copy/${id}`).then(response => {
+                const res = response.data;
+                $('#sponsorModal').modal('hide');
+                if (res.success) {
+                  helper.alert(res.message, 'success');
+                  vm.getSponsorData();
+                } else {
+                  helper.alert(res.message, 'danger');
+                }
+              }).catch(error => {
+                $('#sponsorModal').modal('hide');
+                helper.alert(error.response.data.message, 'danger');
+              });
             },
             updateSpeakerData(id) {
                 const vm = this;
@@ -833,7 +850,7 @@
                 checkbox.forEach((item) => {
                     vm.checkboxSelectedList.push(item.id);
                     item.checked = !select;
-                   
+
                 })
                 vm.selectAll = !select;
             },

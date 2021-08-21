@@ -69,5 +69,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::post('speaker/import', 'SpeakerController@importCSV');
     Route::apiResource('speaker', 'SpeakerController');
     Route::get('sponsor/export', 'SponsorController@exportTSV');
+    Route::get('sponsor/copy/{id}', 'SponsorController@copy');
     Route::apiResource('sponsor', 'SponsorController');
 });

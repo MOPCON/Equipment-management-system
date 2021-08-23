@@ -6,6 +6,7 @@ use App\Sponsor;
 use App\Http\Requests\SponsorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use App\Services\AutoCorrectService;
 
@@ -117,7 +118,7 @@ class SponsorController extends Controller
             if (isset($filter['year'])) {
                 $query->where('year', $filter['year']);
             }
-            
+
             if (isset($filter['status'])) {
                 $query->where('sponsor_status', $filter['status']);
             }
@@ -276,6 +277,15 @@ class SponsorController extends Controller
         ];
 
         return $this->returnSuccess('Success.', $options);
+    }
+
+    public function copy(string $id)
+    {
+        $sponsor = Sponsor::findOrFail($id);
+        $new_sponsor = $sponsor->replicate();
+        $new_sponsor->created_at = Carbon::now();
+        $new_sponsor->save();
+        return $this->returnSuccess($new_sponsor->name . ' 已複製');
     }
 
     public function externalForm($accessKey)

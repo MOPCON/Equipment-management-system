@@ -81,7 +81,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="company">{{ trans('speaker.company') }}</label>
-                                    <input type="text" class="form-control" id="company" placeholder="公司 / 組織" v-model="formData.company" :disabled="formData.readonly">
+                                    <input type="text" class="form-control" id="company" placeholder="{{ trans('speaker.company_placeholder') }}" v-model="formData.company" :disabled="formData.readonly">
                                 </div>
                                 <!--此欄位隱藏
                                 <div class="col-md-6 mb-3" style="display:none">
@@ -92,7 +92,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="job_title">{{ trans('speaker.job_title') }}*</label>
-                                    <input type="text" class="form-control" id="job_title" placeholder="職稱" v-model="formData.job_title" required :disabled="formData.readonly">
+                                    <input type="text" class="form-control" id="job_title" placeholder="{{ trans('speaker.job_title') }}" v-model="formData.job_title" required :disabled="formData.readonly">
                                     <div class="invalid-feedback">
                                         {{ trans('speaker.required.job_title') }}
                                     </div>
@@ -122,8 +122,8 @@
                                 <textarea class="form-control" id="introduction_e" rows="4" v-model="formData.bio_e" maxlength="240" v-on:keyup="countText(240, 'introTextConunt_e', formData.bio_e)" :disabled="formData.readonly"></textarea>
                             </div>-->
                             <div class="form-group">
-                                <label for="photo">{{ trans('speaker.photo') }}*</label>
-                                <input type="file" class="form-control-file" id="photo" :required="formData.photo == null" @change="valideFile($event)" :disabled="formData.readonly">
+                                <label for="photo">{{ trans('speaker.photo') }}* <span class="text-danger">{{ trans('speaker.photo_remind') }}</span></label>
+                                <input type="file" class="form-control-file" id="photo" accept=".png,.jpg" :required="formData.photo == null" @change="valideFile($event)" :disabled="formData.readonly">
                                 <img :src="formData.photo" class="mt-2" width="200px">
                                 <div class="invalid-feedback">{{ trans('speaker.required.photo') }}</div>
                             </div>
@@ -150,7 +150,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-white"><i class="fas fa-globe"></i></span>
                                 </div>
-                                <input type="url"  class="form-control" id="link_other" v-model="formData.link_other" placeholder="其他(如 Website / Blog) url" @blur="checkUrl('link_other')" :disabled="formData.readonly">
+                                <input type="url"  class="form-control" id="link_other" v-model="formData.link_other" placeholder="{{ trans('speaker.link_other') }}" @blur="checkUrl('link_other')" :disabled="formData.readonly">
                             </div>
                             <h4 class="text-primary mt-4">
                                 {{ trans('speaker.agenda_info') }}

@@ -42,7 +42,7 @@ return [
     'exists'               => 'The selected :attribute is invalid.',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field must have a value.',
-    'image'                => '【:attribute】只接受圖檔',
+    'image'                => '【:attribute】只接受 jpg, png 圖檔',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',
     'integer'              => '【:attribute】必須是整數',

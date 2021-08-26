@@ -15,43 +15,45 @@ class Speaker extends Model
 
     public static $photoPath = '/images/speaker';
     public static $hideTag = [
-        'AR/VR',
-        'Blockchain',
-        'Quant',
-        'Security',
-        'Data Science',
-        'Panel',
-        'FinTech',
-        'QA',
+        'arvr',
+        'blockchain',
+        'quant',
+        'security',
+        'data_science',
+        'panel',
+        'fin_tech',
+        'qa',
     ];
+
+    //使用語系的 key , 語系路徑: resources/lang/tw (or en) /speaker.php
     public static $tagItem = [
-        'AI',
-        'AR/VR',
-        'Blockchain',
-        'Cloud',
-        'DevOps',
-        'IoT',
-        'Mobile App',
-        'Startup',
-        'UI/UX',
-        'Web',
-        'Quant',
-        'Security',
-        'Cross-platform',
-        'Data Science',
-        'Agile',
-        'Panel',
-        'FinTech',
-        'QA',
-        'Data Analyzing',
-        '5G / 6G',
-        'Business Thinking',
-        '社會參與',
-        '職涯發展',
-        '數位轉型',
-        '遠距',
-        'Community',
-        'Open Source',
+        'ai',                      // 'AI'
+        'arvr',                    // 'AR/VR'
+        'blockchain',              // 'Blockchain'
+        'cloud',                   // 'Cloud'
+        'devops',                  // 'DevOps'
+        'iot',                     // 'IoT'
+        'mobile_app',              // 'Mobile App'
+        'startup',                 // 'Startup'
+        'uiux',                    // 'UI/UX'
+        'web',                     // 'Web'
+        'quant',                   // 'Quant'
+        'security',                // 'Security'
+        'cross_platform',          // 'Cross-platform'
+        'data_science',            // 'Data Science'
+        'agile',                   // 'Agile'
+        'panel',                   // 'Panel'
+        'fin_tech',                // 'FinTech'
+        'qa',                      // 'QA'
+        'data_analyzing',          // 'Data Analyzing'
+        '5g6g',                    // '5G / 6G'
+        'business_thinking',       // 'Business Thinking'
+        'social_engagement',       // '社會參與'
+        'career_development',      // '職涯發展'
+        'digital_transformation',  // '數位轉型'
+        'remote_work',             // '遠距'
+        'community',               // 'Community'
+        'open_source',             // 'Open Source'
     ];
     public static $levelItem = [
         'Basic-外行人可以藉此入門',

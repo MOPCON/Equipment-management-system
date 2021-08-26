@@ -14,6 +14,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use InvalidArgumentException;
 
@@ -256,7 +257,15 @@ class SpeakerController extends Controller
                 if ($detect === 'UTF-8') {
                     continue;
                 }
-                $l = mb_convert_encoding($l, 'UTF-8', $detect);
+                try {
+                    $l = mb_convert_encoding($l, 'UTF-8', $detect);
+                } catch (\Exception $e) {
+                    Log::error($line);
+                    Log::error($detect);
+                    Log::error($e->getMessage());
+
+                    return $this->return400Response($e->getMessage());
+                }
             }
             // 標題及空白列，忽略不處理
             if ($count <= 1) {
@@ -315,7 +324,7 @@ class SpeakerController extends Controller
             return $this->returnSuccess('Success.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->return400Response('發生不明錯誤');
+            return $this->return400Response('發生不明錯誤' . $line);
         }
     }
 
@@ -350,9 +359,14 @@ class SpeakerController extends Controller
      */
     public function getOptions()
     {
-        $tagItem = array_filter(Speaker::$tagItem, function ($item) {
-            return !in_array($item, Speaker::$hideTag);
-        });
+        $tagItem = [];
+        foreach (Speaker::$tagItem as $tagKey => $tag) {
+            if (in_array($tag, Speaker::$hideTag)) {
+                continue;
+            }
+            $transKey = 'speaker.tags.' . $tag;
+            $tagItem[$tagKey] = trans($transKey);
+        }
         $options = [
             'tagItem' => $tagItem,
             'levelItem' => Speaker::$levelItem,

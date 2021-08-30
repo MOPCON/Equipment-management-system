@@ -44,6 +44,10 @@ return [
     ],
     'advance' => [
         'sponsor_type'   => '贊助商類型',
+        'gather_town'    => 'Gather town 線上攤位素材',
+        'promotion_gather_town_h_link' => '橫式圖片',
+        'promotion_gather_town_v_link' => '直式圖片',
+        'promotion_gather_town_video_link' => '宣傳影片',
         'email_before_start' => 'Email 行前通知信宣傳',
         'icck'           => 'ICCK 大門口兩側廣告柱',
         'registration'   => '報到處全版廣告空間 ( Truss 架廣告)',
@@ -81,6 +85,9 @@ return [
         'promotion_discord_intro' => '提供贊助商攤位簡介',
         'promotion_email_short' => '約 100 字',
         'promotion_email_url' => '可為官網或宣傳內容相關連結',
+        'promotion_gather_town_h_link' => '橫式圖片 700*300',
+        'promotion_gather_town_v_link' => '直式圖片 180*500',
+        'promotion_gather_town_video_link' => '請提供 YouTube 連結'
     ],
     'required' => [
         'main_name'                   => '公司名稱為必填',

@@ -345,6 +345,39 @@
                                             @endcomponent
                                             <textarea class="form-control" id="promotion_discord_intro" rows="4" v-model="formData.advence.promotion_discord_intro"></textarea>
                                         </div>
+                                        <!-- Gather town link -->
+                                        <h5>{{trans('sponsor.advance.gather_town')}}</h5>
+                                        <div class="form-group">
+                                            <label for="promotion_gather_town_h_link">{{trans('sponsor.advance.promotion_gather_town_h_link')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_gather_town_h_link')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_h_link" class="form-control my-2" id="promotion_gather_town_h_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_h_link" :href="formData.advence.promotion_gather_town_h_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_h_link }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_gather_town_v_link">{{trans('sponsor.advance.promotion_gather_town_v_link')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_gather_town_v_link')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_v_link" class="form-control my-2" id="promotion_gather_town_v_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_v_link" :href="formData.advence.promotion_gather_town_v_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_v_link }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_gather_town_video_link">{{trans('sponsor.advance.promotion_gather_town_video_link')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_gather_town_video_link')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_video_link" class="form-control my-2" id="promotion_gather_town_video_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_video_link" :href="formData.advence.promotion_gather_town_video_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_video_link }}
+                                            </a>
+                                        </div>
+                                        <!-- Gather town link end -->
                                         <h5>{{trans('sponsor.advance.email_before_start')}}</h5>
                                         <div class="form-group">
                                             <label for="promotion_email_short">{{trans('sponsor.advance.promotion_email_short')}}</label>
@@ -419,6 +452,37 @@
                                             <input type="url" v-model="formData.advence.promotion_ad_media_link" class="form-control my-2" id="promotion_ad_media_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
                                             <a v-if="formData.advence.promotion_ad_media_link" :href="formData.advence.promotion_ad_media_link" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.promotion_ad_media_link }}
+                                            </a>
+                                        </div>
+                                        <h5>{{trans('sponsor.advance.gather_town')}}</h5>
+                                        <div class="form-group">
+                                            <label for="promotion_gather_town_h_link">{{trans('sponsor.advance.promotion_gather_town_h_link')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_gather_town_h_link')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_h_link" class="form-control my-2" id="promotion_gather_town_h_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_h_link" :href="formData.advence.promotion_gather_town_h_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_h_link }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_gather_town_v_link">{{trans('sponsor.advance.promotion_gather_town_v_link')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_gather_town_v_link')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_v_link" class="form-control my-2" id="promotion_gather_town_v_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_v_link" :href="formData.advence.promotion_gather_town_v_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_v_link }}
+                                            </a>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="promotion_gather_town_video_link">{{trans('sponsor.advance.promotion_gather_town_video_link')}}</label>
+                                            @component('components.subtitle')
+                                                {{trans('sponsor.subtitle.promotion_gather_town_video_link')}}
+                                            @endcomponent
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_video_link" class="form-control my-2" id="promotion_gather_town_video_link" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_video_link" :href="formData.advence.promotion_gather_town_video_link" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_video_link }}
                                             </a>
                                         </div>
                                         <h5>{{trans('sponsor.advance.email_before_start')}}</h5>

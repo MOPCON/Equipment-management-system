@@ -393,6 +393,26 @@
                                     <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.promotion_discord_intro" />
                                 </td>
                             </tr>
+                             <tr v-if="[0, 1].includes(sponsorDetailData.advence.sponsor_type)">
+                                <td>Gather town 線上攤位素材</td>
+                                <td class="">
+                                    <label for="promotion_gather_town_h_link" class="mt-3">橫式圖片 700*300</label>
+                                    <input type="url" name="file" class="form-control" id="promotion_gather_town_h_link" v-model="sponsorDetailData.advence.promotion_gather_town_h_link">
+                                    <a v-if="sponsorDetailData.advence.promotion_gather_town_h_link" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_h_link" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                    <label for="promotion_gather_town_v_link" class="mt-3">橫式圖片 700*300</label>
+                                    <input type="url" name="file" class="form-control" id="promotion_gather_town_v_link" v-model="sponsorDetailData.advence.promotion_gather_town_v_link">
+                                    <a v-if="sponsorDetailData.advence.promotion_gather_town_v_link" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_v_link" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                    <label for="promotion_gather_town_video_link" class="mt-3">橫式圖片 700*300</label>
+                                    <input type="url" name="file" class="form-control" id="promotion_gather_town_video_link" v-model="sponsorDetailData.advence.promotion_gather_town_video_link">
+                                    <a v-if="sponsorDetailData.advence.promotion_gather_town_video_link" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_video_link" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                </td>
+                            </tr>
                             <tr v-if="[0, 1, 2].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>Email 行前通知信宣傳</td>
                                 <td class="">

@@ -44,6 +44,10 @@ return [
     ],
     'advance' => [
         'sponsor_type'   => 'Sponsor type',
+        'gather_town'    => 'Gather town',
+        'promotion_gather_town_h_link' => 'Horizontal image',
+        'promotion_gather_town_v_link' => 'Vertical image',
+        'promotion_gather_town_video_link' => 'Promotion video ( YouTube link )',
         'email_before_start' => 'Publicize in pre-departure notice mail',
         'icck'           => 'ICCK entrance full frame Ad',
         'registration'   => 'MOPCON entrance full frame Ad',
@@ -81,6 +85,9 @@ return [
         'promotion_discord_intro' => 'Please provide company\'s introduction for stall',
         'promotion_email_short' => 'about 100 characters',
         'promotion_email_url' => 'It can be official website or publicize url',
+        'promotion_gather_town_h_link' => 'Horizontal image 700*300',
+        'promotion_gather_town_v_link' => 'Vertical image 180*500',
+        'promotion_gather_town_video_link' => 'Please provide YouTube link.'
     ],
     'required' => [
         'main_name'                   => 'Company name (CH) is required',

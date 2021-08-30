@@ -39,7 +39,10 @@ class Sponsor extends Model
         '廣告播放',
         'Email 行前通知信宣傳',
         'Discord 攤位宣傳簡介',
-        '暖場動畫'
+        '暖場動畫',
+        'Gather Town 橫式圖片',
+        'Gather Town 直式圖片',
+        'Gather Town 宣傳影片',
     ];
 
     public static $promotionTimeLimit = [
@@ -51,8 +54,8 @@ class Sponsor extends Model
     ];
 
     public static $sponsorHasItem = [
-        self::TONYSTARK  => [2,5,6,7,8],
-        self::BRUCEWAYNE => [5,6,7],
+        self::TONYSTARK  => [2,5,6,7,8,9,10,11],
+        self::BRUCEWAYNE => [5,6,7,9,10,11],
         self::HACKER     => [5,6],
         self::DEVELOP    => [5],
         self::OTHER      => [],
@@ -104,7 +107,10 @@ class Sponsor extends Model
         'promotion_email_short',
         'promotion_email_url',
         'promotion_email_image',
-        'updated_by'
+        'promotion_gather_town_h_link',
+        'promotion_gather_town_v_link',
+        'promotion_gather_town_video_link',
+        'updated_by',
     ];
 
     protected $appends = [

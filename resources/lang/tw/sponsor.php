@@ -87,7 +87,7 @@ return [
         'promotion_email_url' => '可為官網或宣傳內容相關連結',
         'promotion_gather_town_h_link' => '橫式圖片 700*300  ( 攤位背板 )',
         'promotion_gather_town_v_link' => '直式圖片 180*500  ( 攤位旗幟 )',
-        'promotion_gather_town_video_link' => '互動物件宣傳連結 ( 可放 官網連結、相關文件連結、影片連結 ，超過一個連結請將連結提供於文字檔內，最多 3 個 )'
+        'promotion_gather_town_video_link' => '互動物件宣傳連結 ( 可放 官網連結、相關文件連結、影片連結，最多 3 個 )'
     ],
     'required' => [
         'main_name'                   => '公司名稱為必填',

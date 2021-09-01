@@ -413,6 +413,16 @@
                                     <a v-if="sponsorDetailData.advence.promotion_gather_town_video_link" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_video_link" target="_blank">
                                         前往雲端連結
                                     </a>
+                                    <br>
+                                    <input type="url" name="file" class="form-control" id="promotion_gather_town_video_link_0" v-model="sponsorDetailData.advence.promotion_gather_town_video_link_0">
+                                    <a v-if="sponsorDetailData.advence.promotion_gather_town_video_link_0" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_video_link_0" target="_blank">
+                                      前往雲端連結
+                                    </a>
+                                    <br>
+                                    <input type="url" name="file" class="form-control" id="promotion_gather_town_video_link_1" v-model="sponsorDetailData.advence.promotion_gather_town_video_link_1">
+                                    <a v-if="sponsorDetailData.advence.promotion_gather_town_video_link_1" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_video_link_1" target="_blank">
+                                      前往雲端連結
+                                    </a>
                                 </td>
                             </tr>
                             <tr v-if="[0, 1, 2].includes(sponsorDetailData.advence.sponsor_type)">

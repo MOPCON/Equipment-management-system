@@ -110,6 +110,8 @@ class Sponsor extends Model
         'promotion_gather_town_h_link',
         'promotion_gather_town_v_link',
         'promotion_gather_town_video_link',
+        'promotion_gather_town_video_link_0',
+        'promotion_gather_town_video_link_1',
         'updated_by',
     ];
 

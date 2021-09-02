@@ -401,15 +401,27 @@
                                     <a v-if="sponsorDetailData.advence.promotion_gather_town_h_link" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_h_link" target="_blank">
                                         前往雲端連結
                                     </a>
-                                    <label for="promotion_gather_town_v_link" class="mt-3">橫式圖片 700*300</label>
+                                    <br>
+                                    <label for="promotion_gather_town_v_link" class="mt-3">直式圖片 180*500</label>
                                     <input type="url" name="file" class="form-control" id="promotion_gather_town_v_link" v-model="sponsorDetailData.advence.promotion_gather_town_v_link">
                                     <a v-if="sponsorDetailData.advence.promotion_gather_town_v_link" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_v_link" target="_blank">
                                         前往雲端連結
                                     </a>
-                                    <label for="promotion_gather_town_video_link" class="mt-3">橫式圖片 700*300</label>
+                                    <br>
+                                    <label for="promotion_gather_town_video_link" class="mt-3">互動物件宣傳連結</label>
                                     <input type="url" name="file" class="form-control" id="promotion_gather_town_video_link" v-model="sponsorDetailData.advence.promotion_gather_town_video_link">
                                     <a v-if="sponsorDetailData.advence.promotion_gather_town_video_link" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_video_link" target="_blank">
                                         前往雲端連結
+                                    </a>
+                                    <br>
+                                    <input type="url" name="file" class="form-control" id="promotion_gather_town_video_link_0" v-model="sponsorDetailData.advence.promotion_gather_town_video_link_0">
+                                    <a v-if="sponsorDetailData.advence.promotion_gather_town_video_link_0" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_video_link_0" target="_blank">
+                                      前往雲端連結
+                                    </a>
+                                    <br>
+                                    <input type="url" name="file" class="form-control" id="promotion_gather_town_video_link_1" v-model="sponsorDetailData.advence.promotion_gather_town_video_link_1">
+                                    <a v-if="sponsorDetailData.advence.promotion_gather_town_video_link_1" class="btn btn-primary p-1 mt-2 mb-3" :href="sponsorDetailData.advence.promotion_gather_town_video_link_1" target="_blank">
+                                      前往雲端連結
                                     </a>
                                 </td>
                             </tr>

@@ -376,6 +376,14 @@
                                             <a v-if="formData.advence.promotion_gather_town_video_link" :href="formData.advence.promotion_gather_town_video_link" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.promotion_gather_town_video_link }}
                                             </a>
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_video_link_0" class="form-control my-2" id="promotion_gather_town_video_link_0" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_video_link_0" :href="formData.advence.promotion_gather_town_video_link_0" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_video_link }}
+                                            </a>
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_video_link_1" class="form-control my-2" id="promotion_gather_town_video_link_1" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_video_link_1" :href="formData.advence.promotion_gather_town_video_link_1" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_video_link }}
+                                            </a>
                                         </div>
                                         <!-- Gather town link end -->
                                         <h5>{{trans('sponsor.advance.email_before_start')}}</h5>
@@ -406,7 +414,7 @@
                                                 @{{ formData.advence.promotion_email_image }}
                                             </a>
                                         </div>
-                                        
+
                                         <!-- <div class="form-group">
                                             <label for="advence_hall_flag_path">{{trans('sponsor.advance.hall_flag')}}</label>
                                             @component('components.subtitle')
@@ -484,6 +492,14 @@
                                             <a v-if="formData.advence.promotion_gather_town_video_link" :href="formData.advence.promotion_gather_town_video_link" class="badge badge-info mb-2 p-2" target="_blank">
                                                 @{{ formData.advence.promotion_gather_town_video_link }}
                                             </a>
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_video_link_0" class="form-control my-2" id="promotion_gather_town_video_link_0" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_video_link_0" :href="formData.advence.promotion_gather_town_video_link_0" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_video_link_0 }}
+                                            </a>
+                                            <input type="url" v-model="formData.advence.promotion_gather_town_video_link_1" class="form-control my-2" id="promotion_gather_town_video_link_1" placeholder="{{trans('sponsor.cloud.only_url')}}">
+                                            <a v-if="formData.advence.promotion_gather_town_video_link_1" :href="formData.advence.promotion_gather_town_video_link_1" class="badge badge-info mb-2 p-2" target="_blank">
+                                                @{{ formData.advence.promotion_gather_town_video_link_1 }}
+                                            </a>
                                         </div>
                                         <h5>{{trans('sponsor.advance.email_before_start')}}</h5>
                                         <div class="form-group">
@@ -513,7 +529,7 @@
                                                 @{{ formData.advence.promotion_email_image }}
                                             </a>
                                         </div>
-                                        
+
                                         <!-- <div class="form-group">
                                             <label for="keynoteIntroduction">{{trans('sponsor.advance.keynote')}}</label>
                                             @component('components.subtitle')
@@ -700,7 +716,7 @@
                     <input type="password" class="form-control" id="access_screct" name="password" v-model="password" @key.enter="accesskey_method()">
                 </div>
                 <div id="vali" class="my-2"></div>
-                <input id="access_send" type='submit' class="btn btn-primary float-right" value="${'{{ trans('sponsor.submit') }}'}" disabled="true" @click.prevent="accesskey_method()"/>
+                <input id="access_send" type='submit' class="btn btn-primary float-right" value="${'{{ trans('sponsor.submit') }}'}" @click.prevent="accesskey_method()"/>
             </form>`
         });
 

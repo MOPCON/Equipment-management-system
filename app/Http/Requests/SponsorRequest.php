@@ -75,6 +75,8 @@ class SponsorRequest extends BaseRequest
             'promotion_gather_town_h_link'       => 'nullable|url',
             'promotion_gather_town_v_link'       => 'nullable|url',
             'promotion_gather_town_video_link'   => 'nullable|url',
+            'promotion_gather_town_video_link_0'   => 'nullable|url',
+            'promotion_gather_town_video_link_1'   => 'nullable|url',
             'updated_by'                         => 'nullable|string',
         ];
     }

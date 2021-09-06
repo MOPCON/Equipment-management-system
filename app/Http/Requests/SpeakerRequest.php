@@ -37,7 +37,7 @@ class SpeakerRequest extends BaseRequest
             'contact_address' => 'nullable|string',
             'bio' => 'nullable|string|max:120',
             'bio_e' => 'nullable|string|max:240',
-            'file' => 'nullable|image',
+            'file' => 'nullable|image|max:2048',
             'link_fb' => 'nullable|url',
             'link_github' => 'nullable|url',
             'link_twitter' => 'nullable|url',
@@ -73,6 +73,13 @@ class SpeakerRequest extends BaseRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'file.uploaded' => ':attribute 上傳失敗，請檢查檔案格式是否為 jpg or png, 檔案大小是超過 2 MB。',
+        ];
+    }
+
     /**
      * Get custom attributes for validator errors.
      *
@@ -94,6 +101,7 @@ class SpeakerRequest extends BaseRequest
             'bio' => __('speaker.introduction'),
             'bio_e' => __('speaker.introduction_e'),
             'photo' => __('speaker.photo'),
+            'file' => '照片',
             'link_fb' => 'Facebook',
             'link_github' => 'Github',
             'link_twitter' => 'Twitter',

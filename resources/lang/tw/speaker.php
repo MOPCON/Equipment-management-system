@@ -23,7 +23,7 @@ return [
     'introduction_e'      => '個人介紹 (英文)',
     'link_other'          => '其他（如 Website /  Blog）url',
     'photo'               => '照片',
-    'photo_remind'        => '只接受 jpg, png 圖檔',
+    'photo_remind'        => '只接受 jpg, png 圖檔，檔案大小需小於 2 MB',
     'related_link'        => '相關連結',
     'agenda_info'         => '議程資料',
     'agenda_info_public' => '( 公開於網站 / APP )',

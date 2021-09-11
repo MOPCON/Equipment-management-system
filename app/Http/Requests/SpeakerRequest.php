@@ -37,7 +37,7 @@ class SpeakerRequest extends BaseRequest
             'contact_address' => 'nullable|string',
             'bio' => 'nullable|string|max:120',
             'bio_e' => 'nullable|string|max:240',
-            'file' => 'nullable|image|max:2048',
+            'file' => 'nullable|image|max:3096',
             'link_fb' => 'nullable|url',
             'link_github' => 'nullable|url',
             'link_twitter' => 'nullable|url',

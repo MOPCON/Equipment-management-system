@@ -109,7 +109,7 @@ return [
     ],
     'cloud' => [
         'link' => 'Or provide file sharing link.',
-        'description' => '(If file\'s size is more than 20MB or provide more than two files.)',
+        'description' => '(If file\'s size is more than 2MB or provide more than two files.)',
         'error' => 'Either file or link.',
         'only_url' => 'Please provide sharing link.'
     ]

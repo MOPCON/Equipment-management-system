@@ -68,10 +68,10 @@ class SpeakerController extends Controller
         'target_audience' => '目標會眾',
         'prerequisites' => '先備知識',
         'expected_harvest' => '預期收穫',
-        'agree_record' => '同意錄影',
-        'license_text' => '授權方式',
-        'promotion' => '是否同意公開宣傳',
-        'will_forward_posts' => '是否願意轉發大會文章',
+        'agree_policy_text' => '授權方式 (1)',
+        'license_text' => '授權方式 (2)',
+        'promotion' => '是否願意被 MOPCON 的粉專提及或標註',
+        'will_forward_posts' => '是否願意轉發 MOPCON 的講者宣傳文和大會其他文章',
         'tshirt_size_text' => 'T-shirt 尺寸',
         'need_parking_space' => '您是否需有停車需求',
         'year' => '年份',
@@ -205,13 +205,19 @@ class SpeakerController extends Controller
             foreach (array_keys(SpeakerController::$FieldsForTSV) as $key) {
                 switch ($key) {
                     case 'tag_text':
-                        $row .= implode(',', $item[$key]) . "\t";
+                        $tags = array_map(function ($key) {
+                            $transKey = 'speaker.tags.' . $key;
+                            return trans($transKey, [], 'tw');
+                        }, $item[$key]);
+                        $row .= implode(',', $tags) . "\t";
                         break;
                     case 'promotion':
                     case 'need_parking_space':
                     case 'has_dinner':
                     case 'is_keynote':
-                    case 'agree_record':
+                    case 'agree_record_qa':
+                    case 'agree_act_change':
+                    case 'agree_pre_video_public':
                         $row .= (($item[$key] == 1)?'是':'否') . "\t";
                         break;
                     default:

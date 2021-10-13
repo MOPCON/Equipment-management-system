@@ -306,7 +306,7 @@
               <tr>
                 <td>演講摘要</td>
                 <td class="p-0 v-align-middle">
-                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary" maxlength="240">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary" maxlength="480">
                     {{ speakerDetailData.summary }}
                   </textarea>
                 </td>
@@ -879,7 +879,7 @@
       openspeakerDetail(speaker_id) {
         const vm = this;
         vm.action = 'detail';
-        axios.get(     
+        axios.get(
           'api/speaker/'+ speaker_id
         ).then(response => {
           const res = response.data.data;

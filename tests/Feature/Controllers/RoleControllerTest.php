@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Role;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 

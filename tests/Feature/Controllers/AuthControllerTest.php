@@ -15,7 +15,7 @@ class AuthControllerTest extends TestCase
     public function testChangePassword_測試正常更新密碼()
     {
         /** arrange */
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->password = Hash::make('P@$$word');
         $user->save();
         Auth::login($user);
@@ -37,7 +37,7 @@ class AuthControllerTest extends TestCase
     public function testChangePassword_測試舊密碼錯誤()
     {
         /** arrange */
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->password = Hash::make('P@$$word');
         $user->save();
         Auth::login($user);
@@ -61,7 +61,7 @@ class AuthControllerTest extends TestCase
     public function testChangePassword_測試新密碼確認錯誤()
     {
         /** arrange */
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->password = Hash::make('P@$$word');
         $user->save();
         Auth::login($user);
@@ -85,7 +85,7 @@ class AuthControllerTest extends TestCase
     public function testChangePassword_測試缺少新密碼()
     {
         /** arrange */
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->password = Hash::make('P@$$word');
         $user->save();
         Auth::login($user);
@@ -108,7 +108,7 @@ class AuthControllerTest extends TestCase
     public function testChangePassword_測試缺少舊密碼()
     {
         /** arrange */
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->password = Hash::make('P@$$word');
         $user->save();
         Auth::login($user);

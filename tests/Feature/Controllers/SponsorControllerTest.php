@@ -31,7 +31,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalPageShow()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
 
         $response = $this->get('/sponsor/form/' . $access_key);
@@ -41,7 +41,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalPageShowWithWrongAccessKey()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = strrev($sponsor->access_key);
 
         $response = $this->get('/sponsor/form/' . $access_key);
@@ -54,7 +54,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalGetSponsor()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = $sponsor->access_secret;
 
@@ -76,7 +76,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalGetSponsorWithWrongAccessKey()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = strrev($sponsor->access_key);
         $password = $sponsor->access_secret;
 
@@ -92,7 +92,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalGetSponsorWithWrongPassword()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = strrev($sponsor->access_secret);
 
@@ -108,7 +108,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalUpdateSponsor()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = $sponsor->access_secret;
         $recipe_amount = $sponsor->recipe_amount;
@@ -140,7 +140,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalUpdateSponsorUploadImage()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = $sponsor->access_secret;
 
@@ -187,7 +187,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalUpdateSponsorUploadImageWithCloudLink()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = $sponsor->access_secret;
 
@@ -220,7 +220,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalUpdateSponsorUploadImageWithFileAndCloudLink()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = $sponsor->access_secret;
 
@@ -252,7 +252,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalUpdateSponsorUploadIllegalFile()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = $sponsor->access_secret;
 
@@ -276,7 +276,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalUpdateSponsorWithWrongAccessKey()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = strrev($sponsor->access_key);
         $password = $sponsor->access_secret;
 
@@ -296,7 +296,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExternalUpdateSponsorWithWrongPassword()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $access_key = $sponsor->access_key;
         $password = strrev($sponsor->access_secret);
 
@@ -382,7 +382,7 @@ class SponsorControllerTest extends TestCase
 
     public function testGetSponsorListWithfilterAll()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $filter = json_encode([
             'status' => $sponsor->sponsor_status,
             'type' => $sponsor->sponsor_type,
@@ -407,7 +407,7 @@ class SponsorControllerTest extends TestCase
 
     public function testGetSponsorListWithfilterStatus()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $filter = json_encode([
             'status' => $sponsor->sponsor_status,
         ]);
@@ -430,7 +430,7 @@ class SponsorControllerTest extends TestCase
 
     public function testGetSponsorListWithfilterType()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $filter = json_encode([
             'type' => $sponsor->sponsor_type,
         ]);
@@ -453,7 +453,7 @@ class SponsorControllerTest extends TestCase
 
     public function testGetSponsorListWithSearchName()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $search = $sponsor->name;
 
         $response = $this->get('/api/sponsor', [
@@ -474,7 +474,7 @@ class SponsorControllerTest extends TestCase
 
     public function testGetSponsorListWithSearchContact()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $search = $sponsor->recipe_contact_name;
 
         $response = $this->get('/api/sponsor', [
@@ -495,7 +495,7 @@ class SponsorControllerTest extends TestCase
 
     public function testGetSponsorListWithSearchAndFilter()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $search = $sponsor->recipe_contact_name;
         $filter = json_encode([
             'status' => $sponsor->sponsor_status,
@@ -523,7 +523,7 @@ class SponsorControllerTest extends TestCase
 
     public function testUpdateSponsor()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $year = $this->faker->year; 
         $name = $this->faker->company;
         $contact = $this->faker->name;
@@ -554,7 +554,7 @@ class SponsorControllerTest extends TestCase
 
     public function testDeleteSponsor()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $response = $this->json('DELETE', "/api/sponsor/" . $sponsor->id);
         $response->assertStatus(200)
             ->assertJson([
@@ -564,7 +564,7 @@ class SponsorControllerTest extends TestCase
 
     public function testExportSponsor()
     {
-        $sponsor = factory(Sponsor::class, 5)->create();
+        $sponsor = Sponsor::factory()->count(5)->create();
         $ids = $sponsor->map(function ($item) {
             return $item->id;
         });
@@ -576,7 +576,7 @@ class SponsorControllerTest extends TestCase
 
     public function testUpdateSponsorUploadImage()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
@@ -620,7 +620,7 @@ class SponsorControllerTest extends TestCase
 
     public function testUpdateSponsorUploadImageWithCloudLink()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
@@ -651,7 +651,7 @@ class SponsorControllerTest extends TestCase
 
     public function testUpdateSponsorUploadImageWithFileAndCloudLink()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $year = $this->faker->year;
         $name = $this->faker->company;
         $contact = $this->faker->name;
@@ -681,7 +681,7 @@ class SponsorControllerTest extends TestCase
 
     public function testUpdateSponsorUploadIllegalFile()
     {
-        $sponsor = factory(Sponsor::class, 1)->create()->first();
+        $sponsor = Sponsor::factory()->count(1)->create()->first();
         $name = $this->faker->company;
         $contact = $this->faker->name;
         $file = UploadedFile::fake()->create('document.doc', 100);

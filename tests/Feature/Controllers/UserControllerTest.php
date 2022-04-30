@@ -13,7 +13,7 @@ class UserControllerTest extends TestCase
     public function testUpdateUser()
     {
         /** arrange */
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $newName = 'Test';
         $newMail = 'Test@gmail.com';
 

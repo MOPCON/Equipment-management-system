@@ -40,7 +40,7 @@ class SpeakerControllerTest extends TestCase
     public function testApiCreateSpeaker()
     {
         $name = $this->faker->name;
-        $speaker = factory(Speaker::class, 1)->create()->first();
+        $speaker = Speaker::factory()->count(1)->create()->first();
         $response = $this->json(
             'POST',
             '/api/speaker',
@@ -60,7 +60,7 @@ class SpeakerControllerTest extends TestCase
     public function testApiUpdateSpeaker()
     {
         $name_e = $this->faker->name;
-        $speaker = factory(Speaker::class, 1)->create()->first();
+        $speaker = Speaker::factory()->count(1)->create()->first();
         $response = $this->json(
             'PUT',
             "/api/speaker/{$speaker->id}",
@@ -81,7 +81,7 @@ class SpeakerControllerTest extends TestCase
 
     public function testApiDeleteSpeaker()
     {
-        $speaker = factory(Speaker::class, 1)->create()->first();
+        $speaker = Speaker::factory()->count(1)->create()->first();
         $response = $this->json('DELETE', "/api/speaker/{$speaker->id}");
 
         $response->assertJson([
@@ -93,7 +93,7 @@ class SpeakerControllerTest extends TestCase
     public function testExternalUpdateSpeaker()
     {
         $name_e = $this->faker->name;
-        $speaker = factory(Speaker::class, 1)->create()->first();
+        $speaker = Speaker::factory()->count(1)->create()->first();
         $response = $this->json(
             'PUT',
             "/speaker/{$speaker->access_key}",
@@ -113,7 +113,7 @@ class SpeakerControllerTest extends TestCase
 
     public function testExportSpeakers()
     {
-        $speakers = factory(Speaker::class, 5)->create();
+        $speakers = Speaker::factory()->count(5)->create();
         $ids = $speakers->map(function ($item) {
             return $item->id;
         });

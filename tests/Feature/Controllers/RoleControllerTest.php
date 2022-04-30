@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Role;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
@@ -14,7 +14,7 @@ class RoleControllerTest extends TestCase
     public function testGetRoles()
     {
         /** arrange */
-        $role = factory(Role::class)->create();
+        $role = Role::factory()->create();
 
         /** Act */
         $response = $this->getJson('/api/role');
@@ -29,7 +29,7 @@ class RoleControllerTest extends TestCase
     public function testShowRoles()
     {
         /** arrange */
-        $role = factory(Role::class)->create();
+        $role = Role::factory()->create();
         $role->syncPermissions(Permission::find(1));
 
 
@@ -46,7 +46,7 @@ class RoleControllerTest extends TestCase
     public function testStoreRoles()
     {
         /** arrange */
-        $role = factory(Role::class)->make();
+        $role = Role::factory()->make();
         $permission = Permission::find(1);
 
         /** Act */
@@ -71,7 +71,7 @@ class RoleControllerTest extends TestCase
     public function testStoreRoleNameExist()
     {
         /** arrange */
-        $role = factory(Role::class)->create();
+        $role = Role::factory()->create();
 
         /** Act */
         $response = $this->postJson('/api/role', [
@@ -87,7 +87,7 @@ class RoleControllerTest extends TestCase
     public function testUpdateRole()
     {
         /** arrange */
-        $role = factory(Role::class)->create();
+        $role = Role::factory()->create();
         $newName = 'Test';
 
         /** Act */
@@ -107,7 +107,7 @@ class RoleControllerTest extends TestCase
     public function testUpdateRoleNameExist()
     {
         /** arrange */
-        $role = factory(Role::class)->create();
+        $role = Role::factory()->create();
         $newName = 'admin';
 
         /** Act */
@@ -124,7 +124,7 @@ class RoleControllerTest extends TestCase
     public function testDestroyRole()
     {
         /** arrange */
-        $role = factory(Role::class)->create();
+        $role = Role::factory()->create();
 
         /** Act */
         $response = $this->deleteJson("/api/role/{$role->id}");

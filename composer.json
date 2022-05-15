@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|^8.0",
         "botman/botman": "^2.4",
         "botman/driver-telegram": "^1.5",
         "botman/studio-addons": "^1.5",
@@ -33,7 +33,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "thecodingmachine/discovery": true
+        }
     },
     "extra": {
         "laravel": {

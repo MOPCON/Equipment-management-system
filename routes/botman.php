@@ -4,7 +4,7 @@ use App\Http\Middleware\Botman\CommandClearMiddleware;
 use BotMan\BotMan\BotMan;
 use App\Conversations\WhoAmIConversation;
 use App\Http\Middleware\Botman\AdminMiddleware;
-use App\Conversations\Commands\SaveIdConversation;
+use App\Conversations\Admin\SaveIdConversation;
 use App\Http\Middleware\Botman\PrivateChatMiddleware;
 
 /** @var BotMan $botman */

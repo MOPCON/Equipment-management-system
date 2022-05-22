@@ -12,12 +12,11 @@ jobs:
   test:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
-      - name: Composer install
-        uses: docker://composer:1.9.1
-        with:
-          args: install
+      - uses: actions/checkout@v3
+      - name: composer install
+        uses: docker://unciax/php:7.4-gd-composer
+        with: 
+          args: composer install 
       - name: PHPUnit testing
-        uses: docker://mopcon/php:7.2-latest
-        with:
-          args: php vendor/bin/phpunit
+        run: php vendor/bin/phpunit
+

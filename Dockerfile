@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y \
         cron \
@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
         # For php ldap ext
         libldb-dev \
         libldap2-dev \
+        # For intl
+        libicu-dev \
         # For memcached
         libmemcached-dev \
         # Install required packages
@@ -27,7 +29,7 @@ RUN apt-get update && apt-get install -y \
         && docker-php-ext-install -j$(nproc) mysqli \
         && docker-php-ext-configure gettext \
         && docker-php-ext-install -j$(nproc) gettext \
-        && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+        && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
         && docker-php-ext-install -j$(nproc) gd \
         && docker-php-ext-configure ldap \
         && docker-php-ext-install -j$(nproc) ldap \
@@ -40,7 +42,10 @@ RUN apt-get update && apt-get install -y \
         && pecl install xdebug \
         && docker-php-ext-enable xdebug \
         && pecl install memcached \
-        && docker-php-ext-enable memcached
+        && docker-php-ext-enable memcached \
+        && docker-php-ext-configure intl \
+        && docker-php-ext-install intl
+
 
 # composer
 RUN curl -sS https://getcomposer.org/installer | php

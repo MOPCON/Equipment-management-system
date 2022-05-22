@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Conversations\Commands;
+namespace App\Conversations\Admin;
 
 use App\BotChannel;
 use BotMan\BotMan\Messages\Conversations\Conversation;

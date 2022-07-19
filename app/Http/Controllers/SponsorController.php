@@ -272,11 +272,12 @@ class SponsorController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getOptions()
+    public function getOptions($year)
     {
         $options = [
             'sponsorStatusItem' => Sponsor::$sponsorStatusItem,
-            'sponsorTypeItem' => Sponsor::$sponsorTypeItem,
+            'sponsorTypeItem' => Sponsor::$sponsorTypeItem[$year],
+            'currentYearSponsorTypeItem' => Sponsor::$sponsorTypeItem[Carbon::now()->year],
         ];
 
         return $this->returnSuccess('Success.', $options);

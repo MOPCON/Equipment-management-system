@@ -28,7 +28,7 @@ Route::get('/speaker/form/{accessKey}', 'SpeakerController@externalForm');
 Route::get('/speaker/{accessKey}', 'SpeakerController@externalShow');
 Route::post('/speaker/{accessKey}', 'SpeakerController@externalShow');
 Route::put('/speaker/{accessKey}', 'SpeakerController@externalUpdate');
-Route::get('/sponsor/get-options', 'SponsorController@getOptions');
+Route::get('/sponsor/get-options/{year}', 'SponsorController@getOptions');
 Route::get('/sponsor/form/{accessKey}', 'SponsorController@externalForm');
 Route::post('/sponsor/{accessKey}', 'SponsorController@externalShow');
 Route::put('/sponsor/{accessKey}', 'SponsorController@externalUpdate');

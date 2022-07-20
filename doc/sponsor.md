@@ -4,7 +4,7 @@
 
 + **URL :** 
 
-    **`/sponsor/get-options`**
+    **`/sponsor/get-options/{year}`**
     
 + **Method** : 
 
@@ -28,7 +28,14 @@
                 "Hacker",
                 "Developer",
                 "其他"
-            ]
+            ],
+            "currentYearSponsorTypeItem": [
+                "宇宙級",
+                "銀河級",
+                "行星級",
+                "彗星級",
+                "特別贊助、教育贊助"
+            ],
         }
     }
     ```

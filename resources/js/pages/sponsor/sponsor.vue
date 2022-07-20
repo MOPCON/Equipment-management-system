@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <label for="sponsorType">類型</label>
                             <select class="form-control" id="sponsorType"  v-model="createSponsorData.type">
-                                <option v-for="(type, index) in sponsorOption.sponsorTypeItem"
+                                <option v-for="(type, index) in sponsorOption.currentYearSponsorTypeItem"
                                 :key="`addsponsor-type-${index}`" :value="index">{{ type }}</option>
                             </select>
                         </div>
@@ -605,7 +605,7 @@
                 sponsorDetailcol: [],
                 sponsorAdvancedDetailcol: [],
                 sponsorOption: [],
-                participateYear: ['2021','2020', '2019'],
+                participateYear: ['2022', '2021', '2020', '2019'],
                 sponsorDetailData: {
                     main: {},
                     recipe: {},
@@ -613,7 +613,7 @@
                 },
                 searchText: '',
                 filter: {
-                    year: '2021',
+                    year: '2022',
                 },
             }
         },
@@ -683,7 +683,7 @@
             getSpeakerOption() {
                 const vm = this;
                 axios.get(
-                    'sponsor/get-options'
+                    'sponsor/get-options/' + this.filter.year
                 ).then(response => {
                     const res = response.data.data;
                     vm.sponsorOption = res;
@@ -693,6 +693,8 @@
             },
             getSponsorData(filter = this.filter) {
                 const vm = this;
+                vm.lastSearchYear = filter.year;
+                this.getSpeakerOption();
                 axios.get(
                     `api/sponsor?&page=${vm.page_info.current_page}${vm.searchText ?
                     `&search=${vm.searchText}` : ''}${Object.keys(filter).length ?

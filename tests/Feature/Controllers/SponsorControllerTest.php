@@ -18,13 +18,14 @@ class SponsorControllerTest extends TestCase
 
     public function testGetOptions()
     {
-        $response = $this->get('/sponsor/get-options');
+        $response = $this->get('/sponsor/get-options/2022');
 
         $response->assertStatus(200)
             ->assertJson([
                 'data' => [
                     'sponsorStatusItem' => [],
                     'sponsorTypeItem' => [],
+                    'currentYearSponsorTypeItem' => []
                 ]
             ]);
     }
@@ -317,7 +318,7 @@ class SponsorControllerTest extends TestCase
     public function testApiCreateSponsor()
     {
         $user = User::find(1);
-        $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem) - 1);
+        $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem[2022]) - 1);
         $this->actingAs($user);
         $company = $this->faker->company;
         $recipe_amount = $this->faker->numberBetween(88888, 8888888);
@@ -341,7 +342,7 @@ class SponsorControllerTest extends TestCase
     public function testApiCreateSponsorWithNoName()
     {
         $user = User::find(1);
-        $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem) - 1);
+        $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem[2022]) - 1);
         $this->actingAs($user);
         $recipe_amount = $this->faker->numberBetween(88888, 8888888);
         $response = $this->json('POST', '/api/sponsor', [
@@ -358,7 +359,7 @@ class SponsorControllerTest extends TestCase
     public function testApiCreateSponsorWithNoRecipeAmount()
     {
         $user = User::find(1);
-        $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem) - 1);
+        $sponsorType = rand(0, count(Sponsor::$sponsorTypeItem[2022]) - 1);
         $this->actingAs($user);
         $company = $this->faker->company;
         $recipe_amount = $this->faker->numberBetween(88888, 8888888);

@@ -26,7 +26,7 @@ class SponsorRequest extends BaseRequest
     {
         return [
             'year'                         => 'nullable|date_format:Y',
-            'sponsor_type'                 => 'nullable|integer|min:0|max:' . count(Sponsor::$sponsorTypeItem),
+            'sponsor_type'                 => 'nullable|integer|min:0|max:' . count(Sponsor::$sponsorTypeItem[2022]),
             'sponsor_status'               => 'nullable|integer|min:0|max:' . count(Sponsor::$sponsorStatusItem),
             'name'                         => 'required|string',
             'en_name'                      => 'nullable|string',

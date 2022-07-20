@@ -23,11 +23,34 @@ class Sponsor extends Model
     public const NotEditableStatus = 3; // based on $sponsorStatusItem
 
     public static $sponsorTypeItem = [
-        self::TONYSTARK,
-        self::BRUCEWAYNE,
-        self::HACKER,
-        self::DEVELOP,
-        self::OTHER,
+        2022 => [
+            '宇宙級',
+            '銀河級',
+            '行星級',
+            '彗星級',
+            '特別贊助、教育贊助',
+        ],
+        2021 => [
+            self::TONYSTARK,
+            self::BRUCEWAYNE,
+            self::HACKER,
+            self::DEVELOP,
+            self::OTHER,
+        ],
+        2020 => [
+            self::TONYSTARK,
+            self::BRUCEWAYNE,
+            self::HACKER,
+            self::DEVELOP,
+            self::OTHER,
+        ],
+        2019 => [
+            self::TONYSTARK,
+            self::BRUCEWAYNE,
+            self::HACKER,
+            self::DEVELOP,
+            self::OTHER,
+        ],
     ];
 
     public static $sponsorFileItem = [
@@ -137,12 +160,12 @@ class Sponsor extends Model
 
     public function getSponsorTypeTextAttribute()
     {
-        return self::$sponsorTypeItem[$this->sponsor_type] ?? '';
+        return self::$sponsorTypeItem[$this->year][$this->sponsor_type] ?? '';
     }
 
     public function getSponsorFileTextAttribute()
     {
-        $sponsorFileKey = self::$sponsorTypeItem[$this->sponsor_type];
+        $sponsorFileKey = self::$sponsorTypeItem[2019][$this->sponsor_type];
         $sponsorFileFieldKeys = collect(self::$sponsorHasItem[$sponsorFileKey]);
 
         if (empty($sponsorFileFieldKeys)) {

@@ -357,7 +357,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-bordered" v-if="sponsorDetailData.advence.sponsor_type !== 4">
+                    <table class="table table-bordered" v-if="![4].includes(sponsorDetailData.advence.sponsor_type)">
                         <thead>
                             <tr>
                                 <th v-for="row in sponsorAdvancedDetailcol" :key="`form-subtitle-${row.key}`" class="sortfield" tabindex="0">
@@ -377,7 +377,7 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="sponsorDetailData.advence.sponsor_type == 0">
+                            <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>暖場動畫</td>
                                 <td>
                                     <label for="promotion_warm_up_media_link" class="mt-2">提供雲端連結：</label>
@@ -387,7 +387,7 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="sponsorDetailData.advence.sponsor_type == 0">
+                            <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>Discord 攤位宣傳簡介</td>
                                 <td class="p-0 v-align-middle">
                                     <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.promotion_discord_intro" />
@@ -443,7 +443,7 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="sponsorDetailData.advence.sponsor_type === 0">
+                            <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>報到處全版廣告空間</td>
                                 <td>
                                     <img :src="sponsorDetailData.advence.advence_registration_ad_path" alt="" srcset="" width="120px"><br>
@@ -457,13 +457,13 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="sponsorDetailData.advence.sponsor_type === 0 || sponsorDetailData.advence.sponsor_type === 1">
+                            <tr v-if="[0, 1].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>Keynote 引言</td>
                                 <td class="p-0 v-align-middle">
                                     <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.advence_keynote" />
                                 </td>
                             </tr>
-                            <tr v-if="sponsorDetailData.advence.sponsor_type === 0 || sponsorDetailData.advence.sponsor_type === 1 || sponsorDetailData.advence.sponsor_type === 2">
+                            <tr v-if="[0, 1, 2].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>演講廳旗幟</td>
                                 <td>
                                     <img :src="sponsorDetailData.advence.advence_hall_flag_path" alt="" srcset="" width="120px"><br>
@@ -477,7 +477,7 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="sponsorDetailData.advence.sponsor_type === 0 || sponsorDetailData.advence.sponsor_type === 1 || sponsorDetailData.advence.sponsor_type === 2">
+                            <tr v-if="[0, 1, 2].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>主動線旗幟廣告</td>
                                 <td>
                                     <img :src="sponsorDetailData.advence.advence_main_flow_flag_path" alt="" srcset="" width="120px"><br>

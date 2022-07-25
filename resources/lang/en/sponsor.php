@@ -64,6 +64,11 @@ return [
         'promotion_email_short' => 'Introduction of company or event',
         'promotion_email_url' => 'Publicize url',
         'promotion_email_image' => 'Publicity photo',
+        'app_push_before_start'         => 'In-app messaging',
+        'promotion_app_push_image_link' => 'In-app messaging image',
+        'promotion_app_push_title'      => 'In-app messaging title',
+        'promotion_app_push_content'    => 'In-app messaging content',
+        'promotion_app_push_link'       => 'In-app messaging redirect link',
     ],
     'subtitle' => [
         'introduction'    => 'Provide company’s background and mission. (in 250 words)',

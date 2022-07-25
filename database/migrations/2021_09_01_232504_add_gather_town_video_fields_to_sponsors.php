@@ -17,8 +17,8 @@ class AddGatherTownVideoFieldsToSponsors extends Migration
     public function down()
     {
         Schema::table('sponsors', function (Blueprint $table) {
-            $table->string('promotion_gather_town_video_link_0');
-            $table->string('promotion_gather_town_video_link_1');
+            $table->dropColumn('promotion_gather_town_video_link_0');
+            $table->dropColumn('promotion_gather_town_video_link_1');
         });
     }
 }

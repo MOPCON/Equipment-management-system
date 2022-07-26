@@ -64,7 +64,11 @@ return [
         'promotion_email_short' => '公司或活動簡短介紹文',
         'promotion_email_url' => '相關連結',
         'promotion_email_image' => '宣傳圖片',
-
+        'app_push_before_start'         => '大會 App 推播',
+        'promotion_app_push_image_link' => '訊息圖片',
+        'promotion_app_push_title'      => '訊息標題',
+        'promotion_app_push_content'    => '訊息內文',
+        'promotion_app_push_link'       => '訊息跳轉連結'
     ],
     'subtitle' => [
         'introduction'    => '提供專業背景與沿革(250字內)',

@@ -357,7 +357,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-bordered" v-if="![4].includes(sponsorDetailData.advence.sponsor_type)">
+                    <table class="table table-bordered" v-if="![3, 4].includes(sponsorDetailData.advence.sponsor_type)">
                         <thead>
                             <tr>
                                 <th v-for="row in sponsorAdvancedDetailcol" :key="`form-subtitle-${row.key}`" class="sortfield" tabindex="0">
@@ -366,7 +366,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-if="[0, 1, 2, 3].includes(sponsorDetailData.advence.sponsor_type)">
+                            <tr v-if="sponsorDetailData.advence.sponsor_type === 0">
+                                <td :rowspan="checkSponsorType(sponsorDetailData.advence.sponsor_type).row">{{ checkSponsorType(sponsorDetailData.advence.sponsor_type).name }}</td>
+                                <td>ICCK大門兩側廣告</td>
+                                <td>
+                                    <img :src="sponsorDetailData.advence.advence_icck_ad_path" alt="" srcset="" width="120px"><br>
+                                    <a v-if="sponsorDetailData.advence.advence_icck_ad_path !== null" download :href="sponsorDetailData.advence.advence_icck_ad_path"
+                                        target="_blank">下載檔案</a>
+                                    <input type="file" name="file" class="form-control-file" id="advence_icck_ad_path" @change="imagePreview('advence_icck_ad_path')">
+                                    <label for="cloud_advence_icck_ad_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_advence_icck_ad_path" v-model="sponsorDetailData.advence.cloud_advence_icck_ad_path" @change="linkDirect('cloud_advence_icck_ad_path')">
+                                    <a v-if="sponsorDetailData.advence.cloud_advence_icck_ad_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.cloud_advence_icck_ad_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr v-if="[99].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td :rowspan="checkSponsorType(sponsorDetailData.advence.sponsor_type).row">{{ checkSponsorType(sponsorDetailData.advence.sponsor_type).name }}</td>
                                 <td>廣告播放</td>
                                 <td>
@@ -377,7 +392,7 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
+                            <tr v-if="[99].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>暖場動畫</td>
                                 <td>
                                     <label for="promotion_warm_up_media_link" class="mt-2">提供雲端連結：</label>
@@ -387,13 +402,13 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
+                            <tr v-if="[99].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>Discord 攤位宣傳簡介</td>
                                 <td class="p-0 v-align-middle">
                                     <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.promotion_discord_intro" />
                                 </td>
                             </tr>
-                             <tr v-if="[0, 1].includes(sponsorDetailData.advence.sponsor_type)">
+                             <tr v-if="[99].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>Gather town 線上攤位素材</td>
                                 <td class="">
                                     <label for="promotion_gather_town_h_link" class="mt-3">橫式圖片 700*300</label>
@@ -425,24 +440,6 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="[0, 1, 2].includes(sponsorDetailData.advence.sponsor_type)">
-                                <td>Email 行前通知信宣傳</td>
-                                <td class="">
-                                    <label for="promotion_email_short">公司或活動簡短介紹文</label>
-                                    <textarea class="form-control" id="promotion_email_short" v-model="sponsorDetailData.advence.promotion_email_short" />
-                                    <label for="promotion_email_url" class="mt-3">相關連結</label>
-                                    <input type="url" name="file" class="form-control" id="promotion_email_url" v-model="sponsorDetailData.advence.promotion_email_url">
-                                    <a v-if="sponsorDetailData.advence.promotion_email_url" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_email_url" target="_blank">
-                                        前往雲端連結
-                                    </a>
-                                    <br>
-                                    <label for="promotion_email_image" class="mt-3">宣傳圖片</label>
-                                    <input type="url" name="promotion_email_image" class="form-control" id="promotion_email_image" v-model="sponsorDetailData.advence.promotion_email_image">
-                                    <a v-if="sponsorDetailData.advence.promotion_email_image" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_email_image" target="_blank">
-                                        前往雲端連結
-                                    </a>
-                                </td>
-                            </tr>
                             <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>報到處全版廣告空間</td>
                                 <td>
@@ -457,13 +454,14 @@
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="[0, 1].includes(sponsorDetailData.advence.sponsor_type)">
+                            <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td>Keynote 引言</td>
                                 <td class="p-0 v-align-middle">
                                     <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.advence_keynote" />
                                 </td>
                             </tr>
                             <tr v-if="[0, 1, 2].includes(sponsorDetailData.advence.sponsor_type)">
+                                <td v-if="![0].includes(sponsorDetailData.advence.sponsor_type)" :rowspan="checkSponsorType(sponsorDetailData.advence.sponsor_type).row">{{ checkSponsorType(sponsorDetailData.advence.sponsor_type).name }}</td>
                                 <td>演講廳旗幟</td>
                                 <td>
                                     <img :src="sponsorDetailData.advence.advence_hall_flag_path" alt="" srcset="" width="120px"><br>
@@ -486,6 +484,44 @@
                                     <label for="cloud_advence_main_flow_flag_path" class="mt-2">或提供雲端連結：</label>
                                     <input type="url" name="file" class="form-control" id="cloud_advence_main_flow_flag_path" v-model="sponsorDetailData.advence.cloud_advence_main_flow_flag_path" @change="linkDirect('cloud_advence_main_flow_flag_path')">
                                     <a v-if="sponsorDetailData.advence.cloud_advence_main_flow_flag_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.cloud_advence_main_flow_flag_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr v-if="[0, 1].includes(sponsorDetailData.advence.sponsor_type)">
+                                <td>Email 行前通知信宣傳</td>
+                                <td class="">
+                                    <label for="promotion_email_short">公司或活動簡短介紹文</label>
+                                    <textarea class="form-control" id="promotion_email_short" v-model="sponsorDetailData.advence.promotion_email_short" />
+                                    <label for="promotion_email_url" class="mt-3">相關連結</label>
+                                    <input type="url" name="file" class="form-control" id="promotion_email_url" v-model="sponsorDetailData.advence.promotion_email_url">
+                                    <a v-if="sponsorDetailData.advence.promotion_email_url" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_email_url" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                    <br>
+                                    <label for="promotion_email_image" class="mt-3">宣傳圖片</label>
+                                    <input type="url" name="promotion_email_image" class="form-control" id="promotion_email_image" v-model="sponsorDetailData.advence.promotion_email_image">
+                                    <a v-if="sponsorDetailData.advence.promotion_email_image" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_email_image" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr v-if="[0, 1].includes(sponsorDetailData.advence.sponsor_type)">
+                                <td>大會 App 推播訊息</td>
+                                <td class="">
+                                    <label for="promotion_app_push_title">標題</label>
+                                    <input type="text" class="form-control" id="promotion_app_push_title" v-model="sponsorDetailData.advence.promotion_app_push_title">
+                                    <label for="promotion_app_push_content">內文</label>
+                                    <textarea class="form-control" id="promotion_app_push_content" v-model="sponsorDetailData.advence.promotion_app_push_content" />
+                                    <label for="promotion_app_push_link" class="mt-3">跳轉連結</label>
+                                    <input type="url" name="file" class="form-control" id="promotion_app_push_link" v-model="sponsorDetailData.advence.promotion_app_push_link">
+                                    <a v-if="sponsorDetailData.advence.promotion_app_push_link" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_app_push_link" target="_blank">
+                                        前往連結
+                                    </a>
+                                    <br>
+                                    <label for="promotion_app_push_image_link" class="mt-3">圖片</label>
+                                    <input type="url" name="promotion_app_push_image_link" class="form-control" id="promotion_app_push_image_link" v-model="sponsorDetailData.advence.promotion_app_push_image_link">
+                                    <a v-if="sponsorDetailData.advence.promotion_app_push_image_link" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.advence.promotion_app_push_image_link" target="_blank">
                                         前往雲端連結
                                     </a>
                                 </td>
@@ -921,22 +957,17 @@
                 if (type === 0) {
                     return {
                         name: vm.sponsorOption.sponsorTypeItem[type],
-                        row: 9
+                        row: 7
                     }
                 } else if (type === 1) {
                     return {
                         name: vm.sponsorOption.sponsorTypeItem[type],
-                        row: 5
+                        row: 4
                     }
                 } else if (type === 2) {
                     return {
                         name: vm.sponsorOption.sponsorTypeItem[type],
-                        row: 4
-                    }
-                } else if (type === 3) {
-                    return {
-                        name: vm.sponsorOption.sponsorTypeItem[type],
-                        row: 1
+                        row: 2
                     }
                 }
             }

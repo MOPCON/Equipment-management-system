@@ -23,11 +23,34 @@ class Sponsor extends Model
     public const NotEditableStatus = 3; // based on $sponsorStatusItem
 
     public static $sponsorTypeItem = [
-        self::TONYSTARK,
-        self::BRUCEWAYNE,
-        self::HACKER,
-        self::DEVELOP,
-        self::OTHER,
+        2022 => [
+            '宇宙級',
+            '銀河級',
+            '行星級',
+            '彗星級',
+            '特別贊助、教育贊助',
+        ],
+        2021 => [
+            self::TONYSTARK,
+            self::BRUCEWAYNE,
+            self::HACKER,
+            self::DEVELOP,
+            self::OTHER,
+        ],
+        2020 => [
+            self::TONYSTARK,
+            self::BRUCEWAYNE,
+            self::HACKER,
+            self::DEVELOP,
+            self::OTHER,
+        ],
+        2019 => [
+            self::TONYSTARK,
+            self::BRUCEWAYNE,
+            self::HACKER,
+            self::DEVELOP,
+            self::OTHER,
+        ],
     ];
 
     public static $sponsorFileItem = [
@@ -43,6 +66,7 @@ class Sponsor extends Model
         'Gather Town 橫式圖片',
         'Gather Town 直式圖片',
         'Gather Town 宣傳影片',
+        '大會 App 推播'
     ];
 
     public static $promotionTimeLimit = [
@@ -54,9 +78,9 @@ class Sponsor extends Model
     ];
 
     public static $sponsorHasItem = [
-        self::TONYSTARK  => [2,5,6,7,8,9,10,11],
-        self::BRUCEWAYNE => [5,6,7,9,10,11],
-        self::HACKER     => [5,6],
+        self::TONYSTARK  => [0,1,2,3,4,6,12],
+        self::BRUCEWAYNE => [3,4,6,12],
+        self::HACKER     => [3,4],
         self::DEVELOP    => [5],
         self::OTHER      => [],
     ];
@@ -112,6 +136,10 @@ class Sponsor extends Model
         'promotion_gather_town_video_link',
         'promotion_gather_town_video_link_0',
         'promotion_gather_town_video_link_1',
+        'promotion_app_push_image_link',
+        'promotion_app_push_title',
+        'promotion_app_push_content',
+        'promotion_app_push_link',
         'updated_by',
     ];
 
@@ -137,12 +165,12 @@ class Sponsor extends Model
 
     public function getSponsorTypeTextAttribute()
     {
-        return self::$sponsorTypeItem[$this->sponsor_type] ?? '';
+        return self::$sponsorTypeItem[$this->year][$this->sponsor_type] ?? '';
     }
 
     public function getSponsorFileTextAttribute()
     {
-        $sponsorFileKey = self::$sponsorTypeItem[$this->sponsor_type];
+        $sponsorFileKey = self::$sponsorTypeItem[2019][$this->sponsor_type];
         $sponsorFileFieldKeys = collect(self::$sponsorHasItem[$sponsorFileKey]);
 
         if (empty($sponsorFileFieldKeys)) {

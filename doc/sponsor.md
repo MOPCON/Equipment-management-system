@@ -4,7 +4,7 @@
 
 + **URL :** 
 
-    **`/sponsor/get-options`**
+    **`/sponsor/get-options/{year}`**
     
 + **Method** : 
 
@@ -28,7 +28,14 @@
                 "Hacker",
                 "Developer",
                 "其他"
-            ]
+            ],
+            "currentYearSponsorTypeItem": [
+                "宇宙級",
+                "銀河級",
+                "行星級",
+                "彗星級",
+                "特別贊助、教育贊助"
+            ],
         }
     }
     ```
@@ -101,6 +108,10 @@
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_app_push_image_link": "https://lorempixel.com/120/120/cats/?33353",
+                "promotion_app_push_title": "Libero corporis quia ut laborum. Repudiandae hic blanditiis occaecati velit tenetur. Labore saepe consequatur dolorum.",
+                "promotion_app_push_content": "Molestiae labore et magnam. Odit rerum minus quod mollitia ratione accusantium.",
+                "promotion_app_push_link": "http://swift.com/omnis-amet-dolores-qui",
             }
         }
     }
@@ -147,6 +158,10 @@
 		+ purpose [string] 希望能在本次大會達成的目標
 		+ remark [string] 備註
 		+ promotion_ad_media_link [string] 廣告播放連結,
+        + promotion_app_push_image_link [string] 大會 App 推播訊息圖片
+        + promotion_app_push_title [string] 大會 App 推播訊息標題
+        + promotion_app_push_content [string] 大會 App 推播訊息內文
+        + promotion_app_push_link [string] 大會 App 推播訊息跳轉連結
         + promotion_warm_up_media_link [string] 暖場動畫連結,
         + promotion_discord_intro [string] Discord 攤位宣傳簡介,
         + promotion_email_short [string] [Email 行前通知信宣傳] 公司或活動簡短介紹文,
@@ -212,6 +227,10 @@
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_app_push_image_link": "https://lorempixel.com/120/120/cats/?33353",
+                "promotion_app_push_title": "Libero corporis quia ut laborum. Repudiandae hic blanditiis occaecati velit tenetur. Labore saepe consequatur dolorum.",
+                "promotion_app_push_content": "Molestiae labore et magnam. Odit rerum minus quod mollitia ratione accusantium.",
+                "promotion_app_push_link": "http://swift.com/omnis-amet-dolores-qui",
             }
         }
     }
@@ -284,6 +303,10 @@
                     "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                     "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
                     "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
+                    "promotion_app_push_image_link": "https://lorempixel.com/120/120/cats/?33353",
+                    "promotion_app_push_title": "Libero corporis quia ut laborum. Repudiandae hic blanditiis occaecati velit tenetur. Labore saepe consequatur dolorum.",
+                    "promotion_app_push_content": "Molestiae labore et magnam. Odit rerum minus quod mollitia ratione accusantium.",
+                    "promotion_app_push_link": "http://swift.com/omnis-amet-dolores-qui",
                     "access_key": "80404beb-edec-418b-8aba-0ee6091de6aa",
                     "access_secret": "4tvioK6Qzi0VHVsCXJ3S",
                     "updated_by": 0,
@@ -402,6 +425,10 @@
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_app_push_image_link": "https://lorempixel.com/120/120/cats/?33353",
+                "promotion_app_push_title": "Libero corporis quia ut laborum. Repudiandae hic blanditiis occaecati velit tenetur. Labore saepe consequatur dolorum.",
+                "promotion_app_push_content": "Molestiae labore et magnam. Odit rerum minus quod mollitia ratione accusantium.",
+                "promotion_app_push_link": "http://swift.com/omnis-amet-dolores-qui", 
                 "sponsor_type_text": "Bruce Wayne",
                 "sponsor_file_text": [
                     "Keynote 引言",
@@ -466,6 +493,10 @@
 		+ purpose [string] 希望能在本次大會達成的目標
 		+ remark [string] 備註
         + promotion_ad_media_link [string] 廣告播放連結,
+        + promotion_app_push_image_link [string] 大會 App 推播訊息圖片
+        + promotion_app_push_title [string] 大會 App 推播訊息標題
+        + promotion_app_push_content [string] 大會 App 推播訊息內文
+        + promotion_app_push_link [string] 大會 App 推播訊息跳轉連結
         + promotion_warm_up_media_link [string] 暖場動畫連結,
         + promotion_discord_intro [string] Discord 攤位宣傳簡介,
         + promotion_email_short [string] [Email 行前通知信宣傳]公司或活動簡短介紹文,
@@ -528,6 +559,10 @@
                 "promotion_email_short": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_url": "https://lorempixel.com/120/120/cats/?28690",
                 "promotion_email_image": "https://lorempixel.com/120/120/cats/?28690",
+                "promotion_app_push_image_link": "https://lorempixel.com/120/120/cats/?33353",
+                "promotion_app_push_title": "Libero corporis quia ut laborum. Repudiandae hic blanditiis occaecati velit tenetur. Labore saepe consequatur dolorum.",
+                "promotion_app_push_content": "Molestiae labore et magnam. Odit rerum minus quod mollitia ratione accusantium.",
+                "promotion_app_push_link": "http://swift.com/omnis-amet-dolores-qui",
                 "sponsor_type_text": "Developer",
                 "sponsor_file_text": []
             },

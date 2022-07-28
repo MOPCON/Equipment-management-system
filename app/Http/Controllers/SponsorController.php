@@ -64,7 +64,7 @@ class SponsorController extends Controller
         'logo_path'                     => 'logo',
         'service_photo_path'            => '產品或服務照片',
         'promote'                       => '希望MOPCON宣傳的內容',
-        'slide_path'                    => '場間投影片',
+        'slide_path'                    => '場間動態廣告',
         'board_path'                    => '電子看板',
         'opening_remarks'               => '晚宴簡介',
         'recipe_full_name'              => '公司/組織全銜',

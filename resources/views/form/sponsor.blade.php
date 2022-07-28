@@ -155,7 +155,7 @@
                                 <textarea class="form-control" id="promotionalMaterial" rows="3" v-model="formData.main.promote">
                                 </textarea>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="slide_path">{{trans('sponsor.main.slide')}}</label>
                                 @component('components.subtitle')
                                     {{trans('sponsor.subtitle.slide')}}
@@ -167,12 +167,12 @@
                                 </div>
                                 <input type="url" v-model="formData.main.cloud_slide_path" class="form-control my-2" id="cloud_slide_path" placeholder="{{trans('sponsor.cloud.link')}}({{trans('sponsor.cloud.description')}})" @change="linkDirect('cloud_slide_path')">
                                 @component('components.subtitle')
-                                    {{trans('sponsor.cloud.error')}}
+                                    {{trans('sponsor.cloud.video_only_url')}}
                                 @endcomponent
                                 <a v-if="formData.main.cloud_slide_path !== null" :href="formData.main.cloud_slide_path" class="badge badge-info mb-2 p-2" target="_blank">
                                     @{{ formData.main.cloud_slide_path }}
                                 </a>
-                            </div> -->
+                            </div>
                             <!-- <div class="form-group">
                                 <label for="board_path">{{trans('sponsor.main.board')}}</label>
                                 @component('components.subtitle')

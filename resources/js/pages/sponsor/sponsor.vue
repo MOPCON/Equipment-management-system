@@ -254,13 +254,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>場間投影片 (建議 1920x1080px 圖檔)</td>
+                                <td>場間動態廣告 (建議 1920x1080px 圖檔或 1080p 影片)</td>
                                 <td>
                                     <img :src="sponsorDetailData.main.slide_path" alt="" srcset="" width="120px"><br>
                                     <a v-if="sponsorDetailData.main.slide_path !== null" download :href="sponsorDetailData.main.slide_path"
                                         target="_blank">下載檔案</a>
                                     <input type="file" name="file" class="form-control-file" id="slide_path" @change="imagePreview('slide_path')">
-                                    <label for="cloud_slide_path" class="mt-2">或提供雲端連結：</label>
+                                    <label for="cloud_slide_path" class="mt-2">或提供雲端連結(影片限制雲端連結)：</label>
                                     <input type="url" name="file" class="form-control" id="cloud_slide_path" v-model="sponsorDetailData.main.cloud_slide_path" @change="linkDirect('cloud_slide_path')">
                                     <a v-if="sponsorDetailData.main.cloud_slide_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_slide_path" target="_blank">
                                         前往雲端連結

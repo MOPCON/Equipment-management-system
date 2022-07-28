@@ -76,7 +76,7 @@ return [
         'logo'            => 'We’ll prefer the AI format, otherwise please provide image resolution at least 1920*1080. If you have multiple images, you can zip them all in a single file.',
         'promotion'       => 'Please provide the content that you would like to share on MOPCON’s fan page.',
         'service_photo'   => 'Please provide your products or services images.',
-        'slide'           => '用於休息時間投影，建議 1920x1080px JPG/PNG圖片檔',
+        'slide'           => 'Display between session interval. Recommend: 1920x1080px image (JPG/PNG) or 1080p video (MP4/MOV).',
         'board'           => '用於會場電視螢幕，建議 1920x1080px JPG/PNG圖片檔',
         'sponse_aims'     => 'Please describe the goal your company wants to achieve in MOPCON. (e.g. communicate more, promote your products or services, etc...)',
         'icck'            => '寬305cmx高900cm+出血0.5cm 解析度150-200dpi (AI/PSD) ',
@@ -115,6 +115,7 @@ return [
         'link' => 'Or provide file sharing link.',
         'description' => '(If file\'s size is more than 2MB or provide more than two files.)',
         'error' => 'Either file or link.',
-        'only_url' => 'Please provide sharing link.'
+        'only_url' => 'Please provide sharing link.',
+        'video_only_url' => 'If your file is video, please provide sharing link.',
     ]
 ];

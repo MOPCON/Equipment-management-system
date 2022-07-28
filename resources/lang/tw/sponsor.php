@@ -24,7 +24,7 @@ return [
         'logo'            => '企業 Logo',
         'service_photo'   => '社群粉絲貼文搭配圖片',
         'promotion'       => '社群粉絲貼文',
-        'slide'           => '場間投影片廣告',
+        'slide'           => '場間動態廣告',
         'board'           => '電子看板',
         'dinner_intro'    => '晚宴簡介 (於晚宴中將由主持人介紹貴公司)',
         'sponse_reason'   => '為什麼本次選擇贊助 MOPCON？(非必填)',
@@ -76,7 +76,7 @@ return [
         'logo'            => 'AI向量圖檔佳(若非向量尺寸須至少1920*1080)，若有多張圖可上傳壓縮檔',
         'promotion'       => '希望 MOPCON 於FB等社群宣傳的內容',
         'service_photo'   => '可為產品或服務照片',
-        'slide'           => '用於休息時間投影，建議 1920x1080px JPG/PNG圖片檔',
+        'slide'           => '用於休息時間投影，建議 1920x1080px 圖片檔 (JPG/PNG) 或影片檔 (MP4/MOV)',
         'board'           => '用於會場電視螢幕，建議 1920x1080px JPG/PNG圖片檔',
         'sponse_aims'     => '請在此描述貴公司希望在 MOPCON 活動中達成的目標。(交流、推廣、介紹產品與服務...等等)',
         'icck'            => '寬305cmx高900cm+出血0.5cm 解析度150-200dpi (AI/PSD) ',
@@ -101,7 +101,7 @@ return [
         'main_production'             => '產品及服務介紹為必填',
         'main_logo'                   => '請上傳公司 LOGO',
         'main_service_photo'          => '請上傳產品或服務照片',
-        'main_slide'                  => '請上傳場間投影片圖片',
+        'main_slide'                  => '請上傳場間動態廣告',
         'main_board'                  => '請上傳電子看板圖片',
         'recipe_company_full_name'    => '公司 / 組織全銜為必填',
         'recipe_tax_id_number'        => '統一編號為必填',
@@ -115,6 +115,7 @@ return [
         'link' => '或提供雲端硬碟檔案連結',
         'description' => '適用檔案超過 2MB 或兩個以上的檔案',
         'error' => '檔案上傳、雲端連結請擇一提供。',
-        'only_url' => '請提供雲端連結。'
+        'only_url' => '請提供雲端連結。',
+        'video_only_url' => '影片檔請提供雲端連結。',
     ]
 ];

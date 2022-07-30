@@ -164,7 +164,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th rowspan="14" scope="row" class="text-nowrap">公開宣傳資料</th>
+                                <th rowspan="12" scope="row" class="text-nowrap">公開宣傳資料</th>
                                 <td>id</td>
                                 <td>{{ sponsorDetailData.main.id }}</td>
                             </tr>
@@ -254,34 +254,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>場間動態廣告 (建議 1920x1080px 圖檔或 1080p 影片)</td>
-                                <td>
-                                    <img :src="sponsorDetailData.main.slide_path" alt="" srcset="" width="120px"><br>
-                                    <a v-if="sponsorDetailData.main.slide_path !== null" download :href="sponsorDetailData.main.slide_path"
-                                        target="_blank">下載檔案</a>
-                                    <input type="file" name="file" class="form-control-file" id="slide_path" @change="imagePreview('slide_path')">
-                                    <label for="cloud_slide_path" class="mt-2">或提供雲端連結(影片限制雲端連結)：</label>
-                                    <input type="url" name="file" class="form-control" id="cloud_slide_path" v-model="sponsorDetailData.main.cloud_slide_path" @change="linkDirect('cloud_slide_path')">
-                                    <a v-if="sponsorDetailData.main.cloud_slide_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_slide_path" target="_blank">
-                                        前往雲端連結
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>電子看板 (建議 1920x1080px 圖檔) </td>
-                                <td>
-                                    <img :src="sponsorDetailData.main.board_path" alt="" srcset="" width="120px"><br>
-                                    <a v-if="sponsorDetailData.main.board_path !== null" download :href="sponsorDetailData.main.board_path"
-                                      target="_blank">下載檔案</a>
-                                    <input type="file" name="file" class="form-control-file" id="board_path" @change="imagePreview('board_path')">
-                                    <label for="cloud_board_path" class="mt-2">或提供雲端連結：</label>
-                                    <input type="url" name="file" class="form-control" id="cloud_board_path" v-model="sponsorDetailData.main.cloud_board_path" @change="linkDirect('cloud_board_path')">
-                                    <a v-if="sponsorDetailData.main.cloud_board_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_board_path" target="_blank">
-                                        前往雲端連結
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td>晚宴簡介 (於晚宴中將由主持人介紹貴公司)</td>
                                 <td class="p-0 v-align-middle">
                                     <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.main.opening_remarks" maxlength="80" />
@@ -357,7 +329,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-bordered" v-if="![3, 4].includes(sponsorDetailData.advence.sponsor_type)">
+                    <table class="table table-bordered" v-if="[0, 1, 2, 3].includes(sponsorDetailData.advence.sponsor_type)">
                         <thead>
                             <tr>
                                 <th v-for="row in sponsorAdvancedDetailcol" :key="`form-subtitle-${row.key}`" class="sortfield" tabindex="0">
@@ -366,7 +338,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-if="sponsorDetailData.advence.sponsor_type === 0">
+                            <tr v-if="[0].includes(sponsorDetailData.advence.sponsor_type)">
                                 <td :rowspan="checkSponsorType(sponsorDetailData.advence.sponsor_type).row">{{ checkSponsorType(sponsorDetailData.advence.sponsor_type).name }}</td>
                                 <td>ICCK大門兩側廣告</td>
                                 <td>
@@ -460,8 +432,36 @@
                                     <textarea class="form-control border-0 rounded-0" v-model="sponsorDetailData.advence.advence_keynote" />
                                 </td>
                             </tr>
+                            <tr v-if="[0, 1, 2, 3].includes(sponsorDetailData.advence.sponsor_type)">
+                                <td v-if="[1, 2, 3].includes(sponsorDetailData.advence.sponsor_type)" :rowspan="checkSponsorType(sponsorDetailData.advence.sponsor_type).row">{{ checkSponsorType(sponsorDetailData.advence.sponsor_type).name }}</td>
+                                <td>場間動態廣告<br/> (建議 1920x1080px 圖檔或 1080p 影片)</td>
+                                <td>
+                                    <img :src="sponsorDetailData.main.slide_path" alt="" srcset="" width="120px"><br>
+                                    <a v-if="sponsorDetailData.main.slide_path !== null" download :href="sponsorDetailData.main.slide_path"
+                                        target="_blank">下載檔案</a>
+                                    <input type="file" name="file" class="form-control-file" id="slide_path" @change="imagePreview('slide_path')">
+                                    <label for="cloud_slide_path" class="mt-2">或提供雲端連結(影片限制雲端連結)：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_slide_path" v-model="sponsorDetailData.main.cloud_slide_path" @change="linkDirect('cloud_slide_path')">
+                                    <a v-if="sponsorDetailData.main.cloud_slide_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_slide_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr v-if="[0, 1, 2, 3].includes(sponsorDetailData.advence.sponsor_type)">
+                                <td>電子看板 (建議 1920x1080px 圖檔) </td>
+                                <td>
+                                    <img :src="sponsorDetailData.main.board_path" alt="" srcset="" width="120px"><br>
+                                    <a v-if="sponsorDetailData.main.board_path !== null" download :href="sponsorDetailData.main.board_path"
+                                      target="_blank">下載檔案</a>
+                                    <input type="file" name="file" class="form-control-file" id="board_path" @change="imagePreview('board_path')">
+                                    <label for="cloud_board_path" class="mt-2">或提供雲端連結：</label>
+                                    <input type="url" name="file" class="form-control" id="cloud_board_path" v-model="sponsorDetailData.main.cloud_board_path" @change="linkDirect('cloud_board_path')">
+                                    <a v-if="sponsorDetailData.main.cloud_board_path !== null" class="btn btn-primary p-1 mt-2" :href="sponsorDetailData.main.cloud_board_path" target="_blank">
+                                        前往雲端連結
+                                    </a>
+                                </td>
+                            </tr>
                             <tr v-if="[0, 1, 2].includes(sponsorDetailData.advence.sponsor_type)">
-                                <td v-if="![0].includes(sponsorDetailData.advence.sponsor_type)" :rowspan="checkSponsorType(sponsorDetailData.advence.sponsor_type).row">{{ checkSponsorType(sponsorDetailData.advence.sponsor_type).name }}</td>
                                 <td>演講廳旗幟</td>
                                 <td>
                                     <img :src="sponsorDetailData.advence.advence_hall_flag_path" alt="" srcset="" width="120px"><br>
@@ -957,14 +957,19 @@
                 if (type === 0) {
                     return {
                         name: vm.sponsorOption.sponsorTypeItem[type],
-                        row: 7
+                        row: 9
                     }
                 } else if (type === 1) {
                     return {
                         name: vm.sponsorOption.sponsorTypeItem[type],
-                        row: 4
+                        row: 6
                     }
                 } else if (type === 2) {
+                    return {
+                        name: vm.sponsorOption.sponsorTypeItem[type],
+                        row: 4
+                    }
+                } else if (type === 3) {
                     return {
                         name: vm.sponsorOption.sponsorTypeItem[type],
                         row: 2

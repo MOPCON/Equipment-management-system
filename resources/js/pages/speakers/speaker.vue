@@ -680,7 +680,7 @@
         tshirtSizeItem: [],
         mealPreferenceItem: [],
         promotionItem: ['否', '是'],
-        year: [2019, 2020,2021],
+        year: [2019, 2020,2021, 2022],
         editStatusList: [],
         step: 1,
         fullData: [],

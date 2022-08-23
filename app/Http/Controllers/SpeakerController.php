@@ -242,7 +242,7 @@ class SpeakerController extends Controller
      * for 2022
      * 匯入講者資料 CSV
      * csv example
-     * 姓名,姓名(英文),公司/組織,公司/組織(英文),職稱,職稱(英文),個人介紹,個人介紹(英文),照片,Facebook Link,Github Link,Twitter,Link其他(如：Website / Blog),演講主題,演講主題(英文),演講摘要,演講摘要(英文),標籤	難易度,目標會眾,目標會眾(英文),先備知識,先備知識(英文),預期收穫,預期收穫(英文),授權方式,投影片連結,是否願意被 MOPCON 的粉專提及或標註？,是否願意轉發 MOPCON 的講者宣傳文和大會其他文章,真實姓名,聯絡 Email,聯絡電話,聯絡地址,T-shirt 尺寸,您是否需有停車需求,邀參加講者晚宴,葷素食偏好,晚宴攜伴人數,請填寫您可以進行演講的時段(可複選),備註
+     * 姓名,姓名(英文),公司/組織,公司/組織(英文),職稱,職稱(英文),個人介紹,個人介紹(英文),照片,Facebook Link,Github Link,Twitter,Link其他(如：Website / Blog),演講主題,演講主題(英文),演講摘要,演講摘要(英文),標籤,難易度,目標會眾,目標會眾(英文),先備知識,先備知識(英文),預期收穫,預期收穫(英文),授權方式,投影片連結,是否願意被 MOPCON 的粉專提及或標註？,是否願意轉發 MOPCON 的講者宣傳文和大會其他文章,真實姓名,聯絡 Email,聯絡電話,聯絡地址,T-shirt 尺寸,您是否需有停車需求,邀參加講者晚宴,葷素食偏好,晚宴攜伴人數,請填寫您可以進行演講的時段(可複選),備註
      *
      * @param ImportRequest $request
      * @return JsonResponse
@@ -316,7 +316,7 @@ class SpeakerController extends Controller
                 'company'        => $line[2] ?? null,
                 'company_e'      => $line[3] ?? null,
                 'job_title'      => $line[4] ?? null,
-                'job_title_e'    => $line[5] ?? null,               
+                'job_title_e'    => $line[5] ?? null,
                 'bio'            => $bio !== null ? $this->cutImportDataString($bio, 120) : null,
                 'bio_e'          => $bio_e !== null ? $this->cutImportDataString($bio_e, 500) : null,   
                 'link_fb'        => $line[9] ?? null,

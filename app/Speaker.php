@@ -23,6 +23,14 @@ class Speaker extends Model
         'panel',
         'fin_tech',
         'qa',
+        'startup',
+        'security',
+        '5g6g',
+        'social_engagement',    
+        'career_development',     
+        'digital_transformation', 
+        'remote_work',           
+        'open_source',            
     ];
 
     //使用語系的 key , 語系路徑: resources/lang/tw (or en) /speaker.php
@@ -37,6 +45,7 @@ class Speaker extends Model
         'startup',                 // 'Startup'
         'uiux',                    // 'UI/UX'
         'web',                     // 'Web'
+        'we3',                     // 'Web3'
         'quant',                   // 'Quant'
         'security',                // 'Security'
         'cross_platform',          // 'Cross-platform'
@@ -46,7 +55,9 @@ class Speaker extends Model
         'fin_tech',                // 'FinTech'
         'qa',                      // 'QA'
         'data_analyzing',          // 'Data Analyzing'
+        'domain_driven_design',    // 'Domain-Driven Design'  
         '5g6g',                    // '5G / 6G'
+        'project_management',      // 'Project Management'
         'business_thinking',       // 'Business Thinking'
         'social_engagement',       // '社會參與'
         'career_development',      // '職涯發展'

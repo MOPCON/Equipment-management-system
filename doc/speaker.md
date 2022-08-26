@@ -68,8 +68,11 @@
           ],
           "level": 1,
           "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
+          "target_audience_e": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
           "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+          "prerequisites_e": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
           "expected_harvest": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+          "expected_harvest_e": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
           "agree_record": 1,
           "license": 0,
           "promotion": 1,
@@ -97,7 +100,7 @@
             "Security",
             "Data Science"
           ],
-          "level_text": "Normal-歡迎略懂略懂有基本基礎的會眾",
+          "level_text": "Normal - 歡迎略懂略懂，有基本基礎的會眾",
           "license_text": "授予 MOPCON 演講時錄影，後製與上傳至公開線上影音平台之權利。",
           "tshirt_size_text": "L",
           "meal_preference_text": "全素",
@@ -167,9 +170,9 @@
             "QA"
         ],
         "levelItem": [
-            "Basic-外行人可以藉此入門",
-            "Normal-歡迎略懂略懂有基本基礎的會眾",
-            "Expert-建議在該領域中有研究經驗的人入場"
+            "Basic - 外行人可以藉此入門",
+            "Normal - 歡迎略懂略懂，有基本基礎的會眾",
+            "Expert - 建議在該領域中有研究經驗的人入場"
         ],
         "licenseItem": [
             "授予 MOPCON 演講時錄影，後製與上傳至公開線上影音平台之權利。",
@@ -255,8 +258,11 @@
         + tag [string] 標籤
         + level [int] 難易度
         + target_audience [string] 目標會眾
+        + target_audience_e [string] 目標會眾(英文)
         + prerequisites [string] 先備知識
+        + prerequisites_e [string] 先備知識(英文)
         + expected_harvest [string] 預期收穫
+        + expected_harvest_e [string] 預期收穫(英文)
         + agree_record [int] 授與錄影
         + license [int] 授權方式
         + promotion [int] 是否同意公開宣傳
@@ -311,8 +317,11 @@
         ],
         "level": 2,
         "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
+        "target_audience_e": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
         "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+        "prerequisites_e": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
         "expected_harvest": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+        "expected_harvest_e": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
         "agree_record": 1,
         "license": 1,
         "promotion": 0,
@@ -335,7 +344,7 @@
             "Cross-platform",
             "Panel"
         ],
-        "level_text": "Expert-建議在該領域中有研究經驗的人入場",
+        "level_text": "Expert - 建議在該領域中有研究經驗的人入場",
         "license_text": "以 CC BY 3.0 姓名標示方式授權。",
         "tshirt_size_text": "XS",
         "meal_preference_text": "全素",
@@ -425,8 +434,11 @@
               ],
               "level": 1,
               "target_audience": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
+              "target_audience_e": "Doloribus laborum omnis esse voluptas nesciunt sit totam.",
               "prerequisites": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+              "prerequisites_e": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
               "expected_harvest": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
+              "expected_harvest_e": "Ut numquam voluptates ex suscipit ea aut omnis. Quisquam impedit facilis reiciendis illum ut a.",
               "agree_record": 1,
               "license": 1,
               "promotion": 0,
@@ -464,7 +476,7 @@
                   "FinTech",
                   "QA"
               ],
-              "level_text": "Normal-歡迎略懂略懂有基本基礎的會眾",
+              "level_text": "Normal - 歡迎略懂略懂，有基本基礎的會眾",
               "license_text": "以 CC BY 3.0 姓名標示方式授權。",
               "tshirt_size_text": "S",
               "meal_preference_text": "奶蛋素",
@@ -516,8 +528,11 @@
               ],
               "level": 0,
               "target_audience": "Voluptatem quae sunt est dicta.",
+              "target_audience_e": "Voluptatem quae sunt est dicta.",
               "prerequisites": "Ducimus assumenda dolores iusto vitae. Accusantium atque quia dolorem.",
+              "prerequisites_e": "Ducimus assumenda dolores iusto vitae. Accusantium atque quia dolorem.",
               "expected_harvest": "Ducimus assumenda dolores iusto vitae. Accusantium atque quia dolorem.",
+              "expected_harvest_e": "Ducimus assumenda dolores iusto vitae. Accusantium atque quia dolorem.",
               "agree_record": 1,
               "license": 3,
               "promotion": 1,
@@ -550,7 +565,7 @@
                   "Data Science",
                   "QA"
               ],
-              "level_text": "Basic-外行人可以藉此入門",
+              "level_text": "Basic - 外行人可以藉此入門",
               "license_text": "以 CC BY-NC 3.0 姓名標示-非商業性方式授權。",
               "tshirt_size_text": "XL",
               "meal_preference_text": "葷",
@@ -690,8 +705,11 @@
               ],
               "level": 1,
               "target_audience": "Sint voluptate qui veniam dolorem.",
+              "target_audience_e": "Sint voluptate qui veniam dolorem.",
               "prerequisites": "A velit voluptatibus quo enim odio sint ratione. Omnis tempora consequatur neque iure necessitatibus itaque aut quae.",
+              "prerequisites_e": "A velit voluptatibus quo enim odio sint ratione. Omnis tempora consequatur neque iure necessitatibus itaque aut quae.",
               "expected_harvest": "A velit voluptatibus quo enim odio sint ratione. Omnis tempora consequatur neque iure necessitatibus itaque aut quae.",
+              "expected_harvest_e": "A velit voluptatibus quo enim odio sint ratione. Omnis tempora consequatur neque iure necessitatibus itaque aut quae.",
               "agree_record": 1,
               "license": 3,
               "promotion": 0,
@@ -726,7 +744,7 @@
                   "Agile",
                   "FinTech"
               ],
-              "level_text": "Normal-歡迎略懂略懂有基本基礎的會眾",
+              "level_text": "Normal - 歡迎略懂略懂，有基本基礎的會眾",
               "license_text": "以 CC BY-NC 3.0 姓名標示-非商業性方式授權。",
               "tshirt_size_text": "L",
               "meal_preference_text": "葷",
@@ -785,8 +803,11 @@
         + tag [string] 標籤
         + level [int] 難易度
         + target_audience [string] 目標會眾
+        + target_audience_e [string] 目標會眾(英文)
         + prerequisites [string] 先備知識
+        + prerequisites_e [string] 先備知識(英文)
         + expected_harvest [string] 預期收穫
+        + expected_harvest_e [string] 預期收穫(英文)
         + agree_record [int] 授與錄影
         + license [int] 授權方式
         + promotion [int] 是否同意公開宣傳
@@ -844,8 +865,11 @@
             ],
             "level": 2,
             "target_audience": "Ex reiciendis magni eum repellendus perferendis voluptatum.",
+            "target_audience_e": "Ex reiciendis magni eum repellendus perferendis voluptatum.",
             "prerequisites": "Nisi adipisci temporibus sed. Porro vel quasi quia. Earum reiciendis voluptatem est qui iusto voluptatem cum.",
+            "prerequisites_e": "Nisi adipisci temporibus sed. Porro vel quasi quia. Earum reiciendis voluptatem est qui iusto voluptatem cum.",
             "expected_harvest": "Nisi adipisci temporibus sed. Porro vel quasi quia. Earum reiciendis voluptatem est qui iusto voluptatem cum.",
+            "expected_harvest_e": "Nisi adipisci temporibus sed. Porro vel quasi quia. Earum reiciendis voluptatem est qui iusto voluptatem cum.",
             "agree_record": 1,
             "license": 1,
             "promotion": 0,
@@ -873,7 +897,7 @@
                 "Cross-platform",
                 "Panel"
             ],
-            "level_text": "Expert-建議在該領域中有研究經驗的人入場",
+            "level_text": "Expert - 建議在該領域中有研究經驗的人入場",
             "license_text": "以 CC BY 3.0 姓名標示方式授權。",
             "tshirt_size_text": "XS",
             "meal_preference_text": "全素",

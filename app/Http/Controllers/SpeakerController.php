@@ -277,8 +277,8 @@ class SpeakerController extends Controller
                     return $this->return400Response($e->getMessage());
                 }
             }
-            // 標題及空白列，忽略不處理
-            if ($count <= 1) {
+            // 標題列，忽略不處理
+            if ($count <= 0) {
                 $count++;
                 continue;
             }

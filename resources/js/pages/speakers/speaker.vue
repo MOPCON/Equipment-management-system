@@ -724,7 +724,7 @@
         action: 'new',
         searchText: '',
         filter:{
-          year: 2021,
+          year: 2022,
           status: 'all'
         },
       }

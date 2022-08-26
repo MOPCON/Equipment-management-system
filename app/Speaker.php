@@ -67,9 +67,9 @@ class Speaker extends Model
         'open_source',             // 'Open Source'
     ];
     public static $levelItem = [
-        'Basic-外行人可以藉此入門',
-        'Normal-歡迎略懂略懂有基本基礎的會眾',
-        'Expert-建議在該領域中有研究經驗的人入場',
+        'Basic - 外行人可以藉此入門',
+        'Normal - 歡迎略懂略懂，有基本基礎的會眾',
+        'Expert - 建議在該領域中有研究經驗的人入場',
     ];
     public static $licenseItem = [
         '授予 MOPCON 演講時錄影，後製與上傳至公開線上影音平台之權利。',
@@ -136,6 +136,7 @@ class Speaker extends Model
         "target_audience",
         "target_audience_e",
         "prerequisites",
+        "prerequisites_e",
         "expected_harvest",
         "expected_harvest_e",
         "agree_record",

@@ -119,7 +119,7 @@
                                     <label for="introduction_e">{{ trans('speaker.introduction_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ introTextConunt_e }} / 240</span>
                                 </div>
-                                <textarea class="form-control" id="introduction_e" rows="4" v-model="formData.bio_e" maxlength="240" v-on:keyup="countText(240, 'introTextConunt_e', formData.bio_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="introduction_e" rows="4" v-model="formData.bio_e" maxlength="1000" v-on:keyup="countText(1000, 'introTextConunt_e', formData.bio_e)" :disabled="formData.readonly"></textarea>
                             </div>-->
                             <div class="form-group">
                                 <label for="photo">{{ trans('speaker.photo') }}* <span class="text-danger">{{ trans('speaker.photo_remind') }}</span></label>
@@ -191,7 +191,7 @@
                                     <label for="summary_e">{{ trans('speaker.summary_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ summaryETextConunt }} / 480</span>
                                 </div>
-                                <textarea class="form-control" id="summary_e" rows="4" v-model="formData.summary_e" maxlength="480" v-on:keyup="countText(480, 'summaryETextConunt', formData.summary_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="summary_e" rows="4" v-model="formData.summary_e" maxlength="1000" v-on:keyup="countText(1000, 'summaryETextConunt', formData.summary_e)" :disabled="formData.readonly"></textarea>
                             </div>-->
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -459,11 +459,11 @@
                 },
                 promotionItem: ['{{ trans('speaker.no') }}', '{{ trans('speaker.yes') }}'],
                 introTextConunt: 120,
-                introTextConunt_e: 240,
+                introTextConunt_e: 1000,
                 topicTextConunt: 150,
                 topicETextConunt: 150,
                 summaryTextConunt: 480,
-                summaryETextConunt: 480,
+                summaryETextConunt: 1000,
                 target_audienceTextCount: 64,
                 prerequisitesTextCount: 120,
                 expectedHarvestTextCount: 120,
@@ -493,11 +493,11 @@
                             vm.alertShow = false;
                             vm.getSpeakerOption();
                             vm.countText(120, 'introTextConunt', vm.formData.bio);
-                            vm.countText(240, 'introTextConunt_e', vm.formData.bio_e);
+                            vm.countText(1000, 'introTextConunt_e', vm.formData.bio_e);
                             vm.countText(150, 'topicTextConunt', vm.formData.topic);
                             vm.countText(64, 'topicETextConunt', vm.formData.topic_e);
                             vm.countText(480, 'summaryTextConunt', vm.formData.summary);
-                            vm.countText(480, 'summaryETextConunt', vm.formData.summary_e);
+                            vm.countText(1000, 'summaryETextConunt', vm.formData.summary_e);
                             vm.countText(64, 'target_audienceTextCount', vm.formData.target_audience);
                             vm.countText(120, 'prerequisitesTextCount', vm.formData.prerequisites);
                             vm.countText(120, 'expectedHarvestTextCount', vm.formData.expected_harvest);

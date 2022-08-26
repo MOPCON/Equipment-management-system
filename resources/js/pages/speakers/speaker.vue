@@ -223,7 +223,7 @@
               <tr>
                 <td>個人介紹 (英文)</td>
                 <td class="p-0 v-align-middle">
-                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio_e" maxlength="240">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio_e" maxlength="1000">
                     {{ speakerDetailData.bio_e }}
                   </textarea>
                 </td>
@@ -315,7 +315,7 @@
                 <td>演講摘要 (英文)</td>
                 <td class="p-0 v-align-middle">
                   <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary_e"
-                    maxlength="480">
+                    maxlength="1000">
                     {{ speakerDetailData.summary_e }}
                   </textarea>
                 </td>

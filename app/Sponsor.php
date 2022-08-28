@@ -145,6 +145,7 @@ class Sponsor extends Model
 
     protected $appends = [
         'sponsor_type_text',
+        'sponsor_type_key',
         'sponsor_file_text',
         'sponsor_status_text',
         'external_link',
@@ -166,6 +167,11 @@ class Sponsor extends Model
     public function getSponsorTypeTextAttribute()
     {
         return self::$sponsorTypeItem[$this->year][$this->sponsor_type] ?? '';
+    }
+
+    public function getSponsorTypeKeyAttribute()
+    {
+        return self::$sponsorTypeItem[2019][$this->sponsor_type] ?? '';
     }
 
     public function getSponsorFileTextAttribute()

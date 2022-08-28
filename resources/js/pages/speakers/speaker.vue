@@ -223,7 +223,7 @@
               <tr>
                 <td>個人介紹 (英文)</td>
                 <td class="p-0 v-align-middle">
-                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio_e" maxlength="240">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio_e" maxlength="1000">
                     {{ speakerDetailData.bio_e }}
                   </textarea>
                 </td>
@@ -289,7 +289,7 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="16" scope="row" width="120px">議程資料</th>
+                <th rowspan="19" scope="row" width="120px">議程資料</th>
                 <td>演講主題</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.topic"
@@ -315,7 +315,7 @@
                 <td>演講摘要 (英文)</td>
                 <td class="p-0 v-align-middle">
                   <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary_e"
-                    maxlength="480">
+                    maxlength="1000">
                     {{ speakerDetailData.summary_e }}
                   </textarea>
                 </td>
@@ -356,6 +356,15 @@
                 </td>
               </tr>
               <tr>
+                <td>目標會眾 (英文)</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.target_audience_e"
+                    maxlength="1000">
+                    {{ speakerDetailData.target_audience_e }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
                 <td>先備知識</td>
                 <td class="p-0 v-align-middle">
                   <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.prerequisites"
@@ -365,11 +374,29 @@
                 </td>
               </tr>
               <tr>
+                <td>先備知識 (英文)</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.prerequisites_e"
+                    maxlength="1000">
+                    {{ speakerDetailData.prerequisites_e }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
                 <td>預期收穫</td>
                 <td class="p-0 v-align-middle">
                   <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.expected_harvest"
                     maxlength="120">
                     {{ speakerDetailData.expected_harvest }}
+                  </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td>預期收穫 (英文)</td>
+                <td class="p-0 v-align-middle">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.expected_harvest_e"
+                    maxlength="1000">
+                    {{ speakerDetailData.expected_harvest_e }}
                   </textarea>
                 </td>
               </tr>
@@ -481,7 +508,7 @@
                 </td>
               </tr>
               <tr>
-                <th rowspan="8" scope="row">行政資訊</th>
+                <th rowspan="9" scope="row">行政資訊</th>
                 <td>真實姓名</td>
                 <td class="p-0 v-align-middle">
                   <input type="text" class="form-control border-0 rounded-0" v-model="speakerDetailData.real_name">
@@ -680,7 +707,7 @@
         tshirtSizeItem: [],
         mealPreferenceItem: [],
         promotionItem: ['否', '是'],
-        year: [2019, 2020,2021],
+        year: [2019, 2020,2021, 2022],
         editStatusList: [],
         step: 1,
         fullData: [],
@@ -697,7 +724,7 @@
         action: 'new',
         searchText: '',
         filter:{
-          year: 2021,
+          year: 2022,
           status: 'all'
         },
       }

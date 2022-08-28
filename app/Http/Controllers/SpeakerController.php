@@ -66,8 +66,11 @@ class SpeakerController extends Controller
         'tag_text' => '標籤',
         'level_text' => '難易度',
         'target_audience' => '目標會眾',
+        'target_audience_e' => '目標會眾(英文)',
         'prerequisites' => '先備知識',
+        'prerequisites_e' => '先備知識(英文)',
         'expected_harvest' => '預期收穫',
+        'expected_harvest_e' => '預期收穫(英文)',
         'agree_policy_text' => '授權方式 (1)',
         'license_text' => '授權方式 (2)',
         'promotion' => '是否願意被 MOPCON 的粉專提及或標註',
@@ -236,9 +239,10 @@ class SpeakerController extends Controller
     }
 
     /**
+     * for 2022
      * 匯入講者資料 CSV
      * csv example
-     * 訂單編號,票號,狀態,訂購人姓名,訂購人Email,訂購人電話,參加人姓名,參加人Email,參加人電話,報名時間(GTM+8),有效時間(GTM+8),票種分組,票券名稱,票券細節,票價(NT),付款時間(GTM+8),付款方式,信用卡末四碼,首次驗票時間(GTM+8),首次驗票備註,最後驗票時間(GTM+8),最後驗票備註,驗票次數,驗票通知,備註,取消原因,公司 / 組織名稱,職稱,講者簡介,講題,主題分類標籤,其他,語言,摘要,備註,投影片連結,錄影授權,從哪裡知道這項報名活動
+     * 姓名,姓名(英文),公司/組織,公司/組織(英文),職稱,職稱(英文),個人介紹,個人介紹(英文),照片,Facebook Link,Github Link,Twitter,Link其他(如：Website / Blog),演講主題,演講主題(英文),演講摘要,演講摘要(英文),標籤,難易度,目標會眾,目標會眾(英文),先備知識,先備知識(英文),預期收穫,預期收穫(英文),授權方式,投影片連結,是否願意被 MOPCON 的粉專提及或標註？,是否願意轉發 MOPCON 的講者宣傳文和大會其他文章,真實姓名,聯絡 Email,聯絡電話,聯絡地址,T-shirt 尺寸,您是否需有停車需求,邀參加講者晚宴,葷素食偏好,晚宴攜伴人數,請填寫您可以進行演講的時段(可複選),備註
      *
      * @param ImportRequest $request
      * @return JsonResponse
@@ -273,43 +277,79 @@ class SpeakerController extends Controller
                     return $this->return400Response($e->getMessage());
                 }
             }
-            // 標題及空白列，忽略不處理
-            if ($count <= 1) {
+            // 標題列，忽略不處理
+            if ($count <= 0) {
                 $count++;
                 continue;
             }
-            // 狀態非已付款，忽略不處理
-            if (!isset($line[2]) || !is_string($line[2]) || trim($line[2]) !== '已付款') {
-                continue;
-            }
+            
             // 參與者姓名為空，忽略不處理
-            if (!isset($line[3]) || !is_string($line[3]) || trim($line[3]) === '') {
+            if (!isset($line[0]) || !is_string($line[0]) || trim($line[0]) === '') {
                 continue;
             }
             $tagStr = '[]';
-            if (isset($line[30]) && is_string($line[30]) && trim($line[30]) !== '') {
-                $tags = array_map('trim', explode(' ', $line[30]));
+            if (isset($line[17]) && is_string($line[17]) && trim($line[17]) !== '') {
+                $tags = array_map('trim', explode(' ', $line[17]));
                 $chosenTag = array_intersect(Speaker::$tagItem, $tags);
                 $tagStr = json_encode(array_keys($chosenTag));
             }
-            $bio = $line[28] ?? null;
-            $summary = $line[33] ?? null;
-            $topic = $line[29] ?? null;
+            $bio = $line[6] ?? null;
+            $bio_e = $line[7] ?? null;
+            $summary = $line[15] ?? null;
+            $summary_e = $line[16] ?? null;
+            $topic = $line[13] ?? null;
+            $topic_e = $line[14] ?? null;
+            $level = array_search($line[18], Speaker::$levelItem);
+            $license = array_search($line[25], Speaker::$licenseItem);
+            $promotion = ($line[27] == '是') ? 1 : 0;
+            $will_forward_posts = ($line[28] == '是') ? 1 : 0;
+            $tshirtSize = array_search($line[33], Speaker::$tshirtSizeItem);
+            $need_parking_space = ($line[34] == '是') ? 1 : 0;
+            $has_diner = ($line[35] == '是') ? 1 : 0;
+            $meal_preference = ($line[36] != '葷') ? 1 : 0;
+            $has_companion = $line[37] ?? 0;
+
             $content[] = [
                 'speaker_status' => 0,
-                'name'           => $line[3] ?? null,
-                'real_name'      => $line[3] ?? null,
-                'company'        => $line[26] ?? null,
-                'job_title'      => $line[27] ?? null,
-                'contact_email'  => $line[4] ?? null,
-                'contact_phone'  => $line[5] ?? null,
+                'name'           => $line[0] ?? null,
+                'name_e'         => $line[1] ?? null,
+                'company'        => $line[2] ?? null,
+                'company_e'      => $line[3] ?? null,
+                'job_title'      => $line[4] ?? null,
+                'job_title_e'    => $line[5] ?? null,
                 'bio'            => $bio !== null ? $this->cutImportDataString($bio, 120) : null,
-                'link_slide'     => $line[35] ?? null,
+                'bio_e'          => $bio_e !== null ? $this->cutImportDataString($bio_e, 500) : null,   
+                'link_fb'        => $line[9] ?? null,
+                'link_github'    => $line[10] ?? null,
+                'link_twitter'   => $line[11] ?? null,
+                'link_other'     => $line[12] ?? null,
                 'topic'          => $topic !== null ? $this->cutImportDataString($topic, 32) : null,
+                'topic_e'        => $topic_e !== null ? $this->cutImportDataString($topic_e, 500) : null,
                 'summary'        => $summary !== null ? $this->cutImportDataString($summary, 480) : null,
+                'summary_e'      => $summary_e !== null ? $this->cutImportDataString($summary_e, 1000) : null,                
                 'tag'            => $tagStr,
+                'level'          => $level,
+                'target_audience'=> $line[19] ?? null,
+                'target_audience_e'=> $line[20] ?? null,
+                'prerequisites'  => $line[21] ?? null,
+                'prerequisites_e'=> $line[22] ?? null,
+                'expected_harvest'=> $line[23] ?? null,
+                'expected_harvest_e'=> $line[24] ?? null,
+                'license'        => $license,                
+                'link_slide'     => $line[26] ?? null,
+                'promotion'      => $promotion,
+                'will_forward_posts' => $will_forward_posts,
+                'real_name'      => $line[29] ?? null,
+                'contact_email'  => $line[30] ?? null,
+                'contact_phone'  => $line[31] ?? null,
+                'contact_address'=> $line[32] ?? null,
+                'tshirt_size'    => $tshirtSize,
+                'need_parking_space'=> $need_parking_space,
+                'has_dinner'     => $has_diner,
+                'meal_preference'=> $meal_preference,
+                'has_companion'  => $has_companion,
+                'note'           => $line[39] ?? null,
                 'agree_record'   => 1,
-                'license'        => 5,
                 'year'           => $year,
                 'speaker_type'   => 1,
                 'last_edited_by' => auth()->user()->name,

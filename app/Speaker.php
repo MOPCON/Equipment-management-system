@@ -45,7 +45,7 @@ class Speaker extends Model
         'startup',                 // 'Startup'
         'uiux',                    // 'UI/UX'
         'web',                     // 'Web'
-        'we3',                     // 'Web3'
+        'web3',                    // 'Web3'
         'quant',                   // 'Quant'
         'security',                // 'Security'
         'cross_platform',          // 'Cross-platform'

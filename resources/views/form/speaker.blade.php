@@ -106,9 +106,9 @@
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="introduction">{{ trans('speaker.introduction') }}*</label>
-                                    <span class="d-inline-block text-right"> @{{ introTextConunt }} / 120</span>
+                                    <span class="d-inline-block text-right"> @{{ introTextConunt }} / 240</span>
                                 </div>
-                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.bio" maxlength="120" v-on:keyup="countText(120, 'introTextConunt', formData.bio)" required :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="introduction" rows="4" v-model="formData.bio" maxlength="240" v-on:keyup="countText(240, 'introTextConunt', formData.bio)" required :disabled="formData.readonly"></textarea>
                                 <div class="invalid-feedback">
                                     {{ trans('speaker.required.introduction') }}
                                 </div>
@@ -196,9 +196,9 @@
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="target_audience">{{ trans('speaker.target_audience') }}*</label>
-                                    <span class="d-inline-block text-right"> @{{ target_audienceTextCount }} / 64</span>
+                                    <span class="d-inline-block text-right"> @{{ target_audienceTextCount }} / 500</span>
                                 </div>
-                                <textarea class="form-control" id="target_audience" rows="4" v-model="formData.target_audience" maxlength="64" v-on:keyup="countText(64, 'target_audienceTextCount', formData.target_audience)" required :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="target_audience" rows="4" v-model="formData.target_audience" maxlength="500" v-on:keyup="countText(500, 'target_audienceTextCount', formData.target_audience)" required :disabled="formData.readonly"></textarea>
                                 <div class="invalid-feedback">
                                     {{ trans('speaker.required.target_audience') }}
                                 </div>
@@ -208,7 +208,7 @@
                                     <label for="target_audience_e">{{ trans('speaker.target_audience_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ target_audienceETextCount }} / 1000</span>
                                 </div>
-                                <textarea class="form-control" id="target_audience_e" rows="4" v-model="formData.target_audience_e" maxlength="64" v-on:keyup="countText(1000, 'target_audienceETextCount', formData.target_audience_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="target_audience_e" rows="4" v-model="formData.target_audience_e" maxlength="1000" v-on:keyup="countText(1000, 'target_audienceETextCount', formData.target_audience_e)" :disabled="formData.readonly"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -225,14 +225,14 @@
                                     <label for="prerequisites_e">{{ trans('speaker.prerequisites_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ prerequisitesTextCount }} / 1000</span>
                                 </div>
-                                <textarea class="form-control" id="prerequisites_e" rows="4" v-model="formData.prerequisites_e" maxlength="120" v-on:keyup="countText(1000, 'prerequisitesETextCount', formData.prerequisites_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="prerequisites_e" rows="4" v-model="formData.prerequisites_e" maxlength="1000" v-on:keyup="countText(1000, 'prerequisitesETextCount', formData.prerequisites_e)" :disabled="formData.readonly"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="expected_harvest">{{ trans('speaker.expected_harvest') }}*</label>
-                                    <span class="d-inline-block text-right"> @{{ expectedHarvestTextCount }} / 120</span>
+                                    <span class="d-inline-block text-right"> @{{ expectedHarvestTextCount }} / 500</span>
                                 </div>
-                                <textarea class="form-control" id="expected_harvest" rows="4" v-model="formData.expected_harvest" maxlength="120" v-on:keyup="countText(120, 'expectedHarvestTextCount', formData.expected_harvest)" required :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="expected_harvest" rows="4" v-model="formData.expected_harvest" maxlength="500" v-on:keyup="countText(500, 'expectedHarvestTextCount', formData.expected_harvest)" required :disabled="formData.readonly"></textarea>
                                 <div class="invalid-feedback">
                                     {{ trans('speaker.required.expected_harvest') }}
                                 </div>
@@ -242,7 +242,7 @@
                                     <label for="expected_harvest_e">{{ trans('speaker.expected_harvest_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ expectedHarvestETextCount }} / 1000</span>
                                 </div>
-                                <textarea class="form-control" id="expected_harvest_e" rows="4" v-model="formData.expected_harvest_e" maxlength="120" v-on:keyup="countText(120, 'expectedHarvestETextCount', formData.expected_harvest_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="expected_harvest_e" rows="4" v-model="formData.expected_harvest_e" maxlength="1000" v-on:keyup="countText(1000, 'expectedHarvestETextCount', formData.expected_harvest_e)" :disabled="formData.readonly"></textarea>
                             </div>
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.tag') }}</p>
@@ -479,17 +479,17 @@
                     'tshirtSizeItem': [],
                 },
                 promotionItem: ['{{ trans('speaker.no') }}', '{{ trans('speaker.yes') }}'],
-                introTextConunt: 120,
+                introTextConunt: 240,
                 introTextConunt_e: 1000,
                 topicTextConunt: 150,
                 topicETextConunt: 150,
                 summaryTextConunt: 480,
                 summaryETextConunt: 1000,
-                target_audienceTextCount: 64,
+                target_audienceTextCount: 500,
                 target_audienceETextCount: 1000,
                 prerequisitesTextCount: 120,
                 prerequisitesETextCount: 1000,
-                expectedHarvestTextCount: 120,
+                expectedHarvestTextCount: 500,
                 expectedHarvestETextCount: 1000,
                 checkData: ['level', 'license', 'tshirt_size', 'need_parking_space', 'has_dinner', 'meal_preference', 'has_companion'],
                 defaultIsFirst: ['agree_record', 'licenseItem','will_forward_posts','promotion'],
@@ -516,17 +516,17 @@
                             vm.show = false;
                             vm.alertShow = false;
                             vm.getSpeakerOption();
-                            vm.countText(120, 'introTextConunt', vm.formData.bio);
+                            vm.countText(240, 'introTextConunt', vm.formData.bio);
                             vm.countText(1000, 'introTextConunt_e', vm.formData.bio_e);
                             vm.countText(150, 'topicTextConunt', vm.formData.topic);
                             vm.countText(64, 'topicETextConunt', vm.formData.topic_e);
                             vm.countText(480, 'summaryTextConunt', vm.formData.summary);
                             vm.countText(1000, 'summaryETextConunt', vm.formData.summary_e);
-                            vm.countText(64, 'target_audienceTextCount', vm.formData.target_audience);
+                            vm.countText(500, 'target_audienceTextCount', vm.formData.target_audience);
                             vm.countText(1000, 'target_audienceETextCount', vm.formData.target_audience_e);
                             vm.countText(120, 'prerequisitesTextCount', vm.formData.prerequisites);
                             vm.countText(1000, 'prerequisitesETextCount', vm.formData.prerequisites_e);
-                            vm.countText(120, 'expectedHarvestTextCount', vm.formData.expected_harvest);
+                            vm.countText(500, 'expectedHarvestTextCount', vm.formData.expected_harvest);
                             vm.countText(1000, 'expectedHarvestETextCount', vm.formData.expected_harvest_e);
                         } else {
                             vm.alertShow = true;

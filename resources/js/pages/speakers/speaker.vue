@@ -215,7 +215,7 @@
               <tr>
                 <td>個人介紹</td>
                 <td class="p-0 v-align-middle">
-                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio" maxlength="120">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.bio" maxlength="240">
                       {{ speakerDetailData.bio }}
                   </textarea>
                 </td>
@@ -350,7 +350,7 @@
                 <td>目標會眾</td>
                 <td class="p-0 v-align-middle">
                   <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.target_audience"
-                    maxlength="64">
+                    maxlength="500">
                     {{ speakerDetailData.target_audience }}
                   </textarea>
                 </td>
@@ -386,7 +386,7 @@
                 <td>預期收穫</td>
                 <td class="p-0 v-align-middle">
                   <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.expected_harvest"
-                    maxlength="120">
+                    maxlength="500">
                     {{ speakerDetailData.expected_harvest }}
                   </textarea>
                 </td>

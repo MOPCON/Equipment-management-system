@@ -289,7 +289,8 @@ class SpeakerController extends Controller
             }
             $tagStr = '[]';
             if (isset($line[17]) && is_string($line[17]) && trim($line[17]) !== '') {
-                $tags = array_map('trim', explode(' ', $line[17]));
+                $tags = array_map('trim', explode(';', $line[17]));
+                $tags = $this->convertTagsTextToKey($tags);
                 $chosenTag = array_intersect(Speaker::$tagItem, $tags);
                 $tagStr = json_encode(array_keys($chosenTag));
             }
@@ -532,4 +533,25 @@ class SpeakerController extends Controller
     {
         return mb_substr(trim($string), 0, $length, 'utf-8');
     }
+
+    /**
+     * 因應 2022 資料格式，將 tag 轉回系統中的 key 使其對應
+     */
+    private function convertTagsTextToKey($tags) {
+        $origin = array(" / ", "-", " ", "/");
+        $replace = array ("", "_", "_", "");
+        foreach ($tags as &$tag) {
+            // 先轉小寫
+            $tag = strtolower($tag);
+
+            // 特例： Clound Service -> cloud, Web Development -> web
+            $tag = str_replace("cloud service", "cloud", $tag);
+            $tag = str_replace("web development", "web", $tag);
+
+            // 符號轉換
+            $tag = str_replace($origin, $replace, $tag);
+        }
+        return $tags;
+    }
+
 }

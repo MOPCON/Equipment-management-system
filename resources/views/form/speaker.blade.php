@@ -208,7 +208,7 @@
                                     <label for="target_audience_e">{{ trans('speaker.target_audience_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ target_audienceETextCount }} / 1000</span>
                                 </div>
-                                <textarea class="form-control" id="target_audience_e" rows="4" v-model="formData.target_audience_e" maxlength="64" v-on:keyup="countText(1000, 'target_audienceETextCount', formData.target_audience_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="target_audience_e" rows="4" v-model="formData.target_audience_e" maxlength="1000" v-on:keyup="countText(1000, 'target_audienceETextCount', formData.target_audience_e)" :disabled="formData.readonly"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -225,7 +225,7 @@
                                     <label for="prerequisites_e">{{ trans('speaker.prerequisites_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ prerequisitesTextCount }} / 1000</span>
                                 </div>
-                                <textarea class="form-control" id="prerequisites_e" rows="4" v-model="formData.prerequisites_e" maxlength="120" v-on:keyup="countText(1000, 'prerequisitesETextCount', formData.prerequisites_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="prerequisites_e" rows="4" v-model="formData.prerequisites_e" maxlength="1000" v-on:keyup="countText(1000, 'prerequisitesETextCount', formData.prerequisites_e)" :disabled="formData.readonly"></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
@@ -242,7 +242,7 @@
                                     <label for="expected_harvest_e">{{ trans('speaker.expected_harvest_e') }}</label>
                                     <span class="d-inline-block text-right"> @{{ expectedHarvestETextCount }} / 1000</span>
                                 </div>
-                                <textarea class="form-control" id="expected_harvest_e" rows="4" v-model="formData.expected_harvest_e" maxlength="120" v-on:keyup="countText(120, 'expectedHarvestETextCount', formData.expected_harvest_e)" :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="expected_harvest_e" rows="4" v-model="formData.expected_harvest_e" maxlength="1000" v-on:keyup="countText(1000, 'expectedHarvestETextCount', formData.expected_harvest_e)" :disabled="formData.readonly"></textarea>
                             </div>
                             <div class="form-group">
                                 <p class="mb-1">{{ trans('speaker.tag') }}</p>

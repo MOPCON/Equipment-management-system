@@ -178,21 +178,19 @@
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="summary">{{ trans('speaker.summary') }}*</label>
-                                    <span class="d-inline-block text-right"> @{{ summaryTextConunt }} / 480</span>
+                                    <span class="d-inline-block text-right"> @{{ summaryTextConunt }} / 1000</span>
                                 </div>
-                                <textarea class="form-control" id="summary" rows="4" v-model="formData.summary" maxlength="480" v-on:keyup="countText(480, 'summaryTextConunt', formData.summary)" required :disabled="formData.readonly"></textarea>
+                                <textarea class="form-control" id="summary" rows="4" v-model="formData.summary" maxlength="1000" v-on:keyup="countText(1000, 'summaryTextConunt', formData.summary)" required :disabled="formData.readonly"></textarea>
                                 <div class="invalid-feedback">
                                     {{ trans('speaker.required.summary') }}
                                 </div>
                             </div>
-                            <!--此欄位隱藏
                             <div class="form-group" style="display:none">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="summary_e">{{ trans('speaker.summary_e') }}</label>
-                                    <span class="d-inline-block text-right"> @{{ summaryETextConunt }} / 480</span>
+                                    <span class="d-inline-block text-right"> @{{ summaryETextConunt }} / 1500</span>
                                 </div>
-                                <textarea class="form-control" id="summary_e" rows="4" v-model="formData.summary_e" maxlength="1000" v-on:keyup="countText(1000, 'summaryETextConunt', formData.summary_e)" :disabled="formData.readonly"></textarea>
-                            </div>-->
+                                <textarea class="form-control" id="summary_e" rows="4" v-model="formData.summary_e" maxlength="1500" v-on:keyup="countText(1500, 'summaryETextConunt', formData.summary_e)" :disabled="formData.readonly"></textarea>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between flex-column flex-md-row">
                                     <label for="target_audience">{{ trans('speaker.target_audience') }}*</label>
@@ -483,8 +481,8 @@
                 introTextConunt_e: 1000,
                 topicTextConunt: 150,
                 topicETextConunt: 150,
-                summaryTextConunt: 480,
-                summaryETextConunt: 1000,
+                summaryTextConunt: 1000,
+                summaryETextConunt: 1500,
                 target_audienceTextCount: 500,
                 target_audienceETextCount: 1000,
                 prerequisitesTextCount: 120,
@@ -520,8 +518,8 @@
                             vm.countText(1000, 'introTextConunt_e', vm.formData.bio_e);
                             vm.countText(150, 'topicTextConunt', vm.formData.topic);
                             vm.countText(64, 'topicETextConunt', vm.formData.topic_e);
-                            vm.countText(480, 'summaryTextConunt', vm.formData.summary);
-                            vm.countText(1000, 'summaryETextConunt', vm.formData.summary_e);
+                            vm.countText(1000, 'summaryTextConunt', vm.formData.summary);
+                            vm.countText(1500, 'summaryETextConunt', vm.formData.summary_e);
                             vm.countText(500, 'target_audienceTextCount', vm.formData.target_audience);
                             vm.countText(1000, 'target_audienceETextCount', vm.formData.target_audience_e);
                             vm.countText(120, 'prerequisitesTextCount', vm.formData.prerequisites);

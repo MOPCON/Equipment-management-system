@@ -306,7 +306,7 @@
               <tr>
                 <td>演講摘要</td>
                 <td class="p-0 v-align-middle">
-                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary" maxlength="480">
+                  <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary" maxlength="1000">
                     {{ speakerDetailData.summary }}
                   </textarea>
                 </td>
@@ -315,7 +315,7 @@
                 <td>演講摘要 (英文)</td>
                 <td class="p-0 v-align-middle">
                   <textarea class="form-control border-0 rounded-0" v-model="speakerDetailData.summary_e"
-                    maxlength="1000">
+                    maxlength="1200">
                     {{ speakerDetailData.summary_e }}
                   </textarea>
                 </td>
